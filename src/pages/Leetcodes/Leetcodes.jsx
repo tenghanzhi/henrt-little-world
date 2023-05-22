@@ -61,7 +61,7 @@ const Leetcodes = () => {
       key: "solution",
       render: (_, record) => (
         <Space size="middle">
-          <a>Check solution of {record.title}</a>
+          <a href="javascript">Check solution of {record.title}</a>
         </Space>
       ),
     },

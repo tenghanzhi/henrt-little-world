@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/henry-little-world/static/css/main.1514150e.css",
-    "main.js": "/henry-little-world/static/js/main.7b94bf56.js",
+    "main.js": "/henry-little-world/static/js/main.ab041c1c.js",
     "index.html": "/henry-little-world/index.html",
     "main.1514150e.css.map": "/henry-little-world/static/css/main.1514150e.css.map",
-    "main.7b94bf56.js.map": "/henry-little-world/static/js/main.7b94bf56.js.map"
+    "main.ab041c1c.js.map": "/henry-little-world/static/js/main.ab041c1c.js.map"
   },
   "entrypoints": [
     "static/css/main.1514150e.css",
-    "static/js/main.7b94bf56.js"
+    "static/js/main.ab041c1c.js"
   ]
 }
