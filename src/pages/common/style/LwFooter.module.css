@@ -1,0 +1,14 @@
+.lw_footer_wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .lw_footer_content {
+    margin: auto;
+    font-size: 11px;
+  }
+
+  .lw_footer_devider{
+    margin: 0px 0px 10px 0px;
+  }
+  

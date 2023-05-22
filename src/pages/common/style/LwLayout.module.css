@@ -1,0 +1,19 @@
+.lw_lwlayout_space {
+  width: 80%;
+  margin: auto;
+  margin-top: 15px;
+  display: flex;
+}
+
+.lw_lwlayout_space_home{
+    width: 80%;
+    margin: auto;
+    margin-top: 15px;
+    display: flex;
+}
+
+@media (max-width: 800px) {
+  .lw_lwlayout_space {
+    width: 100%;
+  }
+}
