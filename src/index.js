@@ -17,7 +17,7 @@ const Main = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LwHeader />}>
+        <Route path="/henry-little-world/" element={<LwHeader />}>
           <Route index element={<Home />} />
           <Route path={categoryMatrix.PORTFOLIO.toLowerCase()} element={<Portfolio />} />
           <Route path={categoryMatrix.APPLICATIONS.toLowerCase()} element={<Applications />} />
