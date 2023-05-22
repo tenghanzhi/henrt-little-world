@@ -1,3 +1,4 @@
+import React from 'react';
 import { List, Image } from "antd";
 import failPicture from "../common/failPicture";
 import categoryMatrix from "../common/categoryMatrix";

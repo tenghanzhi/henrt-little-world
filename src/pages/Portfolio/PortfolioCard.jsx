@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, Descriptions, Space, Typography, Col, Row, Image } from "antd";
 import failPicture from "../common/failPicture";
 import style from "./style/PortfolioCard.module.css";

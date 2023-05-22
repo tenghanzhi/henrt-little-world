@@ -1,3 +1,4 @@
+import React from 'react';
 import { Space, Table, Tag } from "antd";
 import LwLayout from "../common/LwLayout";
 import leetCodeData from "../../data/leetCodeData";

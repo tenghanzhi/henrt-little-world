@@ -1,3 +1,4 @@
+import React from 'react';
 import { Layout, Space } from "antd";
 import categoryMatrix from "./categoryMatrix";
 import style from "./style/LwLayout.module.css";

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Layout, Divider } from "antd";
 import style from "./style/LwFooter.module.css";
 

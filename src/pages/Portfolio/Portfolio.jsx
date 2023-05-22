@@ -1,3 +1,4 @@
+import React from 'react';
 import PortfolioCard from "./PortfolioCard";
 import LwLayout from "../common/LwLayout";
 import portfolioData from "../../data/portfolioData";
