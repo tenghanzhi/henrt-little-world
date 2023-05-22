@@ -15,7 +15,7 @@ import './index.css';
 
 const Main = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter >
     <LwHeader />
       <Routes>
         <Route>
