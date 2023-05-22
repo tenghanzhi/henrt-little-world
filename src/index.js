@@ -16,9 +16,10 @@ import './index.css';
 const Main = () => {
   return (
     <BrowserRouter>
+    <LwHeader />
       <Routes>
-        <Route path="/henry-little-world/" element={<LwHeader />}>
-          <Route index element={<Home />} />
+        <Route>
+          <Route path="/" element={<Home />} />
           <Route path={categoryMatrix.PORTFOLIO.toLowerCase()} element={<Portfolio />} />
           <Route path={categoryMatrix.APPLICATIONS.toLowerCase()} element={<Applications />} />
           <Route path={categoryMatrix.COMPONENTS.toLowerCase()} element={<Components />} />
