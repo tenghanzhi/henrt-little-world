@@ -129,3 +129,9 @@ desktop.ini
 
 #fontawesome
 fontawesome/
+
+#deploy
+build/
+build/asset-manifest.json
+build/index.html
+build/static/js/main.28b4775c.js.map
