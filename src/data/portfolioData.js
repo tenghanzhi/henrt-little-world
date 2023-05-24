@@ -1,5 +1,6 @@
 const portfolioData = [
     {
+        id: 'walmart-global-tech',
         name: "Walmart Global Tech",
         jobTitle: "Frontend Developer",
         projectName: "DX.io based Online SQL Console/Management System",
@@ -13,6 +14,7 @@ const portfolioData = [
         icon: "https://media.licdn.com/dms/image/C560BAQEjq-bcaW-GSg/company-logo_100_100/0/1596463451797?e=1692230400&v=beta&t=e3D0t_CckNWUEYTnk1taWdQAmClEQVDaDj4OsAe4ENs"
     },
     {
+        id: 'wells-fargo',
         name: "Wells Fargo",
         jobTitle: "Frontend Developer",
         projectName: "CEOPY (Commercial Electronic Office) https://www.wellsfargo.com/com/ceo/",
@@ -26,6 +28,7 @@ const portfolioData = [
         icon: "https://media.licdn.com/dms/image/C4D0BAQGLxWPpGqaVmw/company-logo_100_100/0/1607533344544?e=1692230400&v=beta&t=EiEUUBPLZoJkfijfLDRj358HCvfmaZxuSqj1LNX6qrc"
     },
     {
+        id: 'hitachi-vantara',
         name: "Hitachi Vantara",
         jobTitle: "Frontend Developer",
         projectName: "UCP Advisor (Unified Compute Platform Advisor) https://www.hitachivantara.com/en-us/products/storage-software/ai-operations-management/unified-compute-platform-advisor.html",
@@ -38,6 +41,7 @@ const portfolioData = [
         icon: "https://media.licdn.com/dms/image/C4E0BAQG8QkfwHBMs4g/company-logo_100_100/0/1546978337151?e=1692230400&v=beta&t=8ri8HF__5Mb5rqwsn3kg7tl2OMLmfKHK8XKqydSdyLg"
     },
     {
+        id: 'silicon-spectra',
         name: "Silicon Spectra",
         jobTitle: "Web Developer",
         projectName: "General Web Development",
@@ -50,6 +54,7 @@ const portfolioData = [
         icon: 'https://media.licdn.com/dms/image/C4E0BAQG1mVpIq9bxSg/company-logo_100_100/0/1519904699991?e=1692230400&v=beta&t=OsW85cDJjPvTEehfZ97RzruHzxq0CHRZMfiIcCHKd3s'
     },
     {
+        id: 'ksm-castings-group',
         name: "KSM Castings Group",
         jobTitle: "Electrical Engineer",
         projectName: "",
@@ -62,6 +67,7 @@ const portfolioData = [
         icon: "https://media.licdn.com/dms/image/C560BAQEKOmmgy_9LNQ/company-logo_100_100/0/1519873024070?e=1692230400&v=beta&t=-IuVp_wVCEIiLdtLlYg9k0ZXYo5KaPsxCbjP1noljcQ"
     },
     {
+        id: 'university-of-alabama-at-birmingham',
         name: "University of Alabama at Birmingham",
         jobTitle: "Research Assistant",
         projectName: "Low-Cost Smart Adaption of Acoustic for Blood Monitoring system",
@@ -74,6 +80,7 @@ const portfolioData = [
         icon: "https://media.licdn.com/dms/image/D560BAQG26bKMbN1kmA/company-logo_100_100/0/1667495411566?e=1692230400&v=beta&t=u_5qUNknnt07UPa3u7K-GD91o8pmiecZeOj1hLSUYfE"
     },
     {
+        id: 'shinano-motor-co-ltd',
         name: "Shinano Motor Co., Ltd",
         jobTitle: "Quality Assurance Engineer",
         projectName: "",
@@ -86,6 +93,7 @@ const portfolioData = [
         icon: ""
     },
     {
+        id: 'xiamen-university',
         name: "Xiamen University",
         jobTitle: "Research Assistant",
         projectName: "",
