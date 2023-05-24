@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Layout, Space } from "antd";
 import categoryMatrix from "./categoryMatrix";
 import style from "./style/LwLayout.module.css";
@@ -25,6 +25,7 @@ const LwLayout = (props) => {
   return (
     <Layout>
       <Layout.Content>
+        <div className={style.lw_top_placeholder}></div>
         <Space
           className={className}
           direction={direction}

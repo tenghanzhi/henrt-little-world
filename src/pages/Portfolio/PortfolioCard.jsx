@@ -1,9 +1,11 @@
-import React from 'react';
+import React from "react";
 import { Card, Descriptions, Space, Typography, Col, Row, Image } from "antd";
 import failPicture from "../common/failPicture";
 import style from "./style/PortfolioCard.module.css";
 
 const PortfolioCard = (props) => {
+  const id =
+    props.data.id && props.data.id !== "" ? props.data.id : props.data.name;
   const name =
     props.data.name && props.data.name !== "" ? props.data.name : "None";
   const jobTitle =
@@ -44,7 +46,7 @@ const PortfolioCard = (props) => {
     props.data.icon && props.data.icon !== "" ? props.data.icon : "error";
 
   return (
-    <Card className={style.lw_portfolio_card}>
+    <Card className={style.lw_portfolio_card} id={id}>
       <Space align="start" direction="horizontal" wrap={true}>
         <Row>
           <Col className={style.lw_portfolio_card_grid} flex="100px">
