@@ -20,6 +20,10 @@ import password from "../common/password";
 import style from "./style/PortfolioCard.module.css";
 
 const PortfolioCard = (props) => {
+  const key =
+    props.key && props.key !== ""
+      ? props.key
+      : props.data.name.replace(/\s/g, "").replace(",", "").replace(".", "");
   const name =
     props.data.name && props.data.name !== "" ? props.data.name : "None";
   const jobTitle =
@@ -135,6 +139,7 @@ const PortfolioCard = (props) => {
                   onChange={(e) => handlePasswordValueChange(e)}
                   allowClear={true}
                   value={inputPassword}
+                  onPressEnter={handleConfirmPassword}
                 />
               </>
             }
@@ -146,6 +151,7 @@ const PortfolioCard = (props) => {
             <Button type="default">Edit</Button>
           </Popconfirm>
         }
+        key={key}
       >
         <Space align="start" direction="horizontal" wrap={true}>
           <Row>

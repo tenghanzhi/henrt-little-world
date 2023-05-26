@@ -4,7 +4,6 @@ import apiMatrix from "../common/apiMatrix";
 import LwLayout from "../common/LwLayout";
 
 const EditPortfolio = (props) => {
-  console.log({ props });
   return <LwLayout />;
 };
 
