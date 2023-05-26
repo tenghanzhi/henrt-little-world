@@ -96,13 +96,13 @@ const Portfolio = () => {
       });
   };
 
-  const pageContent = portfolioData.map((item, index) => {
+  const pageContent = portfolioData.map((item) => {
     return (
       <>
         {contextHolder}
         <PortfolioCard
           data={item.attributes}
-          key={index}
+          key={item.id}
           isLoading={isLoading}
         />
       </>

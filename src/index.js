@@ -7,6 +7,7 @@ import LwHeader from './pages/common/LwHeader';
 import LwFooter from './pages/common/LwFooter';
 import Home from './pages/Home'
 import Portfolio from './pages/Portfolio';
+import EditPortfolio from './pages/Portfolio/EditPortfolio';
 import Applications from './pages/Applications';
 import Components from './pages/Components';
 import Leetcodes from './pages/Leetcodes';
@@ -23,11 +24,18 @@ const Main = () => {
         <Routes>
           <Route>
             <Route path="/" element={<Home />} />
+            {/* Portfolio */}
             <Route path={categoryMatrix.PORTFOLIO.toLowerCase()} element={<Portfolio />} />
+            <Route path={"/editPortfolio"} element={<EditPortfolio />} />
+            {/* Applications */}
             <Route path={categoryMatrix.APPLICATIONS.toLowerCase()} element={<Applications />} />
+            {/* Components */}
             <Route path={categoryMatrix.COMPONENTS.toLowerCase()} element={<Components />} />
+            {/* Leetcodes */}
             <Route path={categoryMatrix.LEETCODES.toLowerCase()} element={<Leetcodes />} />
+            {/* GitHub */}
             <Route path={categoryMatrix.GITHUB.toLowerCase()} element={<GitHub />} />
+            {/* More */}
             <Route path={categoryMatrix.MORE.toLowerCase()} element={<More />} />
           </Route>
         </Routes>
