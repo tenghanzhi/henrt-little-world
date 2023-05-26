@@ -13,17 +13,31 @@ import HomeCard from "./HomeCard";
 import LwLayout from "../common/LwLayout";
 import categoryMatrix from "../common/categoryMatrix";
 import apiMatrix from "../common/apiMatrix";
-import { SET_PORTFOLIO_DATA } from "../../redux/constants";
+import {
+  SET_PORTFOLIO_DATA,
+  SET_CLICKED_HOME_PAGE_ITEM_ID,
+} from "../../redux/constants";
 import style from "./style/Home.module.css";
 
 const Home = () => {
   const dispatch = useDispatch();
   const portfolioData = useSelector((state) => state.portfolioData);
+  const clickedHomePageItemId = useSelector(
+    (state) => state.clickedHomePageItemId
+  );
   const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(false);
 
   useEffect(() => {
     handleGetPortfolioData();
+    handleComeBackFromPrePage();
   }, []);
+
+  const handleComeBackFromPrePage = () => {
+    if (clickedHomePageItemId) {
+      dispatch({ type: SET_CLICKED_HOME_PAGE_ITEM_ID, payload: null });
+      window.scrollTo(0, 0);
+    }
+  };
 
   const handleGetPortfolioData = () => {
     if (portfolioData && portfolioData === []) setIsPortfolioDataLoading(true);
