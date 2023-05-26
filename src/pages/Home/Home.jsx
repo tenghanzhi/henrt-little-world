@@ -19,7 +19,7 @@ import style from "./style/Home.module.css";
 const Home = () => {
   const dispatch = useDispatch();
   const portfolioData = useSelector((state) => state.portfolioData);
-  const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(false);
+  const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(true);
 
   useEffect(() => {
     handleGetPortfolioData();
