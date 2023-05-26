@@ -17,9 +17,8 @@ const Portfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    handleClickLinkFromHome();
     handleGetPortfolioData();
-  }, [clickedHomePageItemId]);
+  }, []);
 
   const handleClickLinkFromHome = () => {
     if (clickedHomePageItemId) {
@@ -90,6 +89,7 @@ const Portfolio = () => {
       .finally(() => {
         setIsLoading(false);
         handleMessage("destroy");
+        handleClickLinkFromHome()
       });
   };
 
