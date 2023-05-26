@@ -14,7 +14,7 @@ const LwLayout = (props) => {
     props.content && props.content !== {} ? (
       props.content
     ) : (
-      <>Nothing to show on this page...</>
+      <>This page is still WIP...</>
     );
 
   const className =

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -17,13 +18,19 @@ import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 import messageMatrix from "../common/messageMatrix";
 import failPicture from "../common/failPicture";
 import password from "../common/password";
+import { SET_EDIT_PORTFOLIO_ID } from "../../redux/constants";
 import style from "./style/PortfolioCard.module.css";
 
 const PortfolioCard = (props) => {
+  //Props
+  const isLoading = props.isLoading ? props.isLoading : false;
   const key =
     props.key && props.key !== ""
       ? props.key
       : props.data.name.replace(/\s/g, "").replace(",", "").replace(".", "");
+  const dataId = props.dataId ? props.dataId : null;
+
+  //Data
   const name =
     props.data.name && props.data.name !== "" ? props.data.name : "None";
   const jobTitle =
@@ -62,8 +69,8 @@ const PortfolioCard = (props) => {
     : "None";
   const icon =
     props.data.icon && props.data.icon !== "" ? props.data.icon : "error";
-  const isLoading = props.isLoading ? props.isLoading : false;
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const [inputPassword, setInputPassword] = useState(null);
@@ -107,13 +114,15 @@ const PortfolioCard = (props) => {
   const handleConfirmPassword = () => {
     if (inputPassword !== null && inputPassword === password) {
       handleMessage("success");
+      dispatch({ type: SET_EDIT_PORTFOLIO_ID, payload: dataId });
       navigate("/editPortfolio");
     } else {
       handleMessage("error");
       setInputPassword(null);
     }
   };
-  const handleCalcelPassword = () => {
+
+  const handleCancelPassword = () => {
     setInputPassword(null);
   };
 
@@ -144,7 +153,7 @@ const PortfolioCard = (props) => {
               </>
             }
             onConfirm={handleConfirmPassword}
-            onCancel={handleCalcelPassword}
+            onCancel={handleCancelPassword}
             okText="Confirm"
             cancelText="Cancel"
           >
