@@ -42,9 +42,14 @@ const PortfolioCard = (props) => {
     : "None";
   const icon =
     props.data.icon && props.data.icon !== "" ? props.data.icon : "error";
+  const isLoading = props.isLoading ? props.isLoading : false;
 
   return (
-    <Card className={style.lw_portfolio_card} id={name.replace(/\s/g, "").replace(',','').replace('.','')}>
+    <Card
+      className={style.lw_portfolio_card}
+      id={name.replace(/\s/g, "").replace(",", "").replace(".", "")}
+      loading={isLoading}
+    >
       <Space align="start" direction="horizontal" wrap={true}>
         <Row>
           <Col className={style.lw_portfolio_card_grid} flex="100px">
