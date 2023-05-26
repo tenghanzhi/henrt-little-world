@@ -1,4 +1,6 @@
-import React from 'react';
+import React from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   GithubOutlined,
   CodeOutlined,
@@ -10,9 +12,35 @@ import {
 import HomeCard from "./HomeCard";
 import LwLayout from "../common/LwLayout";
 import categoryMatrix from "../common/categoryMatrix";
+import apiMatrix from "../common/apiMatrix";
+import { SET_PORTFOLIO_DATA } from "../../redux/constants";
 import style from "./style/Home.module.css";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const portfolioData = useSelector((state) => state.portfolioData);
+  const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(false);
+
+  useEffect(() => {
+    handleGetPortfolioData();
+  }, []);
+
+  const handleGetPortfolioData = () => {
+    if (portfolioData && portfolioData === []) setIsPortfolioDataLoading(true);
+
+    (async () => {
+      const response = await fetch(apiMatrix.GET_ALL);
+      return response.json();
+    })()
+      .then((response) => {
+        dispatch({ type: SET_PORTFOLIO_DATA, payload: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setIsPortfolioDataLoading(false));
+  };
+
   const pageContent = (
     <>
       <HomeCard
@@ -23,6 +51,7 @@ const Home = () => {
           </span>
         }
         extra={categoryMatrix.PORTFOLIO}
+        isLoading={isPortfolioDataLoading}
       />
       <HomeCard
         title={
@@ -72,7 +101,13 @@ const Home = () => {
     </>
   );
 
-  return <LwLayout direction="horizontal" content={pageContent} pageKey={categoryMatrix.HOME}/>;
+  return (
+    <LwLayout
+      direction="horizontal"
+      content={pageContent}
+      pageKey={categoryMatrix.HOME}
+    />
+  );
 };
 
 export default Home;
