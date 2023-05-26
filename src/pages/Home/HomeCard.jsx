@@ -21,7 +21,7 @@ const HomeCard = (props) => {
   useEffect(() => {
     getCardContents();
     // eslint-disable-next-line
-  }, []);
+  }, [portfolioData]);
 
   const getCardContents = () => {
     switch (title && title.props.children[1].toString()) {
