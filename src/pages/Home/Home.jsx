@@ -1,6 +1,6 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { message } from "antd";
 import {
   GithubOutlined,
   CodeOutlined,
@@ -13,6 +13,7 @@ import HomeCard from "./HomeCard";
 import LwLayout from "../common/LwLayout";
 import categoryMatrix from "../common/categoryMatrix";
 import apiMatrix from "../common/apiMatrix";
+import messageMatrix from "../common/messageMatrix";
 import {
   SET_PORTFOLIO_DATA,
   SET_CLICKED_HOME_PAGE_ITEM_ID,
@@ -20,12 +21,13 @@ import {
 import style from "./style/Home.module.css";
 
 const Home = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
   const portfolioData = useSelector((state) => state.portfolioData);
   const clickedHomePageItemId = useSelector(
     (state) => state.clickedHomePageItemId
   );
-  const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(false);
+  const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(true);
 
   useEffect(() => {
     handleGetPortfolioData();
@@ -39,8 +41,49 @@ const Home = () => {
     }
   };
 
+  const handleMessage = (type) => {
+    const messageKey = "loadingMessage";
+    const messageDuration = 2;
+
+    switch (type) {
+      case "loading": {
+        messageApi.open({
+          key: messageKey,
+          type: "loading",
+          content: messageMatrix.LOADING_MESSAGE_LOADING,
+        });
+        break;
+      }
+      case "success": {
+        messageApi.open({
+          key: messageKey,
+          type: "success",
+          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
+          duration: messageDuration,
+        });
+        break;
+      }
+      case "error": {
+        messageApi.open({
+          key: messageKey,
+          type: "error",
+          content: messageMatrix.LOADING_MESSAGE_ERROR,
+          duration: messageDuration,
+        });
+        break;
+      }
+      case "destroy": {
+        message.destroy(messageKey);
+        break;
+      }
+      default:
+        return null;
+    }
+  };
+
   const handleGetPortfolioData = () => {
-    if (portfolioData && portfolioData === []) setIsPortfolioDataLoading(true);
+    handleMessage("loading");
+    if (portfolioData !== []) setIsPortfolioDataLoading(false);
 
     (async () => {
       const response = await fetch(apiMatrix.GET_ALL);
@@ -48,15 +91,21 @@ const Home = () => {
     })()
       .then((response) => {
         dispatch({ type: SET_PORTFOLIO_DATA, payload: response.data });
+        handleMessage("success");
       })
       .catch((error) => {
         console.log(error);
+        handleMessage("error");
       })
-      .finally(() => setIsPortfolioDataLoading(false));
+      .finally(() => {
+        setIsPortfolioDataLoading(false);
+        handleMessage("destroy");
+      });
   };
 
   const pageContent = (
     <>
+      {contextHolder}
       <HomeCard
         title={
           <span>
