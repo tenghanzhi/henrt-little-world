@@ -1,4 +1,4 @@
-const END_POINT = "http://henry-little-world.herokuapp.com/api/"
+const END_POINT = "https://henry-little-world.herokuapp.com/api/"
 
 const apiMatrix = {
     //Portfolio
