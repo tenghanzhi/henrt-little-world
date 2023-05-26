@@ -21,9 +21,9 @@ const HomeCardList = (props) => {
         return (
           <Link
             to={{ pathname: "portfolio" }}
-            onClick={() => handlePorfolioNameClick(item.id)}
+            onClick={() => handlePorfolioNameClick(item.attributes.id)}
           >
-            {item.name}
+            {item.attributes.name}
           </Link>
         );
       }
@@ -35,7 +35,7 @@ const HomeCardList = (props) => {
   const getDescription = (item) => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
-        return item.period;
+        return item.attributes.period;
       }
       default:
         return "";
@@ -51,7 +51,7 @@ const HomeCardList = (props) => {
           <List.Item.Meta
             avatar={
               <Image
-                src={item.icon}
+                src={item.attributes.icon}
                 fallback={failPicture}
                 preview={false}
                 width={50}

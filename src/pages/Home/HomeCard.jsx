@@ -1,20 +1,22 @@
-import React from 'react';
+import React from "react";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
 import HomeCardList from "./HomeCardList";
 import categoryMatrix from "../common/categoryMatrix";
-import portfolioData from "../../data/portfolioData";
 import style from "./style/HomeCard.module.css";
 
 const HomeCard = (props) => {
-  const { title, extra } = props;
+  const { title, extra, isLoading } = props;
+
+  const portfolioData = useSelector((state) => state.portfolioData);
 
   const wipSpan = <span>This card is still WIP...</span>;
-  const [cardContents, setCardContents] = useState(wipSpan);
-
   const cardTitle = title ? title : "New Card";
   const cardExtra = extra ? <Link to={extra.toLowerCase()}>More</Link> : null;
+
+  const [cardContents, setCardContents] = useState(wipSpan);
 
   useEffect(() => {
     getCardContents();
@@ -55,6 +57,7 @@ const HomeCard = (props) => {
       title={cardTitle}
       extra={cardExtra}
       bordered={false}
+      loading={isLoading}
     >
       {cardContents}
     </Card>
