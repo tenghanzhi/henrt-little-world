@@ -102,6 +102,7 @@ const Portfolio = () => {
         {contextHolder}
         <PortfolioCard
           data={item.attributes}
+          dataId={item.id}
           key={item.id}
           isLoading={isLoading}
         />
