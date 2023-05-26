@@ -5,13 +5,13 @@ import store from './redux/store';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LwHeader from './pages/common/LwHeader';
 import LwFooter from './pages/common/LwFooter';
-import Home from './pages/Home/Home'
-import Portfolio from './pages/Portfolio/Portfolio';
-import Applications from './pages/Applications/Applications';
-import Components from './pages/Components/Components';
-import Leetcodes from './pages/Leetcodes/Leetcodes';
-import GitHub from './pages/GitHub/GitHub';
-import More from './pages/More/More';
+import Home from './pages/Home'
+import Portfolio from './pages/Portfolio';
+import Applications from './pages/Applications';
+import Components from './pages/Components';
+import Leetcodes from './pages/Leetcodes';
+import GitHub from './pages/GitHub';
+import More from './pages/More';
 import categoryMatrix from './pages/common/categoryMatrix'
 import './index.css';
 
