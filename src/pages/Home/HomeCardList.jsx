@@ -18,16 +18,7 @@ const HomeCardList = (props) => {
   const getTitle = (item) => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
-        return (
-          <Link
-            to={{ pathname: "portfolio" }}
-            onClick={() =>
-              handlePorfolioNameClick(item.attributes.name.replace(/\s/g, "").replace(',','').replace('.',''))
-            }
-          >
-            {item.attributes.name}
-          </Link>
-        );
+        return <div>{item.attributes.name}</div>;
       }
       default:
         return "";
@@ -49,21 +40,33 @@ const HomeCardList = (props) => {
       itemLayout="horizontal"
       dataSource={data}
       renderItem={(item) => (
-        <List.Item>
-          <List.Item.Meta
-            avatar={
-              <Image
-                src={item.attributes.icon}
-                fallback={failPicture}
-                preview={false}
-                width={50}
-                height={50}
-              />
-            }
-            title={getTitle(item)}
-            description={getDescription(item)}
-          />
-        </List.Item>
+        <Link
+          to={{ pathname: "portfolio" }}
+          onClick={() =>
+            handlePorfolioNameClick(
+              item.attributes.name
+                .replace(/\s/g, "")
+                .replace(",", "")
+                .replace(".", "")
+            )
+          }
+        >
+          <List.Item>
+            <List.Item.Meta
+              avatar={
+                <Image
+                  src={item.attributes.icon}
+                  fallback={failPicture}
+                  preview={false}
+                  width={50}
+                  height={50}
+                />
+              }
+              title={getTitle(item)}
+              description={getDescription(item)}
+            />
+          </List.Item>
+        </Link>
       )}
       pagination={{
         position: "bottom",
