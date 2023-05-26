@@ -72,7 +72,10 @@ const Portfolio = () => {
 
   const handleGetPortfolioData = () => {
     handleMessage("loading");
-    if (portfolioData !== []) setIsLoading(false);
+    if (portfolioData !== []) {
+      setIsLoading(false);
+      handleClickLinkFromHome();
+    }
 
     (async () => {
       const response = await fetch(apiMatrix.GET_ALL);
@@ -81,6 +84,7 @@ const Portfolio = () => {
       .then((response) => {
         dispatch({ type: SET_PORTFOLIO_DATA, payload: response.data });
         handleMessage("success");
+        handleClickLinkFromHome();
       })
       .catch((error) => {
         console.log(error);
@@ -89,7 +93,6 @@ const Portfolio = () => {
       .finally(() => {
         setIsLoading(false);
         handleMessage("destroy");
-        handleClickLinkFromHome()
       });
   };
 
