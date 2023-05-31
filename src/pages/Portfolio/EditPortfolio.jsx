@@ -328,13 +328,6 @@ const EditPortfolio = () => {
               >
                 Submit
               </Button>
-              <Button
-                className={style.lw_edit_protfolio_btns}
-                type="default"
-                danger
-              >
-                Delete
-              </Button>
             </div>
           )}
         </Form.Item>
