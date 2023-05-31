@@ -21,7 +21,6 @@ import {
 import style from "./style/Home.module.css";
 
 const Home = () => {
-  const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
   const portfolioData = useSelector((state) => state.portfolioData);
   const clickedHomePageItemId = useSelector(
@@ -47,33 +46,26 @@ const Home = () => {
 
     switch (type) {
       case "loading": {
-        messageApi.open({
+        message.loading({
           key: messageKey,
-          type: "loading",
           content: messageMatrix.LOADING_MESSAGE_LOADING,
         });
         break;
       }
       case "success": {
-        messageApi.open({
+        message.success({
           key: messageKey,
-          type: "success",
           content: messageMatrix.LOADING_MESSAGE_SUCCESS,
           duration: messageDuration,
         });
         break;
       }
       case "error": {
-        messageApi.open({
+        message.error({
           key: messageKey,
-          type: "error",
           content: messageMatrix.LOADING_MESSAGE_ERROR + content,
           duration: messageDuration,
         });
-        break;
-      }
-      case "destroy": {
-        message.destroy(messageKey);
         break;
       }
       default:
@@ -102,13 +94,11 @@ const Home = () => {
       })
       .finally(() => {
         setIsPortfolioDataLoading(false);
-        handleMessage("destroy");
       });
   };
 
   const pageContent = (
     <>
-      {contextHolder}
       <HomeCard
         title={
           <span>

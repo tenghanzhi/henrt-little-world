@@ -12,7 +12,6 @@ import style from "./style/EditPortfolio.module.css";
 const EditPortfolio = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
   const editPortfolioId = useSelector((state) => state.editPortfolioId);
   const [isEditPageLoading, setIsEditPageLoading] = useState(true);
   const [fetchedPortfolioData, setFetchedPortfolioData] = useState({});
@@ -20,9 +19,9 @@ const EditPortfolio = () => {
 
   useEffect(() => {
     handleGetPortfolioDataById();
-    handleDisableSubmitBtn()
+    handleDisableSubmitBtn();
   }, []);
-
+  console.log(fetchedPortfolioData);
   const handleGoback = () => {
     navigate(-1);
   };
@@ -32,17 +31,15 @@ const EditPortfolio = () => {
 
     switch (type) {
       case "loading": {
-        messageApi.open({
+        message.loading({
           key: key,
-          type: "loading",
           content: content,
         });
         break;
       }
       case "success": {
-        messageApi.open({
+        message.success({
           key: key,
-          type: "success",
           content: content,
           duration: messageDuration,
           onClose: () => {
@@ -54,16 +51,11 @@ const EditPortfolio = () => {
         break;
       }
       case "error": {
-        messageApi.open({
+        message.error({
           key: key,
-          type: "error",
           content: content,
           duration: messageDuration,
         });
-        break;
-      }
-      case "destroy": {
-        message.destroy(key);
         break;
       }
       default:
@@ -100,7 +92,6 @@ const EditPortfolio = () => {
       })
       .finally(() => {
         setIsEditPageLoading(false);
-        handleMessage("destroy", messageKey);
       });
   };
 
@@ -142,9 +133,6 @@ const EditPortfolio = () => {
           messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_ERROR + error
         );
       })
-      .finally(() => {
-        handleMessage("destroy", messageKey);
-      });
   };
 
   const handleFormValueChange = () => {
@@ -343,7 +331,6 @@ const EditPortfolio = () => {
 
   return (
     <>
-      {contextHolder}
       <LwLayout content={pageContent} />
     </>
   );

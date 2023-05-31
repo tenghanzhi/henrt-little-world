@@ -24,10 +24,6 @@ import style from "./style/PortfolioCard.module.css";
 const PortfolioCard = (props) => {
   //Props
   const isLoading = props.isLoading ? props.isLoading : false;
-  const key =
-    props.key && props.key !== ""
-      ? props.key
-      : props.data.name.replace(/\s/g, "").replace(",", "").replace(".", "");
   const dataId = props.dataId ? props.dataId : null;
 
   //Data
@@ -72,7 +68,6 @@ const PortfolioCard = (props) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [messageApi, contextHolder] = message.useMessage();
   const [inputPassword, setInputPassword] = useState(null);
 
   const handleMessage = (type) => {
@@ -81,25 +76,19 @@ const PortfolioCard = (props) => {
 
     switch (type) {
       case "success": {
-        messageApi.open({
+        message.success({
           key: messageKey,
-          type: "success",
           content: messageMatrix.PASSWORD_RESULT_SCCESS,
           duration: messageDuration,
         });
         break;
       }
       case "error": {
-        messageApi.open({
+        message.error({
           key: messageKey,
-          type: "error",
           content: messageMatrix.PASSWORD_RESULT_ERROR,
           duration: messageDuration,
         });
-        break;
-      }
-      case "destroy": {
-        message.destroy(messageKey);
         break;
       }
       default:
@@ -128,10 +117,10 @@ const PortfolioCard = (props) => {
 
   return (
     <>
-      {contextHolder}
       <Card
         className={style.lw_portfolio_card}
         id={name.replace(/\s/g, "").replace(",", "").replace(".", "")}
+        key={name.replace(/\s/g, "").replace(",", "").replace(".", "")}
         loading={isLoading}
         extra={
           <Popconfirm
@@ -160,7 +149,7 @@ const PortfolioCard = (props) => {
             <Button type="default">Edit</Button>
           </Popconfirm>
         }
-        key={key}
+
       >
         <Space align="start" direction="horizontal" wrap={true}>
           <Row>

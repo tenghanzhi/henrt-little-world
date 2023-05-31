@@ -8,7 +8,6 @@ import LwLayout from "../common/LwLayout";
 import { SET_PORTFOLIO_DATA } from "../../redux/constants";
 
 const Portfolio = () => {
-  const [messageApi, contextHolder] = message.useMessage();
   const dispatch = useDispatch();
   const portfolioData = useSelector((state) => state.portfolioData);
   const clickedHomePageItemId = useSelector(
@@ -36,33 +35,26 @@ const Portfolio = () => {
 
     switch (type) {
       case "loading": {
-        messageApi.open({
+        message.loading({
           key: messageKey,
-          type: "loading",
           content: messageMatrix.LOADING_MESSAGE_LOADING,
         });
         break;
       }
       case "success": {
-        messageApi.open({
+        message.success({
           key: messageKey,
-          type: "success",
           content: messageMatrix.LOADING_MESSAGE_SUCCESS,
           duration: messageDuration,
         });
         break;
       }
       case "error": {
-        messageApi.open({
+        message.error({
           key: messageKey,
-          type: "error",
           content: messageMatrix.LOADING_MESSAGE_ERROR + content,
           duration: messageDuration,
         });
-        break;
-      }
-      case "destroy": {
-        message.destroy(messageKey);
         break;
       }
       default:
@@ -95,18 +87,16 @@ const Portfolio = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        handleMessage("destroy");
       });
   };
 
-  const pageContent = portfolioData.map((item) => {
+  const pageContent = portfolioData.map((item,index) => {
     return (
       <>
-        {contextHolder}
         <PortfolioCard
           data={item.attributes}
           dataId={item.id}
-          key={item.id}
+          cardKey={item.id}
           isLoading={isLoading}
         />
       </>
