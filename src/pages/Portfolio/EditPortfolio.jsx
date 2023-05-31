@@ -20,6 +20,7 @@ const EditPortfolio = () => {
 
   useEffect(() => {
     handleGetPortfolioDataById();
+    handleDisableSubmitBtn()
   }, []);
 
   const handleGoback = () => {
@@ -326,13 +327,6 @@ const EditPortfolio = () => {
                 disabled={handleDisableSubmitBtn()}
               >
                 Submit
-              </Button>
-              <Button
-                className={style.lw_edit_protfolio_btns}
-                type="default"
-                danger
-              >
-                Delete
               </Button>
             </div>
           )}
