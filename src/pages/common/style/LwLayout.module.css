@@ -7,11 +7,10 @@
 .lw_lwlayout_space_home{
     width: 80%;
     margin: auto;
-    margin-top: 15px;
     display: flex;
 }
 .lw_top_placeholder{
-  height: 64px;
+  height: 84px;
 }
 
 @media (max-width: 800px) {
