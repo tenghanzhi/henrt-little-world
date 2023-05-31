@@ -41,7 +41,7 @@ const Home = () => {
     }
   };
 
-  const handleMessage = (type) => {
+  const handleMessage = (type, content) => {
     const messageKey = "loadingMessage";
     const messageDuration = 2;
 
@@ -67,7 +67,7 @@ const Home = () => {
         messageApi.open({
           key: messageKey,
           type: "error",
-          content: messageMatrix.LOADING_MESSAGE_ERROR,
+          content: messageMatrix.LOADING_MESSAGE_ERROR + content,
           duration: messageDuration,
         });
         break;
@@ -90,12 +90,15 @@ const Home = () => {
       return response.json();
     })()
       .then((response) => {
-        dispatch({ type: SET_PORTFOLIO_DATA, payload: response.data });
-        handleMessage("success");
+        if (response && response.error) {
+          throw new Error(response.error.message);
+        } else {
+          dispatch({ type: SET_PORTFOLIO_DATA, payload: response.data });
+          handleMessage("success");
+        }
       })
       .catch((error) => {
-        console.log(error);
-        handleMessage("error");
+        handleMessage("error", error);
       })
       .finally(() => {
         setIsPortfolioDataLoading(false);
