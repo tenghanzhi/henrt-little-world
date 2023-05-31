@@ -20,6 +20,7 @@ const EditPortfolio = () => {
 
   useEffect(() => {
     handleGetPortfolioDataById();
+    handleDisableSubmitBtn()
   }, []);
 
   const handleGoback = () => {
