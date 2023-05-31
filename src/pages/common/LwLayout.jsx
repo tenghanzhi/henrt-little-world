@@ -10,7 +10,7 @@ const LwLayout = (props) => {
     props.direction && props.direction !== "" ? props.direction : "vertical";
   const size = props.size && props.size !== "" ? props.size : "large";
   const wrap = props.wrap && props.wrap !== null ? props.wrap : true;
-  const content =
+  const pageContent =
     props.content && props.content !== {} ? (
       props.content
     ) : (
@@ -32,7 +32,7 @@ const LwLayout = (props) => {
           size={size}
           wrap={wrap}
         >
-          {content}
+          {pageContent}
         </Space>
       </Layout.Content>
     </Layout>
