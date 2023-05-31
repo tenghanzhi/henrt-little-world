@@ -182,7 +182,7 @@ const EditPortfolio = () => {
   };
 
   const handleDisableSubmitBtn = () => {
-    let isValueSame = false;
+    let isValueSame = true;
     let isHasError = false;
 
     if (filedValue.data) {
@@ -193,11 +193,12 @@ const EditPortfolio = () => {
       isValueSame =
         JSON.stringify(sortObjByKey(formValue)) ===
         JSON.stringify(sortObjByKey(clonedPortfilioData));
-    } else isValueSame = false;
+    } else isValueSame = true;
 
     if (!!form.getFieldsError().filter(({ errors }) => errors.length).length) {
       isHasError = true;
     } else isHasError = false;
+
     return isValueSame || isHasError;
   };
 
