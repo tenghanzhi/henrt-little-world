@@ -37,8 +37,14 @@ const PortfolioCard = (props) => {
     props.data.projectName && props.data.projectName !== ""
       ? props.data.projectName
       : "None";
-  const period =
-    props.data.period && props.data.period !== "" ? props.data.period : "None";
+  const startDate =
+    props.data.startDate && props.data.startDate !== ""
+      ? props.data.startDate
+      : "None";
+  const endDate =
+    props.data.endDate && props.data.endDate !== ""
+      ? props.data.endDate
+      : "Present";
   const location =
     props.data.location && props.data.location !== ""
       ? props.data.location
@@ -72,7 +78,7 @@ const PortfolioCard = (props) => {
 
   const handleMessage = (type) => {
     const messageKey = "passwordResult";
-    const messageDuration = 0;
+    const messageDuration = 2;
 
     switch (type) {
       case "success": {
@@ -149,7 +155,6 @@ const PortfolioCard = (props) => {
             <Button type="default">Edit</Button>
           </Popconfirm>
         }
-
       >
         <Space align="start" direction="horizontal" wrap={true}>
           <Row>
@@ -186,8 +191,11 @@ const PortfolioCard = (props) => {
           <Descriptions.Item label="Project Name" span={4}>
             {projectName}
           </Descriptions.Item>
-          <Descriptions.Item label="Period" span={4}>
-            {period}
+          <Descriptions.Item label="Start Date" span={4}>
+            {startDate}
+          </Descriptions.Item>
+          <Descriptions.Item label="End Date" span={4}>
+            {endDate}
           </Descriptions.Item>
           <Descriptions.Item label="Location" span={4}>
             {location}

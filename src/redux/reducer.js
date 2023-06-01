@@ -2,7 +2,7 @@ import { SET_CLICKED_HOME_PAGE_ITEM_ID, SET_PORTFOLIO_DATA, SET_EDIT_PORTFOLIO_I
 
 const initialState = {
     clickedHomePageItemId: null,
-    portfolioData: [],
+    portfolioData: { data:[], meta: {} },
     editPortfolioId: null
 }
 

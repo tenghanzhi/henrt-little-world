@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Space, Table, Tag } from "antd";
 import LwLayout from "../common/LwLayout";
 import leetCodeData from "../../data/leetCodeData";
@@ -23,7 +23,7 @@ const Leetcodes = () => {
       title: "Difficulty",
       key: "difficulty",
       dataIndex: "difficulty",
-      
+
       render: (_, { difficulty }) => (
         <>
           {difficulty.map((item) => {

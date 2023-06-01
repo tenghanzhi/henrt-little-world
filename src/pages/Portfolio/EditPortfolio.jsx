@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { message, Skeleton, Typography, Button, Form, Input } from "antd";
+import {
+  message,
+  Skeleton,
+  Typography,
+  Button,
+  Form,
+  Input,
+  DatePicker,
+} from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import LwLayout from "../common/LwLayout";
 import structuredClone from "@ungap/structured-clone";
 import sortObjByKey from "../utils/sortObjByKey";
+import dayjs from "dayjs";
 import style from "./style/EditPortfolio.module.css";
 
 const EditPortfolio = () => {
@@ -20,8 +29,9 @@ const EditPortfolio = () => {
   useEffect(() => {
     handleGetPortfolioDataById();
     handleDisableSubmitBtn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(fetchedPortfolioData);
+
   const handleGoback = () => {
     navigate(-1);
   };
@@ -132,7 +142,7 @@ const EditPortfolio = () => {
           messageKey,
           messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_ERROR + error
         );
-      })
+      });
   };
 
   const handleFormValueChange = () => {
@@ -209,7 +219,8 @@ const EditPortfolio = () => {
             name: fetchedPortfolioData.name,
             jobTitle: fetchedPortfolioData.jobTitle,
             projectName: fetchedPortfolioData.projectName,
-            period: fetchedPortfolioData.period,
+            startDate: dayjs(fetchedPortfolioData.startDate),
+            endDate: dayjs(fetchedPortfolioData.endDate),
             location: fetchedPortfolioData.location,
             keySkills: fetchedPortfolioData.keySkills,
             description: fetchedPortfolioData.description,
@@ -249,15 +260,18 @@ const EditPortfolio = () => {
           <Input.TextArea {...formProps} placeholder="Input Project name" />
         </Form.Item>
         <Form.Item
-          name={["data", "period"]}
-          label="Period"
+          name={["data", "startDate"]}
+          label="Start Date"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <Input {...formProps} placeholder="Input Period" />
+          <DatePicker {...formProps} format="YYYY-MM-DD" />
+        </Form.Item>
+        <Form.Item name={["data", "endDate"]} label="End Date">
+          <DatePicker {...formProps} format="YYYY-MM-DD" />
         </Form.Item>
         <Form.Item
           name={["data", "location"]}
