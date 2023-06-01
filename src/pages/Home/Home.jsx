@@ -31,6 +31,7 @@ const Home = () => {
   useEffect(() => {
     handleGetPortfolioData();
     handleComeBackFromPrePage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleComeBackFromPrePage = () => {
@@ -75,7 +76,8 @@ const Home = () => {
 
   const handleGetPortfolioData = () => {
     handleMessage("loading");
-    if (portfolioData !== []) setIsPortfolioDataLoading(false);
+    if (portfolioData && portfolioData.data !== [])
+      setIsPortfolioDataLoading(false);
 
     (async () => {
       const response = await fetch(apiMatrix.GET_ALL);
@@ -85,7 +87,7 @@ const Home = () => {
         if (response && response.error) {
           throw new Error(response.error.message);
         } else {
-          dispatch({ type: SET_PORTFOLIO_DATA, payload: response.data });
+          dispatch({ type: SET_PORTFOLIO_DATA, payload: response });
           handleMessage("success");
         }
       })

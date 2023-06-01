@@ -4,6 +4,7 @@ import { message } from "antd";
 import PortfolioCard from "./PortfolioCard";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
+import sortArrayObjByDate from "../utils/sortArrayObjByDate";
 import LwLayout from "../common/LwLayout";
 import { SET_PORTFOLIO_DATA } from "../../redux/constants";
 
@@ -17,6 +18,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     handleGetPortfolioData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClickLinkFromHome = () => {
@@ -64,7 +66,7 @@ const Portfolio = () => {
 
   const handleGetPortfolioData = () => {
     handleMessage("loading");
-    if (portfolioData !== []) {
+    if (portfolioData.data !== []) {
       setIsLoading(false);
       handleClickLinkFromHome();
     }
@@ -77,7 +79,7 @@ const Portfolio = () => {
         if (response && response.error) {
           throw new Error(response.error.message);
         } else {
-          dispatch({ type: SET_PORTFOLIO_DATA, payload: response.data });
+          dispatch({ type: SET_PORTFOLIO_DATA, payload: response });
           handleMessage("success");
           handleClickLinkFromHome();
         }
@@ -90,7 +92,7 @@ const Portfolio = () => {
       });
   };
 
-  const pageContent = portfolioData.map((item,index) => {
+  const pageContent = sortArrayObjByDate(portfolioData.data).map((item) => {
     return (
       <>
         <PortfolioCard

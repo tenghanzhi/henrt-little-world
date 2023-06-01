@@ -28,7 +28,7 @@ const HomeCardList = (props) => {
   const getDescription = (item) => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
-        return item.attributes.period;
+        return item.attributes.jobTitle;
       }
       default:
         return "";
