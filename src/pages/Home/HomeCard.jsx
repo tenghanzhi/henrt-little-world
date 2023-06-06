@@ -6,20 +6,23 @@ import { Link } from "react-router-dom";
 import HomeCardList from "./HomeCardList";
 import categoryMatrix from "../common/categoryMatrix";
 import sortArrayObjByDate from "../utils/sortArrayObjByDate";
+import sortArrayObjByNumber from "../utils/sortArrayObjByNumber";
 import style from "./style/HomeCard.module.css";
 
 const HomeCard = (props) => {
   const { title, extra, isLoading } = props;
-  const portfolioData = useSelector((state) => state.portfolioData);
   const wipSpan = <span>This card is still WIP...</span>;
   const cardTitle = title ? title : "New Card";
   const cardExtra = extra ? <Link to={extra.toLowerCase()}>More</Link> : null;
+
+  const portfolioData = useSelector((state) => state.portfolioData);
+  const leetcodeData = useSelector((state) => state.leetcodeData);
   const [cardContents, setCardContents] = useState(wipSpan);
 
   useEffect(() => {
     getCardContents();
     // eslint-disable-next-line
-  }, [portfolioData]);
+  }, [portfolioData || leetcodeData]);
 
   const getCardContents = () => {
     switch (title && title.props.children[1].toString()) {
@@ -39,7 +42,13 @@ const HomeCard = (props) => {
         return null;
       }
       case categoryMatrix.LEETCODES: {
-        return null;
+        setCardContents(
+          <HomeCardList
+            data={sortArrayObjByNumber(leetcodeData.data)}
+            type={categoryMatrix.LEETCODES}
+          />
+        );
+        break;
       }
       case categoryMatrix.GITHUB: {
         return null;

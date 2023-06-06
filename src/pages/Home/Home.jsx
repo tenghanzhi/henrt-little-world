@@ -16,6 +16,7 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import {
   SET_PORTFOLIO_DATA,
+  SET_LEETCODE_DATA,
   SET_CLICKED_HOME_PAGE_ITEM_ID,
 } from "../../redux/constants";
 import style from "./style/Home.module.css";
@@ -23,13 +24,16 @@ import style from "./style/Home.module.css";
 const Home = () => {
   const dispatch = useDispatch();
   const portfolioData = useSelector((state) => state.portfolioData);
+  const leetcodeData = useSelector((state) => state.leetcodeData);
   const clickedHomePageItemId = useSelector(
     (state) => state.clickedHomePageItemId
   );
   const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(true);
+  const [isLeetcodeDataLoading, setIsLeetcodeDataLoading] = useState(true);
 
   useEffect(() => {
     handleGetPortfolioData();
+    handleGetLeetcodeData();
     handleComeBackFromPrePage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -99,6 +103,28 @@ const Home = () => {
       });
   };
 
+  const handleGetLeetcodeData = () => {
+    handleMessage("loading");
+    if (leetcodeData && leetcodeData.data !== [])
+    setIsLeetcodeDataLoading(false);
+
+    (async () => {
+      const response = await fetch(apiMatrix.LEET_CODES_GET_ALL);
+      return response.json();
+    })()
+      .then((response) => {
+        if (response && response.error) {
+          throw new Error(response.error.message);
+        } else {
+          dispatch({ type: SET_LEETCODE_DATA, payload: response });
+          handleMessage("success");
+        }
+      })
+      .catch((error) => {
+        handleMessage("error", error);
+      });
+  };
+
   const pageContent = (
     <>
       <HomeCard
@@ -137,6 +163,7 @@ const Home = () => {
           </span>
         }
         extra={categoryMatrix.LEETCODES}
+        isLoading={isLeetcodeDataLoading}
       />
       <HomeCard
         title={
