@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { message } from "antd";
 import apiMatrix from "../common/apiMatrix";
@@ -9,7 +9,6 @@ import { SET_LEETCODE_DATA } from "../../redux/constants";
 
 const Leetcodes = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
   const leetcodeData = useSelector((state) => state.leetcodeData);
 
   useEffect(() => {
@@ -52,9 +51,6 @@ const Leetcodes = () => {
 
   const handleGetLeetcodeData = () => {
     handleMessage("loading");
-    if (leetcodeData.data !== []) {
-      setIsLoading(false);
-    }
 
     (async () => {
       const response = await fetch(apiMatrix.LEET_CODES_GET_ALL);
@@ -70,9 +66,6 @@ const Leetcodes = () => {
       })
       .catch((error) => {
         handleMessage("error", error);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
 

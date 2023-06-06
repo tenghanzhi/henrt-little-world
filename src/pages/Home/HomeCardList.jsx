@@ -11,14 +11,34 @@ const HomeCardList = (props) => {
   const data = props.data ? props.data : null;
   const type = props.type ? props.type : "";
 
-  const handlePorfolioNameClick = (id) => {
-    dispatch({ type: SET_CLICKED_HOME_PAGE_ITEM_ID, payload: id });
+  const handleTitleOnClick = (data) => {
+    switch (type) {
+      case categoryMatrix.PORTFOLIO: {
+        dispatch({
+          type: SET_CLICKED_HOME_PAGE_ITEM_ID,
+          payload: data.attributes.name
+            .replace(/\s/g, "")
+            .replace(",", "")
+            .replace(".", ""),
+        });
+        break;
+      }
+      case categoryMatrix.LEETCODES: {
+        window.open(data.attributes.link, "_self");
+        break;
+      }
+      default:
+        return null;
+    }
   };
 
   const getTitle = (item) => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
         return <div>{item.attributes.name}</div>;
+      }
+      case categoryMatrix.LEETCODES: {
+        return <div>{item.attributes.title}</div>;
       }
       default:
         return "";
@@ -29,6 +49,40 @@ const HomeCardList = (props) => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
         return item.attributes.jobTitle;
+      }
+      case categoryMatrix.LEETCODES: {
+        return item.attributes.type;
+      }
+      default:
+        return "";
+    }
+  };
+
+  const getPathLink = () => {
+    switch (type) {
+      case categoryMatrix.PORTFOLIO: {
+        return "portfolio";
+      }
+      case categoryMatrix.LEETCODES: {
+        return "leetcodes";
+      }
+      default:
+        return "";
+    }
+  };
+
+  const getAvatar = (item) => {
+    switch (type) {
+      case categoryMatrix.PORTFOLIO: {
+        return (
+          <Image
+            src={item.attributes.icon}
+            fallback={failPicture}
+            preview={false}
+            width={50}
+            height={50}
+          />
+        );
       }
       default:
         return "";
@@ -41,27 +95,12 @@ const HomeCardList = (props) => {
       dataSource={data}
       renderItem={(item) => (
         <Link
-          to={{ pathname: "portfolio" }}
-          onClick={() =>
-            handlePorfolioNameClick(
-              item.attributes.name
-                .replace(/\s/g, "")
-                .replace(",", "")
-                .replace(".", "")
-            )
-          }
+          to={{ pathname: getPathLink() }}
+          onClick={() => handleTitleOnClick(item)}
         >
           <List.Item>
             <List.Item.Meta
-              avatar={
-                <Image
-                  src={item.attributes.icon}
-                  fallback={failPicture}
-                  preview={false}
-                  width={50}
-                  height={50}
-                />
-              }
+              avatar={getAvatar(item)}
               title={getTitle(item)}
               description={getDescription(item)}
             />
