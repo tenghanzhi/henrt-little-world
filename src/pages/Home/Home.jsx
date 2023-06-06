@@ -80,7 +80,7 @@ const Home = () => {
       setIsPortfolioDataLoading(false);
 
     (async () => {
-      const response = await fetch(apiMatrix.GET_ALL);
+      const response = await fetch(apiMatrix.PORTFOLIOS_GET_ALL);
       return response.json();
     })()
       .then((response) => {

@@ -1,12 +1,21 @@
-const END_POINT = "https://henry-little-world.herokuapp.com/api/"
+const END_POINT = "https://henry-little-world.herokuapp.com/api/";
+const PORTFOLIOS = "portfolios/";
+const LEET_CODES = "leet-codes/";
 
 const apiMatrix = {
-    //Portfolio
-    GET_ALL: END_POINT + 'portfolios/',
-    GET_BY_ID: END_POINT + 'portfolios/', //+ID
-    CREATE_NEW: END_POINT + 'portfolios/',
-    DELETE_BY_ID: END_POINT + 'portfolios/', //+ID
-    UPDATE_BY_ID: END_POINT + 'portfolios/', //+ID
-}
+  //Portfolio
+  PORTFOLIOS_GET_ALL: END_POINT + PORTFOLIOS,
+  PORTFOLIOS_GET_BY_ID: END_POINT + PORTFOLIOS, //+ID
+  PORTFOLIOS_CREATE_NEW: END_POINT + PORTFOLIOS,
+  PORTFOLIOS_DELETE_BY_ID: END_POINT + PORTFOLIOS, //+ID
+  PORTFOLIOS_UPDATE_BY_ID: END_POINT + PORTFOLIOS, //+ID
 
-export default apiMatrix
+  //Leet-code
+  LEET_CODES_GET_ALL: END_POINT + LEET_CODES,
+  LEET_CODES_GET_BY_ID: END_POINT + LEET_CODES, //+ID
+  LEET_CODES_CREATE_NEW: END_POINT + LEET_CODES,
+  LEET_CODES_DELETE_BY_ID: END_POINT + LEET_CODES, //+ID
+  LEET_CODES_UPDATE_BY_ID: END_POINT + LEET_CODES, //+ID
+};
+
+export default apiMatrix;

@@ -78,7 +78,7 @@ const EditPortfolio = () => {
     handleMessage("loading", messageKey, messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
-      const response = await fetch(apiMatrix.GET_BY_ID + editPortfolioId);
+      const response = await fetch(apiMatrix.PORTFOLIOS_GET_BY_ID + editPortfolioId);
       return response.json();
     })()
       .then((response) => {
@@ -114,7 +114,7 @@ const EditPortfolio = () => {
     );
 
     (async () => {
-      const response = await fetch(apiMatrix.UPDATE_BY_ID + editPortfolioId, {
+      const response = await fetch(apiMatrix.PORTFOLIOS_UPDATE_BY_ID + editPortfolioId, {
         method: "PUT",
         mode: "cors",
         body: JSON.stringify(values),

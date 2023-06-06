@@ -79,6 +79,9 @@ const LwHeader = () => {
     },
   ];
 
+  const selectedKeys = location.pathname.slice(1);
+  console.log(selectedKeys ? true : false);
+
   const onSearch = (value) => console.log(value);
 
   return (
@@ -90,21 +93,21 @@ const LwHeader = () => {
           mode="horizontal"
           items={menuItems}
           defaultSelectedKeys={["home"]}
-          selectedKeys={[
-            location.pathname.slice(1) === ""
-              ? "home"
-              : location.pathname.slice(1),
-          ]}
+          selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
         />
-        <Input.Search
-          className={style.lw_header_search}
-          placeholder="Input Search Text"
-          onSearch={onSearch}
-        />
-        <Button
-          className={style.lw_header_search_button}
-          icon={<SearchOutlined />}
-        />
+        {selectedKeys ? (
+          <>
+            <Input.Search
+              className={style.lw_header_search}
+              placeholder="Input Search Text"
+              onSearch={onSearch}
+            />
+            <Button
+              className={style.lw_header_search_button}
+              icon={<SearchOutlined />}
+            />
+          </>
+        ) : null}
       </Layout.Header>
       <Outlet />
     </Fragment>
