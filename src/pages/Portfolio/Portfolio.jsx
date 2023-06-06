@@ -5,6 +5,7 @@ import PortfolioCard from "./PortfolioCard";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import sortArrayObjByDate from "../utils/sortArrayObjByDate";
+import handleClickLinkFromHome from "../utils/handleClickLinkFromHome";
 import LwLayout from "../common/LwLayout";
 import { SET_PORTFOLIO_DATA } from "../../redux/constants";
 
@@ -20,16 +21,6 @@ const Portfolio = () => {
     handleGetPortfolioData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleClickLinkFromHome = () => {
-    if (clickedHomePageItemId) {
-      const element = document.querySelector("#" + clickedHomePageItemId);
-      const yOffset = -74;
-      const y =
-        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    }
-  };
 
   const handleMessage = (type, content) => {
     const messageKey = "loadingMessage";
@@ -68,11 +59,11 @@ const Portfolio = () => {
     handleMessage("loading");
     if (portfolioData.data !== []) {
       setIsLoading(false);
-      handleClickLinkFromHome();
+      handleClickLinkFromHome(clickedHomePageItemId);
     }
 
     (async () => {
-      const response = await fetch(apiMatrix.GET_ALL);
+      const response = await fetch(apiMatrix.PORTFOLIOS_GET_ALL);
       return response.json();
     })()
       .then((response) => {
@@ -81,7 +72,7 @@ const Portfolio = () => {
         } else {
           dispatch({ type: SET_PORTFOLIO_DATA, payload: response });
           handleMessage("success");
-          handleClickLinkFromHome();
+          handleClickLinkFromHome(clickedHomePageItemId);
         }
       })
       .catch((error) => {
