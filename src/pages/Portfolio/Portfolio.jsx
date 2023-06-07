@@ -22,21 +22,20 @@ const Portfolio = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleMessage = (type, content) => {
-    const messageKey = "loadingMessage";
+  const handleMessage = (key, type, content) => {
     const messageDuration = 2;
 
     switch (type) {
       case "loading": {
         message.loading({
-          key: messageKey,
+          key: key,
           content: messageMatrix.LOADING_MESSAGE_LOADING,
         });
         break;
       }
       case "success": {
         message.success({
-          key: messageKey,
+          key: key,
           content: messageMatrix.LOADING_MESSAGE_SUCCESS,
           duration: messageDuration,
         });
@@ -44,7 +43,7 @@ const Portfolio = () => {
       }
       case "error": {
         message.error({
-          key: messageKey,
+          key: key,
           content: messageMatrix.LOADING_MESSAGE_ERROR + content,
           duration: messageDuration,
         });
@@ -56,7 +55,6 @@ const Portfolio = () => {
   };
 
   const handleGetPortfolioData = () => {
-    handleMessage("loading");
     if (portfolioData.data !== []) {
       setIsLoading(false);
       handleClickLinkFromHome(clickedHomePageItemId);
@@ -71,12 +69,11 @@ const Portfolio = () => {
           throw new Error(response.error.message);
         } else {
           dispatch({ type: SET_PORTFOLIO_DATA, payload: response });
-          handleMessage("success");
           handleClickLinkFromHome(clickedHomePageItemId);
         }
       })
       .catch((error) => {
-        handleMessage("error", error);
+        handleMessage("loadingMessage", "error", error);
       })
       .finally(() => {
         setIsLoading(false);

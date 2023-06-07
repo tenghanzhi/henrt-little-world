@@ -3,7 +3,7 @@ import {
   SET_PORTFOLIO_DATA,
   SET_EDIT_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
-  SET_EDIT_LEETCODE_ID,
+  SET_SELECTED_LEETCODE_ID,
 } from "./constants.js";
 
 //Home
@@ -37,9 +37,9 @@ export function setLeetcodeData(leetcodeData) {
   };
 }
 
-export function setEditLeetcodeId(editLeetcodeId) {
+export function setEditLeetcodeId(selectedLeetcodeId) {
   return {
-    type: SET_EDIT_LEETCODE_ID,
-    editLeetcodeId,
+    type: SET_SELECTED_LEETCODE_ID,
+    selectedLeetcodeId,
   };
 }

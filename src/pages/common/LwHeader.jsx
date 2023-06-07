@@ -80,7 +80,6 @@ const LwHeader = () => {
   ];
 
   const selectedKeys = location.pathname.slice(1);
-  console.log(selectedKeys ? true : false);
 
   const onSearch = (value) => console.log(value);
 

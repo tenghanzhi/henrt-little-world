@@ -45,21 +45,20 @@ const Home = () => {
     }
   };
 
-  const handleMessage = (type, content) => {
-    const messageKey = "loadingMessage";
+  const handleMessage = (key, type, content) => {
     const messageDuration = 2;
 
     switch (type) {
       case "loading": {
         message.loading({
-          key: messageKey,
+          key: key,
           content: messageMatrix.LOADING_MESSAGE_LOADING,
         });
         break;
       }
       case "success": {
         message.success({
-          key: messageKey,
+          key: key,
           content: messageMatrix.LOADING_MESSAGE_SUCCESS,
           duration: messageDuration,
         });
@@ -67,7 +66,7 @@ const Home = () => {
       }
       case "error": {
         message.error({
-          key: messageKey,
+          key: key,
           content: messageMatrix.LOADING_MESSAGE_ERROR + content,
           duration: messageDuration,
         });
@@ -79,7 +78,6 @@ const Home = () => {
   };
 
   const handleGetPortfolioData = () => {
-    handleMessage("loading");
     if (portfolioData && portfolioData.data !== [])
       setIsPortfolioDataLoading(false);
 
@@ -92,11 +90,10 @@ const Home = () => {
           throw new Error(response.error.message);
         } else {
           dispatch({ type: SET_PORTFOLIO_DATA, payload: response });
-          handleMessage("success");
         }
       })
       .catch((error) => {
-        handleMessage("error", error);
+        handleMessage("loadingMessage", "error", error);
       })
       .finally(() => {
         setIsPortfolioDataLoading(false);
@@ -104,9 +101,8 @@ const Home = () => {
   };
 
   const handleGetLeetcodeData = () => {
-    handleMessage("loading");
     if (leetcodeData && leetcodeData.data !== [])
-    setIsLeetcodeDataLoading(false);
+      setIsLeetcodeDataLoading(false);
 
     (async () => {
       const response = await fetch(apiMatrix.LEET_CODES_GET_ALL);
@@ -117,11 +113,10 @@ const Home = () => {
           throw new Error(response.error.message);
         } else {
           dispatch({ type: SET_LEETCODE_DATA, payload: response });
-          handleMessage("success");
         }
       })
       .catch((error) => {
-        handleMessage("error", error);
+        handleMessage("loadingMessage", "error", error);
       });
   };
 
