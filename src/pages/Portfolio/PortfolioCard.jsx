@@ -16,6 +16,7 @@ import {
 } from "antd";
 import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 import messageMatrix from "../common/messageMatrix";
+import categoryMatrix from "../common/categoryMatrix";
 import failPicture from "../common/failPicture";
 import password from "../common/password";
 import { SET_EDIT_PORTFOLIO_ID } from "../../redux/constants";
@@ -76,14 +77,13 @@ const PortfolioCard = (props) => {
   const navigate = useNavigate();
   const [inputPassword, setInputPassword] = useState(null);
 
-  const handleMessage = (type) => {
-    const messageKey = "passwordResult";
+  const handleMessage = (key, type) => {
     const messageDuration = 2;
 
     switch (type) {
       case "success": {
         message.success({
-          key: messageKey,
+          key: key,
           content: messageMatrix.PASSWORD_RESULT_SCCESS,
           duration: messageDuration,
         });
@@ -91,7 +91,7 @@ const PortfolioCard = (props) => {
       }
       case "error": {
         message.error({
-          key: messageKey,
+          key: key,
           content: messageMatrix.PASSWORD_RESULT_ERROR,
           duration: messageDuration,
         });
@@ -108,11 +108,11 @@ const PortfolioCard = (props) => {
 
   const handleConfirmPassword = () => {
     if (inputPassword !== null && inputPassword === password) {
-      handleMessage("success");
+      handleMessage("passwordResult", "success");
       dispatch({ type: SET_EDIT_PORTFOLIO_ID, payload: dataId });
-      navigate("/editPortfolio");
+      navigate(`/${categoryMatrix.PORTFOLIO.toLowerCase()}/editPortfolio`);
     } else {
-      handleMessage("error");
+      handleMessage("passwordResult", "error");
       setInputPassword(null);
     }
   };

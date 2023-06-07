@@ -1,10 +1,35 @@
-import React from "react";
-import { Space, Table, Tag } from "antd";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  Space,
+  Table,
+  Tag,
+  Button,
+  Tooltip,
+  Popconfirm,
+  Input,
+  message,
+} from "antd";
+import {
+  EditOutlined,
+  CodeOutlined,
+  EyeOutlined,
+  EyeTwoTone,
+  EyeInvisibleOutlined,
+} from "@ant-design/icons";
 import moment from "moment/moment";
 import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
+import messageMatrix from "../common/messageMatrix";
+import categoryMatrix from "../common/categoryMatrix";
+import password from "../common/password";
+import { SET_SELECTED_LEETCODE_ID } from "../../redux/constants";
 
 const LeetcodesTable = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const data = props.data.data ? props.data.data : null;
+  const [inputPassword, setInputPassword] = useState(null);
 
   const handleDifficultyTagColor = (difficulty) => {
     switch (difficulty.toLowerCase()) {
@@ -76,15 +101,77 @@ const LeetcodesTable = (props) => {
     }
   };
 
+  const handleActionBtnOnClick = (type, record) => {
+    switch (type.toLowerCase()) {
+      case "check":
+        window.open(record.attributes.link);
+        break;
+      case "review":
+        dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: record.id });
+        navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`);
+        break;
+      default:
+        return null;
+    }
+  };
+
+  const handleMessage = (key, type, content) => {
+    const messageDuration = 2;
+
+    switch (type) {
+      case "loading": {
+        message.loading({
+          key: key,
+          content: messageMatrix.LOADING_MESSAGE_LOADING,
+        });
+        break;
+      }
+      case "success": {
+        message.success({
+          key: key,
+          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
+          duration: messageDuration,
+        });
+        break;
+      }
+      case "error": {
+        message.error({
+          key: key,
+          content: messageMatrix.LOADING_MESSAGE_ERROR + content,
+          duration: messageDuration,
+        });
+        break;
+      }
+      default:
+        return null;
+    }
+  };
+
+  const handlePasswordValueChange = (e) => {
+    setInputPassword(e.target.value);
+  };
+
+  const handleConfirmPassword = (id) => {
+    if (inputPassword !== null && inputPassword === password) {
+      handleMessage("passwordResult", "success");
+      dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: id });
+      navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/editLeetCodes`);
+    } else {
+      handleMessage("passwordResult", "error");
+      setInputPassword(null);
+    }
+  };
+
+  const handleCancelPassword = () => {
+    setInputPassword(null);
+  };
+
   const columns = [
     {
-      title: "LeetCode Index",
+      title: "Index",
       key: "leetcodeIndex",
       dataIndex: "leetcodeIndex",
-      width: 50,
-      render: (_, record) => (
-        <a href={record.attributes.link}>{record.attributes.leetcodeIndex}</a>
-      ),
+      render: (_, record) => <div>{record.attributes.leetcodeIndex}</div>,
       sorter: (a, b) =>
         a.attributes?.leetcodeIndex - b.attributes?.leetcodeIndex,
     },
@@ -92,16 +179,23 @@ const LeetcodesTable = (props) => {
       title: "Title",
       key: "title",
       dataIndex: "title",
-      render: (_, record) => (
-        <a href={record.attributes.link}>{record.attributes.title}</a>
-      ),
+      render: (_, record) => <div>{record.attributes.title}</div>,
       sorter: (a, b) => a.attributes?.title?.localeCompare(b.attributes?.title),
+    },
+    {
+      title: "Completed Date",
+      key: "firstCompletedDate",
+      dataIndex: "firstCompletedDate",
+      defaultSortOrder: "ascend",
+      render: (_, record) => <div>{record.attributes.firstCompletedDate}</div>,
+      sorter: (a, b) =>
+        moment(a.attributes.firstCompletedDate).unix() -
+        moment(b.attributes.firstCompletedDate).unix(),
     },
     {
       title: "Difficulty",
       key: "difficulty",
       dataIndex: "difficulty",
-      width: 50,
       render: (_, record) => (
         <Tag
           color={handleDifficultyTagColor(record.attributes?.difficulty)}
@@ -129,17 +223,55 @@ const LeetcodesTable = (props) => {
         </>
       ),
     },
-
     {
-      title: "Completed Date",
-      key: "firstCompletedDate",
-      dataIndex: "firstCompletedDate",
-      defaultSortOrder: "ascend",
-      width: 50,
-      render: (_, record) => <div>{record.attributes.firstCompletedDate}</div>,
-      sorter: (a, b) =>
-        moment(a.attributes.firstCompletedDate).unix() -
-        moment(b.attributes.firstCompletedDate).unix(),
+      title: "Action",
+      key: "action",
+      dataIndex: "action",
+      width: 150,
+      render: (_, record) => (
+        <Space wrap direction="horizantal">
+          <Tooltip title="Check on LeetCode">
+            <Button
+              type="text"
+              icon={<CodeOutlined />}
+              onClick={() => handleActionBtnOnClick("check", record)}
+            />
+          </Tooltip>
+          <Tooltip title="Review on Little World">
+            <Button
+              type="text"
+              icon={<EyeOutlined />}
+              onClick={() => handleActionBtnOnClick("review", record)}
+            />
+          </Tooltip>
+          <Tooltip title="Edit">
+            <Popconfirm
+              title={"Please input password to edit."}
+              placement="topRight"
+              description={
+                <>
+                  <Input.Password
+                    placeholder="Input password"
+                    iconRender={(visible) =>
+                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                    }
+                    onChange={(e) => handlePasswordValueChange(e)}
+                    allowClear={true}
+                    value={inputPassword}
+                    onPressEnter={() => handleConfirmPassword(record.id)}
+                  />
+                </>
+              }
+              onConfirm={() => handleConfirmPassword(record.id)}
+              onCancel={handleCancelPassword}
+              okText="Confirm"
+              cancelText="Cancel"
+            >
+              <Button type="text" icon={<EditOutlined />} />
+            </Popconfirm>
+          </Tooltip>
+        </Space>
+      ),
     },
   ];
 
