@@ -32,8 +32,7 @@ const Home = () => {
   const [isLeetcodeDataLoading, setIsLeetcodeDataLoading] = useState(true);
 
   useEffect(() => {
-    handleGetPortfolioData();
-    handleGetLeetcodeData();
+    handleFetchData();
     handleComeBackFromPrePage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -77,19 +76,22 @@ const Home = () => {
     }
   };
 
-  const handleGetPortfolioData = () => {
-    if (portfolioData && portfolioData.data !== [])
+  const handleFetchData = async () => {
+    if (portfolioData.data && portfolioData.data !== [])
       setIsPortfolioDataLoading(false);
+    if (leetcodeData.data && leetcodeData.data !== [])
+      setIsLeetcodeDataLoading(false);
 
-    (async () => {
-      const response = await fetch(apiMatrix.PORTFOLIOS_GET_ALL);
-      return response.json();
-    })()
+    await Promise.all([
+      fetch(apiMatrix.PORTFOLIOS_GET_ALL).then((response) => response.json()),
+      fetch(apiMatrix.LEET_CODES_GET_ALL).then((response) => response.json()),
+    ])
       .then((response) => {
         if (response && response.error) {
           throw new Error(response.error.message);
         } else {
-          dispatch({ type: SET_PORTFOLIO_DATA, payload: response });
+          dispatch({ type: SET_PORTFOLIO_DATA, payload: response[0] });
+          dispatch({ type: SET_LEETCODE_DATA, payload: response[1] });
         }
       })
       .catch((error) => {
@@ -97,26 +99,7 @@ const Home = () => {
       })
       .finally(() => {
         setIsPortfolioDataLoading(false);
-      });
-  };
-
-  const handleGetLeetcodeData = () => {
-    if (leetcodeData && leetcodeData.data !== [])
-      setIsLeetcodeDataLoading(false);
-
-    (async () => {
-      const response = await fetch(apiMatrix.LEET_CODES_GET_ALL);
-      return response.json();
-    })()
-      .then((response) => {
-        if (response && response.error) {
-          throw new Error(response.error.message);
-        } else {
-          dispatch({ type: SET_LEETCODE_DATA, payload: response });
-        }
-      })
-      .catch((error) => {
-        handleMessage("loadingMessage", "error", error);
+        setIsLeetcodeDataLoading(false);
       });
   };
 
@@ -140,6 +123,7 @@ const Home = () => {
           </span>
         }
         extra={categoryMatrix.COMPONENTS}
+        isLoading={isLeetcodeDataLoading}
       />
       <HomeCard
         title={

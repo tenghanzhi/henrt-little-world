@@ -74,7 +74,7 @@ const LeetcodesTable = (props) => {
       case "string": {
         return "cyan";
       }
-      case "trie": {
+      case "tree": {
         return "blue";
       }
       case "sliding window": {
