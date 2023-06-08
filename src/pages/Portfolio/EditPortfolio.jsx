@@ -12,6 +12,7 @@ import {
 } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
+import validateMessages from "../common/validateMessages";
 import LwLayout from "../common/LwLayout";
 import structuredClone from "@ungap/structured-clone";
 import sortObjByKey from "../utils/sortObjByKey";
@@ -78,7 +79,9 @@ const EditPortfolio = () => {
     handleMessage("loading", messageKey, messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
-      const response = await fetch(apiMatrix.PORTFOLIOS_GET_BY_ID + editPortfolioId);
+      const response = await fetch(
+        apiMatrix.PORTFOLIOS_GET_BY_ID + editPortfolioId
+      );
       return response.json();
     })()
       .then((response) => {
@@ -114,15 +117,17 @@ const EditPortfolio = () => {
     );
 
     (async () => {
-      const response = await fetch(apiMatrix.PORTFOLIOS_UPDATE_BY_ID + editPortfolioId, {
-        method: "PUT",
-        mode: "cors",
-        body: JSON.stringify(values),
-        // body: { ddd: "aaa" },
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        apiMatrix.PORTFOLIOS_UPDATE_BY_ID + editPortfolioId,
+        {
+          method: "PUT",
+          mode: "cors",
+          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       return response.json();
     })()
       .then((response) => {
@@ -160,20 +165,7 @@ const EditPortfolio = () => {
 
   const formProps = {
     allowClear: true,
-    autoSize: true,
     onChange: handleFormValueChange,
-  };
-
-  /* eslint-disable no-template-curly-in-string */
-  const validateMessages = {
-    required: "${label} is required!",
-    types: {
-      email: "${label} is not a valid email!",
-      number: "${label} is not a valid number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
-    },
   };
 
   const onFinish = (values) => {
@@ -208,7 +200,7 @@ const EditPortfolio = () => {
       </Typography.Title>
       <Form
         {...formLayout}
-        name="nest-messages"
+        name="portfolio"
         onFinish={onFinish}
         style={{
           maxWidth: 1200,
@@ -243,7 +235,11 @@ const EditPortfolio = () => {
           <Input {...formProps} placeholder="Input Company Name" />
         </Form.Item>
         <Form.Item name={["data", "icon"]} label="Company Icon's Link">
-          <Input.TextArea {...formProps} placeholder="Company Icon's Link" />
+          <Input.TextArea
+            {...formProps}
+            placeholder="Company Icon's Link"
+            rows={2}
+          />
         </Form.Item>
         <Form.Item
           name={["data", "jobTitle"]}
@@ -257,7 +253,11 @@ const EditPortfolio = () => {
           <Input {...formProps} placeholder="Input Title" />
         </Form.Item>
         <Form.Item name={["data", "projectName"]} label="Project name">
-          <Input.TextArea {...formProps} placeholder="Input Project name" />
+          <Input.TextArea
+            {...formProps}
+            placeholder="Input Project name"
+            rows={4}
+          />
         </Form.Item>
         <Form.Item
           name={["data", "startDate"]}
@@ -293,12 +293,17 @@ const EditPortfolio = () => {
             },
           ]}
         >
-          <Input.TextArea {...formProps} placeholder="Input Key Skills" />
+          <Input.TextArea
+            {...formProps}
+            placeholder="Input Key Skills"
+            rows={4}
+          />
         </Form.Item>
         <Form.Item name={["data", "description"]} label="Project Description">
           <Input.TextArea
             {...formProps}
             placeholder="Input Project Description"
+            rows={8}
           />
         </Form.Item>
         <Form.Item
@@ -310,7 +315,11 @@ const EditPortfolio = () => {
             },
           ]}
         >
-          <Input.TextArea {...formProps} placeholder="Input Job Content" />
+          <Input.TextArea
+            {...formProps}
+            placeholder="Input Job Content"
+            rows={8}
+          />
         </Form.Item>
         <Form.Item shouldUpdate>
           {() => (
@@ -343,11 +352,7 @@ const EditPortfolio = () => {
     ? loadingPageContent
     : loadedPageContent;
 
-  return (
-    <>
-      <LwLayout content={pageContent} />
-    </>
-  );
+  return <LwLayout content={pageContent} />;
 };
 
 export default EditPortfolio;

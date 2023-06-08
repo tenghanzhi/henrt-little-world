@@ -179,6 +179,7 @@ const LeetcodesTable = (props) => {
       title: "Title",
       key: "title",
       dataIndex: "title",
+      fixed:"left",
       render: (_, record) => <div>{record.attributes.title}</div>,
       sorter: (a, b) => a.attributes?.title?.localeCompare(b.attributes?.title),
     },
@@ -228,6 +229,7 @@ const LeetcodesTable = (props) => {
       key: "action",
       dataIndex: "action",
       width: 150,
+      fixed:"right",
       render: (_, record) => (
         <Space wrap direction="horizantal">
           <Tooltip title="Check on LeetCode">

@@ -1,0 +1,12 @@
+.lw_leetcodes_form_btns {
+  margin: 0px 5px;
+}
+
+.lw_leetcodes_form_btns_wrapper {
+  text-align: right;
+  padding-right: 100px;
+}
+
+.lw_leetcodes_form_codemirror_wrapper {
+  border: 1px solid #dedede;
+}
