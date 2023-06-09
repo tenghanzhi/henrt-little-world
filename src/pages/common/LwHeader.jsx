@@ -34,12 +34,12 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={"/" + categoryMatrix.COMPONENTS.toLowerCase()}>
-          {categoryMatrix.COMPONENTS}
+        <Link to={"/" + categoryMatrix.LEETCODES.toLowerCase()}>
+          {categoryMatrix.LEETCODES}
         </Link>
       ),
-      key: categoryMatrix.COMPONENTS.toLowerCase(),
-      icon: <Html5Outlined />,
+      key: categoryMatrix.LEETCODES.toLowerCase(),
+      icon: <CodeOutlined />,
     },
     {
       label: (
@@ -52,12 +52,12 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={"/" + categoryMatrix.LEETCODES.toLowerCase()}>
-          {categoryMatrix.LEETCODES}
+        <Link to={"/" + categoryMatrix.COMPONENTS.toLowerCase()}>
+          {categoryMatrix.COMPONENTS}
         </Link>
       ),
-      key: categoryMatrix.LEETCODES.toLowerCase(),
-      icon: <CodeOutlined />,
+      key: categoryMatrix.COMPONENTS.toLowerCase(),
+      icon: <Html5Outlined />,
     },
     {
       label: (

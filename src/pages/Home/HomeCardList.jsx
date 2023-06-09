@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { List, Image } from "antd";
 import failPicture from "../common/failPicture";
 import categoryMatrix from "../common/categoryMatrix";
-import { SET_CLICKED_HOME_PAGE_ITEM_ID } from "../../redux/constants";
+import {
+  SET_CLICKED_HOME_PAGE_ITEM_ID,
+  SET_SELECTED_LEETCODE_ID,
+} from "../../redux/constants";
 
 const HomeCardList = (props) => {
   const dispatch = useDispatch();
@@ -24,7 +27,10 @@ const HomeCardList = (props) => {
         break;
       }
       case categoryMatrix.LEETCODES: {
-        window.open(data.attributes.link, "_self");
+        dispatch({
+          type: SET_SELECTED_LEETCODE_ID,
+          payload: data.id,
+        });
         break;
       }
       default:
@@ -64,7 +70,7 @@ const HomeCardList = (props) => {
         return "portfolio";
       }
       case categoryMatrix.LEETCODES: {
-        return "leetcodes";
+        return `/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`;
       }
       default:
         return "";

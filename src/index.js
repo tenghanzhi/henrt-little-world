@@ -36,14 +36,6 @@ const Main = () => {
               element={<EditPortfolio />}
             />
             <Route
-              path={categoryMatrix.APPLICATIONS.toLowerCase()}
-              element={<Applications />}
-            />
-            <Route
-              path={categoryMatrix.COMPONENTS.toLowerCase()}
-              element={<Components />}
-            />
-            <Route
               path={categoryMatrix.LEETCODES.toLowerCase()}
               element={<Leetcodes />}
             />
@@ -58,6 +50,14 @@ const Main = () => {
             <Route
               path={`${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`}
               element={<ReviewLeetCodes />}
+            />
+            <Route
+              path={categoryMatrix.APPLICATIONS.toLowerCase()}
+              element={<Applications />}
+            />
+            <Route
+              path={categoryMatrix.COMPONENTS.toLowerCase()}
+              element={<Components />}
             />
             <Route
               path={categoryMatrix.GITHUB.toLowerCase()}
@@ -77,6 +77,4 @@ const Main = () => {
 export default Main;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-    <Main />
-);
+root.render(<Main />);
