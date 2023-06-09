@@ -9,10 +9,20 @@ import {
   InputNumber,
   Select,
   DatePicker,
+  Popconfirm,
 } from "antd";
+import {
+  RollbackOutlined,
+  DeleteOutlined,
+  CheckOutlined,
+  EyeTwoTone,
+  EyeInvisibleOutlined,
+} from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
+import categoryMatrix from "../common/categoryMatrix";
 import validateMessages from "../common/validateMessages";
+import password from "../common/password";
 import dayjs from "dayjs";
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
@@ -31,6 +41,7 @@ const LeetCodesForm = (props) => {
   const [solutionTwo, setSolutionTwo] = useState(
     pageType === "edit" ? defaultData.solutionTwo : null
   );
+  const [inputDeletePassword, setInputDeletePassword] = useState(null);
 
   const handleGoback = () => {
     navigate(-1);
@@ -53,9 +64,12 @@ const LeetCodesForm = (props) => {
           content: content,
           duration: messageDuration,
           onClose: () => {
-            if (key === "uploadingDataMessage" || "deleteDataMessage") {
+            if (key === "uploadingDataMessage" ) {
               handleGoback();
-            } else return null;
+            } else if (key === "deleteDataMessage"){
+              navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}`);
+            }
+            else return null;
           },
         });
         break;
@@ -71,6 +85,32 @@ const LeetCodesForm = (props) => {
       default:
         return null;
     }
+  };
+
+  const handleDeletePasswordValueChange = (e) => {
+    setInputDeletePassword(e.target.value);
+  };
+
+  const handleConfirmDeletePassword = () => {
+    if (inputDeletePassword !== null && inputDeletePassword === password) {
+      handleMessage(
+        "passwordResult",
+        "success",
+        messageMatrix.PASSWORD_RESULT_SCCESS
+      );
+      handleDelete();
+    } else {
+      handleMessage(
+        "passwordResult",
+        "error",
+        messageMatrix.PASSWORD_RESULT_ERROR
+      );
+      setInputDeletePassword(null);
+    }
+  };
+
+  const handleCancelPassword = () => {
+    setInputDeletePassword(null);
   };
 
   const handleFormValueChange = (type, value) => {
@@ -373,24 +413,45 @@ const LeetCodesForm = (props) => {
               className={style.lw_leetcodes_form_btns}
               type="default"
               onClick={handleGoback}
+              icon={<RollbackOutlined />}
             >
               Cancel
             </Button>
             {pageType === "edit" && (
-              <Button
+              <Popconfirm
+                title={"Please input password to delete."}
                 className={style.lw_leetcodes_form_btns}
-                type="primary"
-                onClick={handleDelete}
-                danger
+                placement="top"
+                description={
+                  <>
+                    <Input.Password
+                      placeholder="Input password"
+                      iconRender={(visible) =>
+                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                      }
+                      onChange={(e) => handleDeletePasswordValueChange(e)}
+                      allowClear={true}
+                      value={inputDeletePassword}
+                      onPressEnter={handleConfirmDeletePassword}
+                    />
+                  </>
+                }
+                onConfirm={handleConfirmDeletePassword}
+                onCancel={handleCancelPassword}
+                okText="Confirm"
+                cancelText="Cancel"
               >
-                Delete
-              </Button>
+                <Button type="primary" danger icon={<DeleteOutlined />}>
+                  Delete
+                </Button>
+              </Popconfirm>
             )}
             <Button
               className={style.lw_leetcodes_form_btns}
               type="primary"
               htmlType="submit"
               disabled={handleDisableSubmitBtn()}
+              icon={<CheckOutlined />}
             >
               Submit
             </Button>

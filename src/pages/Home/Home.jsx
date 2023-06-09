@@ -118,11 +118,11 @@ const Home = () => {
       <HomeCard
         title={
           <span>
-            <Html5Outlined className={style.lw_home_card_icon} />
-            {categoryMatrix.COMPONENTS}
+            <CodeOutlined className={style.lw_home_card_icon} />
+            {categoryMatrix.LEETCODES}
           </span>
         }
-        extra={categoryMatrix.COMPONENTS}
+        extra={categoryMatrix.LEETCODES}
         isLoading={isLeetcodeDataLoading}
       />
       <HomeCard
@@ -137,11 +137,11 @@ const Home = () => {
       <HomeCard
         title={
           <span>
-            <CodeOutlined className={style.lw_home_card_icon} />
-            {categoryMatrix.LEETCODES}
+            <Html5Outlined className={style.lw_home_card_icon} />
+            {categoryMatrix.COMPONENTS}
           </span>
         }
-        extra={categoryMatrix.LEETCODES}
+        extra={categoryMatrix.COMPONENTS}
         isLoading={isLeetcodeDataLoading}
       />
       <HomeCard
