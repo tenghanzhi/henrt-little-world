@@ -4,8 +4,10 @@ import {
   SET_EDIT_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
+  SET_LEETCOD_TABLE_PAGENATION,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
+  SET_APPLICATION_TABLE_PAGENATION,
 } from "./constants";
 
 const initialState = {
@@ -14,8 +16,16 @@ const initialState = {
   editPortfolioId: null,
   leetcodeData: { data: [], meta: {} },
   selectedLeetcodeId: null,
+  leetcodeTablePagenation: {
+    current: 1,
+    size: 20,
+  },
   applicationData: { data: [], meta: {} },
   selectedApplicationId: null,
+  applicationTablePagenation: {
+    current: 1,
+    size: 20,
+  },
 };
 
 export default function reducer(state = initialState, action) {
@@ -30,10 +40,14 @@ export default function reducer(state = initialState, action) {
       return { ...state, leetcodeData: action.payload };
     case SET_SELECTED_LEETCODE_ID:
       return { ...state, selectedLeetcodeId: action.payload };
+    case SET_LEETCOD_TABLE_PAGENATION:
+      return { ...state, leetcodeTablePagenation: action.payload };
     case SET_APPLICATION_DATA:
       return { ...state, applicationData: action.payload };
     case SET_SELECTED_APPLICATION_ID:
       return { ...state, selectedApplicationId: action.payload };
+    case SET_APPLICATION_TABLE_PAGENATION:
+      return { ...state, applicationTablePagenation: action.payload };
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   Space,
@@ -23,17 +23,19 @@ import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import password from "../common/password";
-import { SET_SELECTED_LEETCODE_ID } from "../../redux/constants";
+import {
+  SET_SELECTED_LEETCODE_ID,
+  SET_LEETCOD_TABLE_PAGENATION,
+} from "../../redux/constants";
 
 const LeetCodesTable = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const leetcodeTablePagenation = useSelector(
+    (state) => state.leetcodeTablePagenation
+  );
   const data = props.data.data ? props.data.data : null;
   const [inputPassword, setInputPassword] = useState(null);
-  const [paginationSetup, setpaginationSetup] = useState({
-    current: 1,
-    size: 20,
-  });
 
   const handleDifficultyTagColor = (difficulty) => {
     switch (difficulty.toLowerCase()) {
@@ -171,7 +173,10 @@ const LeetCodesTable = (props) => {
   };
 
   const handlePaginationChange = (current, size) => {
-    console.log({ current, size });
+    dispatch({
+      type: SET_LEETCOD_TABLE_PAGENATION,
+      payload: { current: current, size: size },
+    });
   };
 
   const columns = [
@@ -290,8 +295,13 @@ const LeetCodesTable = (props) => {
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
-        defaultPageSize: 20,
-        total: data.length,
+        defaultPageSize: leetcodeTablePagenation?.size
+          ? leetcodeTablePagenation.size
+          : 20,
+        defaultCurrent: leetcodeTablePagenation?.current
+          ? leetcodeTablePagenation.current
+          : 1,
+        total: props?.data?.meta?.pagination?.total,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       bordered

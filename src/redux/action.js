@@ -4,8 +4,10 @@ import {
   SET_EDIT_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
+  SET_LEETCOD_TABLE_PAGENATION,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
+  SET_APPLICATION_TABLE_PAGENATION,
 } from "./constants.js";
 
 //Home
@@ -46,6 +48,13 @@ export function setEditLeetcodeId(selectedLeetcodeId) {
   };
 }
 
+export function setLeetcodeTablePagenation(leetcodeTablePagenation) {
+  return {
+    type: SET_LEETCOD_TABLE_PAGENATION,
+    leetcodeTablePagenation,
+  };
+}
+
 //Application
 export function setApplicationData(applicationData) {
   return {
@@ -58,5 +67,12 @@ export function setEditLeetcodeId(selectedApplicationId) {
   return {
     type: SET_SELECTED_APPLICATION_ID,
     selectedApplicationId,
+  };
+}
+
+export function setApplicationTablePagenation(applicationTablePagenation) {
+  return {
+    type: SET_APPLICATION_TABLE_PAGENATION,
+    applicationTablePagenation,
   };
 }

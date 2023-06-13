@@ -21,12 +21,15 @@ const LeetCodes = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const leetcodeData = useSelector((state) => state.leetcodeData);
+  const leetcodeTablePagenation = useSelector(
+    (state) => state.leetcodeTablePagenation
+  );
   const [inputPassword, setInputPassword] = useState(null);
 
   useEffect(() => {
     handleGetLeetcodeData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [leetcodeTablePagenation]);
 
   const handleMessage = (key, type, content) => {
     const messageDuration = 2;
@@ -78,7 +81,9 @@ const LeetCodes = () => {
 
   const handleGetLeetcodeData = () => {
     (async () => {
-      const response = await fetch(apiMatrix.LEET_CODES_GET_ALL);
+      const response = await fetch(
+        `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}`
+      );
       return response.json();
     })()
       .then((response) => {
