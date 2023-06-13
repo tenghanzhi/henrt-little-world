@@ -130,7 +130,7 @@ const PortfolioCard = (props) => {
         loading={isLoading}
         extra={
           <Popconfirm
-            title={"Edit portfolio " + name + " " + jobTitle + "?"}
+            title={`Edit portfolio${name} ${jobTitle}?`}
             placement="topRight"
             description={
               <>

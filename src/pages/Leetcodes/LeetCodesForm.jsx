@@ -64,12 +64,11 @@ const LeetCodesForm = (props) => {
           content: content,
           duration: messageDuration,
           onClose: () => {
-            if (key === "uploadingDataMessage" ) {
+            if (key === "uploadingDataMessage") {
               handleGoback();
-            } else if (key === "deleteDataMessage"){
+            } else if (key === "deleteDataMessage") {
               navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}`);
-            }
-            else return null;
+            } else return null;
           },
         });
         break;
@@ -167,13 +166,13 @@ const LeetCodesForm = (props) => {
           handleMessage(
             "error",
             messageKey,
-            messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_ERROR + error
+            `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
         });
     } else if (type.toLowerCase() === "edit") {
       (async () => {
         const response = await fetch(
-          apiMatrix.LEET_CODES_UPDATE_BY_ID + selectedLeetcodeId,
+          `${apiMatrix.LEET_CODES_UPDATE_BY_ID}/${selectedLeetcodeId}`,
           {
             method: "PUT",
             mode: "cors",
@@ -200,7 +199,7 @@ const LeetCodesForm = (props) => {
           handleMessage(
             "error",
             messageKey,
-            messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_ERROR + error
+            `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
         });
     }
@@ -220,7 +219,7 @@ const LeetCodesForm = (props) => {
 
     (async () => {
       const response = await fetch(
-        apiMatrix.LEET_CODES_DELETE_BY_ID + selectedLeetcodeId,
+        `${apiMatrix.LEET_CODES_DELETE_BY_ID}/${selectedLeetcodeId}`,
         {
           method: "DELETE",
           mode: "cors",
@@ -246,7 +245,7 @@ const LeetCodesForm = (props) => {
         handleMessage(
           "error",
           messageKey,
-          messageMatrix.DELETING_MESSAGE_ERROR + error
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });
   };

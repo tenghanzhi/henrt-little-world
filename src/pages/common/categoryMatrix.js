@@ -3,7 +3,7 @@ const categoryMatrix = {
   PORTFOLIO: "Portfolio",
   COMPONENTS: "Components",
   APPLICATIONS: "Applications",
-  LEETCODES: "Leetcodes",
+  LEETCODES: "LeetCodes",
   GITHUB: "GitHub",
   MORE: "More",
 };

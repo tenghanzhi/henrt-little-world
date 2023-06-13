@@ -66,7 +66,7 @@ const Home = () => {
       case "error": {
         message.error({
           key: key,
-          content: messageMatrix.LOADING_MESSAGE_ERROR + content,
+          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
           duration: messageDuration,
         });
         break;
@@ -82,9 +82,15 @@ const Home = () => {
     if (leetcodeData.data && leetcodeData.data !== [])
       setIsLeetcodeDataLoading(false);
 
+    const PAGINATION_SETUP = "?pagination[pageSize]=30";
+
     await Promise.all([
-      fetch(apiMatrix.PORTFOLIOS_GET_ALL).then((response) => response.json()),
-      fetch(apiMatrix.LEET_CODES_GET_ALL).then((response) => response.json()),
+      fetch(`${apiMatrix.PORTFOLIOS_GET_ALL}${PAGINATION_SETUP}`).then(
+        (response) => response.json()
+      ),
+      fetch(`${apiMatrix.LEET_CODES_GET_ALL}${PAGINATION_SETUP}`).then(
+        (response) => response.json()
+      ),
     ])
       .then((response) => {
         if (response && response.error) {

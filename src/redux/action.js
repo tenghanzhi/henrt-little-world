@@ -4,6 +4,8 @@ import {
   SET_EDIT_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
+  SET_APPLICATION_DATA,
+  SET_SELECTED_APPLICATION_ID,
 } from "./constants.js";
 
 //Home
@@ -41,5 +43,20 @@ export function setEditLeetcodeId(selectedLeetcodeId) {
   return {
     type: SET_SELECTED_LEETCODE_ID,
     selectedLeetcodeId,
+  };
+}
+
+//Application
+export function setApplicationData(applicationData) {
+  return {
+    type: SET_APPLICATION_DATA,
+    applicationData,
+  };
+}
+
+export function setEditLeetcodeId(selectedApplicationId) {
+  return {
+    type: SET_SELECTED_APPLICATION_ID,
+    selectedApplicationId,
   };
 }

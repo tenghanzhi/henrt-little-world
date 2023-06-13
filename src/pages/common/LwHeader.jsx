@@ -12,6 +12,7 @@ import {
   StarOutlined,
   WechatOutlined,
   VideoCameraOutlined,
+  DesktopOutlined,
 } from "@ant-design/icons";
 import categoryMatrix from "./categoryMatrix";
 import style from "./style/LwHeader.module.css";
@@ -27,7 +28,7 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={"/" + categoryMatrix.PORTFOLIO.toLowerCase()}>
+        <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>
           {categoryMatrix.PORTFOLIO}
         </Link>
       ),
@@ -36,7 +37,7 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={"/" + categoryMatrix.LEETCODES.toLowerCase()}>
+        <Link to={`/${categoryMatrix.LEETCODES.toLowerCase()}`}>
           {categoryMatrix.LEETCODES}
         </Link>
       ),
@@ -45,7 +46,7 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={"/" + categoryMatrix.APPLICATIONS.toLowerCase()}>
+        <Link to={`/${categoryMatrix.APPLICATIONS.toLowerCase()}`}>
           {categoryMatrix.APPLICATIONS}
         </Link>
       ),
@@ -54,7 +55,7 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={"/" + categoryMatrix.COMPONENTS.toLowerCase()}>
+        <Link to={`/${categoryMatrix.COMPONENTS.toLowerCase()}`}>
           {categoryMatrix.COMPONENTS}
         </Link>
       ),
@@ -63,7 +64,7 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={"/" + categoryMatrix.GITHUB.toLowerCase()}>
+        <Link to={`/${categoryMatrix.GITHUB.toLowerCase()}`}>
           {categoryMatrix.GITHUB}
         </Link>
       ),
@@ -72,7 +73,7 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={"/" + categoryMatrix.MORE.toLowerCase()}>
+        <Link to={`/${categoryMatrix.MORE.toLowerCase()}`}>
           {categoryMatrix.MORE}
         </Link>
       ),
@@ -87,6 +88,9 @@ const LwHeader = () => {
     switch (type.toLowerCase()) {
       case "leetcode":
         window.open("https://leetcode.cn/u/tenghanzhi/");
+        break;
+      case "stackoverflow":
+        window.open("https://stackoverflow.com/users/21989386/hanzhi-teng");
         break;
       case "github":
         window.open("https://github.com/tenghanzhi");
@@ -122,6 +126,14 @@ const LwHeader = () => {
               onClick={() => onRightBtnsClick("leetcode")}
             />
           </Tooltip>
+          <Tooltip placement="bottom" title={"Check Henry's Stack Overflow"}>
+            <Button
+              className={style.lw_header_links}
+              type="link"
+              icon={<DesktopOutlined />}
+              onClick={() => onRightBtnsClick("stackoverflow")}
+            />
+          </Tooltip>
           <Tooltip placement="bottom" title={"Check Henry's GitHub"}>
             <Button
               className={style.lw_header_links}
@@ -151,7 +163,10 @@ const LwHeader = () => {
             title={
               <Space direction="vertical">
                 <div>Scan to Add WeChat</div>
-                <Image src={require("../../images/QR_WeChat.png")}width={130} />
+                <Image
+                  src={require("../../images/QR_WeChat.png")}
+                  width={130}
+                />
               </Space>
             }
           >

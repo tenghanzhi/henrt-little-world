@@ -1,2 +1,2 @@
-import Leetcodes from "./Leetcodes";
-export default Leetcodes;
+import LeetCodes from "./LeetCodes";
+export default LeetCodes;

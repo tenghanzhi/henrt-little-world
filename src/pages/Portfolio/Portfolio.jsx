@@ -44,7 +44,7 @@ const Portfolio = () => {
       case "error": {
         message.error({
           key: key,
-          content: messageMatrix.LOADING_MESSAGE_ERROR + content,
+          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
           duration: messageDuration,
         });
         break;
@@ -60,8 +60,12 @@ const Portfolio = () => {
       handleClickLinkFromHome(clickedHomePageItemId);
     }
 
+    const PAGINATION_SETUP = "?pagination[withCount]=false";
+
     (async () => {
-      const response = await fetch(apiMatrix.PORTFOLIOS_GET_ALL);
+      const response = await fetch(
+        `${apiMatrix.PORTFOLIOS_GET_ALL}${PAGINATION_SETUP}`
+      );
       return response.json();
     })()
       .then((response) => {

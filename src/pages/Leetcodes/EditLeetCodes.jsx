@@ -55,7 +55,7 @@ const EditLeetCodes = () => {
 
     (async () => {
       const response = await fetch(
-        apiMatrix.LEET_CODES_GET_BY_ID + selectedLeetcodeId
+        `${apiMatrix.LEET_CODES_GET_BY_ID}/${selectedLeetcodeId}`
       );
       return response.json();
     })()
@@ -70,7 +70,7 @@ const EditLeetCodes = () => {
         handleMessage(
           "error",
           messageKey,
-          messageMatrix.LOADING_MESSAGE_ERROR + error
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       })
       .finally(() => {

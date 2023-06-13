@@ -12,12 +12,12 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import password from "../common/password";
-import LeetcodesTable from "./LeetcodesTable";
+import LeetCodesTable from "./LeetCodesTable";
 import LwLayout from "../common/LwLayout";
 import { SET_LEETCODE_DATA } from "../../redux/constants";
-import style from "./style/Leetcodes.module.css";
+import style from "./style/LeetCodes.module.css";
 
-const Leetcodes = () => {
+const LeetCodes = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const leetcodeData = useSelector((state) => state.leetcodeData);
@@ -50,7 +50,7 @@ const Leetcodes = () => {
       case "error": {
         message.error({
           key: key,
-          content: messageMatrix.LOADING_MESSAGE_ERROR + content,
+          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
           duration: messageDuration,
         });
         break;
@@ -167,11 +167,11 @@ const Leetcodes = () => {
         </Popconfirm>
       </Space>
 
-      <LeetcodesTable data={leetcodeData} />
+      <LeetCodesTable data={leetcodeData} />
     </Space>
   );
 
   return <LwLayout content={pageContent} />;
 };
 
-export default Leetcodes;
+export default LeetCodes;

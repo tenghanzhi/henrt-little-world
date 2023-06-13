@@ -10,10 +10,10 @@ import Portfolio from "./pages/Portfolio";
 import EditPortfolio from "./pages/Portfolio/EditPortfolio";
 import Applications from "./pages/Applications";
 import Components from "./pages/Components";
-import Leetcodes from "./pages/Leetcodes";
-import CreateLeetCodes from "./pages/Leetcodes/CreateLeetCodes";
-import EditLeetCodes from "./pages/Leetcodes/EditLeetCodes";
-import ReviewLeetCodes from "./pages/Leetcodes/ReviewLeetCodes";
+import LeetCodes from "./pages/LeetCodes";
+import CreateLeetCodes from "./pages/LeetCodes/CreateLeetCodes";
+import EditLeetCodes from "./pages/LeetCodes/EditLeetCodes";
+import ReviewLeetCodes from "./pages/LeetCodes/ReviewLeetCodes";
 import GitHub from "./pages/GitHub";
 import More from "./pages/More";
 import categoryMatrix from "./pages/common/categoryMatrix";
@@ -37,7 +37,7 @@ const Main = () => {
             />
             <Route
               path={categoryMatrix.LEETCODES.toLowerCase()}
-              element={<Leetcodes />}
+              element={<LeetCodes />}
             />
             <Route
               path={`${categoryMatrix.LEETCODES.toLowerCase()}/createLeetCodes`}

@@ -80,7 +80,7 @@ const EditPortfolio = () => {
 
     (async () => {
       const response = await fetch(
-        apiMatrix.PORTFOLIOS_GET_BY_ID + editPortfolioId
+        `${apiMatrix.PORTFOLIOS_GET_BY_ID}/${editPortfolioId}`
       );
       return response.json();
     })()
@@ -100,7 +100,7 @@ const EditPortfolio = () => {
         handleMessage(
           "error",
           messageKey,
-          messageMatrix.LOADING_MESSAGE_ERROR + error
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       })
       .finally(() => {
@@ -118,7 +118,7 @@ const EditPortfolio = () => {
 
     (async () => {
       const response = await fetch(
-        apiMatrix.PORTFOLIOS_UPDATE_BY_ID + editPortfolioId,
+        `${apiMatrix.PORTFOLIOS_UPDATE_BY_ID}/${editPortfolioId}`,
         {
           method: "PUT",
           mode: "cors",
@@ -145,7 +145,7 @@ const EditPortfolio = () => {
         handleMessage(
           "error",
           messageKey,
-          messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_ERROR + error
+          `${messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_ERROR}${error}`
         );
       });
   };

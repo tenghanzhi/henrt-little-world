@@ -25,11 +25,15 @@ import categoryMatrix from "../common/categoryMatrix";
 import password from "../common/password";
 import { SET_SELECTED_LEETCODE_ID } from "../../redux/constants";
 
-const LeetcodesTable = (props) => {
+const LeetCodesTable = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = props.data.data ? props.data.data : null;
   const [inputPassword, setInputPassword] = useState(null);
+  const [paginationSetup, setpaginationSetup] = useState({
+    current: 1,
+    size: 20,
+  });
 
   const handleDifficultyTagColor = (difficulty) => {
     switch (difficulty.toLowerCase()) {
@@ -137,7 +141,7 @@ const LeetcodesTable = (props) => {
       case "error": {
         message.error({
           key: key,
-          content: messageMatrix.LOADING_MESSAGE_ERROR + content,
+          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
           duration: messageDuration,
         });
         break;
@@ -166,6 +170,10 @@ const LeetcodesTable = (props) => {
     setInputPassword(null);
   };
 
+  const handlePaginationChange = (current, size) => {
+    console.log({ current, size });
+  };
+
   const columns = [
     {
       title: "Index",
@@ -179,7 +187,6 @@ const LeetcodesTable = (props) => {
       title: "Title",
       key: "title",
       dataIndex: "title",
-      fixed:"left",
       render: (_, record) => <div>{record.attributes.title}</div>,
       sorter: (a, b) => a.attributes?.title?.localeCompare(b.attributes?.title),
     },
@@ -229,7 +236,6 @@ const LeetcodesTable = (props) => {
       key: "action",
       dataIndex: "action",
       width: 150,
-      fixed:"right",
       render: (_, record) => (
         <Space wrap direction="horizantal">
           <Tooltip title="Check on LeetCode">
@@ -286,10 +292,11 @@ const LeetcodesTable = (props) => {
         showQuickJumper: true,
         defaultPageSize: 20,
         total: data.length,
+        onChange: (current, size) => handlePaginationChange(current, size),
       }}
       bordered
     />
   );
 };
 
-export default LeetcodesTable;
+export default LeetCodesTable;
