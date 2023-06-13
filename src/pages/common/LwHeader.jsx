@@ -1,15 +1,17 @@
 import React, { Fragment } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Layout, Menu, Input, Button } from "antd";
+import { Layout, Menu, Button, Tooltip, Space, Image } from "antd";
 import {
   GithubOutlined,
+  LinkedinOutlined,
   CodeOutlined,
   AppstoreOutlined,
   Html5Outlined,
   UserOutlined,
   HomeOutlined,
-  SearchOutlined,
   StarOutlined,
+  WechatOutlined,
+  VideoCameraOutlined,
 } from "@ant-design/icons";
 import categoryMatrix from "./categoryMatrix";
 import style from "./style/LwHeader.module.css";
@@ -81,7 +83,24 @@ const LwHeader = () => {
 
   const selectedKeys = location.pathname.slice(1);
 
-  const onSearch = (value) => console.log(value);
+  const onRightBtnsClick = (type) => {
+    switch (type.toLowerCase()) {
+      case "leetcode":
+        window.open("https://leetcode.cn/u/tenghanzhi/");
+        break;
+      case "github":
+        window.open("https://github.com/tenghanzhi");
+        break;
+      case "linkedin":
+        window.open("https://www.linkedin.com/in/tenghanzhi/");
+        break;
+      case "bilibili":
+        window.open("https://space.bilibili.com/914572");
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Fragment>
@@ -94,19 +113,55 @@ const LwHeader = () => {
           defaultSelectedKeys={["home"]}
           selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
         />
-        {selectedKeys ? (
-          <>
-            <Input.Search
-              className={style.lw_header_search}
-              placeholder="Input Search Text"
-              onSearch={onSearch}
-            />
+        <div className={style.lw_header_links_wrapper}>
+          <Tooltip placement="bottom" title={"Check Henry's LeetCode"}>
             <Button
-              className={style.lw_header_search_button}
-              icon={<SearchOutlined />}
+              className={style.lw_header_links}
+              type="link"
+              icon={<CodeOutlined />}
+              onClick={() => onRightBtnsClick("leetcode")}
             />
-          </>
-        ) : null}
+          </Tooltip>
+          <Tooltip placement="bottom" title={"Check Henry's GitHub"}>
+            <Button
+              className={style.lw_header_links}
+              type="link"
+              icon={<GithubOutlined />}
+              onClick={() => onRightBtnsClick("github")}
+            />
+          </Tooltip>
+          <Tooltip placement="bottom" title={"Check Henry's LinkedIn"}>
+            <Button
+              className={style.lw_header_links}
+              type="link"
+              icon={<LinkedinOutlined />}
+              onClick={() => onRightBtnsClick("linkedin")}
+            />
+          </Tooltip>
+          <Tooltip placement="bottom" title={"Check Henry's Bilibili"}>
+            <Button
+              className={style.lw_header_links}
+              type="link"
+              icon={<VideoCameraOutlined />}
+              onClick={() => onRightBtnsClick("bilibili")}
+            />
+          </Tooltip>
+          <Tooltip
+            placement="bottom"
+            title={
+              <Space direction="vertical">
+                <div>Scan to Add WeChat</div>
+                <Image src={require("../../images/QR_WeChat.png")}width={130} />
+              </Space>
+            }
+          >
+            <Button
+              className={style.lw_header_links}
+              type="link"
+              icon={<WechatOutlined />}
+            />
+          </Tooltip>
+        </div>
       </Layout.Header>
       <Outlet />
     </Fragment>
