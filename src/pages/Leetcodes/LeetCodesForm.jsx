@@ -283,6 +283,84 @@ const LeetCodesForm = (props) => {
     onChange: handleFormValueChange,
   };
 
+  const difficultyOptions = [
+    {
+      label: "Easy",
+      value: "Easy",
+    },
+    {
+      label: "Medium",
+      value: "Medium",
+    },
+    {
+      label: "Hard",
+      value: "Hard",
+    },
+  ];
+
+  const typeOptions = [
+    {
+      label: "Array",
+      value: "Array",
+    },
+    {
+      label: "Hash Table",
+      value: "Hash Table",
+    },
+    {
+      label: "Linked List",
+      value: "Linked List",
+    },
+    {
+      label: "Math",
+      value: "Math",
+    },
+    {
+      label: "Recursion",
+      value: "Recursion",
+    },
+    {
+      label: "Stack",
+      value: "Stack",
+    },
+    {
+      label: "Sorting",
+      value: "Sorting",
+    },
+    {
+      label: "String",
+      value: "String",
+    },
+    {
+      label: "Tree",
+      value: "Tree",
+    },
+    {
+      label: "Sliding Window",
+      value: "Sliding Window",
+    },
+    {
+      label: "Divide and Conquer",
+      value: "Divide and Conquer",
+    },
+    {
+      label: "Heap",
+      value: "Heap",
+    },
+    {
+      label: "Bucket Sort",
+      value: "Bucket Sort",
+    },
+    {
+      label: "Counting",
+      value: "Counting",
+    },
+    {
+      label: "Quickselect",
+      value: "Quickselect",
+    },
+  ];
+
   return (
     <Form
       {...formLayout}
@@ -338,11 +416,11 @@ const LeetCodesForm = (props) => {
           },
         ]}
       >
-        <Select {...formProps} placeholder="Select a Difficulty">
-          <Select.Option value="Easy">Easy</Select.Option>
-          <Select.Option value="Medium">Medium</Select.Option>
-          <Select.Option value="Hard">Hard</Select.Option>
-        </Select>
+        <Select
+          {...formProps}
+          placeholder="Select a Difficulty"
+          options={difficultyOptions}
+        />
       </Form.Item>
       <Form.Item
         name={["data", "firstCompletedDate"]}
@@ -364,7 +442,15 @@ const LeetCodesForm = (props) => {
           },
         ]}
       >
-        <Input {...formProps} placeholder="Input Problem Type" />
+        <Select
+          {...formProps}
+          placeholder="Select Problem Type"
+          options={typeOptions.sort((a, b) =>
+            a.value > b.value ? 1 : b.value > a.value ? -1 : 0
+          )}
+          mode="multiple"
+          showSearch
+        />
       </Form.Item>
       <Form.Item
         name={["data", "link"]}

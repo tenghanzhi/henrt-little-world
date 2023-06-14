@@ -184,7 +184,18 @@ const LeetCodesTable = (props) => {
       title: "Index",
       key: "leetcodeIndex",
       dataIndex: "leetcodeIndex",
-      render: (_, record) => <div>{record.attributes.leetcodeIndex}</div>,
+      render: (_, record) => {
+        return (
+          <Tooltip title="Check on LeetCode">
+            <Button
+              type="link"
+              onClick={() => handleActionBtnOnClick("check", record)}
+            >
+              {record.attributes.leetcodeIndex}
+            </Button>
+          </Tooltip>
+        );
+      },
       sorter: (a, b) =>
         a.attributes?.leetcodeIndex - b.attributes?.leetcodeIndex,
     },
@@ -192,7 +203,18 @@ const LeetCodesTable = (props) => {
       title: "Title",
       key: "title",
       dataIndex: "title",
-      render: (_, record) => <div>{record.attributes.title}</div>,
+      render: (_, record) => {
+        return (
+          <Tooltip title="Review on Little World">
+            <Button
+              type="link"
+              onClick={() => handleActionBtnOnClick("review", record)}
+            >
+              {record.attributes.title}
+            </Button>
+          </Tooltip>
+        );
+      },
       sorter: (a, b) => a.attributes?.title?.localeCompare(b.attributes?.title),
     },
     {

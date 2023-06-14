@@ -279,6 +279,49 @@ const ApplicationsForm = (props) => {
     onChange: handleFormValueChange,
   };
 
+  const typeOptions = [
+    {
+      label: "Array",
+      value: "Array",
+    },
+    {
+      label: "BOM",
+      value: "BOM",
+    },
+    {
+      label: "DEV",
+      value: "DEV",
+    },
+    {
+      label: "DOM",
+      value: "DOM",
+    },
+    {
+      label: "Git",
+      value: "Git",
+    },
+    {
+      label: "H5C3",
+      value: "H5C3",
+    },
+    {
+      label: "Object",
+      value: "Object",
+    },
+    {
+      label: "String",
+      value: "String",
+    },
+    {
+      label: "Test",
+      value: "Test",
+    },
+    {
+      label: "Utils",
+      value: "Utils",
+    },
+  ];
+
   return (
     <Form
       {...formLayout}
@@ -319,18 +362,12 @@ const ApplicationsForm = (props) => {
           },
         ]}
       >
-        <Select {...formProps} placeholder="Select a Type" showSearch>
-          <Select.Option value="Array">Array</Select.Option>
-          <Select.Option value="BOM">BOM</Select.Option>
-          <Select.Option value="DEV">DEV</Select.Option>
-          <Select.Option value="DOM">DOM</Select.Option>
-          <Select.Option value="Git">Git</Select.Option>
-          <Select.Option value="H5C3">H5C3</Select.Option>
-          <Select.Option value="Object">Object</Select.Option>
-          <Select.Option value="String">String</Select.Option>
-          <Select.Option value="Test">Test</Select.Option>
-          <Select.Option value="Utils">Utils</Select.Option>
-        </Select>
+        <Select
+          {...formProps}
+          placeholder="Select a Type"
+          showSearch
+          options={typeOptions}
+        />
       </Form.Item>
       <Form.Item name={["data", "description"]} label="Description">
         <Input.TextArea
