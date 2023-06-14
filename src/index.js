@@ -14,6 +14,9 @@ import LeetCodes from "./pages/LeetCodes";
 import CreateLeetCodes from "./pages/LeetCodes/CreateLeetCodes";
 import EditLeetCodes from "./pages/LeetCodes/EditLeetCodes";
 import ReviewLeetCodes from "./pages/LeetCodes/ReviewLeetCodes";
+// import CreateApplications from "./pages/Applications/CreateApplication";
+// import EditApplications from "./pages/Applications/EditApplication";
+// import ReviewApplications from "./pages/Applications/ReviewApplication";
 import GitHub from "./pages/GitHub";
 import More from "./pages/More";
 import categoryMatrix from "./pages/common/categoryMatrix";
@@ -55,6 +58,18 @@ const Main = () => {
               path={categoryMatrix.APPLICATIONS.toLowerCase()}
               element={<Applications />}
             />
+            {/* <Route
+              path={`${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`}
+              element={<CreateApplications />}
+            />
+            <Route
+              path={`${categoryMatrix.APPLICATIONS.toLowerCase()}/editApplications`}
+              element={<EditApplications />}
+            />
+            <Route
+              path={`${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications`}
+              element={<ReviewApplications />}
+            /> */}
             <Route
               path={categoryMatrix.COMPONENTS.toLowerCase()}
               element={<Components />}

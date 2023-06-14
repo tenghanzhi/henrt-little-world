@@ -4,6 +4,7 @@ import { message } from "antd";
 import PortfolioCard from "./PortfolioCard";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
+import categoryMatrix from "../common/categoryMatrix";
 import sortArrayObjByDate from "../utils/sortArrayObjByDate";
 import handleClickLinkFromHome from "../utils/handleClickLinkFromHome";
 import LwLayout from "../common/LwLayout";
@@ -97,7 +98,7 @@ const Portfolio = () => {
     );
   });
 
-  return <LwLayout content={pageContent} />;
+  return <LwLayout content={pageContent} pageKey={categoryMatrix.PORTFOLIO}/>;
 };
 
 export default Portfolio;

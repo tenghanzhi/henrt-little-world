@@ -25,12 +25,13 @@ const LwLayout = (props) => {
   return (
     <Layout>
       <Layout.Content>
-        <div className={style.lw_top_placeholder}></div>
+        <div className={style.lw_lwlayout_top_placeholder}></div>
         <Space
           className={className}
           direction={direction}
           size={size}
           wrap={wrap}
+          align={pageKey === categoryMatrix.PORTFOLIO ? null: "center"}
         >
           {pageContent}
         </Space>

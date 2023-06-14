@@ -4,12 +4,12 @@
   display: flex;
 }
 
-.lw_lwlayout_space_home{
-    width: 80%;
-    margin: auto;
-    display: flex;
+.lw_lwlayout_space_home {
+  width: 80%;
+  margin: auto;
+  display: flex;
 }
-.lw_top_placeholder{
+.lw_lwlayout_top_placeholder {
   height: 84px;
 }
 
@@ -17,7 +17,7 @@
   .lw_lwlayout_space {
     width: 100%;
   }
-  .lw_lwlayout_space_home{
+  .lw_lwlayout_space_home {
     width: 100%;
-}
+  }
 }

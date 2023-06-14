@@ -171,7 +171,6 @@ const LeetCodes = () => {
           </Button>
         </Popconfirm>
       </Space>
-
       <LeetCodesTable data={leetcodeData} />
     </Space>
   );
