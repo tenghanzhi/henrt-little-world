@@ -155,6 +155,7 @@ const ApplicationsTable = (props) => {
       title: "Name",
       key: "name",
       dataIndex: "name",
+      width: 180,
       render: (_, record) => <div>{record.attributes.name}</div>,
       sorter: (a, b) => a.attributes?.name?.localeCompare(b.attributes?.name),
     },
@@ -163,6 +164,7 @@ const ApplicationsTable = (props) => {
       key: "type",
       dataIndex: "type",
       defaultSortOrder: "ascend",
+      width: 80,
       render: (_, record) => (
         <>
           {convertStringToArrayByComma(record.attributes.type).map((item) => (
@@ -178,6 +180,7 @@ const ApplicationsTable = (props) => {
       title: "Update At",
       key: "updatedAt",
       dataIndex: "updatedAt",
+      width: 110,
       render: (_, record) => (
         <div>{record.attributes.updatedAt.toString().slice(0, 10)}</div>
       ),
@@ -189,6 +192,7 @@ const ApplicationsTable = (props) => {
       title: "Description",
       key: "description",
       dataIndex: "description",
+      width: 300,
       ellipsis: {
         showTitle: (_, record) =>
           record.attributes.description ? true : false,
@@ -205,6 +209,7 @@ const ApplicationsTable = (props) => {
       title: "Action",
       key: "action",
       dataIndex: "action",
+      width: 110,
       render: (_, record) => (
         <Space wrap direction="horizantal">
           <Tooltip title="Review">
