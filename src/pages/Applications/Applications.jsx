@@ -107,7 +107,9 @@ const Applications = () => {
   const handleConfirmPassword = () => {
     if (inputPassword !== null && inputPassword === password) {
       handleMessage("passwordResult", "success");
-      navigate(`/${categoryMatrix.APPLICATIONS.toLowerCase()}/createLeetCodes`);
+      navigate(
+        `/${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`
+      );
     } else {
       handleMessage("passwordResult", "error");
       setInputPassword(null);
@@ -177,7 +179,9 @@ const Applications = () => {
     </Space>
   );
 
-  return <LwLayout content={pageContent} />;
+  return (
+    <LwLayout content={pageContent} pageKey={categoryMatrix.APPLICATIONS} />
+  );
 };
 
 export default Applications;

@@ -17,12 +17,13 @@ const HomeCard = (props) => {
 
   const portfolioData = useSelector((state) => state.portfolioData);
   const leetcodeData = useSelector((state) => state.leetcodeData);
+  const applicationData = useSelector((state) => state.applicationData);
   const [cardContents, setCardContents] = useState(wipSpan);
 
   useEffect(() => {
     getCardContents();
     // eslint-disable-next-line
-  }, [portfolioData || leetcodeData]);
+  }, [portfolioData || leetcodeData || applicationData]);
 
   const getCardContents = () => {
     switch (title && title.props.children[1].toString()) {
@@ -39,7 +40,13 @@ const HomeCard = (props) => {
         return null;
       }
       case categoryMatrix.APPLICATIONS: {
-        return null;
+        setCardContents(
+          <HomeCardList
+            data={applicationData.data}
+            type={categoryMatrix.APPLICATIONS}
+          />
+        );
+        break;
       }
       case categoryMatrix.LEETCODES: {
         setCardContents(
@@ -49,9 +56,6 @@ const HomeCard = (props) => {
           />
         );
         break;
-      }
-      case categoryMatrix.GITHUB: {
-        return null;
       }
       case categoryMatrix.MORE: {
         return null;

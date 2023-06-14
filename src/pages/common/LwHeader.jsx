@@ -64,15 +64,6 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.GITHUB.toLowerCase()}`}>
-          {categoryMatrix.GITHUB}
-        </Link>
-      ),
-      key: categoryMatrix.GITHUB.toLowerCase(),
-      icon: <GithubOutlined />,
-    },
-    {
-      label: (
         <Link to={`/${categoryMatrix.MORE.toLowerCase()}`}>
           {categoryMatrix.MORE}
         </Link>

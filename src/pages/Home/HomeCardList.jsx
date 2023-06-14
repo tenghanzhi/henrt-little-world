@@ -2,11 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { List, Image } from "antd";
+import { CodeOutlined, AppstoreOutlined } from "@ant-design/icons";
 import failPicture from "../common/failPicture";
 import categoryMatrix from "../common/categoryMatrix";
 import {
   SET_CLICKED_HOME_PAGE_ITEM_ID,
   SET_SELECTED_LEETCODE_ID,
+  SET_SELECTED_APPLICATION_ID,
 } from "../../redux/constants";
 
 const HomeCardList = (props) => {
@@ -33,6 +35,13 @@ const HomeCardList = (props) => {
         });
         break;
       }
+      case categoryMatrix.APPLICATIONS: {
+        dispatch({
+          type: SET_SELECTED_APPLICATION_ID,
+          payload: data.id,
+        });
+        break;
+      }
       default:
         return null;
     }
@@ -45,6 +54,9 @@ const HomeCardList = (props) => {
       }
       case categoryMatrix.LEETCODES: {
         return <div>{item.attributes.title}</div>;
+      }
+      case categoryMatrix.APPLICATIONS: {
+        return <div>{item.attributes.name}</div>;
       }
       default:
         return "";
@@ -59,6 +71,9 @@ const HomeCardList = (props) => {
       case categoryMatrix.LEETCODES: {
         return item.attributes.type;
       }
+      case categoryMatrix.APPLICATIONS: {
+        return item.attributes.type;
+      }
       default:
         return "";
     }
@@ -71,6 +86,9 @@ const HomeCardList = (props) => {
       }
       case categoryMatrix.LEETCODES: {
         return `/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`;
+      }
+      case categoryMatrix.APPLICATIONS: {
+        return `/${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications`;
       }
       default:
         return "";
@@ -89,6 +107,12 @@ const HomeCardList = (props) => {
             height={50}
           />
         );
+      }
+      case categoryMatrix.LEETCODES: {
+        return <CodeOutlined />;
+      }
+      case categoryMatrix.APPLICATIONS: {
+        return <AppstoreOutlined />;
       }
       default:
         return "";

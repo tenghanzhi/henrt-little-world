@@ -175,7 +175,7 @@ const LeetCodes = () => {
     </Space>
   );
 
-  return <LwLayout content={pageContent} />;
+  return <LwLayout content={pageContent} pageKey={categoryMatrix.LEETCODES} />;
 };
 
 export default LeetCodes;

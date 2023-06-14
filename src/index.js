@@ -8,16 +8,15 @@ import LwFooter from "./pages/common/LwFooter";
 import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 import EditPortfolio from "./pages/Portfolio/EditPortfolio";
-import Applications from "./pages/Applications";
-import Components from "./pages/Components";
 import LeetCodes from "./pages/LeetCodes";
 import CreateLeetCodes from "./pages/LeetCodes/CreateLeetCodes";
 import EditLeetCodes from "./pages/LeetCodes/EditLeetCodes";
 import ReviewLeetCodes from "./pages/LeetCodes/ReviewLeetCodes";
-// import CreateApplications from "./pages/Applications/CreateApplication";
-// import EditApplications from "./pages/Applications/EditApplication";
-// import ReviewApplications from "./pages/Applications/ReviewApplication";
-import GitHub from "./pages/GitHub";
+import Applications from "./pages/Applications";
+import CreateApplications from "./pages/Applications/CreateApplication";
+import EditApplications from "./pages/Applications/EditApplication";
+import ReviewApplications from "./pages/Applications/ReviewApplication";
+import Components from "./pages/Components";
 import More from "./pages/More";
 import categoryMatrix from "./pages/common/categoryMatrix";
 import "./index.css";
@@ -58,7 +57,7 @@ const Main = () => {
               path={categoryMatrix.APPLICATIONS.toLowerCase()}
               element={<Applications />}
             />
-            {/* <Route
+            <Route
               path={`${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`}
               element={<CreateApplications />}
             />
@@ -69,14 +68,10 @@ const Main = () => {
             <Route
               path={`${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications`}
               element={<ReviewApplications />}
-            /> */}
+            />
             <Route
               path={categoryMatrix.COMPONENTS.toLowerCase()}
               element={<Components />}
-            />
-            <Route
-              path={categoryMatrix.GITHUB.toLowerCase()}
-              element={<GitHub />}
             />
             <Route
               path={categoryMatrix.MORE.toLowerCase()}

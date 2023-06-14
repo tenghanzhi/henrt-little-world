@@ -13,7 +13,6 @@ import {
 } from "antd";
 import {
   EditOutlined,
-  CodeOutlined,
   EyeOutlined,
   EyeTwoTone,
   EyeInvisibleOutlined,
@@ -36,8 +35,6 @@ const ApplicationsTable = (props) => {
   );
   const data = props.data.data ? props.data.data : null;
   const [inputPassword, setInputPassword] = useState(null);
-
-  console.log({ data });
 
   const handleTypeTagColor = (type) => {
     switch (type.toLowerCase()) {
