@@ -179,6 +179,84 @@ const LeetCodesTable = (props) => {
     });
   };
 
+  const difficultyFilterOptions = [
+    {
+      text: "Easy",
+      value: "easy",
+    },
+    {
+      text: "Medium",
+      value: "medium",
+    },
+    {
+      text: "Hard",
+      value: "hard",
+    },
+  ];
+
+  const typeFilterOptions = [
+    {
+      text: "Array",
+      value: "array",
+    },
+    {
+      text: "Hash Table",
+      value: "hash table",
+    },
+    {
+      text: "Linked List",
+      value: "linked list",
+    },
+    {
+      text: "Math",
+      value: "math",
+    },
+    {
+      text: "Recursion",
+      value: "recursion",
+    },
+    {
+      text: "Stack",
+      value: "stack",
+    },
+    {
+      text: "Sorting",
+      value: "sorting",
+    },
+    {
+      text: "String",
+      value: "string",
+    },
+    {
+      text: "Tree",
+      value: "tree",
+    },
+    {
+      text: "Sliding Window",
+      value: "sliding window",
+    },
+    {
+      text: "Divide and Conquer",
+      value: "divide and conquer",
+    },
+    {
+      text: "Heap",
+      value: "heap",
+    },
+    {
+      text: "Bucket Sort",
+      value: "bucket sort",
+    },
+    {
+      text: "Counting",
+      value: "counting",
+    },
+    {
+      text: "Quickselect",
+      value: "quickselect",
+    },
+  ];
+
   const columns = [
     {
       title: "Index",
@@ -241,6 +319,9 @@ const LeetCodesTable = (props) => {
       ),
       sorter: (a, b) =>
         a.attributes?.difficulty?.localeCompare(b.attributes?.difficulty),
+      filters: difficultyFilterOptions,
+      onFilter: (value, record) =>
+        record?.attributes?.difficulty?.toLowerCase().indexOf(value) === 0,
     },
     {
       title: "Type",
@@ -257,6 +338,15 @@ const LeetCodesTable = (props) => {
             ))}
         </>
       ),
+      filters: typeFilterOptions.sort((a, b) =>
+        a.value > b.value ? 1 : b.value > a.value ? -1 : 0
+      ),
+      onFilter: (value, record) => {
+        return record?.attributes?.type
+          ?.replace(/\s/g, "")
+          .toLowerCase()
+          .includes(value.replace(/\s/g, ""));
+      },
     },
     {
       title: "Action",

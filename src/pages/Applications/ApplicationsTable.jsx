@@ -147,6 +147,49 @@ const ApplicationsTable = (props) => {
     });
   };
 
+  const typeFilterOptions = [
+    {
+      text: "Array",
+      value: "array",
+    },
+    {
+      text: "H5C3",
+      value: "h5c3",
+    },
+    {
+      text: "Utils",
+      value: "utils",
+    },
+    {
+      text: "Test",
+      value: "test",
+    },
+    {
+      text: "Object",
+      value: "object",
+    },
+    {
+      text: "BOM",
+      value: "bom",
+    },
+    {
+      text: "String",
+      value: "string",
+    },
+    {
+      text: "Git",
+      value: "git",
+    },
+    {
+      text: "DEV",
+      value: "dev",
+    },
+    {
+      text: "DOM",
+      value: "dom",
+    },
+  ];
+
   const columns = [
     {
       title: "Name",
@@ -155,7 +198,7 @@ const ApplicationsTable = (props) => {
       width: 180,
       render: (_, record) => {
         return (
-          <Tooltip title="Review">
+          <Tooltip title={record.attributes.name}>
             <Button
               type="link"
               onClick={() => handleActionBtnOnClick("review", record)}
@@ -183,6 +226,9 @@ const ApplicationsTable = (props) => {
         </>
       ),
       sorter: (a, b) => a.attributes?.type?.localeCompare(b.attributes?.type),
+      filters: typeFilterOptions,
+      onFilter: (value, record) =>
+        record?.attributes?.type?.toLowerCase().includes(value.toLowerCase()),
     },
     {
       title: "Update At",
