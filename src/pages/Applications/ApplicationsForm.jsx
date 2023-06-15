@@ -336,6 +336,7 @@ const ApplicationsForm = (props) => {
               data: {
                 name: defaultData.name,
                 type: defaultData.type,
+                source: defaultData.source,
                 description: defaultData.description,
               },
             }
@@ -369,6 +370,9 @@ const ApplicationsForm = (props) => {
           showSearch
           options={typeOptions}
         />
+      </Form.Item>
+      <Form.Item name={["data", "source"]} label="Source">
+        <Input {...formProps} placeholder="Input Application Source" />
       </Form.Item>
       <Form.Item name={["data", "description"]} label="Description">
         <Input.TextArea

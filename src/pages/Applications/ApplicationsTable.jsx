@@ -16,6 +16,7 @@ import {
   EyeOutlined,
   EyeTwoTone,
   EyeInvisibleOutlined,
+  LinkOutlined,
 } from "@ant-design/icons";
 import moment from "moment/moment";
 import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
@@ -262,6 +263,16 @@ const ApplicationsTable = (props) => {
       width: 110,
       render: (_, record) => (
         <Space wrap direction="horizantal">
+          <Tooltip title="Source">
+            <Button
+              type="text"
+              icon={<LinkOutlined />}
+              onClick={() => {
+                window.open(record?.attributes?.source?.toString());
+              }}
+              disabled={record?.attributes?.source ? false : true}
+            />
+          </Tooltip>
           <Tooltip title="Review">
             <Button
               type="text"

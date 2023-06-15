@@ -145,8 +145,22 @@ const ReviewApplication = () => {
         <Descriptions.Item label="Application Name" span={3}>
           {fetchedApplicationData?.name?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Type" span={3}>
+        <Descriptions.Item label="Type" span={2}>
           {fetchedApplicationData?.type?.toString()}
+        </Descriptions.Item>
+        <Descriptions.Item label="Source" span={1}>
+          {fetchedApplicationData?.source ? (
+            <Button
+              type="link"
+              onClick={() => {
+                window.open(fetchedApplicationData?.source?.toString());
+              }}
+            >
+              Check
+            </Button>
+          ) : (
+            "None"
+          )}
         </Descriptions.Item>
         {fetchedApplicationData?.description && (
           <Descriptions.Item label="Problem Content" span={6}>
