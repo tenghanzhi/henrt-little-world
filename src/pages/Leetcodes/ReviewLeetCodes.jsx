@@ -17,6 +17,7 @@ import {
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
 import CodeMirror from "@uiw/react-codemirror";
+import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
@@ -167,6 +168,7 @@ const ReviewLeetCodes = () => {
           <Descriptions.Item label="Problem Content" span={6}>
             <CodeMirror
               value={fetchedLeetcodeData?.issue}
+              extensions={[EditorView.lineWrapping]}
               height="auto"
               editable={false}
               basicSetup={{ lineNumbers: false }}
@@ -177,7 +179,7 @@ const ReviewLeetCodes = () => {
           <Descriptions.Item label="Problem Solution One" span={6}>
             <CodeMirror
               value={fetchedLeetcodeData?.solutionOne}
-              extensions={[javascript({ jsx: true })]}
+              extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
               editable={false}
             />
@@ -187,7 +189,7 @@ const ReviewLeetCodes = () => {
           <Descriptions.Item label="Problem Solution Two" span={4}>
             <CodeMirror
               value={fetchedLeetcodeData?.solutionTwo}
-              extensions={[javascript({ jsx: true })]}
+              extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
               editable={false}
             />

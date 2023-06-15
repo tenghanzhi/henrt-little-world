@@ -17,6 +17,7 @@ import {
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
 import CodeMirror from "@uiw/react-codemirror";
+import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
@@ -136,10 +137,9 @@ const ReviewApplication = () => {
     <>
       <Typography.Title
         level={4}
-        className={style.lw_applications_review_leetcode_header}
+        className={style.lw_applications_review_applications_header}
       >
-        Review LeetCode Problem {fetchedApplicationData.name}.{" "}
-        {fetchedApplicationData.title}
+        Review Application {fetchedApplicationData.name}
       </Typography.Title>
       <Descriptions bordered column={6}>
         <Descriptions.Item label="Application Name" span={3}>
@@ -152,6 +152,7 @@ const ReviewApplication = () => {
           <Descriptions.Item label="Problem Content" span={6}>
             <CodeMirror
               value={fetchedApplicationData?.description}
+              extensions={[EditorView.lineWrapping]}
               height="auto"
               editable={false}
               basicSetup={{ lineNumbers: false }}
@@ -162,7 +163,7 @@ const ReviewApplication = () => {
           <Descriptions.Item label="Code One" span={6}>
             <CodeMirror
               value={fetchedApplicationData?.codeOne}
-              extensions={[javascript({ jsx: true })]}
+              extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
               editable={false}
             />
@@ -172,7 +173,7 @@ const ReviewApplication = () => {
           <Descriptions.Item label="Code Two" span={6}>
             <CodeMirror
               value={fetchedApplicationData?.codeTwo}
-              extensions={[javascript({ jsx: true })]}
+              extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
               editable={false}
             />
@@ -182,16 +183,17 @@ const ReviewApplication = () => {
           <Descriptions.Item label="Code Three" span={6}>
             <CodeMirror
               value={fetchedApplicationData?.codeThree}
-              extensions={[javascript({ jsx: true })]}
+              extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
+              maxWidth="1200px"
               editable={false}
             />
           </Descriptions.Item>
         )}
       </Descriptions>
-      <div className={style.lw_applications_review_leetcode_wrapper}>
+      <div className={style.lw_applications_review_applications_wrapper}>
         <Button
-          className={style.lw_applications_review_leetcode_btns}
+          className={style.lw_applications_review_applications_btns}
           type="default"
           onClick={handleGoback}
           icon={<RollbackOutlined />}
@@ -200,7 +202,7 @@ const ReviewApplication = () => {
         </Button>
         <Popconfirm
           title={"Please input password to edit."}
-          className={style.lw_applications_review_leetcode_btns}
+          className={style.lw_applications_review_applications_btns}
           placement="top"
           description={
             <>
