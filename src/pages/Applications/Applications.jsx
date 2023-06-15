@@ -132,7 +132,8 @@ const Applications = () => {
         return "Input application name";
       case "type":
         return "Input application type";
-
+      case "description":
+        return "Input application description";
       default:
         return "Please select a search by type to search";
     }
@@ -155,6 +156,9 @@ const Applications = () => {
         break;
       case "type":
         searchUrl = `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&filters[type][$containsi]=${inputSearch}`;
+        break;
+      case "description":
+        searchUrl = `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&filters[description][$containsi]=${inputSearch}`;
         break;
       default:
         break;
@@ -199,6 +203,10 @@ const Applications = () => {
     {
       label: "Search by Type",
       value: "type",
+    },
+    {
+      label: "Search by Description",
+      value: "description",
     },
   ];
 
@@ -267,17 +275,15 @@ const Applications = () => {
               onClear={handleClearSearchResult}
               value={searchType}
               allowClear
-            ></Select>
+            />
           }
           placeholder={handleSearchPlaceholder()}
           onChange={(e) => handleSearchValueChange(e)}
           value={inputSearch}
-          allowClear
           enterButton
           disabled={!searchType}
           onSearch={handleSearch}
           loading={isLoadingSearch}
-          onClear={handleClearSearchResult}
         />
         <Button
           danger

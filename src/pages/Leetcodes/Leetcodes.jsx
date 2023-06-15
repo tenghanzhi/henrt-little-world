@@ -271,7 +271,7 @@ const LeetCodes = () => {
               onClear={handleClearSearchResult}
               value={searchType}
               allowClear
-            ></Select>
+            />
           }
           placeholder={handleSearchPlaceholder()}
           onChange={(e) => handleSearchValueChange(e)}
