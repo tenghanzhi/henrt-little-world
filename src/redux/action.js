@@ -5,9 +5,11 @@ import {
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
+  SET_LEETCOD_TABLE_SORTER,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
+  SET_APPLICATION_TABLE_SORTER,
 } from "./constants.js";
 
 //Home
@@ -55,6 +57,13 @@ export function setLeetcodeTablePagenation(leetcodeTablePagenation) {
   };
 }
 
+export function setLeetcodeTableSorter(leetcodeTableSorter) {
+  return {
+    type: SET_LEETCOD_TABLE_SORTER,
+    leetcodeTableSorter,
+  };
+}
+
 //Application
 export function setApplicationData(applicationData) {
   return {
@@ -74,5 +83,12 @@ export function setApplicationTablePagenation(applicationTablePagenation) {
   return {
     type: SET_APPLICATION_TABLE_PAGENATION,
     applicationTablePagenation,
+  };
+}
+
+export function setApplicationTableSorter(applicationTableSorter) {
+  return {
+    type: SET_APPLICATION_TABLE_SORTER,
+    applicationTableSorter,
   };
 }

@@ -26,6 +26,9 @@ const Applications = () => {
   const applicationTablePagenation = useSelector(
     (state) => state.applicationTablePagenation
   );
+  const applicationTableSorter = useSelector(
+    (state) => state.applicationTableSorter
+  );
   const [inputPassword, setInputPassword] = useState(null);
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
@@ -38,6 +41,12 @@ const Applications = () => {
     else handleGetSearchResult();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applicationTablePagenation]);
+
+  useEffect(() => {
+    if (!isShowingSearchResult) handleGetApplicationData();
+    else handleGetSearchResult();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [applicationTableSorter]);
 
   const handleMessage = (key, type, content) => {
     const messageDuration = 2;
@@ -90,7 +99,7 @@ const Applications = () => {
   const handleGetApplicationData = () => {
     (async () => {
       const response = await fetch(
-        `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}`
+        `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&sort=${applicationTableSorter.sort}${applicationTableSorter.order}`
       );
       return response.json();
     })()

@@ -5,9 +5,11 @@ import {
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
+  SET_LEETCOD_TABLE_SORTER,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
+  SET_APPLICATION_TABLE_SORTER,
 } from "./constants";
 
 const initialState = {
@@ -20,11 +22,19 @@ const initialState = {
     current: 1,
     size: 20,
   },
+  leetcodeTableSorter: {
+    sort: "leetcodeIndex",
+    order: ":asc",
+  },
   applicationData: { data: [], meta: {} },
   selectedApplicationId: null,
   applicationTablePagenation: {
     current: 1,
     size: 20,
+  },
+  applicationTableSorter: {
+    sort: "type",
+    order: ":asc",
   },
 };
 
@@ -42,12 +52,16 @@ export default function reducer(state = initialState, action) {
       return { ...state, selectedLeetcodeId: action.payload };
     case SET_LEETCOD_TABLE_PAGENATION:
       return { ...state, leetcodeTablePagenation: action.payload };
+    case SET_LEETCOD_TABLE_SORTER:
+      return { ...state, leetcodeTableSorter: action.payload };
     case SET_APPLICATION_DATA:
       return { ...state, applicationData: action.payload };
     case SET_SELECTED_APPLICATION_ID:
       return { ...state, selectedApplicationId: action.payload };
     case SET_APPLICATION_TABLE_PAGENATION:
       return { ...state, applicationTablePagenation: action.payload };
+    case SET_APPLICATION_TABLE_SORTER:
+      return { ...state, applicationTableSorter: action.payload };
     default:
       return state;
   }

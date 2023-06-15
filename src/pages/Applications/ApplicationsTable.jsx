@@ -26,6 +26,7 @@ import password from "../common/password";
 import {
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
+  SET_APPLICATION_TABLE_SORTER,
 } from "../../redux/constants";
 
 const ApplicationsTable = (props) => {
@@ -148,6 +149,18 @@ const ApplicationsTable = (props) => {
     dispatch({
       type: SET_APPLICATION_TABLE_PAGENATION,
       payload: { current: current, size: size },
+    });
+  };
+
+  const handleSorterChange = (sorter) => {
+    let order;
+    if (sorter?.order === "ascend") order = ":asc";
+    else if (sorter?.order === "descend") order = ":desc";
+    else order = null;
+
+    dispatch({
+      type: SET_APPLICATION_TABLE_SORTER,
+      payload: { sort: sorter.field, order: order },
     });
   };
 
@@ -331,6 +344,7 @@ const ApplicationsTable = (props) => {
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       bordered
+      onChange={(val, filter, sorter, extra) => handleSorterChange(sorter)}
     />
   );
 };

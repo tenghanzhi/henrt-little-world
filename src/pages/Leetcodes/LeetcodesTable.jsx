@@ -26,6 +26,7 @@ import password from "../common/password";
 import {
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
+  SET_LEETCOD_TABLE_SORTER,
 } from "../../redux/constants";
 
 const LeetCodesTable = (props) => {
@@ -182,6 +183,18 @@ const LeetCodesTable = (props) => {
     });
   };
 
+  const handleSorterChange = (sorter) => {
+    let order;
+    if (sorter?.order === "ascend") order = ":asc";
+    else if (sorter?.order === "descend") order = ":desc";
+    else order = null;
+
+    dispatch({
+      type: SET_LEETCOD_TABLE_SORTER,
+      payload: { sort: sorter.field, order: order },
+    });
+  };
+
   const difficultyFilterOptions = [
     {
       text: "Easy",
@@ -265,6 +278,7 @@ const LeetCodesTable = (props) => {
       title: "Index",
       key: "leetcodeIndex",
       dataIndex: "leetcodeIndex",
+      defaultSortOrder: "ascend",
       render: (_, record) => {
         return (
           <Tooltip title="Check on LeetCode">
@@ -300,7 +314,6 @@ const LeetCodesTable = (props) => {
       title: "Completed Date",
       key: "firstCompletedDate",
       dataIndex: "firstCompletedDate",
-      defaultSortOrder: "ascend",
       render: (_, record) => <div>{record.attributes.firstCompletedDate}</div>,
       sorter: (a, b) =>
         moment(a.attributes.firstCompletedDate).unix() -
@@ -418,6 +431,7 @@ const LeetCodesTable = (props) => {
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       bordered
+      onChange={(val, filter, sorter, extra) => handleSorterChange(sorter)}
     />
   );
 };
