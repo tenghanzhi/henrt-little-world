@@ -35,6 +35,9 @@ const LeetCodesTable = (props) => {
     (state) => state.leetcodeTablePagenation
   );
   const data = props.data.data ? props.data.data : null;
+  const total = props?.data?.meta?.pagination?.total
+    ? props?.data?.meta?.pagination?.total
+    : 0;
   const [inputPassword, setInputPassword] = useState(null);
 
   const handleDifficultyTagColor = (difficulty) => {
@@ -411,7 +414,7 @@ const LeetCodesTable = (props) => {
         defaultCurrent: leetcodeTablePagenation?.current
           ? leetcodeTablePagenation.current
           : 1,
-        total: props?.data?.meta?.pagination?.total,
+        total: total,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       bordered

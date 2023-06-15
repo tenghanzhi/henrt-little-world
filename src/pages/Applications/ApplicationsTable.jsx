@@ -35,6 +35,9 @@ const ApplicationsTable = (props) => {
     (state) => state.applicationTablePagenation
   );
   const data = props.data.data ? props.data.data : null;
+  const total = props?.data?.meta?.pagination?.total
+    ? props?.data?.meta?.pagination?.total
+    : 0;
   const [inputPassword, setInputPassword] = useState(null);
 
   const handleTypeTagColor = (type) => {
@@ -324,7 +327,7 @@ const ApplicationsTable = (props) => {
         defaultCurrent: applicationTablePagenation?.current
           ? applicationTablePagenation.current
           : 1,
-        total: props?.data?.meta?.pagination?.total,
+        total: total,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       bordered

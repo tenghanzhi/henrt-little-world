@@ -187,6 +187,7 @@ const LeetCodes = () => {
 
   const handleClearSearchResult = () => {
     setSearchResult({});
+    setIsShowingSearchResult(false);
     setInputSearch(null);
     setSearchType(null);
   };

@@ -191,6 +191,7 @@ const Applications = () => {
 
   const handleClearSearchResult = () => {
     setSearchResult({});
+    setIsShowingSearchResult(false);
     setInputSearch(null);
     setSearchType(null);
   };
