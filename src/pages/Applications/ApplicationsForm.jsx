@@ -15,6 +15,7 @@ import categoryMatrix from "../common/categoryMatrix";
 import validateMessages from "../common/validateMessages";
 import password from "../common/password";
 import CodeMirror from "@uiw/react-codemirror";
+import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 import style from "./style/ApplicationsForm.module.css";
 

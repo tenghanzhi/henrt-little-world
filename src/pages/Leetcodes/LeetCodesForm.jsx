@@ -25,6 +25,7 @@ import validateMessages from "../common/validateMessages";
 import password from "../common/password";
 import dayjs from "dayjs";
 import CodeMirror from "@uiw/react-codemirror";
+import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 import style from "./style/LeetCodesForm.module.css";
 
