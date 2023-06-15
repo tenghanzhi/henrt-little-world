@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { message, Space, Button, Popconfirm, Input } from "antd";
+import { message, Space, Button, Popconfirm, Input, Select } from "antd";
 import {
   PlusOutlined,
   CodeOutlined,
@@ -27,6 +27,11 @@ const Applications = () => {
     (state) => state.applicationTablePagenation
   );
   const [inputPassword, setInputPassword] = useState(null);
+  const [inputSearch, setInputSearch] = useState(null);
+  const [searchType, setSearchType] = useState(null);
+  const [searchResult, setSearchResult] = useState({});
+  const [isShowingsearchResult, setIsShowingsearchResult] = useState(false);
+  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
 
   useEffect(() => {
     handleGetApplicationData();
@@ -120,30 +125,83 @@ const Applications = () => {
     setInputPassword(null);
   };
 
+  const handleSearchPlaceholder = () => {
+    switch (searchType) {
+      case "name":
+        return "Input application name";
+      case "type":
+        return "Input application type";
+
+      default:
+        return "Please select a search by type to search";
+    }
+  };
+
+  const handleSearchTypeChange = (value) => {
+    setSearchType(value);
+  };
+
+  const handleSearchValueChange = (e) => {
+    setInputSearch(e.target.value);
+  };
+
+  const handleGetSearchResult = () => {
+    let searchUrl;
+
+    switch (searchType) {
+      case "name":
+        searchUrl = `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&filters[name][$containsi]=${inputSearch}`;
+        break;
+      case "type":
+        searchUrl = `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&filters[type][$containsi]=${inputSearch}`;
+        break;
+      default:
+        break;
+    }
+
+    (async () => {
+      const response = await fetch(searchUrl);
+      return response.json();
+    })()
+      .then((response) => {
+        if (response && response.error) {
+          throw new Error(response.error.message);
+        } else {
+          setSearchResult(response);
+        }
+      })
+      .catch((error) => {
+        handleMessage("loadingMessage", "error", error);
+      })
+      .finally(() => setIsLoadingSearch(false));
+  };
+
+  const handleSearch = () => {
+    setIsLoadingSearch(true);
+    setIsShowingsearchResult(true);
+    handleGetSearchResult();
+  };
+
+  const handleClearSearchResult = () => {
+    setSearchResult({});
+    setInputSearch(null);
+    setSearchType(null);
+  };
+
+  const searchOptions = [
+    {
+      label: "Search by Name",
+      value: "name",
+    },
+    {
+      label: "Search by Type",
+      value: "type",
+    },
+  ];
+
   const pageContent = (
-    <Space direction="vertical" wrap align="end">
+    <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_applications_btn_wrapper}>
-        <Button
-          type="default"
-          icon={<CodeSandboxOutlined />}
-          onClick={() => handleBtnOnClick("codesandbox")}
-        >
-          CodeSandBox
-        </Button>
-        <Button
-          type="default"
-          icon={<CodepenOutlined />}
-          onClick={() => handleBtnOnClick("codepen")}
-        >
-          CodePen
-        </Button>
-        <Button
-          type="default"
-          icon={<CodeOutlined />}
-          onClick={() => handleBtnOnClick("jsfiddle")}
-        >
-          JSFiddle
-        </Button>
         <Popconfirm
           title={"Please input password to create."}
           placement="topRight"
@@ -174,8 +232,63 @@ const Applications = () => {
             Create New
           </Button>
         </Popconfirm>
+        <Button
+          type="default"
+          icon={<CodeSandboxOutlined />}
+          onClick={() => handleBtnOnClick("codesandbox")}
+        >
+          CodeSandBox
+        </Button>
+        <Button
+          type="default"
+          icon={<CodepenOutlined />}
+          onClick={() => handleBtnOnClick("codepen")}
+        >
+          CodePen
+        </Button>
+        <Button
+          type="default"
+          icon={<CodeOutlined />}
+          onClick={() => handleBtnOnClick("jsfiddle")}
+        >
+          JSFiddle
+        </Button>
+        <Input.Search
+          className={style.lw_applications_search}
+          addonBefore={
+            <Select
+              className={style.lw_applications_search_type_selector}
+              placeholder="Search by"
+              options={searchOptions}
+              onChange={(value) => handleSearchTypeChange(value)}
+              onClear={handleClearSearchResult}
+              value={searchType}
+              allowClear
+            ></Select>
+          }
+          placeholder={handleSearchPlaceholder()}
+          onChange={(e) => handleSearchValueChange(e)}
+          value={inputSearch}
+          allowClear
+          enterButton
+          disabled={!searchType}
+          onSearch={handleSearch}
+          loading={isLoadingSearch}
+          onClear={handleClearSearchResult}
+        />
+        <Button
+          danger
+          onClick={handleClearSearchResult}
+          disabled={JSON.stringify(searchResult) === "{}"}
+        >
+          Clear Results
+        </Button>
       </Space>
-      <ApplicationsTable data={applicationData} />
+      <ApplicationsTable
+        data={
+          JSON.stringify(searchResult) === "{}" ? applicationData : searchResult
+        }
+      />
     </Space>
   );
 

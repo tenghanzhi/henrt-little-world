@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { message, Space, Button, Popconfirm, Input } from "antd";
+import { message, Space, Button, Popconfirm, Input, Select } from "antd";
 import {
   PlusOutlined,
   CodeOutlined,
@@ -25,9 +25,15 @@ const LeetCodes = () => {
     (state) => state.leetcodeTablePagenation
   );
   const [inputPassword, setInputPassword] = useState(null);
+  const [inputSearch, setInputSearch] = useState(null);
+  const [searchType, setSearchType] = useState(null);
+  const [searchResult, setSearchResult] = useState({});
+  const [isShowingsearchResult, setIsShowingsearchResult] = useState(false);
+  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
 
   useEffect(() => {
-    handleGetLeetcodeData();
+    if (!isShowingsearchResult) handleGetLeetcodeData();
+    else handleGetSearchResult();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leetcodeTablePagenation]);
 
@@ -116,30 +122,83 @@ const LeetCodes = () => {
     setInputPassword(null);
   };
 
+  const handleSearchPlaceholder = () => {
+    switch (searchType) {
+      case "title":
+        return "Input problem title";
+      case "index":
+        return "Input problem LeetCode index";
+
+      default:
+        return "Please select a search by type to search";
+    }
+  };
+
+  const handleSearchTypeChange = (value) => {
+    setSearchType(value);
+  };
+
+  const handleSearchValueChange = (e) => {
+    setInputSearch(e.target.value);
+  };
+
+  const handleGetSearchResult = () => {
+    let searchUrl;
+
+    switch (searchType) {
+      case "index":
+        searchUrl = `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}&filters[leetcodeIndex][$eqi]=${inputSearch}`;
+        break;
+      case "title":
+        searchUrl = `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}&filters[title][$containsi]=${inputSearch}`;
+        break;
+      default:
+        break;
+    }
+
+    (async () => {
+      const response = await fetch(searchUrl);
+      return response.json();
+    })()
+      .then((response) => {
+        if (response && response.error) {
+          throw new Error(response.error.message);
+        } else {
+          setSearchResult(response);
+        }
+      })
+      .catch((error) => {
+        handleMessage("loadingMessage", "error", error);
+      })
+      .finally(() => setIsLoadingSearch(false));
+  };
+
+  const handleSearch = () => {
+    setIsLoadingSearch(true);
+    setIsShowingsearchResult(true);
+    handleGetSearchResult();
+  };
+
+  const handleClearSearchResult = () => {
+    setSearchResult({});
+    setInputSearch(null);
+    setSearchType(null);
+  };
+
+  const searchOptions = [
+    {
+      label: "Search by Index",
+      value: "index",
+    },
+    {
+      label: "Search by Tiitle",
+      value: "title",
+    },
+  ];
+
   const pageContent = (
-    <Space direction="vertical" wrap align="end">
+    <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_leetcode_btn_wrapper}>
-        <Button
-          type="default"
-          icon={<CodeOutlined />}
-          onClick={() => handleBtnOnClick("lc en")}
-        >
-          LeetCode EN
-        </Button>
-        <Button
-          type="default"
-          icon={<CodeOutlined />}
-          onClick={() => handleBtnOnClick("lc cn")}
-        >
-          LeetCode CN
-        </Button>
-        <Button
-          type="default"
-          icon={<CodeOutlined />}
-          onClick={() => handleBtnOnClick("nc")}
-        >
-          NeetCode
-        </Button>
         <Popconfirm
           title={"Please input password to create."}
           placement="topRight"
@@ -170,8 +229,63 @@ const LeetCodes = () => {
             Create New
           </Button>
         </Popconfirm>
+        <Button
+          type="default"
+          icon={<CodeOutlined />}
+          onClick={() => handleBtnOnClick("lc cn")}
+        >
+          LeetCode CN
+        </Button>
+        <Button
+          type="default"
+          icon={<CodeOutlined />}
+          onClick={() => handleBtnOnClick("lc en")}
+        >
+          LeetCode EN
+        </Button>
+        <Button
+          type="default"
+          icon={<CodeOutlined />}
+          onClick={() => handleBtnOnClick("nc")}
+        >
+          NeetCode
+        </Button>
+        <Input.Search
+          className={style.lw_leetcode_search}
+          addonBefore={
+            <Select
+              className={style.lw_leetcode_search_type_selector}
+              placeholder="Search by"
+              options={searchOptions}
+              onChange={(value) => handleSearchTypeChange(value)}
+              onClear={handleClearSearchResult}
+              value={searchType}
+              allowClear
+            ></Select>
+          }
+          placeholder={handleSearchPlaceholder()}
+          onChange={(e) => handleSearchValueChange(e)}
+          value={inputSearch}
+          allowClear
+          enterButton
+          disabled={!searchType}
+          onSearch={handleSearch}
+          loading={isLoadingSearch}
+          onClear={handleClearSearchResult}
+        />
+        <Button
+          danger
+          onClick={handleClearSearchResult}
+          disabled={JSON.stringify(searchResult) === "{}"}
+        >
+          Clear Results
+        </Button>
       </Space>
-      <LeetCodesTable data={leetcodeData} />
+      <LeetCodesTable
+        data={
+          JSON.stringify(searchResult) === "{}" ? leetcodeData : searchResult
+        }
+      />
     </Space>
   );
 
