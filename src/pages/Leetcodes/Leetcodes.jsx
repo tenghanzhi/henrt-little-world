@@ -28,11 +28,11 @@ const LeetCodes = () => {
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
   const [searchResult, setSearchResult] = useState({});
-  const [isShowingsearchResult, setIsShowingsearchResult] = useState(false);
+  const [isShowingSearchResult, setIsShowingSearchResult] = useState(false);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
 
   useEffect(() => {
-    if (!isShowingsearchResult) handleGetLeetcodeData();
+    if (!isShowingSearchResult) handleGetLeetcodeData();
     else handleGetSearchResult();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leetcodeTablePagenation]);
@@ -175,7 +175,7 @@ const LeetCodes = () => {
 
   const handleSearch = () => {
     setIsLoadingSearch(true);
-    setIsShowingsearchResult(true);
+    setIsShowingSearchResult(true);
     handleGetSearchResult();
   };
 

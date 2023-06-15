@@ -30,11 +30,12 @@ const Applications = () => {
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
   const [searchResult, setSearchResult] = useState({});
-  const [isShowingsearchResult, setIsShowingsearchResult] = useState(false);
+  const [isShowingSearchResult, setIsShowingSearchResult] = useState(false);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
 
   useEffect(() => {
-    handleGetApplicationData();
+    if (!isShowingSearchResult) handleGetApplicationData();
+    else handleGetSearchResult();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [applicationTablePagenation]);
 
@@ -178,7 +179,7 @@ const Applications = () => {
 
   const handleSearch = () => {
     setIsLoadingSearch(true);
-    setIsShowingsearchResult(true);
+    setIsShowingSearchResult(true);
     handleGetSearchResult();
   };
 
