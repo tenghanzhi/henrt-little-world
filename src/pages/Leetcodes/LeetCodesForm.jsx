@@ -474,7 +474,7 @@ const LeetCodesForm = (props) => {
         <div className={style.lw_leetcodes_form_codemirror_wrapper}>
           <CodeMirror
             height="600px"
-            extensions={[javascript({ jsx: true })]}
+            extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.solutionOne?.toString()}
             onChange={(e) => handleFormValueChange("solutionOne", e)}
           />
@@ -485,7 +485,7 @@ const LeetCodesForm = (props) => {
           <CodeMirror
             {...formProps}
             height="600px"
-            extensions={[javascript({ jsx: true })]}
+            extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.solutionTwo?.toString()}
             onChange={(e) => handleFormValueChange("solutionTwo", e)}
           />

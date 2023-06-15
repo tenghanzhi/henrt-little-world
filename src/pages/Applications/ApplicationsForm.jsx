@@ -381,7 +381,7 @@ const ApplicationsForm = (props) => {
           <CodeMirror
             {...formProps}
             height="600px"
-            extensions={[javascript({ jsx: true })]}
+            extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeOne?.toString()}
             onChange={(e) => handleFormValueChange("codeOne", e)}
           />
@@ -392,7 +392,7 @@ const ApplicationsForm = (props) => {
           <CodeMirror
             {...formProps}
             height="600px"
-            extensions={[javascript({ jsx: true })]}
+            extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeTwo?.toString()}
             onChange={(e) => handleFormValueChange("codeTwo", e)}
           />
@@ -403,7 +403,7 @@ const ApplicationsForm = (props) => {
           <CodeMirror
             {...formProps}
             height="600px"
-            extensions={[javascript({ jsx: true })]}
+            extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeThree?.toString()}
             onChange={(e) => handleFormValueChange("codeThree", e)}
           />
