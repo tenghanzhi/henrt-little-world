@@ -384,7 +384,7 @@ const ApplicationsForm = (props) => {
             height="600px"
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeOne?.toString()}
-            onChange={(e) => handleFormValueChange("codeOne", e)}
+            onChange={(e) => handleFormValueChange("setCodeOne", e)}
           />
         </div>
       </Form.Item>
@@ -395,7 +395,7 @@ const ApplicationsForm = (props) => {
             height="600px"
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeTwo?.toString()}
-            onChange={(e) => handleFormValueChange("codeTwo", e)}
+            onChange={(e) => handleFormValueChange("setCodeTwo", e)}
           />
         </div>
       </Form.Item>
@@ -406,7 +406,7 @@ const ApplicationsForm = (props) => {
             height="600px"
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeThree?.toString()}
-            onChange={(e) => handleFormValueChange("codeThree", e)}
+            onChange={(e) => handleFormValueChange("setCodeThree", e)}
           />
         </div>
       </Form.Item>
