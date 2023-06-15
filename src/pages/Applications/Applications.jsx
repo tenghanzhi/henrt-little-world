@@ -178,9 +178,11 @@ const Applications = () => {
   };
 
   const handleSearch = () => {
-    setIsLoadingSearch(true);
-    setIsShowingSearchResult(true);
-    handleGetSearchResult();
+    if (inputSearch) {
+      setIsLoadingSearch(true);
+      setIsShowingSearchResult(true);
+      handleGetSearchResult();
+    } else return null;
   };
 
   const handleClearSearchResult = () => {

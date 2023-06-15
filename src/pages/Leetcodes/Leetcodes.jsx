@@ -128,7 +128,8 @@ const LeetCodes = () => {
         return "Input problem title";
       case "index":
         return "Input problem LeetCode index";
-
+      case "type":
+        return "Input problem type";
       default:
         return "Please select a search by type to search";
     }
@@ -152,6 +153,9 @@ const LeetCodes = () => {
       case "title":
         searchUrl = `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}&filters[title][$containsi]=${inputSearch}`;
         break;
+      case "type":
+        searchUrl = `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}&filters[type][$containsi]=${inputSearch}`;
+        break;
       default:
         break;
     }
@@ -174,9 +178,11 @@ const LeetCodes = () => {
   };
 
   const handleSearch = () => {
-    setIsLoadingSearch(true);
-    setIsShowingSearchResult(true);
-    handleGetSearchResult();
+    if (inputSearch) {
+      setIsLoadingSearch(true);
+      setIsShowingSearchResult(true);
+      handleGetSearchResult();
+    } else return null;
   };
 
   const handleClearSearchResult = () => {
@@ -193,6 +199,10 @@ const LeetCodes = () => {
     {
       label: "Search by Tiitle",
       value: "title",
+    },
+    {
+      label: "Search by Type",
+      value: "type",
     },
   ];
 
@@ -266,12 +276,10 @@ const LeetCodes = () => {
           placeholder={handleSearchPlaceholder()}
           onChange={(e) => handleSearchValueChange(e)}
           value={inputSearch}
-          allowClear
           enterButton
           disabled={!searchType}
           onSearch={handleSearch}
           loading={isLoadingSearch}
-          onClear={handleClearSearchResult}
         />
         <Button
           danger
