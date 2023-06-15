@@ -284,12 +284,10 @@ const LeetCodesTable = (props) => {
       render: (_, record) => {
         return (
           <Tooltip title="Review on Little World">
-            <Button
-              type="link"
-              onClick={() => handleActionBtnOnClick("review", record)}
-            >
+            {/* eslint-disable-next-line */}
+            <a onClick={() => handleActionBtnOnClick("review", record)}>
               {record.attributes.title}
-            </Button>
+            </a>
           </Tooltip>
         );
       },

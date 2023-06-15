@@ -195,17 +195,13 @@ const ApplicationsTable = (props) => {
       title: "Name",
       key: "name",
       dataIndex: "name",
-      width: 180,
+      width: 220,
       render: (_, record) => {
         return (
-          <Tooltip title={record.attributes.name}>
-            <Button
-              type="link"
-              onClick={() => handleActionBtnOnClick("review", record)}
-            >
-              {record.attributes.name}
-            </Button>
-          </Tooltip>
+          // eslint-disable-next-line
+          <a onClick={() => handleActionBtnOnClick("review", record)}>
+            {record.attributes.name}
+          </a>
         );
       },
       sorter: (a, b) => a.attributes?.name?.localeCompare(b.attributes?.name),
