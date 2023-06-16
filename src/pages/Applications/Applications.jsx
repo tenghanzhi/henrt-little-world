@@ -102,6 +102,7 @@ const Applications = () => {
   };
 
   const handleGetApplicationData = () => {
+    console.log({ applicationData, applicationTableFilter });
     (async () => {
       const response = await fetch(
         `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${
@@ -114,7 +115,7 @@ const Applications = () => {
             : ""
         }${
           applicationTableFilter.type
-            ? `&filters[type][$eqi][1]=${applicationTableFilter.type}`
+            ? `&filters[type][$containsi][1]=${applicationTableFilter.type}`
             : ""
         }${
           applicationTableFilter.description
@@ -199,11 +200,9 @@ const Applications = () => {
         dispatch({
           type: SET_APPLICATION_TABLE_FILTER,
           payload: {
-            payload: {
-              name: applicationTableFilter.name,
-              type: e.target.value,
-              description: applicationTableFilter.description,
-            },
+            name: applicationTableFilter.name,
+            type: e.target.value,
+            description: applicationTableFilter.description,
           },
         });
         break;
@@ -211,11 +210,9 @@ const Applications = () => {
         dispatch({
           type: SET_APPLICATION_TABLE_FILTER,
           payload: {
-            payload: {
-              name: applicationTableFilter.name,
-              type: applicationTableFilter.type,
-              description: e.target.value,
-            },
+            name: applicationTableFilter.name,
+            type: applicationTableFilter.type,
+            description: e.target.value,
           },
         });
         break;

@@ -100,7 +100,7 @@ const LeetCodes = () => {
           leetcodeTableSorter.sort
         }${leetcodeTableSorter.order}${
           leetcodeTableFilter.difficulty
-            ? `&filters[difficulty][$eqi][0]=${leetcodeTableFilter.difficulty}`
+            ? `&filters[difficulty][$containsi][0]=${leetcodeTableFilter.difficulty}`
             : ""
         }${
           leetcodeTableFilter.type
@@ -108,7 +108,7 @@ const LeetCodes = () => {
             : ""
         }${
           leetcodeTableFilter.leetcodeIndex
-            ? `&filters[leetcodeIndex][$eqi][2]=${leetcodeTableFilter.leetcodeIndex}`
+            ? `&filters[leetcodeIndex][$containsi][2]=${leetcodeTableFilter.leetcodeIndex}`
             : ""
         }${
           leetcodeTableFilter.title
