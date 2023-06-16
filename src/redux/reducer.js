@@ -6,10 +6,12 @@ import {
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
   SET_LEETCOD_TABLE_SORTER,
+  SET_LEETCOD_TABLE_FILTER,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
+  SET_APPLICATION_TABLE_FILTER,
 } from "./constants";
 
 const initialState = {
@@ -26,6 +28,12 @@ const initialState = {
     sort: "leetcodeIndex",
     order: ":asc",
   },
+  leetcodeTableFilter: {
+    difficulty: null,
+    type: null,
+    leetcodeIndex: null,
+    title: null,
+  },
   applicationData: { data: [], meta: {} },
   selectedApplicationId: null,
   applicationTablePagenation: {
@@ -35,6 +43,11 @@ const initialState = {
   applicationTableSorter: {
     sort: "type",
     order: ":asc",
+  },
+  applicationTableFilter: {
+    name: null,
+    type: null,
+    description: null,
   },
 };
 
@@ -54,6 +67,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, leetcodeTablePagenation: action.payload };
     case SET_LEETCOD_TABLE_SORTER:
       return { ...state, leetcodeTableSorter: action.payload };
+    case SET_LEETCOD_TABLE_FILTER:
+      return { ...state, leetcodeTableFilter: action.payload };
     case SET_APPLICATION_DATA:
       return { ...state, applicationData: action.payload };
     case SET_SELECTED_APPLICATION_ID:
@@ -62,6 +77,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, applicationTablePagenation: action.payload };
     case SET_APPLICATION_TABLE_SORTER:
       return { ...state, applicationTableSorter: action.payload };
+    case SET_APPLICATION_TABLE_FILTER:
+      return { ...state, applicationTableFilter: action.payload };
     default:
       return state;
   }

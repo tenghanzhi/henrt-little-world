@@ -27,6 +27,7 @@ import {
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
+  SET_APPLICATION_TABLE_FILTER,
 } from "../../redux/constants";
 
 const ApplicationsTable = (props) => {
@@ -34,6 +35,9 @@ const ApplicationsTable = (props) => {
   const dispatch = useDispatch();
   const applicationTablePagenation = useSelector(
     (state) => state.applicationTablePagenation
+  );
+  const applicationTableFilter = useSelector(
+    (state) => state.applicationTableFilter
   );
   const data = props.data.data ? props.data.data : null;
   const total = props?.data?.meta?.pagination?.total
@@ -152,15 +156,23 @@ const ApplicationsTable = (props) => {
     });
   };
 
-  const handleSorterChange = (sorter) => {
+  const handleTableChange = (filter, sorter) => {
     let order;
     if (sorter?.order === "ascend") order = ":asc";
     else if (sorter?.order === "descend") order = ":desc";
     else order = null;
-
     dispatch({
       type: SET_APPLICATION_TABLE_SORTER,
       payload: { sort: sorter.field, order: order },
+    });
+
+    dispatch({
+      type: SET_APPLICATION_TABLE_FILTER,
+      payload: {
+        name: applicationTableFilter.name,
+        type: filter?.type?.length > 0 ? filter?.type[0] : null,
+        description: applicationTableFilter.description,
+      },
     });
   };
 
@@ -239,7 +251,10 @@ const ApplicationsTable = (props) => {
         </>
       ),
       sorter: (a, b) => a.attributes?.type?.localeCompare(b.attributes?.type),
-      filters: typeFilterOptions,
+      filters: typeFilterOptions.sort((a, b) =>
+        a.value > b.value ? 1 : b.value > a.value ? -1 : 0
+      ),
+      filterMultiple: false,
       onFilter: (value, record) =>
         record?.attributes?.type?.toLowerCase().includes(value.toLowerCase()),
     },
@@ -344,7 +359,9 @@ const ApplicationsTable = (props) => {
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       bordered
-      onChange={(val, filter, sorter, extra) => handleSorterChange(sorter)}
+      onChange={(val, filter, sorter, extra) =>
+        handleTableChange(filter, sorter)
+      }
     />
   );
 };

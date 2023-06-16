@@ -27,6 +27,7 @@ import {
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
   SET_LEETCOD_TABLE_SORTER,
+  SET_LEETCOD_TABLE_FILTER,
 } from "../../redux/constants";
 
 const LeetCodesTable = (props) => {
@@ -35,6 +36,7 @@ const LeetCodesTable = (props) => {
   const leetcodeTablePagenation = useSelector(
     (state) => state.leetcodeTablePagenation
   );
+  const leetcodeTableFilter = useSelector((state) => state.leetcodeTableFilter);
   const data = props.data.data ? props.data.data : null;
   const total = props?.data?.meta?.pagination?.total
     ? props?.data?.meta?.pagination?.total
@@ -183,15 +185,25 @@ const LeetCodesTable = (props) => {
     });
   };
 
-  const handleSorterChange = (sorter) => {
+  const handleTableChange = (filter, sorter) => {
     let order;
     if (sorter?.order === "ascend") order = ":asc";
     else if (sorter?.order === "descend") order = ":desc";
     else order = null;
-
     dispatch({
       type: SET_LEETCOD_TABLE_SORTER,
       payload: { sort: sorter.field, order: order },
+    });
+
+    dispatch({
+      type: SET_LEETCOD_TABLE_FILTER,
+      payload: {
+        difficulty:
+          filter?.difficulty?.length > 0 ? filter?.difficulty[0] : null,
+        type: filter?.type?.length > 0 ? filter?.type[0] : null,
+        leetcodeIndex: leetcodeTableFilter.leetcodeIndex,
+        title: leetcodeTableFilter.title,
+      },
     });
   };
 
@@ -334,6 +346,7 @@ const LeetCodesTable = (props) => {
       sorter: (a, b) =>
         a.attributes?.difficulty?.localeCompare(b.attributes?.difficulty),
       filters: difficultyFilterOptions,
+      filterMultiple: false,
       onFilter: (value, record) =>
         record?.attributes?.difficulty?.toLowerCase().indexOf(value) === 0,
     },
@@ -355,6 +368,7 @@ const LeetCodesTable = (props) => {
       filters: typeFilterOptions.sort((a, b) =>
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       ),
+      filterMultiple: false,
       onFilter: (value, record) => {
         return record?.attributes?.type
           ?.replace(/\s/g, "")
@@ -431,7 +445,9 @@ const LeetCodesTable = (props) => {
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       bordered
-      onChange={(val, filter, sorter, extra) => handleSorterChange(sorter)}
+      onChange={(val, filter, sorter, extra) =>
+        handleTableChange(filter, sorter)
+      }
     />
   );
 };

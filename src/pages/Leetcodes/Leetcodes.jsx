@@ -14,7 +14,10 @@ import categoryMatrix from "../common/categoryMatrix";
 import password from "../common/password";
 import LeetCodesTable from "./LeetCodesTable";
 import LwLayout from "../common/LwLayout";
-import { SET_LEETCODE_DATA } from "../../redux/constants";
+import {
+  SET_LEETCODE_DATA,
+  SET_LEETCOD_TABLE_FILTER,
+} from "../../redux/constants";
 import style from "./style/LeetCodes.module.css";
 
 const LeetCodes = () => {
@@ -25,24 +28,20 @@ const LeetCodes = () => {
     (state) => state.leetcodeTablePagenation
   );
   const leetcodeTableSorter = useSelector((state) => state.leetcodeTableSorter);
+  const leetcodeTableFilter = useSelector((state) => state.leetcodeTableFilter);
   const [inputPassword, setInputPassword] = useState(null);
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
-  const [searchResult, setSearchResult] = useState({});
-  const [isShowingSearchResult, setIsShowingSearchResult] = useState(false);
-  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
 
   useEffect(() => {
-    if (!isShowingSearchResult) handleGetLeetcodeData();
-    else handleGetSearchResult();
+    handleClearSearchResult();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [leetcodeTablePagenation]);
+  }, []);
 
   useEffect(() => {
-    if (!isShowingSearchResult) handleGetLeetcodeData();
-    else handleGetSearchResult();
+    handleGetLeetcodeData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [leetcodeTableSorter]);
+  }, [leetcodeTablePagenation, leetcodeTableSorter, leetcodeTableFilter]);
 
   const handleMessage = (key, type, content) => {
     const messageDuration = 2;
@@ -95,7 +94,27 @@ const LeetCodes = () => {
   const handleGetLeetcodeData = () => {
     (async () => {
       const response = await fetch(
-        `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}&sort=${leetcodeTableSorter.sort}${leetcodeTableSorter.order}`
+        `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${
+          leetcodeTablePagenation.current
+        }&pagination[pageSize]=${leetcodeTablePagenation.size}&sort=${
+          leetcodeTableSorter.sort
+        }${leetcodeTableSorter.order}${
+          leetcodeTableFilter.difficulty
+            ? `&filters[difficulty][$eqi][0]=${leetcodeTableFilter.difficulty}`
+            : ""
+        }${
+          leetcodeTableFilter.type
+            ? `&filters[type][$containsi][1]=${leetcodeTableFilter.type}`
+            : ""
+        }${
+          leetcodeTableFilter.leetcodeIndex
+            ? `&filters[leetcodeIndex][$eqi][2]=${leetcodeTableFilter.leetcodeIndex}`
+            : ""
+        }${
+          leetcodeTableFilter.title
+            ? `&filters[title][$containsi][3]=${leetcodeTableFilter.title}`
+            : ""
+        }`
       );
       return response.json();
     })()
@@ -143,59 +162,71 @@ const LeetCodes = () => {
   };
 
   const handleSearchTypeChange = (value) => {
+    setInputSearch(null);
+    dispatch({
+      type: SET_LEETCOD_TABLE_FILTER,
+      payload: {
+        difficulty: null,
+        type: null,
+        leetcodeIndex: null,
+        title: null,
+      },
+    });
     setSearchType(value);
   };
 
   const handleSearchValueChange = (e) => {
     setInputSearch(e.target.value);
-  };
-
-  const handleGetSearchResult = () => {
-    let searchUrl;
-
     switch (searchType) {
       case "index":
-        searchUrl = `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}&filters[leetcodeIndex][$eqi]=${inputSearch}`;
+        dispatch({
+          type: SET_LEETCOD_TABLE_FILTER,
+          payload: {
+            difficulty: leetcodeTableFilter.difficulty,
+            type: leetcodeTableFilter.type,
+            leetcodeIndex: e.target.value,
+            title: leetcodeTableFilter.title,
+          },
+        });
         break;
       case "title":
-        searchUrl = `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}&filters[title][$containsi]=${inputSearch}`;
+        dispatch({
+          type: SET_LEETCOD_TABLE_FILTER,
+          payload: {
+            difficulty: leetcodeTableFilter.difficulty,
+            type: leetcodeTableFilter.type,
+            leetcodeIndex: leetcodeTableFilter.leetcodeIndex,
+            title: e.target.value,
+          },
+        });
         break;
       case "type":
-        searchUrl = `${apiMatrix.LEET_CODES_GET_ALL}?pagination[page]=${leetcodeTablePagenation.current}&pagination[pageSize]=${leetcodeTablePagenation.size}&filters[type][$containsi]=${inputSearch}`;
+        dispatch({
+          type: SET_LEETCOD_TABLE_FILTER,
+          payload: {
+            difficulty: leetcodeTableFilter.difficulty,
+            type: e.target.value,
+            leetcodeIndex: leetcodeTableFilter.leetcodeIndex,
+            title: leetcodeTableFilter.title,
+          },
+        });
         break;
       default:
         break;
     }
-
-    (async () => {
-      const response = await fetch(searchUrl);
-      return response.json();
-    })()
-      .then((response) => {
-        if (response && response.error) {
-          throw new Error(response.error.message);
-        } else {
-          setSearchResult(response);
-        }
-      })
-      .catch((error) => {
-        handleMessage("loadingMessage", "error", error);
-      })
-      .finally(() => setIsLoadingSearch(false));
-  };
-
-  const handleSearch = () => {
-    if (inputSearch) {
-      setIsLoadingSearch(true);
-      setIsShowingSearchResult(true);
-      handleGetSearchResult();
-    } else return null;
   };
 
   const handleClearSearchResult = () => {
-    setSearchResult({});
-    setIsShowingSearchResult(false);
     setInputSearch(null);
+    dispatch({
+      type: SET_LEETCOD_TABLE_FILTER,
+      payload: {
+        difficulty: null,
+        type: null,
+        leetcodeIndex: null,
+        title: null,
+      },
+    });
     setSearchType(null);
   };
 
@@ -268,7 +299,7 @@ const LeetCodes = () => {
         >
           NeetCode
         </Button>
-        <Input.Search
+        <Input
           className={style.lw_leetcode_search}
           addonBefore={
             <Select
@@ -283,25 +314,18 @@ const LeetCodes = () => {
           }
           placeholder={handleSearchPlaceholder()}
           onChange={(e) => handleSearchValueChange(e)}
-          value={inputSearch}
-          enterButton
           disabled={!searchType}
-          onSearch={handleSearch}
-          loading={isLoadingSearch}
+          value={inputSearch}
         />
         <Button
           danger
           onClick={handleClearSearchResult}
-          disabled={JSON.stringify(searchResult) === "{}"}
+          disabled={!inputSearch}
         >
           Clear Results
         </Button>
       </Space>
-      <LeetCodesTable
-        data={
-          JSON.stringify(searchResult) === "{}" ? leetcodeData : searchResult
-        }
-      />
+      <LeetCodesTable data={leetcodeData} />
     </Space>
   );
 

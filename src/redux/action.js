@@ -6,10 +6,12 @@ import {
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
   SET_LEETCOD_TABLE_SORTER,
+  SET_LEETCOD_TABLE_FILTER,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
+  SET_APPLICATION_TABLE_FILTER,
 } from "./constants.js";
 
 //Home
@@ -64,6 +66,13 @@ export function setLeetcodeTableSorter(leetcodeTableSorter) {
   };
 }
 
+export function setLeetcodeTableFilter(leetcodeTableFilter) {
+  return {
+    type: SET_LEETCOD_TABLE_FILTER,
+    leetcodeTableFilter,
+  };
+}
+
 //Application
 export function setApplicationData(applicationData) {
   return {
@@ -90,5 +99,12 @@ export function setApplicationTableSorter(applicationTableSorter) {
   return {
     type: SET_APPLICATION_TABLE_SORTER,
     applicationTableSorter,
+  };
+}
+
+export function setApplicationTableFilter(applicationTableFilter) {
+  return {
+    type: SET_APPLICATION_TABLE_FILTER,
+    applicationTableFilter,
   };
 }

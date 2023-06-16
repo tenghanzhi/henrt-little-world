@@ -16,7 +16,10 @@ import categoryMatrix from "../common/categoryMatrix";
 import password from "../common/password";
 import ApplicationsTable from "./ApplicationsTable";
 import LwLayout from "../common/LwLayout";
-import { SET_APPLICATION_DATA } from "../../redux/constants";
+import {
+  SET_APPLICATION_DATA,
+  SET_APPLICATION_TABLE_FILTER,
+} from "../../redux/constants";
 import style from "./style/Applications.module.css";
 
 const Applications = () => {
@@ -29,24 +32,26 @@ const Applications = () => {
   const applicationTableSorter = useSelector(
     (state) => state.applicationTableSorter
   );
+  const applicationTableFilter = useSelector(
+    (state) => state.applicationTableFilter
+  );
   const [inputPassword, setInputPassword] = useState(null);
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
-  const [searchResult, setSearchResult] = useState({});
-  const [isShowingSearchResult, setIsShowingSearchResult] = useState(false);
-  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
 
   useEffect(() => {
-    if (!isShowingSearchResult) handleGetApplicationData();
-    else handleGetSearchResult();
+    handleClearSearchResult();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicationTablePagenation]);
+  }, []);
 
   useEffect(() => {
-    if (!isShowingSearchResult) handleGetApplicationData();
-    else handleGetSearchResult();
+    handleGetApplicationData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [applicationTableSorter]);
+  }, [
+    applicationTablePagenation,
+    applicationTableSorter,
+    applicationTableFilter,
+  ]);
 
   const handleMessage = (key, type, content) => {
     const messageDuration = 2;
@@ -99,7 +104,23 @@ const Applications = () => {
   const handleGetApplicationData = () => {
     (async () => {
       const response = await fetch(
-        `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&sort=${applicationTableSorter.sort}${applicationTableSorter.order}`
+        `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${
+          applicationTablePagenation.current
+        }&pagination[pageSize]=${applicationTablePagenation.size}&sort=${
+          applicationTableSorter.sort
+        }${applicationTableSorter.order}${
+          applicationTableFilter.name
+            ? `&filters[name][$containsi][0]=${applicationTableFilter.name}`
+            : ""
+        }${
+          applicationTableFilter.type
+            ? `&filters[type][$eqi][1]=${applicationTableFilter.type}`
+            : ""
+        }${
+          applicationTableFilter.description
+            ? `&filters[description][$containsi][2]=${applicationTableFilter.description}`
+            : ""
+        }`
       );
       return response.json();
     })()
@@ -149,59 +170,70 @@ const Applications = () => {
   };
 
   const handleSearchTypeChange = (value) => {
+    setInputSearch(null);
+    dispatch({
+      type: SET_APPLICATION_TABLE_FILTER,
+      payload: {
+        name: null,
+        type: null,
+        description: null,
+      },
+    });
     setSearchType(value);
   };
 
   const handleSearchValueChange = (e) => {
     setInputSearch(e.target.value);
-  };
-
-  const handleGetSearchResult = () => {
-    let searchUrl;
-
     switch (searchType) {
       case "name":
-        searchUrl = `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&filters[name][$containsi]=${inputSearch}`;
+        dispatch({
+          type: SET_APPLICATION_TABLE_FILTER,
+          payload: {
+            name: e.target.value,
+            type: applicationTableFilter.type,
+            description: applicationTableFilter.description,
+          },
+        });
         break;
       case "type":
-        searchUrl = `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&filters[type][$containsi]=${inputSearch}`;
+        dispatch({
+          type: SET_APPLICATION_TABLE_FILTER,
+          payload: {
+            payload: {
+              name: applicationTableFilter.name,
+              type: e.target.value,
+              description: applicationTableFilter.description,
+            },
+          },
+        });
         break;
       case "description":
-        searchUrl = `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${applicationTablePagenation.current}&pagination[pageSize]=${applicationTablePagenation.size}&filters[description][$containsi]=${inputSearch}`;
+        dispatch({
+          type: SET_APPLICATION_TABLE_FILTER,
+          payload: {
+            payload: {
+              name: applicationTableFilter.name,
+              type: applicationTableFilter.type,
+              description: e.target.value,
+            },
+          },
+        });
         break;
       default:
         break;
     }
-
-    (async () => {
-      const response = await fetch(searchUrl);
-      return response.json();
-    })()
-      .then((response) => {
-        if (response && response.error) {
-          throw new Error(response.error.message);
-        } else {
-          setSearchResult(response);
-        }
-      })
-      .catch((error) => {
-        handleMessage("loadingMessage", "error", error);
-      })
-      .finally(() => setIsLoadingSearch(false));
-  };
-
-  const handleSearch = () => {
-    if (inputSearch) {
-      setIsLoadingSearch(true);
-      setIsShowingSearchResult(true);
-      handleGetSearchResult();
-    } else return null;
   };
 
   const handleClearSearchResult = () => {
-    setSearchResult({});
-    setIsShowingSearchResult(false);
     setInputSearch(null);
+    dispatch({
+      type: SET_APPLICATION_TABLE_FILTER,
+      payload: {
+        name: null,
+        type: null,
+        description: null,
+      },
+    });
     setSearchType(null);
   };
 
@@ -274,7 +306,7 @@ const Applications = () => {
         >
           JSFiddle
         </Button>
-        <Input.Search
+        <Input
           className={style.lw_applications_search}
           addonBefore={
             <Select
@@ -292,22 +324,16 @@ const Applications = () => {
           value={inputSearch}
           enterButton
           disabled={!searchType}
-          onSearch={handleSearch}
-          loading={isLoadingSearch}
         />
         <Button
           danger
           onClick={handleClearSearchResult}
-          disabled={JSON.stringify(searchResult) === "{}"}
+          disabled={!inputSearch}
         >
           Clear Results
         </Button>
       </Space>
-      <ApplicationsTable
-        data={
-          JSON.stringify(searchResult) === "{}" ? applicationData : searchResult
-        }
-      />
+      <ApplicationsTable data={applicationData} />
     </Space>
   );
 
