@@ -133,14 +133,16 @@ const ApplicationsTable = (props) => {
   };
 
   const handleConfirmPassword = (id) => {
+    const messageKey = "passwordResult";
+
     if (inputPassword !== null && inputPassword === password) {
-      handleMessage("passwordResult", "success");
+      handleMessage(messageKey, "success");
       dispatch({ type: SET_SELECTED_APPLICATION_ID, payload: id });
       navigate(
         `/${categoryMatrix.APPLICATIONS.toLowerCase()}/editApplications`
       );
     } else {
-      handleMessage("passwordResult", "error");
+      handleMessage(messageKey, "error");
       setInputPassword(null);
     }
   };

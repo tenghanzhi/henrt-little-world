@@ -48,7 +48,7 @@ const LeetCodesForm = (props) => {
     navigate(-1);
   };
 
-  const handleMessage = (type, key, content) => {
+  const handleMessage = (key, type, content) => {
     const messageDuration = 2;
 
     switch (type) {
@@ -92,19 +92,17 @@ const LeetCodesForm = (props) => {
   };
 
   const handleConfirmDeletePassword = () => {
+    const messageKey = "passwordResult";
+
     if (inputDeletePassword !== null && inputDeletePassword === password) {
       handleMessage(
-        "passwordResult",
+        messageKey,
         "success",
         messageMatrix.PASSWORD_RESULT_SCCESS
       );
       handleDelete();
     } else {
-      handleMessage(
-        "passwordResult",
-        "error",
-        messageMatrix.PASSWORD_RESULT_ERROR
-      );
+      handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
       setInputDeletePassword(null);
     }
   };
@@ -132,8 +130,8 @@ const LeetCodesForm = (props) => {
   const handleSubmitLeetcode = (type, values) => {
     const messageKey = "uploadingDataMessage";
     handleMessage(
-      "loading",
       messageKey,
+      "loading",
       messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_LOADING
     );
 
@@ -157,16 +155,16 @@ const LeetCodesForm = (props) => {
             throw new Error(response.error.message);
           } else {
             handleMessage(
-              "success",
               messageKey,
+              "success",
               messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS
             );
           }
         })
         .catch((error) => {
           handleMessage(
-            "error",
             messageKey,
+            "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
         });
@@ -190,16 +188,16 @@ const LeetCodesForm = (props) => {
             throw new Error(response.error.message);
           } else {
             handleMessage(
-              "success",
               messageKey,
+              "success",
               messageMatrix.UPDATING_MESSAGE_SUCCESS
             );
           }
         })
         .catch((error) => {
           handleMessage(
-            "error",
             messageKey,
+            "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
         });
@@ -213,8 +211,8 @@ const LeetCodesForm = (props) => {
   const handleDelete = () => {
     const messageKey = "deleteDataMessage";
     handleMessage(
-      "loading",
       messageKey,
+      "loading",
       messageMatrix.DELETING_MESSAGE_LOADING
     );
 
@@ -236,16 +234,16 @@ const LeetCodesForm = (props) => {
           throw new Error(response.error.message);
         } else {
           handleMessage(
-            "success",
             messageKey,
+            "success",
             messageMatrix.DELETING_MESSAGE_SUCCESS
           );
         }
       })
       .catch((error) => {
         handleMessage(
-          "error",
           messageKey,
+          "error",
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });

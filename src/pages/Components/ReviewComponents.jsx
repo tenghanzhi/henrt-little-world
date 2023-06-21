@@ -45,7 +45,7 @@ const ReviewComponents = () => {
     navigate(-1);
   };
 
-  const handleMessage = (type, key, content) => {
+  const handleMessage = (key, type, content) => {
     const messageDuration = 2;
 
     switch (type) {
@@ -79,7 +79,8 @@ const ReviewComponents = () => {
 
   const handleGetComponentDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
-    handleMessage("loading", messageKey, messageMatrix.LOADING_MESSAGE_LOADING);
+
+    handleMessage(messageKey, "loading", messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
       const response = await fetch(
@@ -96,8 +97,8 @@ const ReviewComponents = () => {
       })
       .catch((error) => {
         handleMessage(
-          "error",
           messageKey,
+          "error",
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       })
@@ -111,19 +112,17 @@ const ReviewComponents = () => {
   };
 
   const handleConfirmPassword = () => {
+    const messageKey = "passwordResult";
+
     if (inputPassword !== null && inputPassword === password) {
       handleMessage(
-        "passwordResult",
+        messageKey,
         "success",
         messageMatrix.PASSWORD_RESULT_SCCESS
       );
       navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`);
     } else {
-      handleMessage(
-        "passwordResult",
-        "error",
-        messageMatrix.PASSWORD_RESULT_ERROR
-      );
+      handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
       setInputPassword(null);
     }
   };

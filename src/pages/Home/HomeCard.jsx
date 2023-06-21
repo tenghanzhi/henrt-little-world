@@ -14,7 +14,6 @@ const HomeCard = (props) => {
   const wipSpan = <span>This card is still WIP...</span>;
   const cardTitle = title ? title : "New Card";
   const cardExtra = extra ? <Link to={extra.toLowerCase()}>More</Link> : null;
-
   const portfolioData = useSelector((state) => state.portfolioData);
   const leetcodeData = useSelector((state) => state.leetcodeData);
   const applicationData = useSelector((state) => state.applicationData);

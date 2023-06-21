@@ -10,7 +10,7 @@ import {
 import failPicture from "../common/failPicture";
 import categoryMatrix from "../common/categoryMatrix";
 import {
-  SET_CLICKED_HOME_PAGE_ITEM_ID,
+  SET_SELECTED_PORTFOLIO_ID,
   SET_SELECTED_LEETCODE_ID,
   SET_SELECTED_APPLICATION_ID,
   SET_SELECTED_COMPONENT_ID,
@@ -25,11 +25,8 @@ const HomeCardList = (props) => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
         dispatch({
-          type: SET_CLICKED_HOME_PAGE_ITEM_ID,
-          payload: data.attributes.name
-            .replace(/\s/g, "")
-            .replace(",", "")
-            .replace(".", ""),
+          type: SET_SELECTED_PORTFOLIO_ID,
+          payload: data.id,
         });
         break;
       }
@@ -100,7 +97,7 @@ const HomeCardList = (props) => {
   const getPathLink = () => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
-        return "portfolio";
+        return `/${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio`;
       }
       case categoryMatrix.LEETCODES: {
         return `/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`;

@@ -102,6 +102,8 @@ const Applications = () => {
   };
 
   const handleGetApplicationData = () => {
+    const messageKey = "loadingMessage";
+
     (async () => {
       const response = await fetch(
         `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${
@@ -128,7 +130,7 @@ const Applications = () => {
         }
       })
       .catch((error) => {
-        handleMessage("loadingMessage", "error", error);
+        handleMessage(messageKey, "error", error);
       });
   };
 
@@ -137,13 +139,15 @@ const Applications = () => {
   };
 
   const handleConfirmPassword = () => {
+    const messageKey = "passwordResult";
+
     if (inputPassword !== null && inputPassword === password) {
-      handleMessage("passwordResult", "success");
+      handleMessage(messageKey, "success");
       navigate(
         `/${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`
       );
     } else {
-      handleMessage("passwordResult", "error");
+      handleMessage(messageKey, "error");
       setInputPassword(null);
     }
   };

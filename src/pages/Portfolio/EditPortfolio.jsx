@@ -22,7 +22,7 @@ import style from "./style/EditPortfolio.module.css";
 const EditPortfolio = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const editPortfolioId = useSelector((state) => state.editPortfolioId);
+  const selectedPortfolioId = useSelector((state) => state.selectedPortfolioId);
   const [isEditPageLoading, setIsEditPageLoading] = useState(true);
   const [fetchedPortfolioData, setFetchedPortfolioData] = useState({});
   const [filedValue, setFiledValue] = useState(form.getFieldValue());
@@ -37,7 +37,7 @@ const EditPortfolio = () => {
     navigate(-1);
   };
 
-  const handleMessage = (type, key, content) => {
+  const handleMessage = (key, type, content) => {
     const messageDuration = 2;
 
     switch (type) {
@@ -76,11 +76,12 @@ const EditPortfolio = () => {
 
   const handleGetPortfolioDataById = () => {
     const messageKey = "editPageLoadingMessage";
-    handleMessage("loading", messageKey, messageMatrix.LOADING_MESSAGE_LOADING);
+
+    handleMessage(messageKey, "loading", messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.PORTFOLIOS_GET_BY_ID}/${editPortfolioId}`
+        `${apiMatrix.PORTFOLIOS_GET_BY_ID}/${selectedPortfolioId}`
       );
       return response.json();
     })()
@@ -89,8 +90,8 @@ const EditPortfolio = () => {
           throw new Error(response.error.message);
         } else {
           handleMessage(
-            "success",
             messageKey,
+            "success",
             messageMatrix.LOADING_MESSAGE_SUCCESS
           );
         }
@@ -98,8 +99,8 @@ const EditPortfolio = () => {
       })
       .catch((error) => {
         handleMessage(
-          "error",
           messageKey,
+          "error",
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       })
@@ -111,14 +112,14 @@ const EditPortfolio = () => {
   const handleUpdatePortfolio = (values) => {
     const messageKey = "uploadingDataMessage";
     handleMessage(
-      "loading",
       messageKey,
+      "loading",
       messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_LOADING
     );
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.PORTFOLIOS_UPDATE_BY_ID}/${editPortfolioId}`,
+        `${apiMatrix.PORTFOLIOS_UPDATE_BY_ID}/${selectedPortfolioId}`,
         {
           method: "PUT",
           mode: "cors",
@@ -135,16 +136,16 @@ const EditPortfolio = () => {
           throw new Error(response.error.message);
         } else {
           handleMessage(
-            "success",
             messageKey,
+            "success",
             messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS
           );
         }
       })
       .catch((error) => {
         handleMessage(
-          "error",
           messageKey,
+          "error",
           `${messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_ERROR}${error}`
         );
       });
@@ -195,7 +196,7 @@ const EditPortfolio = () => {
 
   const loadedPageContent = (
     <>
-      <Typography.Title level={4}>
+      <Typography.Title level={4} className={style.lw_edit_protfolio_header}>
         Update Experience on {fetchedPortfolioData.name}
       </Typography.Title>
       <Form

@@ -10,6 +10,7 @@ import LwFooter from "./pages/common/LwFooter";
 import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 import EditPortfolio from "./pages/Portfolio/EditPortfolio";
+import ReviewPortfolio from "./pages/Portfolio/ReviewPortfolio";
 import LeetCodes from "./pages/LeetCodes";
 import CreateLeetCodes from "./pages/LeetCodes/CreateLeetCodes";
 import EditLeetCodes from "./pages/LeetCodes/EditLeetCodes";
@@ -39,6 +40,10 @@ const Main = () => {
             <Route
               path={`${categoryMatrix.PORTFOLIO.toLowerCase()}/editPortfolio`}
               element={<EditPortfolio />}
+            />
+            <Route
+              path={`${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio`}
+              element={<ReviewPortfolio />}
             />
             <Route
               path={categoryMatrix.LEETCODES.toLowerCase()}

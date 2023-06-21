@@ -67,12 +67,14 @@ const ComponentsCard = (props) => {
   };
 
   const handleConfirmPassword = () => {
+    const messageKey = "passwordResult";
+
     if (inputPassword !== null && inputPassword === password) {
-      handleMessage("passwordResult", "success");
+      handleMessage(messageKey, "success");
       dispatch({ type: SET_SELECTED_COMPONENT_ID, payload: data.id });
       navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`);
     } else {
-      handleMessage("passwordResult", "error");
+      handleMessage(messageKey, "error");
       setInputPassword(null);
     }
   };

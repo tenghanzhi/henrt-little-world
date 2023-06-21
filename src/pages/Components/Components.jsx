@@ -108,6 +108,8 @@ const Components = () => {
   };
 
   const handleGetComponentData = () => {
+    const messageKey = "loadingMessage";
+
     (async () => {
       const response = await fetch(
         `${apiMatrix.COMPONENTS_GET_ALL}?pagination[page]=${
@@ -138,7 +140,7 @@ const Components = () => {
         }
       })
       .catch((error) => {
-        handleMessage("loadingMessage", "error", error);
+        handleMessage(messageKey, "error", error);
       });
   };
 
@@ -147,11 +149,13 @@ const Components = () => {
   };
 
   const handleConfirmPassword = () => {
+    const messageKey = "passwordResult";
+
     if (inputPassword !== null && inputPassword === password) {
-      handleMessage("passwordResult", "success");
+      handleMessage(messageKey, "success");
       navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/createComponents`);
     } else {
-      handleMessage("passwordResult", "error");
+      handleMessage(messageKey, "error");
       setInputPassword(null);
     }
   };

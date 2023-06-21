@@ -9,6 +9,11 @@ import {
   Button,
   Popconfirm,
   Input,
+  Col,
+  Row,
+  Image,
+  Space,
+  Card,
 } from "antd";
 import {
   EditOutlined,
@@ -16,25 +21,23 @@ import {
   EyeTwoTone,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
-import CodeMirror from "@uiw/react-codemirror";
-import { EditorView } from "@codemirror/view";
-import { javascript } from "@codemirror/lang-javascript";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
+import failPicture from "../common/failPicture";
 import password from "../common/password";
 import LwLayout from "../common/LwLayout";
-import style from "./style/ReviewLeetCodes.module.css";
+import style from "./style/ReviewPortfolio.module.css";
 
-const ReviewLeetCodes = () => {
+const ReviewPortfolio = () => {
   const navigate = useNavigate();
-  const selectedLeetcodeId = useSelector((state) => state.selectedLeetcodeId);
+  const selectedPortfolioId = useSelector((state) => state.selectedPortfolioId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
-  const [fetchedLeetcodeData, setFetchedLeetcodeData] = useState({});
+  const [fetchedPortfolioData, setFetchedPortfolioData] = useState({});
   const [inputPassword, setInputPassword] = useState(null);
 
   useEffect(() => {
-    handleGetLeetcodeDataById();
+    handleGetPortfolioDataById();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -74,14 +77,14 @@ const ReviewLeetCodes = () => {
     }
   };
 
-  const handleGetLeetcodeDataById = () => {
+  const handleGetPortfolioDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
 
     handleMessage(messageKey, "loading", messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.LEET_CODES_GET_BY_ID}/${selectedLeetcodeId}`
+        `${apiMatrix.PORTFOLIOS_GET_BY_ID}/${selectedPortfolioId}`
       );
       return response.json();
     })()
@@ -90,7 +93,7 @@ const ReviewLeetCodes = () => {
           throw new Error(response.error.message);
         } else {
         }
-        setFetchedLeetcodeData(response.data.attributes);
+        setFetchedPortfolioData(response.data.attributes);
       })
       .catch((error) => {
         handleMessage(
@@ -117,7 +120,7 @@ const ReviewLeetCodes = () => {
         "success",
         messageMatrix.PASSWORD_RESULT_SCCESS
       );
-      navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/editLeetCodes`);
+      navigate(`/${categoryMatrix.PORTFOLIO.toLowerCase()}/editPortfolio`);
     } else {
       handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
       setInputPassword(null);
@@ -130,74 +133,71 @@ const ReviewLeetCodes = () => {
 
   const loadedPageContent = (
     <>
-      <Typography.Title
-        level={4}
-        className={style.lw_leetcode_review_leetcode_header}
-      >
-        Review LeetCode Problem {fetchedLeetcodeData.leetcodeIndex}.{" "}
-        {fetchedLeetcodeData.title}
-      </Typography.Title>
-      <Descriptions bordered column={6}>
-        <Descriptions.Item label="LeedCode Index" span={1}>
-          {fetchedLeetcodeData?.leetcodeIndex?.toString()}
-        </Descriptions.Item>
-        <Descriptions.Item label="Title" span={5}>
-          {fetchedLeetcodeData?.title?.toString()}
-        </Descriptions.Item>
-        <Descriptions.Item label="Difficulty" span={1}>
-          {fetchedLeetcodeData?.difficulty?.toString()}
-        </Descriptions.Item>
-        <Descriptions.Item label="First Completed Date" span={4}>
-          {fetchedLeetcodeData?.firstCompletedDate?.toString()}
-        </Descriptions.Item>
-        <Descriptions.Item label="LeetCode Page" span={1}>
-          <Button
-            type="link"
-            onClick={() => {
-              window.open(fetchedLeetcodeData?.link?.toString());
-            }}
-          >
-            Check
-          </Button>
-        </Descriptions.Item>
-        <Descriptions.Item label="Problem Type" span={6}>
-          {fetchedLeetcodeData?.type?.toString()}
-        </Descriptions.Item>
-        {fetchedLeetcodeData?.issue && (
-          <Descriptions.Item label="Problem Content" span={6}>
-            <CodeMirror
-              value={fetchedLeetcodeData?.issue}
-              extensions={[EditorView.lineWrapping]}
-              height="auto"
-              editable={false}
-              basicSetup={{ lineNumbers: false }}
-            />
+      <Card>
+        <Space align="start" direction="horizontal" wrap={true}>
+          <Row>
+            <Col className={style.lw_portfolio_review_grid} flex="100px">
+              <Image
+                width={100}
+                height={100}
+                src={fetchedPortfolioData.icon}
+                fallback={failPicture}
+                preview={false}
+              />
+            </Col>
+            <Col className={style.lw_portfolio_review_grid} flex="auto">
+              <Typography.Title
+                level={3}
+                className={style.lw_portfolio_review_title_company_name}
+              >
+                {fetchedPortfolioData.name}
+              </Typography.Title>
+              <Typography.Title
+                level={5}
+                className={style.lw_portfolio_review_title_job_title}
+              >
+                {fetchedPortfolioData.jobTitle}
+              </Typography.Title>
+            </Col>
+          </Row>
+        </Space>
+        <Descriptions
+          className={style.lw_portfolio_review_outter}
+          bordered
+          column={4}
+        >
+          {fetchedPortfolioData.projectName && (
+            <Descriptions.Item label="Project Name" span={4}>
+              {fetchedPortfolioData.projectName}
+            </Descriptions.Item>
+          )}
+          <Descriptions.Item label="Start Date" span={4}>
+            {fetchedPortfolioData.startDate}
           </Descriptions.Item>
-        )}
-        {fetchedLeetcodeData?.solutionOne && (
-          <Descriptions.Item label="Problem Solution One" span={6}>
-            <CodeMirror
-              value={fetchedLeetcodeData?.solutionOne}
-              extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-              height="auto"
-              editable={false}
-            />
+          <Descriptions.Item label="End Date" span={4}>
+            {fetchedPortfolioData.endDate
+              ? fetchedPortfolioData.endDate
+              : "Present"}
           </Descriptions.Item>
-        )}
-        {fetchedLeetcodeData?.solutionTwo && (
-          <Descriptions.Item label="Problem Solution Two" span={4}>
-            <CodeMirror
-              value={fetchedLeetcodeData?.solutionTwo}
-              extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-              height="auto"
-              editable={false}
-            />
+          <Descriptions.Item label="Location" span={4}>
+            {fetchedPortfolioData.location}
           </Descriptions.Item>
-        )}
-      </Descriptions>
-      <div className={style.lw_leetcodes_review_leetcode_wrapper}>
+          <Descriptions.Item label="Key Skills" span={4}>
+            {fetchedPortfolioData.keySkills}
+          </Descriptions.Item>
+          {fetchedPortfolioData.description && (
+            <Descriptions.Item label="Description" span={4}>
+              {fetchedPortfolioData.description}
+            </Descriptions.Item>
+          )}
+          <Descriptions.Item label="Job Contents" span={4}>
+            {fetchedPortfolioData.jobContent}
+          </Descriptions.Item>
+        </Descriptions>
+      </Card>
+      <div className={style.lw_portfolio_review_portfolio_wrapper}>
         <Button
-          className={style.lw_leetcodes_review_leetcode_btns}
+          className={style.lw_portfolio_review_portfolio_btns}
           type="default"
           onClick={handleGoback}
           icon={<RollbackOutlined />}
@@ -206,7 +206,7 @@ const ReviewLeetCodes = () => {
         </Button>
         <Popconfirm
           title={"Please input password to edit."}
-          className={style.lw_leetcodes_review_leetcode_btns}
+          className={style.lw_portfolio_review_portfolio_btns}
           placement="top"
           description={
             <>
@@ -244,4 +244,4 @@ const ReviewLeetCodes = () => {
   return <LwLayout content={pageContent} />;
 };
 
-export default ReviewLeetCodes;
+export default ReviewPortfolio;

@@ -17,7 +17,7 @@ const EditLeetCodes = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleMessage = (type, key, content) => {
+  const handleMessage = (key, type, content) => {
     const messageDuration = 2;
 
     switch (type) {
@@ -51,7 +51,8 @@ const EditLeetCodes = () => {
 
   const handleGetLeetcodeDataById = () => {
     const messageKey = "editPageLoadingMessage";
-    handleMessage("loading", messageKey, messageMatrix.LOADING_MESSAGE_LOADING);
+
+    handleMessage(messageKey, "loading", messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
       const response = await fetch(
@@ -68,8 +69,8 @@ const EditLeetCodes = () => {
       })
       .catch((error) => {
         handleMessage(
-          "error",
           messageKey,
+          "error",
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       })

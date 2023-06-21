@@ -18,7 +18,6 @@ import {
   SET_LEETCODE_DATA,
   SET_APPLICATION_DATA,
   SET_COMPONENT_DATA,
-  SET_CLICKED_HOME_PAGE_ITEM_ID,
 } from "../../redux/constants";
 import style from "./style/Home.module.css";
 
@@ -28,9 +27,6 @@ const Home = () => {
   const leetcodeData = useSelector((state) => state.leetcodeData);
   const applicationData = useSelector((state) => state.applicationData);
   const componentData = useSelector((state) => state.componentData);
-  const clickedHomePageItemId = useSelector(
-    (state) => state.clickedHomePageItemId
-  );
   const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(true);
   const [isLeetcodeDataLoading, setIsLeetcodeDataLoading] = useState(true);
   const [isApplicationDataLoading, setIsApplicationDataLoading] =
@@ -39,16 +35,8 @@ const Home = () => {
 
   useEffect(() => {
     handleFetchData();
-    handleComeBackFromPrePage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleComeBackFromPrePage = () => {
-    if (clickedHomePageItemId) {
-      dispatch({ type: SET_CLICKED_HOME_PAGE_ITEM_ID, payload: null });
-      window.scrollTo(0, 0);
-    }
-  };
 
   const handleMessage = (key, type, content) => {
     const messageDuration = 2;
@@ -83,6 +71,8 @@ const Home = () => {
   };
 
   const handleFetchData = async () => {
+    const messageKey = "loadingMessage";
+
     if (portfolioData.data && portfolioData.data !== [])
       setIsPortfolioDataLoading(false);
     if (leetcodeData.data && leetcodeData.data !== [])
@@ -119,7 +109,7 @@ const Home = () => {
         }
       })
       .catch((error) => {
-        handleMessage("loadingMessage", "error", error);
+        handleMessage(messageKey, "error", error);
       })
       .finally(() => {
         setIsPortfolioDataLoading(false);

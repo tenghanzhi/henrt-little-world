@@ -1,7 +1,7 @@
 import {
   SET_CLICKED_HOME_PAGE_ITEM_ID,
   SET_PORTFOLIO_DATA,
-  SET_EDIT_PORTFOLIO_ID,
+  SET_SELECTED_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
@@ -22,7 +22,7 @@ import {
 const initialState = {
   clickedHomePageItemId: null,
   portfolioData: { data: [], meta: {} },
-  editPortfolioId: null,
+  selectedPortfolioId: null,
   leetcodeData: { data: [], meta: {} },
   selectedLeetcodeId: null,
   leetcodeTablePagenation: {
@@ -77,8 +77,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, clickedHomePageItemId: action.payload };
     case SET_PORTFOLIO_DATA:
       return { ...state, portfolioData: action.payload };
-    case SET_EDIT_PORTFOLIO_ID:
-      return { ...state, editPortfolioId: action.payload };
+    case SET_SELECTED_PORTFOLIO_ID:
+      return { ...state, selectedPortfolioId: action.payload };
     case SET_LEETCODE_DATA:
       return { ...state, leetcodeData: action.payload };
     case SET_SELECTED_LEETCODE_ID:

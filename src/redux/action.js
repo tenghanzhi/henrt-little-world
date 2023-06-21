@@ -1,7 +1,7 @@
 import {
   SET_CLICKED_HOME_PAGE_ITEM_ID,
   SET_PORTFOLIO_DATA,
-  SET_EDIT_PORTFOLIO_ID,
+  SET_SELECTED_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
@@ -35,10 +35,10 @@ export function setPortfolioData(portfolioData) {
   };
 }
 
-export function setEditPortfolioId(editPortfolioId) {
+export function setSelectedPortfolioId(selectedPortfolioId) {
   return {
-    type: SET_EDIT_PORTFOLIO_ID,
-    editPortfolioId,
+    type: SET_SELECTED_PORTFOLIO_ID,
+    selectedPortfolioId,
   };
 }
 

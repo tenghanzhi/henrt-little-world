@@ -164,12 +164,14 @@ const LeetCodesTable = (props) => {
   };
 
   const handleConfirmPassword = (id) => {
+    const messageKey = "passwordResult";
+
     if (inputPassword !== null && inputPassword === password) {
-      handleMessage("passwordResult", "success");
+      handleMessage(messageKey, "success");
       dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: id });
       navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/editLeetCodes`);
     } else {
-      handleMessage("passwordResult", "error");
+      handleMessage(messageKey, "error");
       setInputPassword(null);
     }
   };
