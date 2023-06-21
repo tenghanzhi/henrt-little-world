@@ -12,6 +12,11 @@ import {
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
   SET_APPLICATION_TABLE_FILTER,
+  SET_COMPONENT_DATA,
+  SET_SELECTED_COMPONENT_ID,
+  SET_COMPONENT_TABLE_PAGENATION,
+  SET_COMPONENT_TABLE_SORTER,
+  SET_COMPONENT_TABLE_FILTER,
 } from "./constants";
 
 const initialState = {
@@ -49,6 +54,21 @@ const initialState = {
     type: null,
     description: null,
   },
+  componentData: { data: [], meta: {} },
+  selectedComponentId: null,
+  componentTablePagenation: {
+    current: 1,
+    size: 20,
+  },
+  componentTableSorter: {
+    sort: "name",
+    order: ":asc",
+  },
+  componentTableFilter: {
+    name: null,
+    componentType: null,
+    codeType: null,
+  },
 };
 
 export default function reducer(state = initialState, action) {
@@ -79,6 +99,16 @@ export default function reducer(state = initialState, action) {
       return { ...state, applicationTableSorter: action.payload };
     case SET_APPLICATION_TABLE_FILTER:
       return { ...state, applicationTableFilter: action.payload };
+    case SET_COMPONENT_DATA:
+      return { ...state, componentData: action.payload };
+    case SET_SELECTED_COMPONENT_ID:
+      return { ...state, selectedComponentId: action.payload };
+    case SET_COMPONENT_TABLE_PAGENATION:
+      return { ...state, componentTablePagenation: action.payload };
+    case SET_COMPONENT_TABLE_SORTER:
+      return { ...state, componentTableSorter: action.payload };
+    case SET_COMPONENT_TABLE_FILTER:
+      return { ...state, componentTableFilter: action.payload };
     default:
       return state;
   }

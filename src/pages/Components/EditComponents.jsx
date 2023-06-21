@@ -3,19 +3,17 @@ import { useSelector } from "react-redux";
 import { Typography, Skeleton, message } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
-import ApplicationsForm from "./ApplicationsForm";
+import ComponentsForm from "./ComponentsForm";
 import LwLayout from "../common/LwLayout";
-import style from "./style/EditApplication.module.css";
+import style from "./style/EditComponent.module.css";
 
-const EditApplication = () => {
-  const selectedApplicationId = useSelector(
-    (state) => state.selectedApplicationId
-  );
+const EditComponents = () => {
+  const selectedComponentId = useSelector((state) => state.selectedComponentId);
   const [isEditPageLoading, setIsEditPageLoading] = useState(true);
-  const [fetchedApplicationData, setFetchedApplicationData] = useState({});
+  const [fetchedComponentData, setFetchedComponentData] = useState({});
 
   useEffect(() => {
-    handleGetLeetcodeDataById();
+    handleGetComponentDataById();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,13 +49,13 @@ const EditApplication = () => {
     }
   };
 
-  const handleGetLeetcodeDataById = () => {
+  const handleGetComponentDataById = () => {
     const messageKey = "editPageLoadingMessage";
     handleMessage("loading", messageKey, messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.APPLICATIONS_GET_BY_ID}/${selectedApplicationId}`
+        `${apiMatrix.COMPONENTS_GET_BY_ID}/${selectedComponentId}`
       );
       return response.json();
     })()
@@ -66,7 +64,7 @@ const EditApplication = () => {
           throw new Error(response.error.message);
         } else {
         }
-        setFetchedApplicationData(response.data.attributes);
+        setFetchedComponentData(response.data.attributes);
       })
       .catch((error) => {
         handleMessage(
@@ -84,11 +82,11 @@ const EditApplication = () => {
     <>
       <Typography.Title
         level={4}
-        className={style.lw_application_edit_leetcode_header}
+        className={style.lw_component_edit_component_header}
       >
-        Edit Application {fetchedApplicationData.name}
+        Edit Component {fetchedComponentData.title}
       </Typography.Title>
-      <ApplicationsForm isEdit={true} data={fetchedApplicationData} />
+      <ComponentsForm isEdit={true} data={fetchedComponentData} />
     </>
   );
 
@@ -101,4 +99,4 @@ const EditApplication = () => {
   return <LwLayout content={pageContent} />;
 };
 
-export default EditApplication;
+export default EditComponents;

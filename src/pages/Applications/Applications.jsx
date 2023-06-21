@@ -102,7 +102,6 @@ const Applications = () => {
   };
 
   const handleGetApplicationData = () => {
-    console.log({ applicationData, applicationTableFilter });
     (async () => {
       const response = await fetch(
         `${apiMatrix.APPLICATIONS_GET_ALL}?pagination[page]=${

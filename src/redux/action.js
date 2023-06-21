@@ -12,6 +12,11 @@ import {
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
   SET_APPLICATION_TABLE_FILTER,
+  SET_COMPONENT_DATA,
+  SET_SELECTED_COMPONENT_ID,
+  SET_COMPONENT_TABLE_PAGENATION,
+  SET_COMPONENT_TABLE_SORTER,
+  SET_COMPONENT_TABLE_FILTER,
 } from "./constants.js";
 
 //Home
@@ -106,5 +111,41 @@ export function setApplicationTableFilter(applicationTableFilter) {
   return {
     type: SET_APPLICATION_TABLE_FILTER,
     applicationTableFilter,
+  };
+}
+
+//Component
+export function setComponentData(componentData) {
+  return {
+    type: SET_COMPONENT_DATA,
+    componentData,
+  };
+}
+
+export function setComponentId(selectedComponentId) {
+  return {
+    type: SET_SELECTED_COMPONENT_ID,
+    selectedComponentId,
+  };
+}
+
+export function setComponentTablePagenation(componentTablePagenation) {
+  return {
+    type: SET_COMPONENT_TABLE_PAGENATION,
+    componentTablePagenation,
+  };
+}
+
+export function setComponentTableSorter(componentTableSorter) {
+  return {
+    type: SET_COMPONENT_TABLE_SORTER,
+    componentTableSorter,
+  };
+}
+
+export function setComponentTableFilter(componentTableFilter) {
+  return {
+    type: SET_COMPONENT_TABLE_FILTER,
+    componentTableFilter,
   };
 }

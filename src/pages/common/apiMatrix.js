@@ -2,6 +2,7 @@ const END_POINT = "https://henry-little-world.herokuapp.com/api";
 const PORTFOLIOS = "portfolios";
 const LEET_CODES = "leet-codes";
 const APPLICATIONS = "applications";
+const COMPONENTS = "components";
 
 const apiMatrix = {
   //Portfolio
@@ -22,6 +23,12 @@ const apiMatrix = {
   APPLICATIONS_CREATE_NEW: `${END_POINT}/${APPLICATIONS}`,
   APPLICATIONS_DELETE_BY_ID: `${END_POINT}/${APPLICATIONS}`, // /ID
   APPLICATIONS_UPDATE_BY_ID: `${END_POINT}/${APPLICATIONS}`, // /ID
+  //Component
+  COMPONENTS_GET_ALL: `${END_POINT}/${COMPONENTS}`,
+  COMPONENTS_GET_BY_ID: `${END_POINT}/${COMPONENTS}`, // /ID
+  COMPONENTS_CREATE_NEW: `${END_POINT}/${COMPONENTS}`,
+  COMPONENTS_DELETE_BY_ID: `${END_POINT}/${COMPONENTS}`, // /ID
+  COMPONENTS_UPDATE_BY_ID: `${END_POINT}/${COMPONENTS}`, // /ID
 };
 
 export default apiMatrix;

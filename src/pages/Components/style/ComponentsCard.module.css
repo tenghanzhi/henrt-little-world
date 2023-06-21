@@ -1,0 +1,14 @@
+.lw_components_card_extra_btn {
+  margin: 0px 5px;
+}
+
+.lw_components_homecard {
+  width: auto;
+  min-height: 600px;
+}
+
+.lw_components_homecard_iframe {
+  width: 500px;
+  height: 800px;
+  border: 0px;
+}

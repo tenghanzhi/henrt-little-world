@@ -17,25 +17,24 @@ import password from "../common/password";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
-import style from "./style/ApplicationsForm.module.css";
+import { html } from "@codemirror/lang-html";
+import style from "./style/ComponentsForm.module.css";
 
-const ApplicationsForm = (props) => {
+const ComponentsForm = (props) => {
   const pageType = props.isEdit && props.isEdit !== "" ? "edit" : "create";
   const defaultData = props.data && props.data !== {} ? props.data : {};
-  const selectedApplicationId = useSelector(
-    (state) => state.selectedApplicationId
-  );
+  const selectedComponentId = useSelector((state) => state.selectedComponentId);
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [filedValue, setFiledValue] = useState(form.getFieldValue());
-  const [codeOne, setCodeOne] = useState(
-    pageType === "edit" ? defaultData.codeOne : null
+  const [cssCode, setCssCode] = useState(
+    pageType === "edit" ? defaultData.cssCode : null
   );
-  const [codeTwo, setCodeTwo] = useState(
-    pageType === "edit" ? defaultData.codeTwo : null
+  const [htmlCode, setHtmlCode] = useState(
+    pageType === "edit" ? defaultData.htmlCode : null
   );
-  const [codeThree, setCodeThree] = useState(
-    pageType === "edit" ? defaultData.codeThree : null
+  const [jsCode, setJsCode] = useState(
+    pageType === "edit" ? defaultData.jsCode : null
   );
   const [inputDeletePassword, setInputDeletePassword] = useState(null);
 
@@ -63,7 +62,7 @@ const ApplicationsForm = (props) => {
             if (key === "uploadingDataMessage") {
               handleGoback();
             } else if (key === "deleteDataMessage") {
-              navigate(`/${categoryMatrix.APPLICATIONS.toLowerCase()}`);
+              navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}`);
             } else return null;
           },
         });
@@ -110,16 +109,16 @@ const ApplicationsForm = (props) => {
 
   const handleFormValueChange = (type, value) => {
     switch (type) {
-      case (type = "setCodeOne"):
-        setCodeOne(value);
+      case (type = "setCssCode"):
+        setCssCode(value);
         setFiledValue(form.getFieldValue());
         break;
-      case (type = "setCodeTwo"):
-        setCodeTwo(value);
+      case (type = "setHtmlCode"):
+        setHtmlCode(value);
         setFiledValue(form.getFieldValue());
         break;
-      case (type = "setCodeThree"):
-        setCodeThree(value);
+      case (type = "setJsCode"):
+        setJsCode(value);
         setFiledValue(form.getFieldValue());
         break;
       default:
@@ -136,13 +135,13 @@ const ApplicationsForm = (props) => {
       messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_LOADING
     );
 
-    values.data.codeOne = codeOne?.toString();
-    values.data.codeTwo = codeTwo?.toString();
-    values.data.codeThree = codeThree?.toString();
+    values.data.cssCode = cssCode?.toString();
+    values.data.htmlCode = htmlCode?.toString();
+    values.data.jsCode = jsCode?.toString();
 
     if (type.toLowerCase() === "create") {
       (async () => {
-        const response = await fetch(apiMatrix.APPLICATIONS_CREATE_NEW, {
+        const response = await fetch(apiMatrix.COMPONENTS_CREATE_NEW, {
           method: "POST",
           mode: "cors",
           body: JSON.stringify(values),
@@ -173,7 +172,7 @@ const ApplicationsForm = (props) => {
     } else if (type.toLowerCase() === "edit") {
       (async () => {
         const response = await fetch(
-          `${apiMatrix.APPLICATIONS_UPDATE_BY_ID}/${selectedApplicationId}`,
+          `${apiMatrix.COMPONENTS_UPDATE_BY_ID}/${selectedComponentId}`,
           {
             method: "PUT",
             mode: "cors",
@@ -220,7 +219,7 @@ const ApplicationsForm = (props) => {
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.APPLICATIONS_DELETE_BY_ID}/${selectedApplicationId}`,
+        `${apiMatrix.COMPONENTS_DELETE_BY_ID}/${selectedComponentId}`,
         {
           method: "DELETE",
           mode: "cors",
@@ -261,7 +260,8 @@ const ApplicationsForm = (props) => {
     const isAllRequiredFiled =
       filedValue.data !== {} &&
       filedValue.data?.hasOwnProperty("name") &&
-      filedValue.data?.hasOwnProperty("type");
+      filedValue.data?.hasOwnProperty("codeType") &&
+      filedValue.data?.hasOwnProperty("componentType");
 
     return isHasError || !isAllRequiredFiled;
   };
@@ -280,53 +280,64 @@ const ApplicationsForm = (props) => {
     onChange: handleFormValueChange,
   };
 
-  const typeOptions = [
+  const codeTypeOptions = [
     {
-      label: "Array",
-      value: "Array",
+      label: "Vanilla",
+      value: "Vanilla",
     },
     {
-      label: "BOM",
-      value: "BOM",
+      label: "React",
+      value: "React",
+    },
+  ];
+
+  const componentTypeOptions = [
+    {
+      label: "Creativity",
+      value: "Creativity",
     },
     {
-      label: "DEV",
-      value: "DEV",
+      label: "Buttons",
+      value: "Buttons",
     },
     {
-      label: "DOM",
-      value: "DOM",
+      label: "Checkboxes",
+      value: "Checkboxes",
     },
     {
-      label: "Git",
-      value: "Git",
+      label: "Toggle Switches",
+      value: "Toggle Switches",
     },
     {
-      label: "H5C3",
-      value: "H5C3",
+      label: "Cards",
+      value: "Cards",
     },
     {
-      label: "Object",
-      value: "Object",
+      label: "Loaders",
+      value: "Loaders",
     },
     {
-      label: "String",
-      value: "String",
+      label: "Inputs",
+      value: "Inputs",
     },
     {
-      label: "Test",
-      value: "Test",
+      label: "Radio Buttons",
+      value: "Radio Buttons",
     },
     {
-      label: "Utils",
-      value: "Utils",
+      label: "Forms",
+      value: "Forms",
+    },
+    {
+      label: "Other",
+      value: "Other",
     },
   ];
 
   return (
     <Form
       {...formLayout}
-      name="application"
+      name="components"
       form={form}
       onFinish={onFinish}
       validateMessages={validateMessages}
@@ -335,9 +346,9 @@ const ApplicationsForm = (props) => {
           ? {
               data: {
                 name: defaultData.name,
-                type: defaultData.type,
+                codeType: defaultData.codeType,
+                componentType: defaultData.componentType,
                 source: defaultData.source,
-                description: defaultData.description,
               },
             }
           : {}
@@ -346,18 +357,18 @@ const ApplicationsForm = (props) => {
     >
       <Form.Item
         name={["data", "name"]}
-        label="Application Name"
+        label="Component Name"
         rules={[
           {
             required: true,
           },
         ]}
       >
-        <Input {...formProps} placeholder="Input Application Name" />
+        <Input {...formProps} placeholder="Input Component Name" />
       </Form.Item>
       <Form.Item
-        name={["data", "type"]}
-        label="Type"
+        name={["data", "codeType"]}
+        label="Code Type"
         rules={[
           {
             required: true,
@@ -368,59 +379,70 @@ const ApplicationsForm = (props) => {
           {...formProps}
           placeholder="Select a Type"
           showSearch
-          options={typeOptions.sort((a, b) =>
+          options={codeTypeOptions.sort((a, b) =>
+            a.value > b.value ? 1 : b.value > a.value ? -1 : 0
+          )}
+        />
+      </Form.Item>
+      <Form.Item
+        name={["data", "componentType"]}
+        label="Component Type"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select
+          {...formProps}
+          placeholder="Select a Type"
+          showSearch
+          options={componentTypeOptions.sort((a, b) =>
             a.value > b.value ? 1 : b.value > a.value ? -1 : 0
           )}
         />
       </Form.Item>
       <Form.Item name={["data", "source"]} label="Source">
-        <Input {...formProps} placeholder="Input Application Source" />
+        <Input {...formProps} placeholder="Input Component Source" />
       </Form.Item>
-      <Form.Item name={["data", "description"]} label="Description">
-        <Input.TextArea
-          {...formProps}
-          placeholder="Input Description"
-          rows={8}
-        />
-      </Form.Item>
-      <Form.Item name={["data", "codeOne"]} label="Code One">
-        <div className={style.lw_applications_form_codemirror_wrapper}>
+      <Form.Item name={["data", "htmlCode"]} label="HTML Code">
+        <div className={style.lw_components_form_codemirror_wrapper}>
           <CodeMirror
             {...formProps}
             height="600px"
-            extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-            value={defaultData.codeOne?.toString()}
-            onChange={(e) => handleFormValueChange("setCodeOne", e)}
+            extensions={[html(), EditorView.lineWrapping]}
+            value={defaultData.htmlCode?.toString()}
+            onChange={(e) => handleFormValueChange("setHtmlCode", e)}
           />
         </div>
       </Form.Item>
-      <Form.Item name={["data", "codeTwo"]} label="Code Two">
-        <div className={style.lw_applications_form_codemirror_wrapper}>
+      <Form.Item name={["data", "cssCode"]} label="CSS Code">
+        <div className={style.lw_components_form_codemirror_wrapper}>
           <CodeMirror
             {...formProps}
             height="600px"
-            extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-            value={defaultData.codeTwo?.toString()}
-            onChange={(e) => handleFormValueChange("setCodeTwo", e)}
+            extensions={[html(), EditorView.lineWrapping]}
+            value={defaultData.cssCode?.toString()}
+            onChange={(e) => handleFormValueChange("setCssCode", e)}
           />
         </div>
       </Form.Item>
-      <Form.Item name={["data", "codeThree"]} label="Code Three">
-        <div className={style.lw_applications_form_codemirror_wrapper}>
+      <Form.Item name={["data", "codeThree"]} label="JS Code">
+        <div className={style.lw_components_form_codemirror_wrapper}>
           <CodeMirror
             {...formProps}
             height="600px"
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-            value={defaultData.codeThree?.toString()}
-            onChange={(e) => handleFormValueChange("setCodeThree", e)}
+            value={defaultData.jsCode?.toString()}
+            onChange={(e) => handleFormValueChange("setJsCode", e)}
           />
         </div>
       </Form.Item>
       <Form.Item shouldUpdate>
         {() => (
-          <div className={style.lw_applications_form_btns_wrapper}>
+          <div className={style.lw_components_form_btns_wrapper}>
             <Button
-              className={style.lw_applications_form_btns}
+              className={style.lw_components_form_btns}
               type="default"
               onClick={handleGoback}
               icon={<RollbackOutlined />}
@@ -430,7 +452,7 @@ const ApplicationsForm = (props) => {
             {pageType === "edit" && (
               <Popconfirm
                 title={"Please input password to delete."}
-                className={style.lw_applications_form_btns}
+                className={style.lw_components_form_btns}
                 placement="top"
                 description={
                   <>
@@ -457,7 +479,7 @@ const ApplicationsForm = (props) => {
               </Popconfirm>
             )}
             <Button
-              className={style.lw_applications_form_btns}
+              className={style.lw_components_form_btns}
               type="primary"
               htmlType="submit"
               disabled={handleDisableSubmitBtn()}
@@ -472,4 +494,4 @@ const ApplicationsForm = (props) => {
   );
 };
 
-export default ApplicationsForm;
+export default ComponentsForm;

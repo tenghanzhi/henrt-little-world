@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import categoryMatrix from "./pages/common/categoryMatrix";
+import "./index.css";
 import LwHeader from "./pages/common/LwHeader";
 import LwFooter from "./pages/common/LwFooter";
 import Home from "./pages/Home";
@@ -17,9 +19,10 @@ import CreateApplications from "./pages/Applications/CreateApplication";
 import EditApplications from "./pages/Applications/EditApplication";
 import ReviewApplications from "./pages/Applications/ReviewApplication";
 import Components from "./pages/Components";
+import CreateComponents from "./pages/Components/CreateComponents";
+import EditComponents from "./pages/Components/EditComponents";
+import ReviewComponents from "./pages/Components/ReviewComponents";
 import More from "./pages/More";
-import categoryMatrix from "./pages/common/categoryMatrix";
-import "./index.css";
 
 const Main = () => {
   return (
@@ -72,6 +75,18 @@ const Main = () => {
             <Route
               path={categoryMatrix.COMPONENTS.toLowerCase()}
               element={<Components />}
+            />
+            <Route
+              path={`${categoryMatrix.COMPONENTS.toLowerCase()}/createComponents`}
+              element={<CreateComponents />}
+            />
+            <Route
+              path={`${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`}
+              element={<EditComponents />}
+            />
+            <Route
+              path={`${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents`}
+              element={<ReviewComponents />}
             />
             <Route
               path={categoryMatrix.MORE.toLowerCase()}

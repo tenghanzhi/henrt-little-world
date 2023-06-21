@@ -1,0 +1,27 @@
+.lw_components_review_components_header {
+  text-align: center;
+  margin-top: -10px;
+}
+
+.lw_components_review_components_btns {
+  margin: 0px 5px;
+}
+
+.lw_components_review_components_wrapper {
+  text-align: center;
+}
+
+.lw_components_review_components_iframe {
+  width: 100%;
+  height: 800px;
+  border: 0px;
+}
+
+.lw_components_review_components_code_tab {
+  width: 100%;
+}
+
+.lw_components_review_components_iframe_card {
+  width: 100%;
+  height: auto;
+}

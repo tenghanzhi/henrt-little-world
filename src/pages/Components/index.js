@@ -1,2 +1,2 @@
-import Components from './Components'
-export default Components
+import Components from "./Components";
+export default Components;
