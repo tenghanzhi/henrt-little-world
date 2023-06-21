@@ -187,9 +187,9 @@ const Components = () => {
   };
 
   const handleSearchValueChange = (e) => {
-    setInputSearch(e.target.value);
     switch (searchType) {
       case "name":
+        setInputSearch(e.target.value);
         dispatch({
           type: SET_COMPONENT_TABLE_FILTER,
           payload: {
@@ -200,22 +200,24 @@ const Components = () => {
         });
         break;
       case "componentType":
+        setInputSearch(e);
         dispatch({
           type: SET_COMPONENT_TABLE_FILTER,
           payload: {
             name: componentTableFilter.name,
-            componentType: e.target.value,
+            componentType: e,
             codeType: componentTableFilter.codeType,
           },
         });
         break;
       case "codeType":
+        setInputSearch(e);
         dispatch({
           type: SET_COMPONENT_TABLE_FILTER,
           payload: {
             name: componentTableFilter.name,
             componentType: componentTableFilter.tcomponentTypeype,
-            codeType: e.target.value,
+            codeType: e,
           },
         });
         break;
@@ -256,6 +258,60 @@ const Components = () => {
     {
       label: "Search by Code Type",
       value: "codeType",
+    },
+  ];
+
+  const codeTypeOptions = [
+    {
+      label: "Vanilla",
+      value: "Vanilla",
+    },
+    {
+      label: "React",
+      value: "React",
+    },
+  ];
+
+  const componentTypeOptions = [
+    {
+      label: "Creativity",
+      value: "Creativity",
+    },
+    {
+      label: "Buttons",
+      value: "Buttons",
+    },
+    {
+      label: "Checkboxes",
+      value: "Checkboxes",
+    },
+    {
+      label: "Toggle Switches",
+      value: "Toggle Switches",
+    },
+    {
+      label: "Cards",
+      value: "Cards",
+    },
+    {
+      label: "Loaders",
+      value: "Loaders",
+    },
+    {
+      label: "Inputs",
+      value: "Inputs",
+    },
+    {
+      label: "Radio Buttons",
+      value: "Radio Buttons",
+    },
+    {
+      label: "Forms",
+      value: "Forms",
+    },
+    {
+      label: "Other",
+      value: "Other",
     },
   ];
 
@@ -320,32 +376,59 @@ const Components = () => {
         >
           Flat UI Colors
         </Button>
-        <Input
-          className={style.lw_components_search}
-          addonBefore={
-            <Select
-              className={style.lw_components_search_type_selector}
-              placeholder="Search by"
-              options={searchOptions}
-              onChange={(value) => handleSearchTypeChange(value)}
-              onClear={handleClearSearchResult}
-              value={searchType}
-              allowClear
-            />
-          }
-          placeholder={handleSearchPlaceholder()}
-          onChange={(e) => handleSearchValueChange(e)}
-          value={inputSearch}
-          enterButton
-          disabled={!searchType}
+        <Select
+          className={style.lw_components_search_type_selector}
+          placeholder="Search by"
+          options={searchOptions}
+          onChange={(value) => handleSearchTypeChange(value)}
+          onClear={handleClearSearchResult}
+          value={searchType}
+          allowClear
         />
-        <Button
-          danger
-          onClick={handleClearSearchResult}
-          disabled={!inputSearch}
-        >
-          Clear Results
-        </Button>
+        {searchType === "name" && (
+          <Input
+            className={style.lw_components_search}
+            placeholder={handleSearchPlaceholder()}
+            onChange={(e) => handleSearchValueChange(e)}
+            value={inputSearch}
+            disabled={!searchType}
+            enterButton
+            allowClear
+          />
+        )}
+        {searchType === "componentType" && (
+          <Select
+            className={style.lw_components_search}
+            placeholder={handleSearchPlaceholder()}
+            onChange={(e) => handleSearchValueChange(e)}
+            value={inputSearch}
+            disabled={!searchType}
+            options={componentTypeOptions}
+            enterButton
+            allowClear
+          />
+        )}
+        {searchType === "codeType" && (
+          <Select
+            className={style.lw_components_search}
+            placeholder={handleSearchPlaceholder()}
+            onChange={(e) => handleSearchValueChange(e)}
+            value={inputSearch}
+            disabled={!searchType}
+            options={codeTypeOptions}
+            enterButton
+            allowClear
+          />
+        )}
+        {searchType && (
+          <Button
+            danger
+            onClick={handleClearSearchResult}
+            disabled={!inputSearch}
+          >
+            Clear Results
+          </Button>
+        )}
       </Space>
       <Space direction="horizontal" wrap align="center">
         {componentData?.data?.map((data) => (

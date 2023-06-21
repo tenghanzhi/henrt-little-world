@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { message, Space, Button, Popconfirm, Input, Select } from "antd";
+import {
+  message,
+  Space,
+  Button,
+  Popconfirm,
+  Input,
+  InputNumber,
+  Select,
+} from "antd";
 import {
   PlusOutlined,
   CodeOutlined,
@@ -176,20 +184,21 @@ const LeetCodes = () => {
   };
 
   const handleSearchValueChange = (e) => {
-    setInputSearch(e.target.value);
     switch (searchType) {
       case "index":
+        setInputSearch(e);
         dispatch({
           type: SET_LEETCOD_TABLE_FILTER,
           payload: {
             difficulty: leetcodeTableFilter.difficulty,
             type: leetcodeTableFilter.type,
-            leetcodeIndex: e.target.value,
+            leetcodeIndex: e,
             title: leetcodeTableFilter.title,
           },
         });
         break;
       case "title":
+        setInputSearch(e.target.value);
         dispatch({
           type: SET_LEETCOD_TABLE_FILTER,
           payload: {
@@ -201,11 +210,12 @@ const LeetCodes = () => {
         });
         break;
       case "type":
+        setInputSearch(e);
         dispatch({
           type: SET_LEETCOD_TABLE_FILTER,
           payload: {
             difficulty: leetcodeTableFilter.difficulty,
-            type: e.target.value,
+            type: e,
             leetcodeIndex: leetcodeTableFilter.leetcodeIndex,
             title: leetcodeTableFilter.title,
           },
@@ -242,6 +252,69 @@ const LeetCodes = () => {
     {
       label: "Search by Type",
       value: "type",
+    },
+  ];
+
+  const typeOptions = [
+    {
+      label: "Array",
+      value: "Array",
+    },
+    {
+      label: "Hash Table",
+      value: "Hash Table",
+    },
+    {
+      label: "Linked List",
+      value: "Linked List",
+    },
+    {
+      label: "Math",
+      value: "Math",
+    },
+    {
+      label: "Recursion",
+      value: "Recursion",
+    },
+    {
+      label: "Stack",
+      value: "Stack",
+    },
+    {
+      label: "Sorting",
+      value: "Sorting",
+    },
+    {
+      label: "String",
+      value: "String",
+    },
+    {
+      label: "Tree",
+      value: "Tree",
+    },
+    {
+      label: "Sliding Window",
+      value: "Sliding Window",
+    },
+    {
+      label: "Divide and Conquer",
+      value: "Divide and Conquer",
+    },
+    {
+      label: "Heap",
+      value: "Heap",
+    },
+    {
+      label: "Bucket Sort",
+      value: "Bucket Sort",
+    },
+    {
+      label: "Counting",
+      value: "Counting",
+    },
+    {
+      label: "Quickselect",
+      value: "Quickselect",
     },
   ];
 
@@ -299,31 +372,57 @@ const LeetCodes = () => {
         >
           NeetCode
         </Button>
-        <Input
-          className={style.lw_leetcode_search}
-          addonBefore={
-            <Select
-              className={style.lw_leetcode_search_type_selector}
-              placeholder="Search by"
-              options={searchOptions}
-              onChange={(value) => handleSearchTypeChange(value)}
-              onClear={handleClearSearchResult}
-              value={searchType}
-              allowClear
-            />
-          }
-          placeholder={handleSearchPlaceholder()}
-          onChange={(e) => handleSearchValueChange(e)}
-          disabled={!searchType}
-          value={inputSearch}
+        <Select
+          className={style.lw_leetcode_search_type_selector}
+          placeholder="Search by"
+          options={searchOptions}
+          onChange={(value) => handleSearchTypeChange(value)}
+          onClear={handleClearSearchResult}
+          value={searchType}
+          allowClear
         />
-        <Button
-          danger
-          onClick={handleClearSearchResult}
-          disabled={!inputSearch}
-        >
-          Clear Results
-        </Button>
+        {searchType === "index" && (
+          <InputNumber
+            className={style.lw_leetcode_search}
+            placeholder={handleSearchPlaceholder()}
+            onChange={(e) => handleSearchValueChange(e)}
+            disabled={!searchType}
+            value={inputSearch}
+            min={0}
+            max={9999}
+            allowClear
+          />
+        )}
+        {searchType === "title" && (
+          <Input
+            className={style.lw_leetcode_search}
+            placeholder={handleSearchPlaceholder()}
+            onChange={(e) => handleSearchValueChange(e)}
+            disabled={!searchType}
+            value={inputSearch}
+            allowClear
+          />
+        )}
+        {searchType === "type" && (
+          <Select
+            className={style.lw_leetcode_search}
+            placeholder={handleSearchPlaceholder()}
+            onChange={(e) => handleSearchValueChange(e)}
+            disabled={!searchType}
+            value={inputSearch}
+            options={typeOptions}
+            allowClear
+          />
+        )}
+        {searchType && (
+          <Button
+            danger
+            onClick={handleClearSearchResult}
+            disabled={!inputSearch}
+          >
+            Clear Results
+          </Button>
+        )}
       </Space>
       <LeetCodesTable data={leetcodeData} />
     </Space>

@@ -113,10 +113,6 @@ const Applications = () => {
             ? `&filters[name][$containsi][0]=${applicationTableFilter.name}`
             : ""
         }${
-          applicationTableFilter.type
-            ? `&filters[type][$containsi][1]=${applicationTableFilter.type}`
-            : ""
-        }${
           applicationTableFilter.description
             ? `&filters[description][$containsi][2]=${applicationTableFilter.description}`
             : ""
@@ -160,8 +156,6 @@ const Applications = () => {
     switch (searchType) {
       case "name":
         return "Input application name";
-      case "type":
-        return "Input application type";
       case "description":
         return "Input application description";
       default:
@@ -191,16 +185,6 @@ const Applications = () => {
           payload: {
             name: e.target.value,
             type: applicationTableFilter.type,
-            description: applicationTableFilter.description,
-          },
-        });
-        break;
-      case "type":
-        dispatch({
-          type: SET_APPLICATION_TABLE_FILTER,
-          payload: {
-            name: applicationTableFilter.name,
-            type: e.target.value,
             description: applicationTableFilter.description,
           },
         });
@@ -237,10 +221,6 @@ const Applications = () => {
     {
       label: "Search by Name",
       value: "name",
-    },
-    {
-      label: "Search by Type",
-      value: "type",
     },
     {
       label: "Search by Description",
@@ -302,32 +282,35 @@ const Applications = () => {
         >
           JSFiddle
         </Button>
-        <Input
-          className={style.lw_applications_search}
-          addonBefore={
-            <Select
-              className={style.lw_applications_search_type_selector}
-              placeholder="Search by"
-              options={searchOptions}
-              onChange={(value) => handleSearchTypeChange(value)}
-              onClear={handleClearSearchResult}
-              value={searchType}
-              allowClear
-            />
-          }
-          placeholder={handleSearchPlaceholder()}
-          onChange={(e) => handleSearchValueChange(e)}
-          value={inputSearch}
-          enterButton
-          disabled={!searchType}
+        <Select
+          className={style.lw_applications_search_type_selector}
+          placeholder="Search by"
+          options={searchOptions}
+          onChange={(value) => handleSearchTypeChange(value)}
+          onClear={handleClearSearchResult}
+          value={searchType}
+          allowClear
         />
-        <Button
-          danger
-          onClick={handleClearSearchResult}
-          disabled={!inputSearch}
-        >
-          Clear Results
-        </Button>
+        {searchType && (
+          <Input
+            className={style.lw_applications_search}
+            placeholder={handleSearchPlaceholder()}
+            onChange={(e) => handleSearchValueChange(e)}
+            value={inputSearch}
+            disabled={!searchType}
+            enterButton
+            allowClear
+          />
+        )}
+        {searchType && (
+          <Button
+            danger
+            onClick={handleClearSearchResult}
+            disabled={!inputSearch}
+          >
+            Clear Results
+          </Button>
+        )}
       </Space>
       <ApplicationsTable data={applicationData} />
     </Space>
