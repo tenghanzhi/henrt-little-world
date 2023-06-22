@@ -16,9 +16,8 @@ import {
   EyeTwoTone,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
-import CodeMirror from "@uiw/react-codemirror";
-import { EditorView } from "@codemirror/view";
-import { markdown } from "@codemirror/lang-markdown";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
@@ -155,16 +154,9 @@ const ReviewFavorites = () => {
         </Descriptions.Item>
         {fetchedFavoriteData?.description && (
           <Descriptions.Item label="Problem Content" span={6}>
-            <CodeMirror
-              value={fetchedFavoriteData?.description}
-              extensions={[EditorView.lineWrapping, markdown()]}
-              height="auto"
-              editable={false}
-              basicSetup={{
-                lineNumbers: false,
-                highlightActiveLine: false,
-                foldGutter: false,
-              }}
+            <ReactMarkdown
+              children={fetchedFavoriteData?.description}
+              remarkPlugins={[remarkGfm]}
             />
           </Descriptions.Item>
         )}

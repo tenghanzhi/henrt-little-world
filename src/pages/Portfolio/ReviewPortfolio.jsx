@@ -21,8 +21,8 @@ import {
   EyeTwoTone,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
-import CodeMirror from "@uiw/react-codemirror";
-import { EditorView } from "@codemirror/view";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
@@ -185,36 +185,27 @@ const ReviewPortfolio = () => {
             {fetchedPortfolioData.location}
           </Descriptions.Item>
           <Descriptions.Item label="Key Skills" span={4}>
-            {fetchedPortfolioData.keySkills}
+            <ReactMarkdown
+              children={fetchedPortfolioData.keySkills}
+              remarkPlugins={[remarkGfm]}
+            />
           </Descriptions.Item>
           {fetchedPortfolioData.description && (
             <Descriptions.Item label="Description" span={4}>
-              <CodeMirror
-                value={fetchedPortfolioData?.description}
-                extensions={[EditorView.lineWrapping]}
-                height="auto"
-                editable={false}
-                basicSetup={{
-                  lineNumbers: false,
-                  highlightActiveLine: false,
-                  foldGutter: false,
-                }}
+              <ReactMarkdown
+                children={fetchedPortfolioData?.description}
+                remarkPlugins={[remarkGfm]}
               />
             </Descriptions.Item>
           )}
-          <Descriptions.Item label="Job Contents" span={4}>
-            <CodeMirror
-              value={fetchedPortfolioData.jobContent}
-              extensions={[EditorView.lineWrapping]}
-              height="auto"
-              editable={false}
-              basicSetup={{
-                lineNumbers: false,
-                highlightActiveLine: false,
-                foldGutter: false,
-              }}
-            />
-          </Descriptions.Item>
+          {fetchedPortfolioData.jobContent && (
+            <Descriptions.Item label="Job Contents" span={4}>
+              <ReactMarkdown
+                children={fetchedPortfolioData.jobContent}
+                remarkPlugins={[remarkGfm]}
+              />
+            </Descriptions.Item>
+          )}
         </Descriptions>
       </Card>
       <div className={style.lw_portfolio_review_portfolio_wrapper}>

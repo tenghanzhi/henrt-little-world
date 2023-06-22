@@ -16,6 +16,8 @@ import {
   EyeTwoTone,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
@@ -165,16 +167,9 @@ const ReviewLeetCodes = () => {
         </Descriptions.Item>
         {fetchedLeetcodeData?.issue && (
           <Descriptions.Item label="Problem Content" span={6}>
-            <CodeMirror
-              value={fetchedLeetcodeData?.issue}
-              extensions={[EditorView.lineWrapping]}
-              height="auto"
-              editable={false}
-              basicSetup={{
-                lineNumbers: false,
-                highlightActiveLine: false,
-                foldGutter: false,
-              }}
+            <ReactMarkdown
+              children={fetchedLeetcodeData?.issue}
+              remarkPlugins={[remarkGfm]}
             />
           </Descriptions.Item>
         )}
