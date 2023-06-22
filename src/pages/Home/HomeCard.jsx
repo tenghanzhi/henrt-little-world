@@ -63,7 +63,7 @@ const HomeCard = (props) => {
         );
         break;
       }
-      case categoryMatrix.MORE: {
+      case categoryMatrix.FAVORITES: {
         return null;
       }
       default:

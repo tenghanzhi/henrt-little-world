@@ -4,7 +4,7 @@ const categoryMatrix = {
   COMPONENTS: "Components",
   APPLICATIONS: "Applications",
   LEETCODES: "LeetCodes",
-  MORE: "More",
+  FAVORITES: "Favorites",
 };
 
 export default categoryMatrix;

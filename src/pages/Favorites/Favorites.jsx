@@ -1,8 +1,8 @@
 import React from "react";
 import LwLayout from "../common/LwLayout";
 
-const More = () => {
+const Favorites = () => {
   return <LwLayout />;
 };
 
-export default More;
+export default Favorites;

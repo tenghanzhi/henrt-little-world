@@ -23,7 +23,7 @@ import Components from "./pages/Components";
 import CreateComponents from "./pages/Components/CreateComponents";
 import EditComponents from "./pages/Components/EditComponents";
 import ReviewComponents from "./pages/Components/ReviewComponents";
-import More from "./pages/More";
+import Favorites from "./pages/Favorites";
 
 const Main = () => {
   return (
@@ -94,8 +94,8 @@ const Main = () => {
               element={<ReviewComponents />}
             />
             <Route
-              path={categoryMatrix.MORE.toLowerCase()}
-              element={<More />}
+              path={categoryMatrix.FAVORITES.toLowerCase()}
+              element={<Favorites />}
             />
           </Route>
         </Routes>

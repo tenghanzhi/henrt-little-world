@@ -64,11 +64,11 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.MORE.toLowerCase()}`}>
-          {categoryMatrix.MORE}
+        <Link to={`/${categoryMatrix.FAVORITES.toLowerCase()}`}>
+          {categoryMatrix.FAVORITES}
         </Link>
       ),
-      key: categoryMatrix.MORE.toLowerCase(),
+      key: categoryMatrix.FAVORITES.toLowerCase(),
       icon: <StarOutlined />,
     },
   ];

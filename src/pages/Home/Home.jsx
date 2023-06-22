@@ -165,10 +165,10 @@ const Home = () => {
         title={
           <span>
             <StarOutlined className={style.lw_home_card_icon} />
-            {categoryMatrix.MORE}
+            {categoryMatrix.FAVORITES}
           </span>
         }
-        extra={categoryMatrix.MORE}
+        extra={categoryMatrix.FAVORITES}
       />
     </>
   );
