@@ -204,7 +204,12 @@ const FavoritesTable = (props) => {
                 </a>
               </Tooltip>
             ) : (
-              <>{record.attributes.name}</>
+              <Tooltip title="Review on Little World">
+                {/* eslint-disable-next-line */}
+                <a onClick={() => handleActionBtnOnClick("review", record)}>
+                  {record.attributes.name}
+                </a>
+              </Tooltip>
             )}
           </>
         );

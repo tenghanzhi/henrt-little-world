@@ -81,7 +81,7 @@ const initialState = {
     size: 20,
   },
   favoriteTableSorter: {
-    type: "name",
+    sort: "name",
     order: ":asc",
   },
   favoriteTableFilter: {
