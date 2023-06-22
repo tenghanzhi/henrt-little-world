@@ -170,7 +170,11 @@ const ReviewLeetCodes = () => {
               extensions={[EditorView.lineWrapping]}
               height="auto"
               editable={false}
-              basicSetup={{ lineNumbers: false }}
+              basicSetup={{
+                lineNumbers: false,
+                highlightActiveLine: false,
+                foldGutter: false,
+              }}
             />
           </Descriptions.Item>
         )}

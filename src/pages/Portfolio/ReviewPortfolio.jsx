@@ -21,6 +21,8 @@ import {
   EyeTwoTone,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
+import CodeMirror from "@uiw/react-codemirror";
+import { EditorView } from "@codemirror/view";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
@@ -187,11 +189,31 @@ const ReviewPortfolio = () => {
           </Descriptions.Item>
           {fetchedPortfolioData.description && (
             <Descriptions.Item label="Description" span={4}>
-              {fetchedPortfolioData.description}
+              <CodeMirror
+                value={fetchedPortfolioData?.description}
+                extensions={[EditorView.lineWrapping]}
+                height="auto"
+                editable={false}
+                basicSetup={{
+                  lineNumbers: false,
+                  highlightActiveLine: false,
+                  foldGutter: false,
+                }}
+              />
             </Descriptions.Item>
           )}
           <Descriptions.Item label="Job Contents" span={4}>
-            {fetchedPortfolioData.jobContent}
+            <CodeMirror
+              value={fetchedPortfolioData.jobContent}
+              extensions={[EditorView.lineWrapping]}
+              height="auto"
+              editable={false}
+              basicSetup={{
+                lineNumbers: false,
+                highlightActiveLine: false,
+                foldGutter: false,
+              }}
+            />
           </Descriptions.Item>
         </Descriptions>
       </Card>
