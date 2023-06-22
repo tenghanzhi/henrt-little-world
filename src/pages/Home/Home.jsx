@@ -18,6 +18,7 @@ import {
   SET_LEETCODE_DATA,
   SET_APPLICATION_DATA,
   SET_COMPONENT_DATA,
+  SET_FAVORITE_DATA,
 } from "../../redux/constants";
 import style from "./style/Home.module.css";
 
@@ -27,11 +28,13 @@ const Home = () => {
   const leetcodeData = useSelector((state) => state.leetcodeData);
   const applicationData = useSelector((state) => state.applicationData);
   const componentData = useSelector((state) => state.componentData);
+  const favoriteData = useSelector((state) => state.favoriteData);
   const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(true);
   const [isLeetcodeDataLoading, setIsLeetcodeDataLoading] = useState(true);
   const [isApplicationDataLoading, setIsApplicationDataLoading] =
     useState(true);
   const [isComponentDataLoading, setIsComponentDataLoading] = useState(true);
+  const [isFavoriteDataLoading, setIsFavoriteDataLoading] = useState(true);
 
   useEffect(() => {
     handleFetchData();
@@ -81,6 +84,8 @@ const Home = () => {
       setIsApplicationDataLoading(false);
     if (componentData.data && componentData.data !== [])
       setIsComponentDataLoading(false);
+    if (favoriteData.data && favoriteData.data !== [])
+      setIsFavoriteDataLoading(false);
 
     const PAGINATION_SETUP = "?pagination[pageSize]=30";
 
@@ -97,6 +102,9 @@ const Home = () => {
       fetch(`${apiMatrix.COMPONENTS_GET_ALL}${PAGINATION_SETUP}`).then(
         (response) => response.json()
       ),
+      fetch(`${apiMatrix.FAVORITE_GET_ALL}${PAGINATION_SETUP}`).then(
+        (response) => response.json()
+      ),
     ])
       .then((response) => {
         if (response && response.error) {
@@ -106,6 +114,7 @@ const Home = () => {
           dispatch({ type: SET_LEETCODE_DATA, payload: response[1] });
           dispatch({ type: SET_APPLICATION_DATA, payload: response[2] });
           dispatch({ type: SET_COMPONENT_DATA, payload: response[3] });
+          dispatch({ type: SET_FAVORITE_DATA, payload: response[4] });
         }
       })
       .catch((error) => {
@@ -116,6 +125,7 @@ const Home = () => {
         setIsLeetcodeDataLoading(false);
         setIsApplicationDataLoading(false);
         setIsComponentDataLoading(false);
+        setIsFavoriteDataLoading(false);
       });
   };
 
@@ -169,6 +179,7 @@ const Home = () => {
           </span>
         }
         extra={categoryMatrix.FAVORITES}
+        isLoading={isFavoriteDataLoading}
       />
     </>
   );

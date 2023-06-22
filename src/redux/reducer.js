@@ -17,6 +17,11 @@ import {
   SET_COMPONENT_TABLE_PAGENATION,
   SET_COMPONENT_TABLE_SORTER,
   SET_COMPONENT_TABLE_FILTER,
+  SET_FAVORITE_DATA,
+  SET_SELECTED_FAVORITE_ID,
+  SET_FAVORITE_TABLE_PAGENATION,
+  SET_FAVORITE_TABLE_SORTER,
+  SET_FAVORITE_TABLE_FILTER,
 } from "./constants";
 
 const initialState = {
@@ -69,6 +74,20 @@ const initialState = {
     componentType: null,
     codeType: null,
   },
+  favoriteData: { data: [], meta: {} },
+  selectedFavoriteId: null,
+  favoriteTablePagenation: {
+    current: 1,
+    size: 20,
+  },
+  favoriteTableSorter: {
+    type: "name",
+    order: ":asc",
+  },
+  favoriteTableFilter: {
+    name: null,
+    type: null,
+  },
 };
 
 export default function reducer(state = initialState, action) {
@@ -109,6 +128,16 @@ export default function reducer(state = initialState, action) {
       return { ...state, componentTableSorter: action.payload };
     case SET_COMPONENT_TABLE_FILTER:
       return { ...state, componentTableFilter: action.payload };
+    case SET_FAVORITE_DATA:
+      return { ...state, favoriteData: action.payload };
+    case SET_SELECTED_FAVORITE_ID:
+      return { ...state, selectedFavoriteId: action.payload };
+    case SET_FAVORITE_TABLE_PAGENATION:
+      return { ...state, favoriteTablePagenation: action.payload };
+    case SET_FAVORITE_TABLE_SORTER:
+      return { ...state, favoriteTableSorter: action.payload };
+    case SET_FAVORITE_TABLE_FILTER:
+      return { ...state, favoriteTableFilter: action.payload };
     default:
       return state;
   }

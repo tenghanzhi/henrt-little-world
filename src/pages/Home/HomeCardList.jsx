@@ -6,6 +6,7 @@ import {
   CodeOutlined,
   AppstoreOutlined,
   Html5Outlined,
+  StarOutlined,
 } from "@ant-design/icons";
 import failPicture from "../common/failPicture";
 import categoryMatrix from "../common/categoryMatrix";
@@ -14,6 +15,7 @@ import {
   SET_SELECTED_LEETCODE_ID,
   SET_SELECTED_APPLICATION_ID,
   SET_SELECTED_COMPONENT_ID,
+  SET_SELECTED_FAVORITE_ID,
 } from "../../redux/constants";
 
 const HomeCardList = (props) => {
@@ -51,6 +53,13 @@ const HomeCardList = (props) => {
         });
         break;
       }
+      case categoryMatrix.FAVORITES: {
+        dispatch({
+          type: SET_SELECTED_FAVORITE_ID,
+          payload: data.id,
+        });
+        break;
+      }
       default:
         return null;
     }
@@ -68,6 +77,9 @@ const HomeCardList = (props) => {
         return <div>{item.attributes.name}</div>;
       }
       case categoryMatrix.COMPONENTS: {
+        return <div>{item.attributes.name}</div>;
+      }
+      case categoryMatrix.FAVORITES: {
         return <div>{item.attributes.name}</div>;
       }
       default:
@@ -89,6 +101,9 @@ const HomeCardList = (props) => {
       case categoryMatrix.COMPONENTS: {
         return item.attributes.componentType;
       }
+      case categoryMatrix.FAVORITES: {
+        return item.attributes.type;
+      }
       default:
         return "";
     }
@@ -107,6 +122,9 @@ const HomeCardList = (props) => {
       }
       case categoryMatrix.COMPONENTS: {
         return `/${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents`;
+      }
+      case categoryMatrix.FAVORITES: {
+        return `/${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites`;
       }
       default:
         return "";
@@ -134,6 +152,9 @@ const HomeCardList = (props) => {
       }
       case categoryMatrix.COMPONENTS: {
         return <Html5Outlined />;
+      }
+      case categoryMatrix.FAVORITES: {
+        return <StarOutlined />;
       }
       default:
         return "";

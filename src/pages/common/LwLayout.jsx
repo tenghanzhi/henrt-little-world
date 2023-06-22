@@ -31,7 +31,12 @@ const LwLayout = (props) => {
           direction={direction}
           size={size}
           wrap={wrap}
-          align={"center"}
+          align={
+            pageKey === categoryMatrix.APPLICATIONS ||
+            pageKey === categoryMatrix.LEETCODES
+              ? "center"
+              : null
+          }
         >
           {pageContent}
         </Space>

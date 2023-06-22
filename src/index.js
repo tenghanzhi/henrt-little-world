@@ -24,6 +24,9 @@ import CreateComponents from "./pages/Components/CreateComponents";
 import EditComponents from "./pages/Components/EditComponents";
 import ReviewComponents from "./pages/Components/ReviewComponents";
 import Favorites from "./pages/Favorites";
+import CreateFavorites from "./pages/Favorites/CreateFavorites";
+import EditFavorites from "./pages/Favorites/EditFavorites";
+import ReviewFavorites from "./pages/Favorites/ReviewFavorites";
 
 const Main = () => {
   return (
@@ -96,6 +99,18 @@ const Main = () => {
             <Route
               path={categoryMatrix.FAVORITES.toLowerCase()}
               element={<Favorites />}
+            />
+            <Route
+              path={`${categoryMatrix.COMPONENTS.toLowerCase()}/createFavorites`}
+              element={<CreateFavorites />}
+            />
+            <Route
+              path={`${categoryMatrix.COMPONENTS.toLowerCase()}/editFavorites`}
+              element={<EditFavorites />}
+            />
+            <Route
+              path={`${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites`}
+              element={<ReviewFavorites />}
             />
           </Route>
         </Routes>

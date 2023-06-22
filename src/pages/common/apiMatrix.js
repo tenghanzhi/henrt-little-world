@@ -3,6 +3,7 @@ const PORTFOLIOS = "portfolios";
 const LEET_CODES = "leet-codes";
 const APPLICATIONS = "applications";
 const COMPONENTS = "components";
+const FAVORITE = "favorites";
 
 const apiMatrix = {
   //Portfolio
@@ -29,6 +30,12 @@ const apiMatrix = {
   COMPONENTS_CREATE_NEW: `${END_POINT}/${COMPONENTS}`,
   COMPONENTS_DELETE_BY_ID: `${END_POINT}/${COMPONENTS}`, // /ID
   COMPONENTS_UPDATE_BY_ID: `${END_POINT}/${COMPONENTS}`, // /ID
+  //Favorite
+  FAVORITE_GET_ALL: `${END_POINT}/${FAVORITE}`,
+  FAVORITE_GET_BY_ID: `${END_POINT}/${FAVORITE}`, // /ID
+  FAVORITE_CREATE_NEW: `${END_POINT}/${FAVORITE}`,
+  FAVORITE_DELETE_BY_ID: `${END_POINT}/${FAVORITE}`, // /ID
+  FAVORITE_UPDATE_BY_ID: `${END_POINT}/${FAVORITE}`, // /ID
 };
 
 export default apiMatrix;

@@ -17,6 +17,11 @@ import {
   SET_COMPONENT_TABLE_PAGENATION,
   SET_COMPONENT_TABLE_SORTER,
   SET_COMPONENT_TABLE_FILTER,
+  SET_FAVORITE_DATA,
+  SET_SELECTED_FAVORITE_ID,
+  SET_FAVORITE_TABLE_PAGENATION,
+  SET_FAVORITE_TABLE_SORTER,
+  SET_FAVORITE_TABLE_FILTER,
 } from "./constants.js";
 
 //Home
@@ -147,5 +152,41 @@ export function setComponentTableFilter(componentTableFilter) {
   return {
     type: SET_COMPONENT_TABLE_FILTER,
     componentTableFilter,
+  };
+}
+
+//Favoite
+export function setComponentData(favoriteData) {
+  return {
+    type: SET_FAVORITE_DATA,
+    favoriteData,
+  };
+}
+
+export function setComponentId(selectedFavoriteId) {
+  return {
+    type: SET_SELECTED_FAVORITE_ID,
+    selectedFavoriteId,
+  };
+}
+
+export function setComponentTablePagenation(favoriteTablePagenation) {
+  return {
+    type: SET_FAVORITE_TABLE_PAGENATION,
+    favoriteTablePagenation,
+  };
+}
+
+export function setComponentTableSorter(favoriteTableSorter) {
+  return {
+    type: SET_FAVORITE_TABLE_SORTER,
+    favoriteTableSorter,
+  };
+}
+
+export function setComponentTableFilter(favoriteTableFilter) {
+  return {
+    type: SET_FAVORITE_TABLE_FILTER,
+    favoriteTableFilter,
   };
 }
