@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { message, Timeline } from "antd";
+import { message, Timeline, Card, Col, Row, Descriptions } from "antd";
+import {
+  UserOutlined,
+  ToolOutlined,
+  LaptopOutlined,
+  ExperimentOutlined,
+  HomeOutlined,
+} from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
@@ -11,6 +18,7 @@ import {
   SET_PORTFOLIO_DATA,
   SET_SELECTED_PORTFOLIO_ID,
 } from "../../redux/constants";
+import style from "./style/Portfolio.module.css";
 
 const Portfolio = () => {
   const dispatch = useDispatch();
@@ -78,11 +86,11 @@ const Portfolio = () => {
     dispatch({ type: SET_SELECTED_PORTFOLIO_ID, payload: id });
   };
 
-  const handleGetTimelineItems = () => {
+  const handleGetWorkTimelineItems = () => {
     let timelineItem = [];
     sortArrayObjByDate(portfolioData.data).map((item) => {
       timelineItem.push({
-        label: `${item.attributes.startDate.slice(0, 7)} - ${
+        label: `${item.attributes.startDate.slice(0, 7)} ~ ${
           item.attributes.endDate
             ? item.attributes.endDate.slice(0, 7)
             : "Present"
@@ -92,7 +100,14 @@ const Portfolio = () => {
             to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio`}
             onClick={() => handleTimelineTitleOnClick(item.id)}
           >
-            {item.attributes.name}
+            <div>
+              <HomeOutlined className={style.lw_portfolio_card_title_icon} />
+              {item.attributes.name}
+            </div>
+            <div>
+              <UserOutlined className={style.lw_portfolio_card_title_icon} />
+              {item.attributes.jobTitle}
+            </div>
           </Link>
         ),
         color: item.attributes.endDate ? "red" : "green",
@@ -102,11 +117,117 @@ const Portfolio = () => {
     return timelineItem;
   };
 
-  console.log({ portfolioData });
+  const schoolTimelineItems = [
+    {
+      label: "2018-01 ~ 2019-09",
+      children: "University of Alabama at Birminghan | M.S.E.E.",
+      color: "blue",
+    },
+    {
+      label: "2012-09 ~ 2016-06",
+      children: "Xiamen University | B.S.E.E.",
+      color: "blue",
+    },
+    {
+      label: "2009-09 ~ 2012-06",
+      children: "Harbin No. 3 High School",
+      color: "blue",
+    },
+    {
+      label: "2005-09 ~ 2019-06",
+      children: "Harbin No. 47 Middle School",
+      color: "blue",
+    },
+  ];
 
-  const pageContent = <Timeline mode="left" items={handleGetTimelineItems()} />;
+  const pageContent = (
+    <Row gutter={[15, 25]}>
+      <Col>
+        <Card
+          className={style.lw_portfolio_card}
+          title={
+            <>
+              <UserOutlined className={style.lw_portfolio_card_title_icon} />{" "}
+              Background
+            </>
+          }
+        >
+          <Descriptions layout="vertical">
+            <Descriptions.Item label="Master Degree" span={3}>
+              M.S.E.E. on University of Alabama At birmingham
+            </Descriptions.Item>
+            <Descriptions.Item label="Bechler  Degree" span={3}>
+              B.S.E.E on Xiamen University
+            </Descriptions.Item>
+            <Descriptions.Item label="Years on SDE" span={3}>
+              2020 - Present
+            </Descriptions.Item>
+            <Descriptions.Item label="Years on EE" span={3}>
+              2016 - 2020
+            </Descriptions.Item>
+          </Descriptions>
+        </Card>
+      </Col>
+      <Col>
+        <Card
+          className={style.lw_portfolio_card}
+          title={
+            <>
+              <ToolOutlined className={style.lw_portfolio_card_title_icon} />
+              Key Skills
+            </>
+          }
+        >
+          <Descriptions layout="vertical">
+            <Descriptions.Item label="Proficient on" span={3}>
+              HTML, CSS, JavaScript, React, React-Router, Redux, Ant Design,
+              GitHub
+            </Descriptions.Item>
+            <Descriptions.Item label="Advanced on" span={3}>
+              Node.JS, Restful, API Strapi, Heroku, Material UI, Element UI,
+              Bootstrap, Webpack, Jest, Jasmine
+            </Descriptions.Item>
+            <Descriptions.Item label="Beginner on" span={3}>
+              TypeScript, SQL, Apache Tomcat, Gradle Build Tool,
+            </Descriptions.Item>
+            <Descriptions.Item label="Majored on" span={3}>
+              Microcontroller, Sensors, IC & PCB Design, MQTT, PLC
+            </Descriptions.Item>
+          </Descriptions>
+        </Card>
+      </Col>
+      <Col>
+        <Card
+          className={style.lw_portfolio_card}
+          title={
+            <>
+              <LaptopOutlined className={style.lw_portfolio_card_title_icon} />
+              Work Timeline
+            </>
+          }
+        >
+          <Timeline mode="left" items={handleGetWorkTimelineItems()} />
+        </Card>
+      </Col>
+      <Col>
+        <Card
+          className={style.lw_portfolio_card}
+          title={
+            <>
+              <ExperimentOutlined
+                className={style.lw_portfolio_card_title_icon}
+              />
+              School Timeline
+            </>
+          }
+        >
+          <Timeline mode="left" items={schoolTimelineItems} />
+        </Card>
+      </Col>
+    </Row>
+  );
 
-  return <LwLayout content={pageContent} pageKey={categoryMatrix.PORTFOLIO} />;
+  return <LwLayout content={pageContent} />;
 };
 
 export default Portfolio;

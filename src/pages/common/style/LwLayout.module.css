@@ -1,14 +1,15 @@
 .lw_lwlayout_space {
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: flex;
 }
 
 .lw_lwlayout_space_home {
-  width: 80%;
+  width: 90%;
   margin: auto;
   display: flex;
 }
+
 .lw_lwlayout_top_placeholder {
   height: 84px;
 }
