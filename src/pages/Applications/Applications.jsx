@@ -115,6 +115,10 @@ const Applications = () => {
             ? `&filters[name][$containsi][0]=${applicationTableFilter.name}`
             : ""
         }${
+          applicationTableFilter.type
+            ? `&filters[type][$eqi][1]=${applicationTableFilter.type}`
+            : ""
+        }${
           applicationTableFilter.description
             ? `&filters[description][$containsi][2]=${applicationTableFilter.description}`
             : ""
