@@ -166,8 +166,6 @@ const LeetCodes = () => {
         return "Input problem title";
       case "index":
         return "Input problem LeetCode index";
-      case "type":
-        return "Input problem type";
       default:
         return "Please select a search by type to search";
     }
@@ -213,18 +211,6 @@ const LeetCodes = () => {
           },
         });
         break;
-      case "type":
-        setInputSearch(e);
-        dispatch({
-          type: SET_LEETCOD_TABLE_FILTER,
-          payload: {
-            difficulty: leetcodeTableFilter.difficulty,
-            type: e,
-            leetcodeIndex: leetcodeTableFilter.leetcodeIndex,
-            title: leetcodeTableFilter.title,
-          },
-        });
-        break;
       default:
         break;
     }
@@ -252,73 +238,6 @@ const LeetCodes = () => {
     {
       label: "Search by Tiitle",
       value: "title",
-    },
-    {
-      label: "Search by Type",
-      value: "type",
-    },
-  ];
-
-  const typeOptions = [
-    {
-      label: "Array",
-      value: "Array",
-    },
-    {
-      label: "Hash Table",
-      value: "Hash Table",
-    },
-    {
-      label: "Linked List",
-      value: "Linked List",
-    },
-    {
-      label: "Math",
-      value: "Math",
-    },
-    {
-      label: "Recursion",
-      value: "Recursion",
-    },
-    {
-      label: "Stack",
-      value: "Stack",
-    },
-    {
-      label: "Sorting",
-      value: "Sorting",
-    },
-    {
-      label: "String",
-      value: "String",
-    },
-    {
-      label: "Tree",
-      value: "Tree",
-    },
-    {
-      label: "Sliding Window",
-      value: "Sliding Window",
-    },
-    {
-      label: "Divide and Conquer",
-      value: "Divide and Conquer",
-    },
-    {
-      label: "Heap",
-      value: "Heap",
-    },
-    {
-      label: "Bucket Sort",
-      value: "Bucket Sort",
-    },
-    {
-      label: "Counting",
-      value: "Counting",
-    },
-    {
-      label: "Quickselect",
-      value: "Quickselect",
     },
   ];
 
@@ -404,17 +323,6 @@ const LeetCodes = () => {
             onChange={(e) => handleSearchValueChange(e)}
             disabled={!searchType}
             value={inputSearch}
-            allowClear
-          />
-        )}
-        {searchType === "type" && (
-          <Select
-            className={style.lw_leetcode_search}
-            placeholder={handleSearchPlaceholder()}
-            onChange={(e) => handleSearchValueChange(e)}
-            disabled={!searchType}
-            value={inputSearch}
-            options={typeOptions}
             allowClear
           />
         )}
