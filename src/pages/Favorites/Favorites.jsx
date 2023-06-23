@@ -196,7 +196,7 @@ const Favorites = () => {
     </Space>
   );
 
-  return <LwLayout content={pageContent} pageKey={categoryMatrix.COMPONENTS} />;
+  return <LwLayout content={pageContent} pageKey={categoryMatrix.FAVORITES} />;
 };
 
 export default Favorites;

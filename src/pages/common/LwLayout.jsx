@@ -33,7 +33,10 @@ const LwLayout = (props) => {
           wrap={wrap}
           align={
             pageKey === categoryMatrix.APPLICATIONS ||
-            pageKey === categoryMatrix.LEETCODES
+            pageKey === categoryMatrix.LEETCODES ||
+            pageKey === categoryMatrix.COMPONENTS ||
+            pageKey === categoryMatrix.FAVORITES ||
+            pageKey === categoryMatrix.PORTFOLIO
               ? "center"
               : null
           }

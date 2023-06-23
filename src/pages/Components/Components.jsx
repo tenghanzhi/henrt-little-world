@@ -458,7 +458,7 @@ const Components = () => {
     </Space>
   );
 
-  return <LwLayout content={pageContent} />;
+  return <LwLayout content={pageContent} pageKey={categoryMatrix.COMPONENTS}/>;
 };
 
 export default Components;

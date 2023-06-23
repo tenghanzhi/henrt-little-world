@@ -227,7 +227,7 @@ const Portfolio = () => {
     </Row>
   );
 
-  return <LwLayout content={pageContent} />;
+  return <LwLayout content={pageContent} pageKey={categoryMatrix.PORTFOLIO}/>;
 };
 
 export default Portfolio;

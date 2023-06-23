@@ -206,9 +206,6 @@ const EditPortfolio = () => {
         {...formLayout}
         name="portfolio"
         onFinish={onFinish}
-        style={{
-          maxWidth: 1200,
-        }}
         validateMessages={validateMessages}
         initialValues={{
           data: {
