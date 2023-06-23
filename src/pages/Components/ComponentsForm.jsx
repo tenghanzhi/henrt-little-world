@@ -37,12 +37,13 @@ const ComponentsForm = (props) => {
     pageType === "edit" ? defaultData.jsCode : null
   );
   const [inputDeletePassword, setInputDeletePassword] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleGoback = () => {
     navigate(-1);
   };
 
-  const handleMessage = (type, key, content) => {
+  const handleMessage = (key, type, content) => {
     const messageDuration = 2;
 
     switch (type) {
@@ -94,6 +95,7 @@ const ComponentsForm = (props) => {
         "success",
         messageMatrix.PASSWORD_RESULT_SCCESS
       );
+      setIsUploading(true);
       handleDelete();
     } else {
       handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
@@ -166,6 +168,7 @@ const ComponentsForm = (props) => {
             "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
+          setIsUploading(false);
         });
     } else if (type.toLowerCase() === "edit") {
       (async () => {
@@ -199,11 +202,13 @@ const ComponentsForm = (props) => {
             "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
+          setIsUploading(false);
         });
     }
   };
 
   const onFinish = (values) => {
+    setIsUploading(true);
     handleSubmitApplication(pageType, values);
   };
 
@@ -245,6 +250,7 @@ const ComponentsForm = (props) => {
           "error",
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
+        setIsUploading(false);
       });
   };
 
@@ -332,6 +338,18 @@ const ComponentsForm = (props) => {
     },
   ];
 
+  const HTML_CODE_PREFIX = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+  </head>
+  <body>
+    
+  </body>
+</html>`;
+
   return (
     <Form
       {...formLayout}
@@ -409,7 +427,11 @@ const ComponentsForm = (props) => {
             {...formProps}
             height="600px"
             extensions={[html(), EditorView.lineWrapping]}
-            value={defaultData.htmlCode?.toString()}
+            value={
+              pageType === "edit"
+                ? defaultData.htmlCode?.toString()
+                : HTML_CODE_PREFIX
+            }
             onChange={(e) => handleFormValueChange("setHtmlCode", e)}
           />
         </div>
@@ -471,7 +493,12 @@ const ComponentsForm = (props) => {
                 okText="Confirm"
                 cancelText="Cancel"
               >
-                <Button type="primary" danger icon={<DeleteOutlined />}>
+                <Button
+                  type="primary"
+                  danger
+                  icon={<DeleteOutlined />}
+                  disabled={isUploading}
+                >
                   Delete
                 </Button>
               </Popconfirm>
@@ -480,7 +507,7 @@ const ComponentsForm = (props) => {
               className={style.lw_components_form_btns}
               type="primary"
               htmlType="submit"
-              disabled={handleDisableSubmitBtn()}
+              disabled={handleDisableSubmitBtn() || isUploading}
               icon={<CheckOutlined />}
             >
               Submit

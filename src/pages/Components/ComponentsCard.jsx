@@ -12,19 +12,26 @@ import { SET_SELECTED_COMPONENT_ID } from "../../redux/constants";
 
 const ComponentsCard = (props) => {
   const data = props?.data ? props.data : null;
-  const cssCode = data?.attributes?.cssCode;
-  const jsCode = data?.attributes?.jsCode;
-  const htmlCode = data?.attributes?.htmlCode;
+  const cssCode = data?.attributes?.cssCode
+    ? data?.attributes?.cssCode
+    : "<style></style>";
+  const jsCode = data?.attributes?.jsCode
+    ? data?.attributes?.jsCode
+    : "<script></script>";
+  const htmlCode = data?.attributes?.htmlCode
+    ? data?.attributes?.htmlCode
+    : "<head></head><body></body>";
 
-  const indexHead = htmlCode.indexOf("</head>");
-  const combinedCssCode = `${htmlCode.slice(0, indexHead)}
+  const indexHead = htmlCode?.indexOf("</head>");
+  const combinedCssCode = `${htmlCode?.slice(0, indexHead)}
   <style>${cssCode}</style>
-  ${htmlCode.slice(indexHead)}`;
+  ${htmlCode?.slice(indexHead)}`;
 
-  const indexBody = combinedCssCode.indexOf("</body>");
-  const combinedJsCode = `${combinedCssCode.slice(0, indexBody)}
+  const indexBody = combinedCssCode?.indexOf("</body>");
+  const combinedJsCode = `${combinedCssCode?.slice(0, indexBody)}
   <script>${jsCode}</script>
-  ${combinedCssCode.slice(indexBody)}`;
+  ${combinedCssCode?.slice(indexBody)}`;
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

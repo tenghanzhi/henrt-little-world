@@ -135,9 +135,15 @@ const ReviewComponents = () => {
     setCodeTabactiveKey(key);
   };
 
-  const cssCode = fetchedComponentData?.cssCode;
-  const jsCode = fetchedComponentData?.jsCode;
-  const htmlCode = fetchedComponentData?.htmlCode;
+  const cssCode = fetchedComponentData?.cssCode
+    ? fetchedComponentData?.cssCode
+    : "<style></style>";
+  const jsCode = fetchedComponentData?.jsCode
+    ? fetchedComponentData?.jsCode
+    : "<script></script>";
+  const htmlCode = fetchedComponentData?.htmlCode
+    ? fetchedComponentData?.htmlCode
+    : "<head></head><body></body>";
 
   const indexHead = htmlCode?.indexOf("</head>");
   const combinedCssCode = `${htmlCode?.slice(0, indexHead)}
@@ -165,13 +171,15 @@ const ReviewComponents = () => {
   ];
 
   const codeCardContentList = {
-    htmlCode: (
+    htmlCode: fetchedComponentData?.htmlCode ? (
       <CodeMirror
         value={fetchedComponentData?.htmlCode}
         extensions={[html(), EditorView.lineWrapping]}
         height="auto"
         editable={false}
       />
+    ) : (
+      <>No Code Here :(</>
     ),
     cssCode: fetchedComponentData?.cssCode ? (
       <CodeMirror

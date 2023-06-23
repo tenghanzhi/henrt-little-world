@@ -9,7 +9,7 @@ import style from "./style/EditComponent.module.css";
 
 const EditComponents = () => {
   const selectedComponentId = useSelector((state) => state.selectedComponentId);
-  const [isEditPageLoading, setIsEditPageLoading] = useState(true);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const [fetchedComponentData, setFetchedComponentData] = useState({});
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const EditComponents = () => {
         );
       })
       .finally(() => {
-        setIsEditPageLoading(false);
+        setIsPageLoading(false);
       });
   };
 
@@ -93,7 +93,7 @@ const EditComponents = () => {
 
   const loadingPageContent = <Skeleton />;
 
-  const pageContent = isEditPageLoading
+  const pageContent = isPageLoading
     ? loadingPageContent
     : loadedPageContent;
 

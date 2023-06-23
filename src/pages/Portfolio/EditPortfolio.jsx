@@ -23,7 +23,8 @@ const EditPortfolio = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const selectedPortfolioId = useSelector((state) => state.selectedPortfolioId);
-  const [isEditPageLoading, setIsEditPageLoading] = useState(true);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
   const [fetchedPortfolioData, setFetchedPortfolioData] = useState({});
   const [filedValue, setFiledValue] = useState(form.getFieldValue());
 
@@ -105,7 +106,7 @@ const EditPortfolio = () => {
         );
       })
       .finally(() => {
-        setIsEditPageLoading(false);
+        setIsPageLoading(false);
       });
   };
 
@@ -148,6 +149,7 @@ const EditPortfolio = () => {
           "error",
           `${messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_ERROR}${error}`
         );
+        setIsUploading(false);
       });
   };
 
@@ -170,6 +172,7 @@ const EditPortfolio = () => {
   };
 
   const onFinish = (values) => {
+    setIsUploading(true);
     handleUpdatePortfolio(values);
   };
 
@@ -336,7 +339,7 @@ const EditPortfolio = () => {
                 className={style.lw_edit_protfolio_btns}
                 type="primary"
                 htmlType="submit"
-                disabled={handleDisableSubmitBtn()}
+                disabled={handleDisableSubmitBtn() || isUploading}
               >
                 Submit
               </Button>
@@ -349,9 +352,7 @@ const EditPortfolio = () => {
 
   const loadingPageContent = <Skeleton />;
 
-  const pageContent = isEditPageLoading
-    ? loadingPageContent
-    : loadedPageContent;
+  const pageContent = isPageLoading ? loadingPageContent : loadedPageContent;
 
   return <LwLayout content={pageContent} />;
 };

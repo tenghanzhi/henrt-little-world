@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  message,
-  Button,
-  Form,
-  Input,
-  Select,
-  Popconfirm,
-} from "antd";
+import { message, Button, Form, Input, Select, Popconfirm } from "antd";
 import {
   RollbackOutlined,
   DeleteOutlined,
@@ -37,6 +30,7 @@ const FavoritesForm = (props) => {
     pageType === "edit" ? defaultData.description : null
   );
   const [inputDeletePassword, setInputDeletePassword] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleGoback = () => {
     navigate(-1);
@@ -94,6 +88,7 @@ const FavoritesForm = (props) => {
         "success",
         messageMatrix.PASSWORD_RESULT_SCCESS
       );
+      setIsUploading(true);
       handleDelete();
     } else {
       handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
@@ -156,6 +151,7 @@ const FavoritesForm = (props) => {
             "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
+          setIsUploading(false);
         });
     } else if (type.toLowerCase() === "edit") {
       (async () => {
@@ -189,11 +185,13 @@ const FavoritesForm = (props) => {
             "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
+          setIsUploading(false);
         });
     }
   };
 
   const onFinish = (values) => {
+    setIsUploading(true);
     handleSubmitLeetcode(pageType, values);
   };
 
@@ -235,6 +233,7 @@ const FavoritesForm = (props) => {
           "error",
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
+        setIsUploading(false);
       });
   };
 
@@ -389,7 +388,12 @@ const FavoritesForm = (props) => {
                 okText="Confirm"
                 cancelText="Cancel"
               >
-                <Button type="primary" danger icon={<DeleteOutlined />}>
+                <Button
+                  type="primary"
+                  danger
+                  icon={<DeleteOutlined />}
+                  disabled={isUploading}
+                >
                   Delete
                 </Button>
               </Popconfirm>
@@ -398,7 +402,7 @@ const FavoritesForm = (props) => {
               className={style.lw_favorites_form_btns}
               type="primary"
               htmlType="submit"
-              disabled={handleDisableSubmitBtn()}
+              disabled={handleDisableSubmitBtn() || isUploading}
               icon={<CheckOutlined />}
             >
               Submit

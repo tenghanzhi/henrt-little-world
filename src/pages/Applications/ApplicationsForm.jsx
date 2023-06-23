@@ -38,6 +38,7 @@ const ApplicationsForm = (props) => {
     pageType === "edit" ? defaultData.codeThree : null
   );
   const [inputDeletePassword, setInputDeletePassword] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleGoback = () => {
     navigate(-1);
@@ -95,6 +96,7 @@ const ApplicationsForm = (props) => {
         "success",
         messageMatrix.PASSWORD_RESULT_SCCESS
       );
+      setIsUploading(true);
       handleDelete();
     } else {
       handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
@@ -128,7 +130,6 @@ const ApplicationsForm = (props) => {
 
   const handleSubmitApplication = (type, values) => {
     const messageKey = "uploadingDataMessage";
-
     handleMessage(
       messageKey,
       "loading",
@@ -168,6 +169,7 @@ const ApplicationsForm = (props) => {
             "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
+          setIsUploading(false);
         });
     } else if (type.toLowerCase() === "edit") {
       (async () => {
@@ -201,11 +203,13 @@ const ApplicationsForm = (props) => {
             "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
+          setIsUploading(false);
         });
     }
   };
 
   const onFinish = (values) => {
+    setIsUploading(true);
     handleSubmitApplication(pageType, values);
   };
 
@@ -247,6 +251,7 @@ const ApplicationsForm = (props) => {
           "error",
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
+        setIsUploading(false);
       });
   };
 
@@ -450,7 +455,12 @@ const ApplicationsForm = (props) => {
                 okText="Confirm"
                 cancelText="Cancel"
               >
-                <Button type="primary" danger icon={<DeleteOutlined />}>
+                <Button
+                  type="primary"
+                  danger
+                  icon={<DeleteOutlined />}
+                  disabled={isUploading}
+                >
                   Delete
                 </Button>
               </Popconfirm>
@@ -459,7 +469,7 @@ const ApplicationsForm = (props) => {
               className={style.lw_applications_form_btns}
               type="primary"
               htmlType="submit"
-              disabled={handleDisableSubmitBtn()}
+              disabled={handleDisableSubmitBtn() || isUploading}
               icon={<CheckOutlined />}
             >
               Submit

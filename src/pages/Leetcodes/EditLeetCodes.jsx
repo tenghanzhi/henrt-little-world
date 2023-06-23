@@ -9,7 +9,7 @@ import style from "./style/EditLeetCodes.module.css";
 
 const EditLeetCodes = () => {
   const selectedLeetcodeId = useSelector((state) => state.selectedLeetcodeId);
-  const [isEditPageLoading, setIsEditPageLoading] = useState(true);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const [fetchedLeetcodeData, setFetchedLeetcodeData] = useState({});
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const EditLeetCodes = () => {
         );
       })
       .finally(() => {
-        setIsEditPageLoading(false);
+        setIsPageLoading(false);
       });
   };
 
@@ -94,7 +94,7 @@ const EditLeetCodes = () => {
 
   const loadingPageContent = <Skeleton />;
 
-  const pageContent = isEditPageLoading
+  const pageContent = isPageLoading
     ? loadingPageContent
     : loadedPageContent;
 

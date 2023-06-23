@@ -9,7 +9,7 @@ import style from "./style/EditFavorites.module.css";
 
 const EditFavorites = () => {
   const selectedFavoriteId = useSelector((state) => state.selectedFavoriteId);
-  const [isEditPageLoading, setIsEditPageLoading] = useState(true);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const [fetchedFavoriteData, setFetchedFavoriteData] = useState({});
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const EditFavorites = () => {
         );
       })
       .finally(() => {
-        setIsEditPageLoading(false);
+        setIsPageLoading(false);
       });
   };
 
@@ -93,7 +93,7 @@ const EditFavorites = () => {
 
   const loadingPageContent = <Skeleton />;
 
-  const pageContent = isEditPageLoading
+  const pageContent = isPageLoading
     ? loadingPageContent
     : loadedPageContent;
 

@@ -43,6 +43,7 @@ const LeetCodesForm = (props) => {
     pageType === "edit" ? defaultData.solutionTwo : null
   );
   const [inputDeletePassword, setInputDeletePassword] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleGoback = () => {
     navigate(-1);
@@ -100,6 +101,7 @@ const LeetCodesForm = (props) => {
         "success",
         messageMatrix.PASSWORD_RESULT_SCCESS
       );
+      setIsUploading(true);
       handleDelete();
     } else {
       handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
@@ -137,6 +139,7 @@ const LeetCodesForm = (props) => {
 
     values.data.solutionOne = solutionOne?.toString();
     values.data.solutionTwo = solutionTwo?.toString();
+    values.data.type = values.data.type.toString();
 
     if (type.toLowerCase() === "create") {
       (async () => {
@@ -167,6 +170,7 @@ const LeetCodesForm = (props) => {
             "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
+          setIsUploading(false);
         });
     } else if (type.toLowerCase() === "edit") {
       (async () => {
@@ -200,11 +204,13 @@ const LeetCodesForm = (props) => {
             "error",
             `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
           );
+          setIsUploading(false);
         });
     }
   };
 
   const onFinish = (values) => {
+    setIsUploading(true);
     handleSubmitLeetcode(pageType, values);
   };
 
@@ -246,6 +252,7 @@ const LeetCodesForm = (props) => {
           "error",
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
+        setIsUploading(false);
       });
   };
 
@@ -525,7 +532,12 @@ const LeetCodesForm = (props) => {
                 okText="Confirm"
                 cancelText="Cancel"
               >
-                <Button type="primary" danger icon={<DeleteOutlined />}>
+                <Button
+                  type="primary"
+                  danger
+                  icon={<DeleteOutlined />}
+                  disabled={isUploading}
+                >
                   Delete
                 </Button>
               </Popconfirm>
@@ -534,7 +546,7 @@ const LeetCodesForm = (props) => {
               className={style.lw_leetcodes_form_btns}
               type="primary"
               htmlType="submit"
-              disabled={handleDisableSubmitBtn()}
+              disabled={handleDisableSubmitBtn() || isUploading}
               icon={<CheckOutlined />}
             >
               Submit

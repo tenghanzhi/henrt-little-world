@@ -11,7 +11,7 @@ const EditApplication = () => {
   const selectedApplicationId = useSelector(
     (state) => state.selectedApplicationId
   );
-  const [isEditPageLoading, setIsEditPageLoading] = useState(true);
+  const [isPageLoading, setIsPageLoading] = useState(true);
   const [fetchedApplicationData, setFetchedApplicationData] = useState({});
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const EditApplication = () => {
         );
       })
       .finally(() => {
-        setIsEditPageLoading(false);
+        setIsPageLoading(false);
       });
   };
 
@@ -95,7 +95,7 @@ const EditApplication = () => {
 
   const loadingPageContent = <Skeleton />;
 
-  const pageContent = isEditPageLoading
+  const pageContent = isPageLoading
     ? loadingPageContent
     : loadedPageContent;
 
