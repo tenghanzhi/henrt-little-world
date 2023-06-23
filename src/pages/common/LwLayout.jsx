@@ -36,7 +36,8 @@ const LwLayout = (props) => {
             pageKey === categoryMatrix.LEETCODES ||
             pageKey === categoryMatrix.COMPONENTS ||
             pageKey === categoryMatrix.FAVORITES ||
-            pageKey === categoryMatrix.PORTFOLIO
+            pageKey === categoryMatrix.PORTFOLIO ||
+            pageKey === categoryMatrix.HOME
               ? "center"
               : null
           }
