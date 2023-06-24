@@ -27,6 +27,7 @@ import dayjs from "dayjs";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import style from "./style/LeetCodesForm.module.css";
 
 const LeetCodesForm = (props) => {
@@ -483,6 +484,7 @@ const LeetCodesForm = (props) => {
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.solutionOne?.toString()}
             onChange={(e) => handleFormValueChange("solutionOne", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>
@@ -494,6 +496,7 @@ const LeetCodesForm = (props) => {
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.solutionTwo?.toString()}
             onChange={(e) => handleFormValueChange("solutionTwo", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>

@@ -28,15 +28,6 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>
-          {categoryMatrix.PORTFOLIO}
-        </Link>
-      ),
-      key: categoryMatrix.PORTFOLIO.toLowerCase(),
-      icon: <UserOutlined />,
-    },
-    {
-      label: (
         <Link to={`/${categoryMatrix.LEETCODES.toLowerCase()}`}>
           {categoryMatrix.LEETCODES}
         </Link>
@@ -70,6 +61,13 @@ const LwHeader = () => {
       ),
       key: categoryMatrix.FAVORITES.toLowerCase(),
       icon: <StarOutlined />,
+    },
+    {
+      label: (
+        <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>About Me</Link>
+      ),
+      key: categoryMatrix.PORTFOLIO.toLowerCase(),
+      icon: <UserOutlined />,
     },
   ];
 

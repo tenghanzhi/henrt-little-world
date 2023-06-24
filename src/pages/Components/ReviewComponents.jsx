@@ -20,10 +20,12 @@ import {
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { html } from "@codemirror/lang-html";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
+import globalStyleMatrix from "../common/globalStyleMatrix";
 import password from "../common/password";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewComponent.module.css";
@@ -177,6 +179,7 @@ const ReviewComponents = () => {
         extensions={[html(), EditorView.lineWrapping]}
         height="auto"
         editable={false}
+        theme={vscodeDark}
       />
     ) : (
       <>No Code Here :(</>
@@ -187,6 +190,7 @@ const ReviewComponents = () => {
         extensions={[html(), EditorView.lineWrapping]}
         height="auto"
         editable={false}
+        theme={vscodeDark}
       />
     ) : (
       <>No Code Here :(</>
@@ -197,6 +201,7 @@ const ReviewComponents = () => {
         extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
         height="auto"
         editable={false}
+        theme={vscodeDark}
       />
     ) : (
       <>No Code Here :(</>
@@ -211,7 +216,15 @@ const ReviewComponents = () => {
       >
         Review Component {fetchedComponentData.name}
       </Typography.Title>
-      <Descriptions bordered column={6}>
+      <Descriptions
+        bordered
+        column={6}
+        labelStyle={{
+          color: globalStyleMatrix.COLORS.titleFontColor,
+          fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
+        }}
+        contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+      >
         <Descriptions.Item label="Name" span={3}>
           {fetchedComponentData?.name?.toString()}
         </Descriptions.Item>
@@ -233,7 +246,10 @@ const ReviewComponents = () => {
           {fetchedComponentData?.componentType?.toString()}
         </Descriptions.Item>
       </Descriptions>
-      <Card className={style.lw_components_review_components_iframe_card}>
+      <Card
+        className={style.lw_components_review_components_iframe_card}
+        bordered={false}
+      >
         <iframe
           className={style.lw_components_review_components_iframe}
           title={fetchedComponentData?.name}
@@ -247,7 +263,12 @@ const ReviewComponents = () => {
         tabList={codeCardTabList}
         activeTabKey={codeTabactiveKey}
         onTabChange={handleCodeTabChange}
-        bodyStyle={{ padding: "0px" }}
+        headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+        bodyStyle={{
+          color: globalStyleMatrix.COLORS.mainFontColor,
+          padding: "0px",
+        }}
+        bordered={false}
       >
         {codeCardContentList[codeTabactiveKey]}
       </Card>

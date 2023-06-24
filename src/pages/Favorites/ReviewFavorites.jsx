@@ -21,6 +21,7 @@ import remarkGfm from "remark-gfm";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
+import globalStyleMatrix from "../common/globalStyleMatrix";
 import password from "../common/password";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewFavorites.module.css";
@@ -135,7 +136,15 @@ const ReviewFavorites = () => {
       >
         Review Favorite {fetchedFavoriteData.name}
       </Typography.Title>
-      <Descriptions bordered column={6}>
+      <Descriptions
+        bordered
+        column={6}
+        labelStyle={{
+          color: globalStyleMatrix.COLORS.titleFontColor,
+          fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
+        }}
+        contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+      >
         <Descriptions.Item label="Name" span={6}>
           {fetchedFavoriteData?.name?.toString()}
         </Descriptions.Item>

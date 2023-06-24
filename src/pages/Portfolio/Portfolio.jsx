@@ -10,6 +10,7 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
+import globalStyleMatrix from "../common/globalStyleMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import sortArrayObjByDate from "../utils/sortArrayObjByDate";
@@ -145,6 +146,8 @@ const Portfolio = () => {
       <Col>
         <Card
           className={style.lw_portfolio_card}
+          headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          bodyStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
           title={
             <>
               <UserOutlined className={style.lw_portfolio_card_title_icon} />{" "}
@@ -152,7 +155,14 @@ const Portfolio = () => {
             </>
           }
         >
-          <Descriptions layout="vertical">
+          <Descriptions
+            layout="vertical"
+            labelStyle={{
+              color: globalStyleMatrix.COLORS.titleFontColor,
+              fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
+            }}
+            contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          >
             <Descriptions.Item label="Master Degree" span={3}>
               M.S.E.E. on University of Alabama At birmingham
             </Descriptions.Item>
@@ -171,6 +181,8 @@ const Portfolio = () => {
       <Col>
         <Card
           className={style.lw_portfolio_card}
+          headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          bodyStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
           title={
             <>
               <ToolOutlined className={style.lw_portfolio_card_title_icon} />
@@ -178,7 +190,14 @@ const Portfolio = () => {
             </>
           }
         >
-          <Descriptions layout="vertical">
+          <Descriptions
+            layout="vertical"
+            labelStyle={{
+              color: globalStyleMatrix.COLORS.titleFontColor,
+              fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
+            }}
+            contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          >
             <Descriptions.Item label="Proficient on" span={3}>
               HTML, CSS, JavaScript, React, React-Router, Redux, Ant Design,
               GitHub
@@ -199,6 +218,8 @@ const Portfolio = () => {
       <Col>
         <Card
           className={style.lw_portfolio_card}
+          headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          bodyStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
           title={
             <>
               <LaptopOutlined className={style.lw_portfolio_card_title_icon} />
@@ -206,12 +227,18 @@ const Portfolio = () => {
             </>
           }
         >
-          <Timeline mode="left" items={handleGetWorkTimelineItems()} />
+          <Timeline
+            mode="left"
+            items={handleGetWorkTimelineItems()}
+            className={style.lw_portfolio_card_timeline}
+          />
         </Card>
       </Col>
       <Col>
         <Card
           className={style.lw_portfolio_card}
+          headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          bodyStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
           title={
             <>
               <ExperimentOutlined
@@ -221,13 +248,17 @@ const Portfolio = () => {
             </>
           }
         >
-          <Timeline mode="left" items={schoolTimelineItems} />
+          <Timeline
+            mode="left"
+            items={schoolTimelineItems}
+            className={style.lw_portfolio_card_timeline}
+          />
         </Card>
       </Col>
     </Row>
   );
 
-  return <LwLayout content={pageContent} pageKey={categoryMatrix.PORTFOLIO}/>;
+  return <LwLayout content={pageContent} pageKey={categoryMatrix.PORTFOLIO} />;
 };
 
 export default Portfolio;

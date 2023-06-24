@@ -1,4 +1,88 @@
 .lw_homecard {
   width: 400px;
-  min-height: 600px;
+  height: 650px;
+  background-color: #212121;
+}
+
+.lw_homecard_link {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.lw_homecard_flipcard_front_title {
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 1000;
+}
+
+.lw_homecard_flipcard {
+  background-color: transparent;
+  width: 400px;
+  height: 650px;
+  perspective: 1000px;
+}
+
+.lw_homecard_flipcard_inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.lw_homecard_flipcard:hover .lw_homecard_flipcard_inner {
+  transform: rotateY(180deg);
+}
+
+.lw_homecard_flipcard_frontSide {
+  padding: 0px 30px;
+}
+
+.lw_homecard_flipcard_frontSide,
+.lw_homecard_flipcard_backSide {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 0.5rem;
+  color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 0.3em rgba(255, 255, 255, 0.65);
+}
+
+.lw_homecard_flipcard_backSide {
+  transform: rotateY(180deg);
+}
+
+.lw_homecard_flipcard_frontSide::before,
+.lw_homecard_flipcard_backSide::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: "";
+  width: 110%;
+  height: 110%;
+  position: absolute;
+  z-index: -1;
+  border-radius: 1em;
+  filter: blur(20px);
+  animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0.3;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
 }

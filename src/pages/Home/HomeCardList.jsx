@@ -17,6 +17,7 @@ import {
   SET_SELECTED_COMPONENT_ID,
   SET_SELECTED_FAVORITE_ID,
 } from "../../redux/constants";
+import style from "./style/HomeCardList.module.css";
 
 const HomeCardList = (props) => {
   const dispatch = useDispatch();
@@ -68,19 +69,39 @@ const HomeCardList = (props) => {
   const getTitle = (item) => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
-        return <div>{item.attributes.name}</div>;
+        return (
+          <div className={style.lw_homecard_list_font}>
+            {item.attributes.name}
+          </div>
+        );
       }
       case categoryMatrix.LEETCODES: {
-        return <div>{item.attributes.title}</div>;
+        return (
+          <div className={style.lw_homecard_list_font}>
+            {item.attributes.title}
+          </div>
+        );
       }
       case categoryMatrix.APPLICATIONS: {
-        return <div>{item.attributes.name}</div>;
+        return (
+          <div className={style.lw_homecard_list_font}>
+            {item.attributes.name}
+          </div>
+        );
       }
       case categoryMatrix.COMPONENTS: {
-        return <div>{item.attributes.name}</div>;
+        return (
+          <div className={style.lw_homecard_list_font}>
+            {item.attributes.name}
+          </div>
+        );
       }
       case categoryMatrix.FAVORITES: {
-        return <div>{item.attributes.name}</div>;
+        return (
+          <div className={style.lw_homecard_list_font}>
+            {item.attributes.name}
+          </div>
+        );
       }
       default:
         return "";
@@ -90,19 +111,39 @@ const HomeCardList = (props) => {
   const getDescription = (item) => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
-        return item.attributes.jobTitle;
+        return (
+          <div className={style.lw_homecard_list_font_description}>
+            {item.attributes.jobTitle}
+          </div>
+        );
       }
       case categoryMatrix.LEETCODES: {
-        return item.attributes.type;
+        return (
+          <div className={style.lw_homecard_list_font_description}>
+            {item.attributes.type}
+          </div>
+        );
       }
       case categoryMatrix.APPLICATIONS: {
-        return item.attributes.type;
+        return (
+          <div className={style.lw_homecard_list_font_description}>
+            {item.attributes.type}
+          </div>
+        );
       }
       case categoryMatrix.COMPONENTS: {
-        return item.attributes.componentType;
+        return (
+          <div className={style.lw_homecard_list_font_description}>
+            {item.attributes.componentType}
+          </div>
+        );
       }
       case categoryMatrix.FAVORITES: {
-        return item.attributes.type;
+        return (
+          <div className={style.lw_homecard_list_font_description}>
+            {item.attributes.type}
+          </div>
+        );
       }
       default:
         return "";
@@ -145,16 +186,18 @@ const HomeCardList = (props) => {
         );
       }
       case categoryMatrix.LEETCODES: {
-        return <CodeOutlined />;
+        return <CodeOutlined className={style.lw_homecard_list_font_avatar} />;
       }
       case categoryMatrix.APPLICATIONS: {
-        return <AppstoreOutlined />;
+        return (
+          <AppstoreOutlined className={style.lw_homecard_list_font_avatar} />
+        );
       }
       case categoryMatrix.COMPONENTS: {
-        return <Html5Outlined />;
+        return <Html5Outlined className={style.lw_homecard_list_font_avatar} />;
       }
       case categoryMatrix.FAVORITES: {
-        return <StarOutlined />;
+        return <StarOutlined className={style.lw_homecard_list_font_avatar} />;
       }
       default:
         return "";
@@ -183,6 +226,8 @@ const HomeCardList = (props) => {
         position: "bottom",
         align: "end",
         pageSize: "6",
+        size: "small",
+        className: style.lw_homecard_list_pagination,
       }}
     />
   );

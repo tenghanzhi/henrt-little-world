@@ -19,11 +19,13 @@ import {
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import CodeMirror from "@uiw/react-codemirror";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
+import globalStyleMatrix from "../common/globalStyleMatrix";
 import password from "../common/password";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewLeetCodes.module.css";
@@ -139,7 +141,15 @@ const ReviewLeetCodes = () => {
         Review LeetCode Problem {fetchedLeetcodeData.leetcodeIndex}.{" "}
         {fetchedLeetcodeData.title}
       </Typography.Title>
-      <Descriptions bordered column={6}>
+      <Descriptions
+        bordered
+        column={6}
+        labelStyle={{
+          color: globalStyleMatrix.COLORS.titleFontColor,
+          fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
+        }}
+        contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+      >
         <Descriptions.Item label="LeedCode Index" span={1}>
           {fetchedLeetcodeData?.leetcodeIndex?.toString()}
         </Descriptions.Item>
@@ -180,6 +190,7 @@ const ReviewLeetCodes = () => {
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
               editable={false}
+              theme={vscodeDark}
             />
           </Descriptions.Item>
         )}
@@ -190,6 +201,7 @@ const ReviewLeetCodes = () => {
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
               editable={false}
+              theme={vscodeDark}
             />
           </Descriptions.Item>
         )}

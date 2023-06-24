@@ -134,16 +134,6 @@ const Home = () => {
       <HomeCard
         title={
           <span>
-            <UserOutlined className={style.lw_home_card_icon} />
-            {categoryMatrix.PORTFOLIO}
-          </span>
-        }
-        extra={categoryMatrix.PORTFOLIO}
-        isLoading={isPortfolioDataLoading}
-      />
-      <HomeCard
-        title={
-          <span>
             <CodeOutlined className={style.lw_home_card_icon} />
             {categoryMatrix.LEETCODES}
           </span>
@@ -180,6 +170,16 @@ const Home = () => {
         }
         extra={categoryMatrix.FAVORITES}
         isLoading={isFavoriteDataLoading}
+      />
+      <HomeCard
+        title={
+          <span>
+            <UserOutlined className={style.lw_home_card_icon} />
+            {categoryMatrix.PORTFOLIO}
+          </span>
+        }
+        extra={categoryMatrix.PORTFOLIO}
+        isLoading={isPortfolioDataLoading}
       />
     </>
   );

@@ -23,7 +23,7 @@ const LwLayout = (props) => {
       : style.lw_lwlayout_space;
 
   return (
-    <Layout>
+    <Layout className={style.lw_lwlayout_wrapper}>
       <Layout.Content>
         <div className={style.lw_lwlayout_top_placeholder}></div>
         <Space

@@ -26,6 +26,7 @@ import remarkGfm from "remark-gfm";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
+import globalStyleMatrix from "../common/globalStyleMatrix";
 import failPicture from "../common/failPicture";
 import password from "../common/password";
 import LwLayout from "../common/LwLayout";
@@ -135,7 +136,12 @@ const ReviewPortfolio = () => {
 
   const loadedPageContent = (
     <>
-      <Card>
+      <Card
+        className={style.lw_portfolio_review_card}
+        headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+        bodyStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+        bordered={false}
+      >
         <Space align="start" direction="horizontal" wrap={true}>
           <Row>
             <Col className={style.lw_portfolio_review_grid} flex="100px">
@@ -165,6 +171,11 @@ const ReviewPortfolio = () => {
         </Space>
         <Descriptions
           className={style.lw_portfolio_review_outter}
+          labelStyle={{
+            color: globalStyleMatrix.COLORS.titleFontColor,
+            fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
+          }}
+          contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
           bordered
           column={4}
         >

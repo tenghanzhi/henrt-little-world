@@ -1,0 +1,24 @@
+.lw_homecard_list_font {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 400;
+}
+
+.lw_homecard_list_font_description {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 400;
+  font-size: small;
+}
+
+.lw_homecard_list_font_avatar {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 50px;
+}
+
+.lw_homecard_list_pagination > li > a {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+[class~="ant-pagination-item-active"] {
+  border: none !important;
+  background-color: #212121 !important;
+}

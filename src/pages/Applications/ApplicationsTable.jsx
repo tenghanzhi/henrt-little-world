@@ -29,6 +29,7 @@ import {
   SET_APPLICATION_TABLE_SORTER,
   SET_APPLICATION_TABLE_FILTER,
 } from "../../redux/constants";
+import style from "./style/ApplicationsTable.module.css";
 
 const ApplicationsTable = (props) => {
   const navigate = useNavigate();
@@ -351,6 +352,7 @@ const ApplicationsTable = (props) => {
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
+        hideOnSinglePage: true,
         defaultPageSize: applicationTablePagenation?.size
           ? applicationTablePagenation.size
           : 20,
@@ -359,6 +361,7 @@ const ApplicationsTable = (props) => {
           : 1,
         total: total,
         onChange: (current, size) => handlePaginationChange(current, size),
+        className: style.lw_applications_table_pagination,
       }}
       bordered
       onChange={(val, filter, sorter, extra) =>

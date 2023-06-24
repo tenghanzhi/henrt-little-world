@@ -6,6 +6,7 @@ import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 import password from "../common/password";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
+import globalStyleMatrix from "../common/globalStyleMatrix";
 import style from "./style/ComponentsCard.module.css";
 
 import { SET_SELECTED_COMPONENT_ID } from "../../redux/constants";
@@ -31,7 +32,6 @@ const ComponentsCard = (props) => {
   const combinedJsCode = `${combinedCssCode?.slice(0, indexBody)}
   <script>${jsCode}</script>
   ${combinedCssCode?.slice(indexBody)}`;
-
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -140,6 +140,8 @@ const ComponentsCard = (props) => {
       extra={cardExtra}
       bordered={false}
       loading={!data}
+      headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+      bodyStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
     >
       <iframe
         className={style.lw_components_homecard_iframe}

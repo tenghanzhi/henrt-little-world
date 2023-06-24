@@ -17,6 +17,7 @@ import password from "../common/password";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { html } from "@codemirror/lang-html";
 import style from "./style/ComponentsForm.module.css";
 
@@ -433,6 +434,7 @@ const ComponentsForm = (props) => {
                 : HTML_CODE_PREFIX
             }
             onChange={(e) => handleFormValueChange("setHtmlCode", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>
@@ -444,6 +446,7 @@ const ComponentsForm = (props) => {
             extensions={[html(), EditorView.lineWrapping]}
             value={defaultData.cssCode?.toString()}
             onChange={(e) => handleFormValueChange("setCssCode", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>
@@ -455,6 +458,7 @@ const ComponentsForm = (props) => {
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.jsCode?.toString()}
             onChange={(e) => handleFormValueChange("setJsCode", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>

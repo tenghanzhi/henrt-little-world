@@ -17,14 +17,20 @@
 
 .lw_portfolio_review_title_company_name {
   margin: 5px 0px 5px 10px !important;
+  color: rgba(255, 255, 255, 0.65) !important;
 }
 
 .lw_portfolio_review_title_job_title {
   margin: 0px 0px 0px 10px !important;
+  color: rgba(255, 255, 255, 0.65) !important;
 }
 
 .lw_portfolio_review_grid {
   margin: 0px 10px;
+}
+
+.lw_portfolio_review_card {
+  background-color: #212121;
 }
 
 @media (max-width: 800px) {

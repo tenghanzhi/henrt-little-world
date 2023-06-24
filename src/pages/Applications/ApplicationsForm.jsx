@@ -17,6 +17,7 @@ import password from "../common/password";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import style from "./style/ApplicationsForm.module.css";
 
 const ApplicationsForm = (props) => {
@@ -395,6 +396,7 @@ const ApplicationsForm = (props) => {
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeOne?.toString()}
             onChange={(e) => handleFormValueChange("setCodeOne", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>
@@ -406,6 +408,7 @@ const ApplicationsForm = (props) => {
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeTwo?.toString()}
             onChange={(e) => handleFormValueChange("setCodeTwo", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>
@@ -417,6 +420,7 @@ const ApplicationsForm = (props) => {
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
             value={defaultData.codeThree?.toString()}
             onChange={(e) => handleFormValueChange("setCodeThree", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>

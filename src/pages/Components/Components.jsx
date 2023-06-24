@@ -443,6 +443,7 @@ const Components = () => {
         <Pagination
           showSizeChanger={true}
           showQuickJumper={true}
+          hideOnSinglePage={true}
           defaultPageSize={
             componentTablePagenation?.size ? componentTablePagenation.size : 20
           }
@@ -453,12 +454,13 @@ const Components = () => {
           }
           total={componentData.meta?.pagination?.total}
           onChange={(current, size) => handlePaginationChange(current, size)}
+          className={style.lw_components_table_pagination}
         />
       </Space>
     </Space>
   );
 
-  return <LwLayout content={pageContent} pageKey={categoryMatrix.COMPONENTS}/>;
+  return <LwLayout content={pageContent} pageKey={categoryMatrix.COMPONENTS} />;
 };
 
 export default Components;

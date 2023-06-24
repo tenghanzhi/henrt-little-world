@@ -5,6 +5,7 @@
 .lw_components_homecard {
   width: auto;
   min-height: 600px;
+  background-color: #212121;
 }
 
 .lw_components_homecard_iframe {

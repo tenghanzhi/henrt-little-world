@@ -17,6 +17,7 @@ import password from "../common/password";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { markdown } from "@codemirror/lang-markdown";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import style from "./style/FavoriteForm.module.css";
 
 const FavoritesForm = (props) => {
@@ -350,6 +351,7 @@ const FavoritesForm = (props) => {
             extensions={[markdown(), EditorView.lineWrapping]}
             value={defaultData.description?.toString()}
             onChange={(e) => handleFormValueChange("description", e)}
+            theme={vscodeDark}
           />
         </div>
       </Form.Item>

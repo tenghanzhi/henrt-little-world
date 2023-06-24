@@ -1,6 +1,7 @@
 .lw_components_review_components_header {
   text-align: center;
   margin-top: -10px;
+  color: rgba(255, 255, 255, 0.65) !important;
 }
 
 .lw_components_review_components_btns {
@@ -19,6 +20,7 @@
 
 .lw_components_review_components_code_tab {
   width: 100%;
+  background-color: #212121;
 }
 
 .lw_components_review_components_iframe_card {

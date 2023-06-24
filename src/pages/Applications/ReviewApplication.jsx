@@ -21,9 +21,11 @@ import remarkGfm from "remark-gfm";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
+import globalStyleMatrix from "../common/globalStyleMatrix";
 import password from "../common/password";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewApplication.module.css";
@@ -141,7 +143,15 @@ const ReviewApplication = () => {
       >
         Review Application {fetchedApplicationData.name}
       </Typography.Title>
-      <Descriptions bordered column={6}>
+      <Descriptions
+        bordered
+        column={6}
+        labelStyle={{
+          color: globalStyleMatrix.COLORS.titleFontColor,
+          fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
+        }}
+        contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+      >
         <Descriptions.Item label="Application Name" span={3}>
           {fetchedApplicationData?.name?.toString()}
         </Descriptions.Item>
@@ -177,6 +187,7 @@ const ReviewApplication = () => {
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
               editable={false}
+              theme={vscodeDark}
             />
           </Descriptions.Item>
         )}
@@ -187,6 +198,7 @@ const ReviewApplication = () => {
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
               height="auto"
               editable={false}
+              theme={vscodeDark}
             />
           </Descriptions.Item>
         )}
@@ -198,6 +210,7 @@ const ReviewApplication = () => {
               height="auto"
               maxWidth="1200px"
               editable={false}
+              theme={vscodeDark}
             />
           </Descriptions.Item>
         )}

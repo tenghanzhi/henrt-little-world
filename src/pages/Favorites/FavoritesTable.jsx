@@ -28,6 +28,7 @@ import {
   SET_FAVORITE_TABLE_SORTER,
   SET_FAVORITE_TABLE_FILTER,
 } from "../../redux/constants";
+import style from "./style/FavoritesTable.module.css";
 
 const FavoritesTable = (props) => {
   const navigate = useNavigate();
@@ -317,6 +318,7 @@ const FavoritesTable = (props) => {
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
+        hideOnSinglePage: true,
         defaultPageSize: favoriteTablePagenation?.size
           ? favoriteTablePagenation.size
           : 20,
@@ -325,6 +327,7 @@ const FavoritesTable = (props) => {
           : 1,
         total: total,
         onChange: (current, size) => handlePaginationChange(current, size),
+        className: style.lw_favorites_table_pagination,
       }}
       bordered
       onChange={(val, filter, sorter, extra) =>

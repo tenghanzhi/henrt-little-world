@@ -437,6 +437,7 @@ const LeetCodesTable = (props) => {
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
+        hideOnSinglePage: true,
         defaultPageSize: leetcodeTablePagenation?.size
           ? leetcodeTablePagenation.size
           : 20,
@@ -446,7 +447,6 @@ const LeetCodesTable = (props) => {
         total: total,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
-      bordered
       onChange={(val, filter, sorter, extra) =>
         handleTableChange(filter, sorter)
       }
