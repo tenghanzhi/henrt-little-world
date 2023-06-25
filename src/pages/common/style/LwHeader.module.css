@@ -33,3 +33,7 @@
     padding-left: 0px;
   }
 }
+
+[class~="ant-menu"] {
+  background-color: #171717 !important;
+}

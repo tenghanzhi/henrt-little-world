@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Space } from "antd";
+import { Layout, Space, ConfigProvider } from "antd";
 import categoryMatrix from "./categoryMatrix";
 import style from "./style/LwLayout.module.css";
 
@@ -23,29 +23,44 @@ const LwLayout = (props) => {
       : style.lw_lwlayout_space;
 
   return (
-    <Layout className={style.lw_lwlayout_wrapper}>
-      <Layout.Content>
-        <div className={style.lw_lwlayout_top_placeholder}></div>
-        <Space
-          className={className}
-          direction={direction}
-          size={size}
-          wrap={wrap}
-          align={
-            pageKey === categoryMatrix.APPLICATIONS ||
-            pageKey === categoryMatrix.LEETCODES ||
-            pageKey === categoryMatrix.COMPONENTS ||
-            pageKey === categoryMatrix.FAVORITES ||
-            pageKey === categoryMatrix.PORTFOLIO ||
-            pageKey === categoryMatrix.HOME
-              ? "center"
-              : null
-          }
-        >
-          {pageContent}
-        </Space>
-      </Layout.Content>
-    </Layout>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#212121",
+          colorBgBase: "#171717",
+          colorInfo: "#171717",
+          colorBgSpotlight: "#212121",
+          colorTextBase: "rgba(255, 255, 255, 0.65)",
+          colorText: "rgba(255, 255, 255, 0.65)",
+          colorLink: "#FFFFFF",
+          colorLinkHover: "#FFFFFF",
+        },
+      }}
+    >
+      <Layout className={style.lw_lwlayout_wrapper}>
+        <Layout.Content>
+          <div className={style.lw_lwlayout_top_placeholder}></div>
+          <Space
+            className={className}
+            direction={direction}
+            size={size}
+            wrap={wrap}
+            align={
+              pageKey === categoryMatrix.APPLICATIONS ||
+              pageKey === categoryMatrix.LEETCODES ||
+              pageKey === categoryMatrix.COMPONENTS ||
+              pageKey === categoryMatrix.FAVORITES ||
+              pageKey === categoryMatrix.PORTFOLIO ||
+              pageKey === categoryMatrix.HOME
+                ? "center"
+                : null
+            }
+          >
+            {pageContent}
+          </Space>
+        </Layout.Content>
+      </Layout>
+    </ConfigProvider>
   );
 };
 

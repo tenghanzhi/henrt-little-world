@@ -1,6 +1,14 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { Layout, Menu, Button, Tooltip, Space, Image } from "antd";
+import {
+  Layout,
+  Menu,
+  Button,
+  Tooltip,
+  Space,
+  Image,
+  ConfigProvider,
+} from "antd";
 import {
   GithubOutlined,
   LinkedinOutlined,
@@ -96,7 +104,15 @@ const LwHeader = () => {
   };
 
   return (
-    <Fragment>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#212121",
+          colorInfoHover: "#FFFFFF",
+          colorBgSpotlight: "#212121",
+        },
+      }}
+    >
       <Layout.Header className={style.lw_header_wrapper}>
         <Menu
           className={style.lw_header_menu}
@@ -168,7 +184,7 @@ const LwHeader = () => {
         </div>
       </Layout.Header>
       <Outlet />
-    </Fragment>
+    </ConfigProvider>
   );
 };
 

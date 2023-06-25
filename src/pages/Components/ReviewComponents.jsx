@@ -10,6 +10,7 @@ import {
   Popconfirm,
   Input,
   Card,
+  ConfigProvider,
 } from "antd";
 import {
   EditOutlined,
@@ -258,20 +259,28 @@ const ReviewComponents = () => {
           <p>Your broser does not support iframe tag</p>
         </iframe>
       </Card>
-      <Card
-        className={style.lw_components_review_components_code_tab}
-        tabList={codeCardTabList}
-        activeTabKey={codeTabactiveKey}
-        onTabChange={handleCodeTabChange}
-        headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
-        bodyStyle={{
-          color: globalStyleMatrix.COLORS.mainFontColor,
-          padding: "0px",
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#FFFFFF",
+          },
         }}
-        bordered={false}
       >
-        {codeCardContentList[codeTabactiveKey]}
-      </Card>
+        <Card
+          className={style.lw_components_review_components_code_tab}
+          tabList={codeCardTabList}
+          activeTabKey={codeTabactiveKey}
+          onTabChange={handleCodeTabChange}
+          headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          bodyStyle={{
+            color: globalStyleMatrix.COLORS.mainFontColor,
+            padding: "0px",
+          }}
+          bordered={false}
+        >
+          {codeCardContentList[codeTabactiveKey]}
+        </Card>
+      </ConfigProvider>
       <div className={style.lw_components_review_components_wrapper}>
         <Button
           className={style.lw_components_review_components_btns}

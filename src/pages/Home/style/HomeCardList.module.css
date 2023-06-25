@@ -17,8 +17,3 @@
 .lw_homecard_list_pagination > li > a {
   color: rgba(255, 255, 255, 0.65) !important;
 }
-
-[class~="ant-pagination-item-active"] {
-  border: none !important;
-  background-color: #212121 !important;
-}
