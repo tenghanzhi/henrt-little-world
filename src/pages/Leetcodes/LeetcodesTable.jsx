@@ -325,6 +325,28 @@ const LeetCodesTable = (props) => {
       sorter: (a, b) => a.attributes?.title?.localeCompare(b.attributes?.title),
     },
     {
+      title: "Created At",
+      key: "createdAt",
+      dataIndex: "createdAt",
+      render: (_, record) => (
+        <div>{record.attributes.createdAt.toString().slice(0, 10)}</div>
+      ),
+      sorter: (a, b) =>
+        moment(a.attributes.createdAt).unix() -
+        moment(b.attributes.createdAt).unix(),
+    },
+    {
+      title: "Updated At",
+      key: "updatedAt",
+      dataIndex: "updatedAt",
+      render: (_, record) => (
+        <div>{record.attributes.updatedAt.toString().slice(0, 10)}</div>
+      ),
+      sorter: (a, b) =>
+        moment(a.attributes.updatedAt).unix() -
+        moment(b.attributes.updatedAt).unix(),
+    },
+    {
       title: "Completed Date",
       key: "firstCompletedDate",
       dataIndex: "firstCompletedDate",

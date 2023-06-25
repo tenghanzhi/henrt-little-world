@@ -111,7 +111,7 @@ const Portfolio = () => {
             </div>
           </Link>
         ),
-        color: item.attributes.endDate ? "red" : "green",
+        color: item.attributes.endDate ? "#FF4D4D" : "#00FF9A",
       });
       return null;
     });
@@ -122,22 +122,22 @@ const Portfolio = () => {
     {
       label: "2018-01 ~ 2019-09",
       children: "University of Alabama at Birminghan | M.S.E.E.",
-      color: "blue",
+      color: "#00EFFF",
     },
     {
       label: "2012-09 ~ 2016-06",
       children: "Xiamen University | B.S.E.E.",
-      color: "blue",
+      color: "#00EFFF",
     },
     {
       label: "2009-09 ~ 2012-06",
       children: "Harbin No. 3 High School",
-      color: "blue",
+      color: "#00EFFF",
     },
     {
       label: "2005-09 ~ 2019-06",
       children: "Harbin No. 47 Middle School",
-      color: "blue",
+      color: "#00EFFF",
     },
   ];
 

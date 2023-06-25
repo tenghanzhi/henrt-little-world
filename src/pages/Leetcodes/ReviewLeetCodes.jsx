@@ -143,26 +143,32 @@ const ReviewLeetCodes = () => {
       </Typography.Title>
       <Descriptions
         bordered
-        column={6}
+        column={8}
         labelStyle={{
           color: globalStyleMatrix.COLORS.titleFontColor,
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
       >
-        <Descriptions.Item label="LeedCode Index" span={1}>
+        <Descriptions.Item label="LeedCode Index" span={2}>
           {fetchedLeetcodeData?.leetcodeIndex?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Title" span={5}>
+        <Descriptions.Item label="Title" span={4}>
           {fetchedLeetcodeData?.title?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Difficulty" span={1}>
+        <Descriptions.Item label="Difficulty" span={2}>
           {fetchedLeetcodeData?.difficulty?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="First Completed Date" span={4}>
+        <Descriptions.Item label="First Completed Date" span={2}>
           {fetchedLeetcodeData?.firstCompletedDate?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="LeetCode Page" span={1}>
+        <Descriptions.Item label="Created Date" span={2}>
+          {fetchedLeetcodeData?.createdAt?.toString().slice(0, 10)}
+        </Descriptions.Item>
+        <Descriptions.Item label="Updated Date" span={2}>
+          {fetchedLeetcodeData?.updatedAt?.toString().slice(0, 10)}
+        </Descriptions.Item>
+        <Descriptions.Item label="LeetCode Page" span={2}>
           <Button
             type="link"
             onClick={() => {
@@ -172,11 +178,11 @@ const ReviewLeetCodes = () => {
             Check
           </Button>
         </Descriptions.Item>
-        <Descriptions.Item label="Problem Type" span={6}>
+        <Descriptions.Item label="Problem Type" span={8}>
           {fetchedLeetcodeData?.type?.toString()}
         </Descriptions.Item>
         {fetchedLeetcodeData?.issue && (
-          <Descriptions.Item label="Problem Content" span={6}>
+          <Descriptions.Item label="Problem Content" span={8}>
             <ReactMarkdown
               children={fetchedLeetcodeData?.issue}
               remarkPlugins={[remarkGfm]}
@@ -184,7 +190,7 @@ const ReviewLeetCodes = () => {
           </Descriptions.Item>
         )}
         {fetchedLeetcodeData?.solutionOne && (
-          <Descriptions.Item label="Problem Solution One" span={6}>
+          <Descriptions.Item label="Problem Solution One" span={8}>
             <CodeMirror
               value={fetchedLeetcodeData?.solutionOne}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
@@ -195,7 +201,7 @@ const ReviewLeetCodes = () => {
           </Descriptions.Item>
         )}
         {fetchedLeetcodeData?.solutionTwo && (
-          <Descriptions.Item label="Problem Solution Two" span={4}>
+          <Descriptions.Item label="Problem Solution Two" span={8}>
             <CodeMirror
               value={fetchedLeetcodeData?.solutionTwo}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}

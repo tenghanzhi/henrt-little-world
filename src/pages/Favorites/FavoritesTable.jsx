@@ -18,6 +18,7 @@ import {
   EyeTwoTone,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
+import moment from "moment/moment";
 import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
@@ -237,6 +238,28 @@ const FavoritesTable = (props) => {
       ),
       filterMultiple: false,
       sorter: (a, b) => a.attributes?.type?.localeCompare(b.attributes?.type),
+    },
+    {
+      title: "Created At",
+      key: "createdAt",
+      dataIndex: "createdAt",
+      render: (_, record) => (
+        <div>{record.attributes.createdAt.toString().slice(0, 10)}</div>
+      ),
+      sorter: (a, b) =>
+        moment(a.attributes.createdAt).unix() -
+        moment(b.attributes.createdAt).unix(),
+    },
+    {
+      title: "Updated At",
+      key: "updatedAt",
+      dataIndex: "updatedAt",
+      render: (_, record) => (
+        <div>{record.attributes.updatedAt.toString().slice(0, 10)}</div>
+      ),
+      sorter: (a, b) =>
+        moment(a.attributes.updatedAt).unix() -
+        moment(b.attributes.updatedAt).unix(),
     },
     {
       title: "Description",

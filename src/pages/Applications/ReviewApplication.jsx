@@ -152,13 +152,13 @@ const ReviewApplication = () => {
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
       >
-        <Descriptions.Item label="Application Name" span={3}>
+        <Descriptions.Item label="Application Name" span={6}>
           {fetchedApplicationData?.name?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Type" span={2}>
+        <Descriptions.Item label="Type" span={3}>
           {fetchedApplicationData?.type?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Source" span={1}>
+        <Descriptions.Item label="Source" span={3}>
           {fetchedApplicationData?.source ? (
             <Button
               type="link"
@@ -171,6 +171,12 @@ const ReviewApplication = () => {
           ) : (
             "None"
           )}
+        </Descriptions.Item>
+        <Descriptions.Item label="Created Date" span={3}>
+          {fetchedApplicationData?.createdAt?.toString().slice(0, 10)}
+        </Descriptions.Item>
+        <Descriptions.Item label="Updated Date" span={3}>
+          {fetchedApplicationData?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
         {fetchedApplicationData?.description && (
           <Descriptions.Item label="Problem Content" span={6}>

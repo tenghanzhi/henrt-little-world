@@ -262,7 +262,19 @@ const ApplicationsTable = (props) => {
         record?.attributes?.type?.toLowerCase().includes(value.toLowerCase()),
     },
     {
-      title: "Update At",
+      title: "Created At",
+      key: "createdAt",
+      dataIndex: "createdAt",
+      width: 110,
+      render: (_, record) => (
+        <div>{record.attributes.createdAt.toString().slice(0, 10)}</div>
+      ),
+      sorter: (a, b) =>
+        moment(a.attributes.createdAt).unix() -
+        moment(b.attributes.createdAt).unix(),
+    },
+    {
+      title: "Updated At",
       key: "updatedAt",
       dataIndex: "updatedAt",
       width: 110,

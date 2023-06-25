@@ -24,6 +24,7 @@ import ComponentsCard from "./ComponentsCard";
 import LwLayout from "../common/LwLayout";
 import {
   SET_COMPONENT_DATA,
+  SET_COMPONENT_TABLE_SORTER,
   SET_COMPONENT_TABLE_FILTER,
   SET_COMPONENT_TABLE_PAGENATION,
 } from "../../redux/constants";
@@ -45,6 +46,8 @@ const Components = () => {
   const [inputPassword, setInputPassword] = useState(null);
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
+  const [sorterType, setSorterType] = useState("Name");
+  const [sorterOrder, setSorterOrder] = useState("Ascent");
 
   useEffect(() => {
     handleClearSearchResult();
@@ -243,6 +246,22 @@ const Components = () => {
     setSearchType(null);
   };
 
+  const handleSortTypeChange = (value) => {
+    setSorterType(value);
+    dispatch({
+      type: SET_COMPONENT_TABLE_SORTER,
+      payload: { sort: value, order: componentTableSorter.order },
+    });
+  };
+
+  const handleSortOrderChange = (value) => {
+    setSorterOrder(value);
+    dispatch({
+      type: SET_COMPONENT_TABLE_SORTER,
+      payload: { sort: componentTableSorter.sort, order: value },
+    });
+  };
+
   const handlePaginationChange = (current, size) => {
     dispatch({
       type: SET_COMPONENT_TABLE_PAGENATION,
@@ -262,6 +281,32 @@ const Components = () => {
     {
       label: "Search by Code Type",
       value: "codeType",
+    },
+  ];
+
+  const sorterTypeOptions = [
+    {
+      label: "Name",
+      value: "name",
+    },
+    {
+      label: "Created Date",
+      value: "createdAt",
+    },
+    {
+      label: "Updated Date",
+      value: "updatedAt",
+    },
+  ];
+
+  const sorterOrderOptions = [
+    {
+      label: "Ascent",
+      value: ":asc",
+    },
+    {
+      label: "Descent",
+      value: ":desc",
     },
   ];
 
@@ -322,117 +367,141 @@ const Components = () => {
   const pageContent = (
     <Space direction="vertical" wrap align="start">
       <Space className={style.lw_components_btn_wrapper} wrap>
-        <Popconfirm
-          title={"Please input password to create."}
-          placement="topRight"
-          description={
-            <>
-              <Input.Password
-                placeholder="Input password"
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                onChange={(e) => handlePasswordValueChange(e)}
-                allowClear={true}
-                value={inputPassword}
-                onPressEnter={handleConfirmPassword}
-              />
-            </>
-          }
-          onConfirm={handleConfirmPassword}
-          onCancel={handleCancelPassword}
-          okText="Confirm"
-          cancelText="Cancel"
-        >
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => handleBtnOnClick("create")}
+        <Space wrap>
+          <Popconfirm
+            title={"Please input password to create."}
+            placement="topRight"
+            description={
+              <>
+                <Input.Password
+                  placeholder="Input password"
+                  iconRender={(visible) =>
+                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                  }
+                  onChange={(e) => handlePasswordValueChange(e)}
+                  allowClear={true}
+                  value={inputPassword}
+                  onPressEnter={handleConfirmPassword}
+                />
+              </>
+            }
+            onConfirm={handleConfirmPassword}
+            onCancel={handleCancelPassword}
+            okText="Confirm"
+            cancelText="Cancel"
           >
-            Create New
-          </Button>
-        </Popconfirm>
-        <Button
-          type="default"
-          icon={<Html5Outlined />}
-          onClick={() => handleBtnOnClick("uiverse")}
-        >
-          Open-Source UI
-        </Button>
-        <Button
-          type="default"
-          icon={<Html5Outlined />}
-          onClick={() => handleBtnOnClick("angrytools")}
-        >
-          Angry Tools
-        </Button>
-        <Button
-          type="default"
-          icon={<Html5Outlined />}
-          onClick={() => handleBtnOnClick("animista")}
-        >
-          Animista
-        </Button>
-        <Button
-          type="default"
-          icon={<Html5Outlined />}
-          onClick={() => handleBtnOnClick("flatuicolors")}
-        >
-          Flat UI Colors
-        </Button>
-        <Select
-          className={style.lw_components_search_type_selector}
-          placeholder="Search by"
-          options={searchOptions}
-          onChange={(value) => handleSearchTypeChange(value)}
-          onClear={handleClearSearchResult}
-          value={searchType}
-          allowClear
-        />
-        {searchType === "name" && (
-          <Input
-            className={style.lw_components_search}
-            placeholder={handleSearchPlaceholder()}
-            onChange={(e) => handleSearchValueChange(e)}
-            value={inputSearch}
-            disabled={!searchType}
-            enterButton
-            allowClear
-          />
-        )}
-        {searchType === "componentType" && (
-          <Select
-            className={style.lw_components_search}
-            placeholder={handleSearchPlaceholder()}
-            onChange={(e) => handleSearchValueChange(e)}
-            value={inputSearch}
-            disabled={!searchType}
-            options={componentTypeOptions}
-            enterButton
-            allowClear
-          />
-        )}
-        {searchType === "codeType" && (
-          <Select
-            className={style.lw_components_search}
-            placeholder={handleSearchPlaceholder()}
-            onChange={(e) => handleSearchValueChange(e)}
-            value={inputSearch}
-            disabled={!searchType}
-            options={codeTypeOptions}
-            enterButton
-            allowClear
-          />
-        )}
-        {searchType && (
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => handleBtnOnClick("create")}
+            >
+              Create New
+            </Button>
+          </Popconfirm>
           <Button
-            danger
-            onClick={handleClearSearchResult}
-            disabled={!inputSearch}
+            type="default"
+            icon={<Html5Outlined />}
+            onClick={() => handleBtnOnClick("uiverse")}
           >
-            Clear Results
+            Open-Source UI
           </Button>
-        )}
+          <Button
+            type="default"
+            icon={<Html5Outlined />}
+            onClick={() => handleBtnOnClick("angrytools")}
+          >
+            Angry Tools
+          </Button>
+          <Button
+            type="default"
+            icon={<Html5Outlined />}
+            onClick={() => handleBtnOnClick("animista")}
+          >
+            Animista
+          </Button>
+          <Button
+            type="default"
+            icon={<Html5Outlined />}
+            onClick={() => handleBtnOnClick("flatuicolors")}
+          >
+            Flat UI Colors
+          </Button>
+        </Space>
+        <Space wrap>
+          <div className={style.lw_components_sortor_title}>Sort Type:</div>
+          <Select
+            className={style.lw_components_search_type_selector}
+            placeholder="Sort Type"
+            options={sorterTypeOptions}
+            onChange={(value) => handleSortTypeChange(value)}
+            onClear={handleClearSearchResult}
+            value={sorterType}
+            allowClear
+          />
+          <div className={style.lw_components_sortor_title}>Sort Order:</div>
+          <Select
+            className={style.lw_components_search_type_selector}
+            placeholder="Sort Order"
+            options={sorterOrderOptions}
+            onChange={(value) => handleSortOrderChange(value)}
+            onClear={handleClearSearchResult}
+            value={sorterOrder}
+            allowClear
+          />
+          <Select
+            className={style.lw_components_search_type_selector}
+            placeholder="Search by"
+            options={searchOptions}
+            onChange={(value) => handleSearchTypeChange(value)}
+            onClear={handleClearSearchResult}
+            value={searchType}
+            allowClear
+          />
+          {searchType === "name" && (
+            <Input
+              className={style.lw_components_search}
+              placeholder={handleSearchPlaceholder()}
+              onChange={(e) => handleSearchValueChange(e)}
+              value={inputSearch}
+              disabled={!searchType}
+              enterButton
+              allowClear
+            />
+          )}
+          {searchType === "componentType" && (
+            <Select
+              className={style.lw_components_search}
+              placeholder={handleSearchPlaceholder()}
+              onChange={(e) => handleSearchValueChange(e)}
+              value={inputSearch}
+              disabled={!searchType}
+              options={componentTypeOptions}
+              enterButton
+              allowClear
+            />
+          )}
+          {searchType === "codeType" && (
+            <Select
+              className={style.lw_components_search}
+              placeholder={handleSearchPlaceholder()}
+              onChange={(e) => handleSearchValueChange(e)}
+              value={inputSearch}
+              disabled={!searchType}
+              options={codeTypeOptions}
+              enterButton
+              allowClear
+            />
+          )}
+          {searchType && (
+            <Button
+              danger
+              onClick={handleClearSearchResult}
+              disabled={!inputSearch}
+            >
+              Clear Results
+            </Button>
+          )}
+        </Space>
       </Space>
       <Space direction="horizontal" wrap align="center">
         {componentData?.data?.map((data) => (

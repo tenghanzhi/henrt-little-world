@@ -161,6 +161,12 @@ const ReviewFavorites = () => {
             Check
           </Button>
         </Descriptions.Item>
+        <Descriptions.Item label="Created Date" span={3}>
+          {fetchedFavoriteData?.createdAt?.toString().slice(0, 10)}
+        </Descriptions.Item>
+        <Descriptions.Item label="Updated Date" span={3}>
+          {fetchedFavoriteData?.updatedAt?.toString().slice(0, 10)}
+        </Descriptions.Item>
         {fetchedFavoriteData?.description && (
           <Descriptions.Item label="Problem Content" span={6}>
             <ReactMarkdown

@@ -246,6 +246,12 @@ const ReviewComponents = () => {
         <Descriptions.Item label="Component Type" span={3}>
           {fetchedComponentData?.componentType?.toString()}
         </Descriptions.Item>
+        <Descriptions.Item label="Created Date" span={3}>
+          {fetchedComponentData?.createdAt?.toString().slice(0, 10)}
+        </Descriptions.Item>
+        <Descriptions.Item label="Updated Date" span={3}>
+          {fetchedComponentData?.updatedAt?.toString().slice(0, 10)}
+        </Descriptions.Item>
       </Descriptions>
       <Card
         className={style.lw_components_review_components_iframe_card}
