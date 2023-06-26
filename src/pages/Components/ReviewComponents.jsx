@@ -7,17 +7,11 @@ import {
   message,
   Descriptions,
   Button,
-  Popconfirm,
-  Input,
   Card,
   ConfigProvider,
+  Tooltip,
 } from "antd";
-import {
-  EditOutlined,
-  RollbackOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, RollbackOutlined } from "@ant-design/icons";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
@@ -27,16 +21,15 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
-import password from "../common/password";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewComponent.module.css";
 
 const ReviewComponents = () => {
   const navigate = useNavigate();
+  const userInfoData = useSelector((state) => state.userInfoData);
   const selectedComponentId = useSelector((state) => state.selectedComponentId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
   const [fetchedComponentData, setFetchedComponentData] = useState({});
-  const [inputPassword, setInputPassword] = useState(null);
   const [codeTabactiveKey, setCodeTabactiveKey] = useState("htmlCode");
 
   useEffect(() => {
@@ -110,28 +103,8 @@ const ReviewComponents = () => {
       });
   };
 
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = () => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(
-        messageKey,
-        "success",
-        messageMatrix.PASSWORD_RESULT_SCCESS
-      );
-      navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`);
-    } else {
-      handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
-      setInputPassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
+  const handleEditBtnOnClick = () => {
+    navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`);
   };
 
   const handleCodeTabChange = (key) => {
@@ -296,33 +269,21 @@ const ReviewComponents = () => {
         >
           Back
         </Button>
-        <Popconfirm
-          title={"Please input password to edit."}
-          className={style.lw_components_review_components_btns}
-          placement="top"
-          description={
-            <>
-              <Input.Password
-                placeholder="Input password"
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                onChange={(e) => handlePasswordValueChange(e)}
-                allowClear={true}
-                value={inputPassword}
-                onPressEnter={handleConfirmPassword}
-              />
-            </>
+        <Tooltip
+          title={
+            !userInfoData.jwt ? "Please login with admin account to edit" : ""
           }
-          onConfirm={handleConfirmPassword}
-          onCancel={handleCancelPassword}
-          okText="Confirm"
-          cancelText="Cancel"
         >
-          <Button type="primary" icon={<EditOutlined />}>
+          <Button
+            type="primary"
+            onClick={handleEditBtnOnClick}
+            icon={<EditOutlined />}
+            disabled={!userInfoData.jwt}
+            className={style.lw_components_review_components_btns}
+          >
             Edit
           </Button>
-        </Popconfirm>
+        </Tooltip>
       </div>
     </>
   );

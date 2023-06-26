@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   Layout,
   Menu,
@@ -21,12 +22,14 @@ import {
   WechatOutlined,
   VideoCameraOutlined,
   DesktopOutlined,
+  SmileOutlined,
 } from "@ant-design/icons";
 import categoryMatrix from "./categoryMatrix";
 import style from "./style/LwHeader.module.css";
 
 const LwHeader = () => {
   const location = useLocation();
+  const userInfoData = useSelector((state) => state.userInfoData);
 
   const menuItems = [
     {
@@ -72,9 +75,20 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>About Me</Link>
+        <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>About</Link>
       ),
       key: categoryMatrix.PORTFOLIO.toLowerCase(),
+      icon: <SmileOutlined />,
+    },
+    {
+      label: (
+        <Link to={`/${categoryMatrix.USER.toLowerCase()}`}>
+          {userInfoData?.jwt
+            ? `Hello! ${userInfoData?.user?.username}`
+            : "Login/Register"}
+        </Link>
+      ),
+      key: categoryMatrix.USER.toLowerCase(),
       icon: <UserOutlined />,
     },
   ];

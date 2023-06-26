@@ -7,31 +7,24 @@ import {
   message,
   Descriptions,
   Button,
-  Popconfirm,
-  Input,
+  Tooltip,
 } from "antd";
-import {
-  EditOutlined,
-  RollbackOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, RollbackOutlined } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
-import password from "../common/password";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewFavorites.module.css";
 
 const ReviewFavorites = () => {
   const navigate = useNavigate();
+  const userInfoData = useSelector((state) => state.userInfoData);
   const selectedFavoriteId = useSelector((state) => state.selectedFavoriteId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
   const [fetchedFavoriteData, setFetchedFavoriteData] = useState({});
-  const [inputPassword, setInputPassword] = useState(null);
 
   useEffect(() => {
     handleGetFavoriteDataById();
@@ -104,28 +97,8 @@ const ReviewFavorites = () => {
       });
   };
 
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = () => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(
-        messageKey,
-        "success",
-        messageMatrix.PASSWORD_RESULT_SCCESS
-      );
-      navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editFavorites`);
-    } else {
-      handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
-      setInputPassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
+  const handleEditBtnOnClick = () => {
+    navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editFavorites`);
   };
 
   const loadedPageContent = (
@@ -185,33 +158,21 @@ const ReviewFavorites = () => {
         >
           Back
         </Button>
-        <Popconfirm
-          title={"Please input password to edit."}
-          className={style.lw_favorites_review_favorite_btns}
-          placement="top"
-          description={
-            <>
-              <Input.Password
-                placeholder="Input password"
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                onChange={(e) => handlePasswordValueChange(e)}
-                allowClear={true}
-                value={inputPassword}
-                onPressEnter={handleConfirmPassword}
-              />
-            </>
+        <Tooltip
+          title={
+            !userInfoData.jwt ? "Please login with admin account to edit" : ""
           }
-          onConfirm={handleConfirmPassword}
-          onCancel={handleCancelPassword}
-          okText="Confirm"
-          cancelText="Cancel"
         >
-          <Button type="primary" icon={<EditOutlined />}>
+          <Button
+            className={style.lw_favorites_review_favorite_btns}
+            type="primary"
+            onClick={handleEditBtnOnClick}
+            icon={<EditOutlined />}
+            disabled={!userInfoData.jwt}
+          >
             Edit
           </Button>
-        </Popconfirm>
+        </Tooltip>
       </div>
     </>
   );

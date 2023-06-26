@@ -1,5 +1,6 @@
 const categoryMatrix = {
   HOME: "Home",
+  USER: "User",
   PORTFOLIO: "Portfolio",
   COMPONENTS: "Components",
   APPLICATIONS: "Applications",

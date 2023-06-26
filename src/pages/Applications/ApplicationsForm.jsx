@@ -6,14 +6,11 @@ import {
   RollbackOutlined,
   DeleteOutlined,
   CheckOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
 } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import validateMessages from "../common/validateMessages";
-import password from "../common/password";
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
@@ -23,6 +20,7 @@ import style from "./style/ApplicationsForm.module.css";
 const ApplicationsForm = (props) => {
   const pageType = props.isEdit && props.isEdit !== "" ? "edit" : "create";
   const defaultData = props.data && props.data !== {} ? props.data : {};
+  const userInfoData = useSelector((state) => state.userInfoData);
   const selectedApplicationId = useSelector(
     (state) => state.selectedApplicationId
   );
@@ -38,7 +36,6 @@ const ApplicationsForm = (props) => {
   const [codeThree, setCodeThree] = useState(
     pageType === "edit" ? defaultData.codeThree : null
   );
-  const [inputDeletePassword, setInputDeletePassword] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
   const handleGoback = () => {
@@ -84,31 +81,6 @@ const ApplicationsForm = (props) => {
     }
   };
 
-  const handleDeletePasswordValueChange = (e) => {
-    setInputDeletePassword(e.target.value);
-  };
-
-  const handleConfirmDeletePassword = () => {
-    const messageKey = "passwordResult";
-
-    if (inputDeletePassword !== null && inputDeletePassword === password) {
-      handleMessage(
-        messageKey,
-        "success",
-        messageMatrix.PASSWORD_RESULT_SCCESS
-      );
-      setIsUploading(true);
-      handleDelete();
-    } else {
-      handleMessage(messageKey, "error", messageMatrix.PASSWORD_RESULT_ERROR);
-      setInputDeletePassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputDeletePassword(null);
-  };
-
   const handleFormValueChange = (type, value) => {
     switch (type) {
       case (type = "setCodeOne"):
@@ -149,6 +121,7 @@ const ApplicationsForm = (props) => {
           body: JSON.stringify(values),
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfoData.jwt}`,
           },
         });
         return response.json();
@@ -182,6 +155,7 @@ const ApplicationsForm = (props) => {
             body: JSON.stringify(values),
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${userInfoData.jwt}`,
             },
           }
         );
@@ -221,6 +195,7 @@ const ApplicationsForm = (props) => {
       "loading",
       messageMatrix.DELETING_MESSAGE_LOADING
     );
+    setIsUploading(true);
 
     (async () => {
       const response = await fetch(
@@ -230,6 +205,7 @@ const ApplicationsForm = (props) => {
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfoData.jwt}`,
           },
         }
       );
@@ -435,27 +411,12 @@ const ApplicationsForm = (props) => {
             >
               Cancel
             </Button>
-            {pageType === "edit" && (
+            {pageType === "edit" && userInfoData.jwt && (
               <Popconfirm
-                title={"Please input password to delete."}
+                title={`Confirm to delete ${defaultData.name}`}
                 className={style.lw_applications_form_btns}
                 placement="top"
-                description={
-                  <>
-                    <Input.Password
-                      placeholder="Input password"
-                      iconRender={(visible) =>
-                        visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                      }
-                      onChange={(e) => handleDeletePasswordValueChange(e)}
-                      allowClear={true}
-                      value={inputDeletePassword}
-                      onPressEnter={handleConfirmDeletePassword}
-                    />
-                  </>
-                }
-                onConfirm={handleConfirmDeletePassword}
-                onCancel={handleCancelPassword}
+                onConfirm={handleDelete}
                 okText="Confirm"
                 cancelText="Cancel"
               >

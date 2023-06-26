@@ -22,6 +22,7 @@ import {
   SET_FAVORITE_TABLE_PAGENATION,
   SET_FAVORITE_TABLE_SORTER,
   SET_FAVORITE_TABLE_FILTER,
+  SET_USER_INFO_DATA,
 } from "./constants.js";
 
 //Home
@@ -188,5 +189,13 @@ export function setComponentTableFilter(favoriteTableFilter) {
   return {
     type: SET_FAVORITE_TABLE_FILTER,
     favoriteTableFilter,
+  };
+}
+
+//User
+export function setUserInfoData(userInfoData) {
+  return {
+    type: SET_USER_INFO_DATA,
+    userInfoData,
   };
 }

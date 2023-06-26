@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Popconfirm, Input, message } from "antd";
-import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
-import password from "../common/password";
-import messageMatrix from "../common/messageMatrix";
+import { Card, Button, Tooltip } from "antd";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
 import style from "./style/ComponentsCard.module.css";
@@ -35,59 +32,11 @@ const ComponentsCard = (props) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [inputPassword, setInputPassword] = useState(null);
+  const userInfoData = useSelector((state) => state.userInfoData);
 
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_LOADING,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
-          duration: messageDuration,
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
-
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = () => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(messageKey, "success");
-      dispatch({ type: SET_SELECTED_COMPONENT_ID, payload: data.id });
-      navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`);
-    } else {
-      handleMessage(messageKey, "error");
-      setInputPassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
+  const handleActionBtnOnClick = () => {
+    dispatch({ type: SET_SELECTED_COMPONENT_ID, payload: data.id });
+    navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`);
   };
 
   const handleDetailBtnOnClick = () => {
@@ -97,35 +46,22 @@ const ComponentsCard = (props) => {
 
   const cardExtra = (
     <>
-      <Popconfirm
-        title={"Please input password to edit."}
-        placement="topRight"
-        description={
-          <>
-            <Input.Password
-              placeholder="Input password"
-              iconRender={(visible) =>
-                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-              }
-              onChange={(e) => handlePasswordValueChange(e)}
-              allowClear={true}
-              value={inputPassword}
-              onPressEnter={handleConfirmPassword}
-            />
-          </>
+      <Tooltip
+        title={
+          !userInfoData.jwt ? "Please login with admin account to edit" : ""
         }
-        onConfirm={handleConfirmPassword}
-        onCancel={handleCancelPassword}
-        okText="Confirm"
-        cancelText="Cancel"
       >
-        <Button className={style.lw_components_card_extra_btn} type="default">
+        <Button
+          type="default"
+          onClick={handleActionBtnOnClick}
+          disabled={!userInfoData.jwt}
+        >
           Edit
         </Button>
-      </Popconfirm>
+      </Tooltip>
       <Button
         className={style.lw_components_card_extra_btn}
-        type="primary"
+        type="default"
         onClick={handleDetailBtnOnClick}
       >
         Detail

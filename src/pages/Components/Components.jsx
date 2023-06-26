@@ -5,21 +5,15 @@ import {
   message,
   Space,
   Button,
-  Popconfirm,
   Input,
   Select,
   Pagination,
+  Tooltip,
 } from "antd";
-import {
-  PlusOutlined,
-  Html5Outlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined, Html5Outlined } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
-import password from "../common/password";
 import ComponentsCard from "./ComponentsCard";
 import LwLayout from "../common/LwLayout";
 import {
@@ -33,6 +27,7 @@ import style from "./style/Components.module.css";
 const Components = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userInfoData = useSelector((state) => state.userInfoData);
   const componentData = useSelector((state) => state.componentData);
   const componentTablePagenation = useSelector(
     (state) => state.componentTablePagenation
@@ -43,7 +38,6 @@ const Components = () => {
   const componentTableFilter = useSelector(
     (state) => state.componentTableFilter
   );
-  const [inputPassword, setInputPassword] = useState(null);
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
   const [sorterType, setSorterType] = useState("Name");
@@ -105,6 +99,11 @@ const Components = () => {
       case "flatuicolors":
         window.open("https://flatuicolors.com/");
         break;
+      case "create":
+        navigate(
+          `/${categoryMatrix.COMPONENTS.toLowerCase()}/createComponents`
+        );
+        break;
       default:
         return null;
     }
@@ -145,26 +144,6 @@ const Components = () => {
       .catch((error) => {
         handleMessage(messageKey, "error", error);
       });
-  };
-
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = () => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(messageKey, "success");
-      navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/createComponents`);
-    } else {
-      handleMessage(messageKey, "error");
-      setInputPassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
   };
 
   const handleSearchPlaceholder = () => {
@@ -368,36 +347,22 @@ const Components = () => {
     <Space direction="vertical" wrap align="start">
       <Space className={style.lw_components_btn_wrapper} wrap>
         <Space wrap>
-          <Popconfirm
-            title={"Please input password to create."}
-            placement="topRight"
-            description={
-              <>
-                <Input.Password
-                  placeholder="Input password"
-                  iconRender={(visible) =>
-                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                  }
-                  onChange={(e) => handlePasswordValueChange(e)}
-                  allowClear={true}
-                  value={inputPassword}
-                  onPressEnter={handleConfirmPassword}
-                />
-              </>
+          <Tooltip
+            title={
+              !userInfoData.jwt
+                ? "Please login with admin account to create"
+                : ""
             }
-            onConfirm={handleConfirmPassword}
-            onCancel={handleCancelPassword}
-            okText="Confirm"
-            cancelText="Cancel"
           >
             <Button
               type="primary"
               icon={<PlusOutlined />}
               onClick={() => handleBtnOnClick("create")}
+              disabled={!userInfoData.jwt}
             >
               Create New
             </Button>
-          </Popconfirm>
+          </Tooltip>
           <Button
             type="default"
             icon={<Html5Outlined />}

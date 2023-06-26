@@ -5,21 +5,15 @@ import {
   message,
   Space,
   Button,
-  Popconfirm,
   Input,
   InputNumber,
   Select,
+  Tooltip,
 } from "antd";
-import {
-  PlusOutlined,
-  CodeOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined, CodeOutlined } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
-import password from "../common/password";
 import LeetCodesTable from "./LeetCodesTable";
 import LwLayout from "../common/LwLayout";
 import {
@@ -31,13 +25,13 @@ import style from "./style/LeetCodes.module.css";
 const LeetCodes = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userInfoData = useSelector((state) => state.userInfoData);
   const leetcodeData = useSelector((state) => state.leetcodeData);
   const leetcodeTablePagenation = useSelector(
     (state) => state.leetcodeTablePagenation
   );
   const leetcodeTableSorter = useSelector((state) => state.leetcodeTableSorter);
   const leetcodeTableFilter = useSelector((state) => state.leetcodeTableFilter);
-  const [inputPassword, setInputPassword] = useState(null);
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
 
@@ -94,6 +88,9 @@ const LeetCodes = () => {
       case "nc":
         window.open("https://neetcode.io/roadmap");
         break;
+      case "create":
+        navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/createLeetCodes`);
+        break;
       default:
         return null;
     }
@@ -138,26 +135,6 @@ const LeetCodes = () => {
       .catch((error) => {
         handleMessage(messageKey, "error", error);
       });
-  };
-
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = () => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(messageKey, "success");
-      navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/createLeetCodes`);
-    } else {
-      handleMessage(messageKey, "error");
-      setInputPassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
   };
 
   const handleSearchPlaceholder = () => {
@@ -244,36 +221,20 @@ const LeetCodes = () => {
   const pageContent = (
     <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_leetcode_btn_wrapper}>
-        <Popconfirm
-          title={"Please input password to create."}
-          placement="topRight"
-          description={
-            <>
-              <Input.Password
-                placeholder="Input password"
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                onChange={(e) => handlePasswordValueChange(e)}
-                allowClear={true}
-                value={inputPassword}
-                onPressEnter={handleConfirmPassword}
-              />
-            </>
+        <Tooltip
+          title={
+            !userInfoData.jwt ? "Please login with admin account to create" : ""
           }
-          onConfirm={handleConfirmPassword}
-          onCancel={handleCancelPassword}
-          okText="Confirm"
-          cancelText="Cancel"
         >
           <Button
             type="primary"
             icon={<PlusOutlined />}
             onClick={() => handleBtnOnClick("create")}
+            disabled={!userInfoData.jwt}
           >
             Create New
           </Button>
-        </Popconfirm>
+        </Tooltip>
         <Button
           type="default"
           icon={<CodeOutlined />}

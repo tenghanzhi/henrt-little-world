@@ -23,6 +23,7 @@ const EditPortfolio = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const selectedPortfolioId = useSelector((state) => state.selectedPortfolioId);
+  const userInfoData = useSelector((state) => state.userInfoData);
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [fetchedPortfolioData, setFetchedPortfolioData] = useState({});
@@ -127,6 +128,7 @@ const EditPortfolio = () => {
           body: JSON.stringify(values),
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfoData.jwt}`,
           },
         }
       );

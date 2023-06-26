@@ -1,28 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  Space,
-  Table,
-  Tag,
-  Button,
-  Tooltip,
-  Popconfirm,
-  Input,
-  message,
-} from "antd";
-import {
-  EditOutlined,
-  EyeOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-  LinkOutlined,
-} from "@ant-design/icons";
+import { Space, Table, Tag, Button, Tooltip } from "antd";
+import { EditOutlined, EyeOutlined, LinkOutlined } from "@ant-design/icons";
 import moment from "moment/moment";
 import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
-import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
-import password from "../common/password";
 import {
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
@@ -34,6 +17,7 @@ import style from "./style/ApplicationsTable.module.css";
 const ApplicationsTable = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userInfoData = useSelector((state) => state.userInfoData);
   const applicationTablePagenation = useSelector(
     (state) => state.applicationTablePagenation
   );
@@ -44,7 +28,6 @@ const ApplicationsTable = (props) => {
   const total = props?.data?.meta?.pagination?.total
     ? props?.data?.meta?.pagination?.total
     : 0;
-  const [inputPassword, setInputPassword] = useState(null);
 
   const handleTypeTagColor = (type) => {
     switch (type.toLowerCase()) {
@@ -92,64 +75,15 @@ const ApplicationsTable = (props) => {
           `/${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications`
         );
         break;
+      case "edit":
+        dispatch({ type: SET_SELECTED_APPLICATION_ID, payload: record.id });
+        navigate(
+          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/editApplications`
+        );
+        break;
       default:
         return null;
     }
-  };
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_LOADING,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
-          duration: messageDuration,
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
-
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = (id) => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(messageKey, "success");
-      dispatch({ type: SET_SELECTED_APPLICATION_ID, payload: id });
-      navigate(
-        `/${categoryMatrix.APPLICATIONS.toLowerCase()}/editApplications`
-      );
-    } else {
-      handleMessage(messageKey, "error");
-      setInputPassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
   };
 
   const handlePaginationChange = (current, size) => {
@@ -326,31 +260,19 @@ const ApplicationsTable = (props) => {
               onClick={() => handleActionBtnOnClick("review", record)}
             />
           </Tooltip>
-          <Tooltip title="Edit">
-            <Popconfirm
-              title={"Please input password to edit."}
-              placement="topRight"
-              description={
-                <>
-                  <Input.Password
-                    placeholder="Input password"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                    onChange={(e) => handlePasswordValueChange(e)}
-                    allowClear={true}
-                    value={inputPassword}
-                    onPressEnter={() => handleConfirmPassword(record.id)}
-                  />
-                </>
-              }
-              onConfirm={() => handleConfirmPassword(record.id)}
-              onCancel={handleCancelPassword}
-              okText="Confirm"
-              cancelText="Cancel"
-            >
-              <Button type="text" icon={<EditOutlined />} />
-            </Popconfirm>
+          <Tooltip
+            title={
+              !userInfoData.jwt
+                ? "Please login with admin account to edit"
+                : "Edit"
+            }
+          >
+            <Button
+              type="text"
+              onClick={() => handleActionBtnOnClick("edit", record)}
+              icon={<EditOutlined />}
+              disabled={!userInfoData.jwt}
+            />
           </Tooltip>
         </Space>
       ),

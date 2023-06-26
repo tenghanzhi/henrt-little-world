@@ -8,6 +8,7 @@ import "./index.css";
 import LwHeader from "./pages/common/LwHeader";
 import LwFooter from "./pages/common/LwFooter";
 import Home from "./pages/Home";
+import User from "./pages/User";
 import Portfolio from "./pages/Portfolio";
 import EditPortfolio from "./pages/Portfolio/EditPortfolio";
 import ReviewPortfolio from "./pages/Portfolio/ReviewPortfolio";
@@ -36,6 +37,10 @@ const Main = () => {
         <Routes>
           <Route>
             <Route path="/" element={<Home />} />
+            <Route
+              path={categoryMatrix.USER.toLowerCase()}
+              element={<User />}
+            />
             <Route
               path={categoryMatrix.PORTFOLIO.toLowerCase()}
               element={<Portfolio />}

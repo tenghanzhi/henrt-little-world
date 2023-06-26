@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { message, Space, Button, Popconfirm, Input, Select } from "antd";
+import { message, Space, Button, Input, Select, Tooltip } from "antd";
 import {
   PlusOutlined,
   CodeOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
   CodeSandboxOutlined,
   CodepenOutlined,
 } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
-import password from "../common/password";
 import ApplicationsTable from "./ApplicationsTable";
 import LwLayout from "../common/LwLayout";
 import {
@@ -25,6 +22,7 @@ import style from "./style/Applications.module.css";
 const Applications = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userInfoData = useSelector((state) => state.userInfoData);
   const applicationData = useSelector((state) => state.applicationData);
   const applicationTablePagenation = useSelector(
     (state) => state.applicationTablePagenation
@@ -35,7 +33,6 @@ const Applications = () => {
   const applicationTableFilter = useSelector(
     (state) => state.applicationTableFilter
   );
-  const [inputPassword, setInputPassword] = useState(null);
   const [inputSearch, setInputSearch] = useState(null);
   const [searchType, setSearchType] = useState(null);
 
@@ -96,6 +93,11 @@ const Applications = () => {
       case "jsfiddle":
         window.open("https://jsfiddle.net/");
         break;
+      case "create":
+        navigate(
+          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`
+        );
+        break;
       default:
         return null;
     }
@@ -136,28 +138,6 @@ const Applications = () => {
       .catch((error) => {
         handleMessage(messageKey, "error", error);
       });
-  };
-
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = () => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(messageKey, "success");
-      navigate(
-        `/${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`
-      );
-    } else {
-      handleMessage(messageKey, "error");
-      setInputPassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
   };
 
   const handleSearchPlaceholder = () => {
@@ -239,36 +219,20 @@ const Applications = () => {
   const pageContent = (
     <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_applications_btn_wrapper}>
-        <Popconfirm
-          title={"Please input password to create."}
-          placement="topRight"
-          description={
-            <>
-              <Input.Password
-                placeholder="Input password"
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                onChange={(e) => handlePasswordValueChange(e)}
-                allowClear={true}
-                value={inputPassword}
-                onPressEnter={handleConfirmPassword}
-              />
-            </>
+        <Tooltip
+          title={
+            !userInfoData.jwt ? "Please login with admin account to create" : ""
           }
-          onConfirm={handleConfirmPassword}
-          onCancel={handleCancelPassword}
-          okText="Confirm"
-          cancelText="Cancel"
         >
           <Button
             type="primary"
             icon={<PlusOutlined />}
             onClick={() => handleBtnOnClick("create")}
+            disabled={!userInfoData.jwt}
           >
             Create New
           </Button>
-        </Popconfirm>
+        </Tooltip>
         <Button
           type="default"
           icon={<CodeSandboxOutlined />}

@@ -22,6 +22,7 @@ import {
   SET_FAVORITE_TABLE_PAGENATION,
   SET_FAVORITE_TABLE_SORTER,
   SET_FAVORITE_TABLE_FILTER,
+  SET_USER_INFO_DATA,
 } from "./constants";
 
 const initialState = {
@@ -88,6 +89,19 @@ const initialState = {
     name: null,
     type: null,
   },
+  userInfoData: {
+    jwt: null,
+    user: {
+      id: null,
+      username: null,
+      email: null,
+      provider: null,
+      confirmed: false,
+      blocked: false,
+      createdAt: null,
+      updatedAt: null,
+    },
+  },
 };
 
 export default function reducer(state = initialState, action) {
@@ -138,6 +152,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, favoriteTableSorter: action.payload };
     case SET_FAVORITE_TABLE_FILTER:
       return { ...state, favoriteTableFilter: action.payload };
+    case SET_USER_INFO_DATA:
+      return { ...state, userInfoData: action.payload };
     default:
       return state;
   }

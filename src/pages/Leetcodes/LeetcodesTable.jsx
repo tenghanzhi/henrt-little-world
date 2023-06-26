@@ -1,28 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  Space,
-  Table,
-  Tag,
-  Button,
-  Tooltip,
-  Popconfirm,
-  Input,
-  message,
-} from "antd";
-import {
-  EditOutlined,
-  CodeOutlined,
-  EyeOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import { Space, Table, Tag, Button, Tooltip } from "antd";
+import { EditOutlined, CodeOutlined, EyeOutlined } from "@ant-design/icons";
 import moment from "moment/moment";
 import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
-import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
-import password from "../common/password";
 import {
   SET_SELECTED_LEETCODE_ID,
   SET_LEETCOD_TABLE_PAGENATION,
@@ -33,6 +16,7 @@ import {
 const LeetCodesTable = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userInfoData = useSelector((state) => state.userInfoData);
   const leetcodeTablePagenation = useSelector(
     (state) => state.leetcodeTablePagenation
   );
@@ -41,7 +25,6 @@ const LeetCodesTable = (props) => {
   const total = props?.data?.meta?.pagination?.total
     ? props?.data?.meta?.pagination?.total
     : 0;
-  const [inputPassword, setInputPassword] = useState(null);
 
   const handleDifficultyTagColor = (difficulty) => {
     switch (difficulty.toLowerCase()) {
@@ -122,62 +105,13 @@ const LeetCodesTable = (props) => {
         dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: record.id });
         navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`);
         break;
+      case "edit":
+        dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: record.id });
+        navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/editLeetCodes`);
+        break;
       default:
         return null;
     }
-  };
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_LOADING,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
-          duration: messageDuration,
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
-
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = (id) => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(messageKey, "success");
-      dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: id });
-      navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/editLeetCodes`);
-    } else {
-      handleMessage(messageKey, "error");
-      setInputPassword(null);
-    }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
   };
 
   const handlePaginationChange = (current, size) => {
@@ -421,31 +355,19 @@ const LeetCodesTable = (props) => {
               onClick={() => handleActionBtnOnClick("review", record)}
             />
           </Tooltip>
-          <Tooltip title="Edit">
-            <Popconfirm
-              title={"Please input password to edit."}
-              placement="topRight"
-              description={
-                <>
-                  <Input.Password
-                    placeholder="Input password"
-                    iconRender={(visible) =>
-                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                    }
-                    onChange={(e) => handlePasswordValueChange(e)}
-                    allowClear={true}
-                    value={inputPassword}
-                    onPressEnter={() => handleConfirmPassword(record.id)}
-                  />
-                </>
-              }
-              onConfirm={() => handleConfirmPassword(record.id)}
-              onCancel={handleCancelPassword}
-              okText="Confirm"
-              cancelText="Cancel"
-            >
-              <Button type="text" icon={<EditOutlined />} />
-            </Popconfirm>
+          <Tooltip
+            title={
+              !userInfoData.jwt
+                ? "Please login with admin account to edit"
+                : "Edit"
+            }
+          >
+            <Button
+              type="text"
+              onClick={() => handleActionBtnOnClick("edit", record)}
+              icon={<EditOutlined />}
+              disabled={!userInfoData.jwt}
+            />
           </Tooltip>
         </Space>
       ),

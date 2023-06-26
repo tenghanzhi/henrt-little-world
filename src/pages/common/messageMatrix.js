@@ -1,4 +1,10 @@
 const messageMatrix = {
+  USER_MESSAGE_CREATING: "Creating new user...",
+  USER_MESSAGE_CREATING_SUCCESS: "New user successfully created.",
+  USER_MESSAGE_LOGIN: "Loginning in...",
+  USER_MESSAGE_LOGIN_SUCCESS: "Login success!",
+  USER_MESSAGE_UPDATING: "Updating user information...",
+  USER_MESSAGE_UPDATE_SUCCESS: "Successfully updated user information.",
   LOADING_MESSAGE_LOADING: "Loading most updated data, please wait...",
   LOADING_MESSAGE_SUCCESS: "Successfully loaded data.",
   LOADING_MESSAGE_ERROR: "Failed to load data, please try again. ",
@@ -12,8 +18,6 @@ const messageMatrix = {
   UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS: "Successfully updated data.",
   UPLOAD_UPDATED_DATA_MESSAGE_ERROR:
     "Failed to update data, please try again. ",
-  PASSWORD_RESULT_SCCESS: "Password correct.",
-  PASSWORD_RESULT_ERROR: "Wrong password, please check your input.",
 };
 
 export default messageMatrix;

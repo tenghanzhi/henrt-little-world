@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { message, Space, Button, Popconfirm, Input } from "antd";
-import {
-  PlusOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import { message, Space, Button, Input, Tooltip } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
-import password from "../common/password";
 import FavoritesTable from "./FavoritesTable";
 import LwLayout from "../common/LwLayout";
 import {
@@ -22,13 +17,13 @@ import style from "./style/Favorites.module.css";
 const Favorites = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userInfoData = useSelector((state) => state.userInfoData);
   const favoriteData = useSelector((state) => state.favoriteData);
   const favoriteTablePagenation = useSelector(
     (state) => state.favoriteTablePagenation
   );
   const favoriteTableSorter = useSelector((state) => state.favoriteTableSorter);
   const favoriteTableFilter = useSelector((state) => state.favoriteTableFilter);
-  const [inputPassword, setInputPassword] = useState(null);
   const [inputSearch, setInputSearch] = useState(null);
 
   useEffect(() => {
@@ -106,24 +101,14 @@ const Favorites = () => {
       });
   };
 
-  const handlePasswordValueChange = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = () => {
-    const messageKey = "passwordResult";
-
-    if (inputPassword !== null && inputPassword === password) {
-      handleMessage(messageKey, "success");
-      navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/createFavorites`);
-    } else {
-      handleMessage(messageKey, "error");
-      setInputPassword(null);
+  const handleBtnOnClick = (type) => {
+    switch (type.toLowerCase()) {
+      case "create":
+        navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/createFavorites`);
+        break;
+      default:
+        return null;
     }
-  };
-
-  const handleCancelPassword = () => {
-    setInputPassword(null);
   };
 
   const handleSearchValueChange = (e) => {
@@ -151,32 +136,20 @@ const Favorites = () => {
   const pageContent = (
     <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_favorite_btn_wrapper}>
-        <Popconfirm
-          title={"Please input password to create."}
-          placement="topRight"
-          description={
-            <>
-              <Input.Password
-                placeholder="Input password"
-                iconRender={(visible) =>
-                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                }
-                onChange={(e) => handlePasswordValueChange(e)}
-                allowClear={true}
-                value={inputPassword}
-                onPressEnter={handleConfirmPassword}
-              />
-            </>
+        <Tooltip
+          title={
+            !userInfoData.jwt ? "Please login with admin account to create" : ""
           }
-          onConfirm={handleConfirmPassword}
-          onCancel={handleCancelPassword}
-          okText="Confirm"
-          cancelText="Cancel"
         >
-          <Button type="primary" icon={<PlusOutlined />}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => handleBtnOnClick("create")}
+            disabled={!userInfoData.jwt}
+          >
             Create New
           </Button>
-        </Popconfirm>
+        </Tooltip>
         <Input
           className={style.lw_favorite_search}
           placeholder="Input Favorite Name to search"

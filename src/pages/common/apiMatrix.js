@@ -1,4 +1,5 @@
 const END_POINT = "https://henry-little-world.herokuapp.com/api";
+const USER = "auth";
 const PORTFOLIOS = "portfolios";
 const LEET_CODES = "leet-codes";
 const APPLICATIONS = "applications";
@@ -6,6 +7,10 @@ const COMPONENTS = "components";
 const FAVORITE = "favorites";
 
 const apiMatrix = {
+  //User
+  USER_REGISTER: `${END_POINT}/${USER}/local/register`,
+  USER_LOGIN: `${END_POINT}/${USER}/local`,
+  USER_CHANGE_PASSWORD: `${END_POINT}/${USER}/change-password`,
   //Portfolio
   PORTFOLIOS_GET_ALL: `${END_POINT}/${PORTFOLIOS}`,
   PORTFOLIOS_GET_BY_ID: `${END_POINT}/${PORTFOLIOS}`, // /ID

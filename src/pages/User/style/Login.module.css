@@ -1,0 +1,19 @@
+.lw_login_header {
+  text-align: center;
+  margin-top: -10px;
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.lw_user_login_loginform {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.lw_user_login_loginform_buttons {
+  margin: 0px 10px;
+}
+
+.lw_user_login_loginform_signuplogin_button {
+  margin: auto;
+}
