@@ -5,8 +5,9 @@ import {
   CodeOutlined,
   AppstoreOutlined,
   Html5Outlined,
-  UserOutlined,
   StarOutlined,
+  SmileOutlined,
+  MessageOutlined,
 } from "@ant-design/icons";
 import HomeCard from "./HomeCard";
 import LwLayout from "../common/LwLayout";
@@ -19,6 +20,7 @@ import {
   SET_APPLICATION_DATA,
   SET_COMPONENT_DATA,
   SET_FAVORITE_DATA,
+  SET_BULLETINBOARD_DATA,
 } from "../../redux/constants";
 import style from "./style/Home.module.css";
 
@@ -29,12 +31,15 @@ const Home = () => {
   const applicationData = useSelector((state) => state.applicationData);
   const componentData = useSelector((state) => state.componentData);
   const favoriteData = useSelector((state) => state.favoriteData);
+  const bulletinboardData = useSelector((state) => state.bulletinboardData);
   const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(true);
   const [isLeetcodeDataLoading, setIsLeetcodeDataLoading] = useState(true);
   const [isApplicationDataLoading, setIsApplicationDataLoading] =
     useState(true);
   const [isComponentDataLoading, setIsComponentDataLoading] = useState(true);
   const [isFavoriteDataLoading, setIsFavoriteDataLoading] = useState(true);
+  const [isBulletinboardDataLoading, setIsBulletinboardDataLoading] =
+    useState(true);
 
   useEffect(() => {
     handleFetchData();
@@ -86,6 +91,8 @@ const Home = () => {
       setIsComponentDataLoading(false);
     if (favoriteData.data && favoriteData.data !== [])
       setIsFavoriteDataLoading(false);
+    if (bulletinboardData.data && bulletinboardData.data !== [])
+    setIsBulletinboardDataLoading(false);
 
     const PAGINATION_SETUP = "?pagination[pageSize]=30";
 
@@ -105,6 +112,9 @@ const Home = () => {
       fetch(`${apiMatrix.FAVORITE_GET_ALL}${PAGINATION_SETUP}`).then(
         (response) => response.json()
       ),
+      fetch(`${apiMatrix.BULLETINBOARD_GET_ALL}${PAGINATION_SETUP}`).then(
+        (response) => response.json()
+      ),
     ])
       .then((response) => {
         if (response && response.error) {
@@ -115,6 +125,7 @@ const Home = () => {
           dispatch({ type: SET_APPLICATION_DATA, payload: response[2] });
           dispatch({ type: SET_COMPONENT_DATA, payload: response[3] });
           dispatch({ type: SET_FAVORITE_DATA, payload: response[4] });
+          dispatch({ type: SET_BULLETINBOARD_DATA, payload: response[5] });
         }
       })
       .catch((error) => {
@@ -126,6 +137,7 @@ const Home = () => {
         setIsApplicationDataLoading(false);
         setIsComponentDataLoading(false);
         setIsFavoriteDataLoading(false);
+        setIsBulletinboardDataLoading(false);
       });
   };
 
@@ -174,7 +186,17 @@ const Home = () => {
       <HomeCard
         title={
           <span>
-            <UserOutlined className={style.lw_home_card_icon} />
+            <MessageOutlined className={style.lw_home_card_icon} />
+            {categoryMatrix.BULLETINBOARDS}
+          </span>
+        }
+        extra={categoryMatrix.BULLETINBOARDS}
+        isLoading={isBulletinboardDataLoading}
+      />
+      <HomeCard
+        title={
+          <span>
+            <SmileOutlined className={style.lw_home_card_icon} />
             {categoryMatrix.PORTFOLIO}
           </span>
         }

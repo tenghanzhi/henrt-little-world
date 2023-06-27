@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Card } from "antd";
 import { Link } from "react-router-dom";
+import moment from "moment/moment";
 import HomeCardList from "./HomeCardList";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
 import sortArrayObjByDate from "../utils/sortArrayObjByDate";
 import sortArrayObjByNumber from "../utils/sortArrayObjByNumber";
+import structuredClone from "@ungap/structured-clone";
 import style from "./style/HomeCard.module.css";
 
 const HomeCard = (props) => {
@@ -24,6 +26,8 @@ const HomeCard = (props) => {
   const applicationData = useSelector((state) => state.applicationData);
   const componentData = useSelector((state) => state.componentData);
   const favoriteData = useSelector((state) => state.favoriteData);
+  const bulletinboardData = useSelector((state) => state.bulletinboardData);
+  const clonedBulletinboardData = structuredClone(bulletinboardData);
   const [cardContents, setCardContents] = useState(wipSpan);
 
   useEffect(() => {
@@ -35,6 +39,7 @@ const HomeCard = (props) => {
     applicationData,
     componentData,
     favoriteData,
+    bulletinboardData,
   ]);
 
   const getCardContents = () => {
@@ -84,6 +89,23 @@ const HomeCard = (props) => {
         );
         break;
       }
+      case categoryMatrix.BULLETINBOARDS: {
+        setCardContents(
+          <HomeCardList
+            data={clonedBulletinboardData.data.sort((a, b) =>
+              moment(b.attributes.createdAt).unix() >
+              moment(a.attributes.createdAt).unix()
+                ? 1
+                : moment(a.attributes.createdAt).unix() >
+                  moment(b.attributes.createdAt).unix()
+                ? -1
+                : 0
+            )}
+            type={categoryMatrix.BULLETINBOARDS}
+          />
+        );
+        break;
+      }
       default:
         setCardContents(wipSpan);
     }
@@ -128,6 +150,16 @@ const HomeCard = (props) => {
           <>
             <p className={style.lw_homecard_flipcard_front_title}>Favorites</p>
             <div>"Normally I won't share my favorite to other people..."</div>
+          </>
+        );
+      }
+      case categoryMatrix.BULLETINBOARDS: {
+        return (
+          <>
+            <p className={style.lw_homecard_flipcard_front_title}>
+              Bulletin Board
+            </p>
+            <div>"A place I can share some message to all my friends!"</div>
           </>
         );
       }

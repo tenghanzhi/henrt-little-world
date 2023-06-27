@@ -7,6 +7,7 @@ import {
   AppstoreOutlined,
   Html5Outlined,
   StarOutlined,
+  MessageOutlined,
 } from "@ant-design/icons";
 import failPicture from "../common/failPicture";
 import categoryMatrix from "../common/categoryMatrix";
@@ -103,6 +104,13 @@ const HomeCardList = (props) => {
           </div>
         );
       }
+      case categoryMatrix.BULLETINBOARDS: {
+        return (
+          <div className={style.lw_homecard_list_font}>
+            {item.attributes.message}
+          </div>
+        );
+      }
       default:
         return "";
     }
@@ -145,6 +153,13 @@ const HomeCardList = (props) => {
           </div>
         );
       }
+      case categoryMatrix.BULLETINBOARDS: {
+        return (
+          <div className={style.lw_homecard_list_font_description}>
+            {item.attributes.user}
+          </div>
+        );
+      }
       default:
         return "";
     }
@@ -166,6 +181,9 @@ const HomeCardList = (props) => {
       }
       case categoryMatrix.FAVORITES: {
         return `/${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites`;
+      }
+      case categoryMatrix.BULLETINBOARDS: {
+        return `/${categoryMatrix.BULLETINBOARDS.toLowerCase()}`;
       }
       default:
         return "";
@@ -198,6 +216,11 @@ const HomeCardList = (props) => {
       }
       case categoryMatrix.FAVORITES: {
         return <StarOutlined className={style.lw_homecard_list_font_avatar} />;
+      }
+      case categoryMatrix.BULLETINBOARDS: {
+        return (
+          <MessageOutlined className={style.lw_homecard_list_font_avatar} />
+        );
       }
       default:
         return "";
