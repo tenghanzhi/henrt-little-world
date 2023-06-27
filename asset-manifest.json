@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.34fd6ccd.css",
-    "main.js": "/static/js/main.588ac432.js",
+    "main.css": "/static/css/main.035df6d0.css",
+    "main.js": "/static/js/main.177a437f.js",
     "static/media/QR_WeChat.png": "/static/media/QR_WeChat.63e42d9b5ec23a548a31.png",
     "index.html": "/index.html",
-    "main.34fd6ccd.css.map": "/static/css/main.34fd6ccd.css.map",
-    "main.588ac432.js.map": "/static/js/main.588ac432.js.map"
+    "main.035df6d0.css.map": "/static/css/main.035df6d0.css.map",
+    "main.177a437f.js.map": "/static/js/main.177a437f.js.map"
   },
   "entrypoints": [
-    "static/css/main.34fd6ccd.css",
-    "static/js/main.588ac432.js"
+    "static/css/main.035df6d0.css",
+    "static/js/main.177a437f.js"
   ]
 }
