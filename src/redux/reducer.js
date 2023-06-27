@@ -28,6 +28,9 @@ import {
   SET_USER_INFO_DATA,
 } from "./constants";
 
+const token = localStorage.getItem("token");
+const user = localStorage.getItem("user");
+
 const initialState = {
   clickedHomePageItemId: null,
   portfolioData: { data: [], meta: {} },
@@ -102,17 +105,20 @@ const initialState = {
     order: ":desc",
   },
   userInfoData: {
-    jwt: null,
-    user: {
-      id: null,
-      username: null,
-      email: null,
-      provider: null,
-      confirmed: false,
-      blocked: false,
-      createdAt: null,
-      updatedAt: null,
-    },
+    jwt: token.toString() === "null" ? null : token,
+    user:
+      user.toString() === "null"
+        ? {
+            id: null,
+            username: null,
+            email: null,
+            provider: null,
+            confirmed: false,
+            blocked: false,
+            createdAt: null,
+            updatedAt: null,
+          }
+        : JSON.parse(user),
   },
 };
 
@@ -171,6 +177,8 @@ export default function reducer(state = initialState, action) {
     case SET_BULLETINBOARD_TABLE_SORTER:
       return { ...state, bulletinboardTableSorter: action.payload };
     case SET_USER_INFO_DATA:
+      localStorage.setItem("token", action.payload.jwt);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
       return { ...state, userInfoData: action.payload };
     default:
       return state;
