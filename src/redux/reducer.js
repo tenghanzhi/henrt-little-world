@@ -105,9 +105,9 @@ const initialState = {
     order: ":desc",
   },
   userInfoData: {
-    jwt: token.toString() === "null" ? null : token,
+    jwt: token?.toString() === "null" ? null : token,
     user:
-      user.toString() === "null"
+      user?.toString() === "null"
         ? {
             id: null,
             username: null,
