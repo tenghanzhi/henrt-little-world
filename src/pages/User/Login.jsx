@@ -75,6 +75,10 @@ const Login = () => {
       email: values.email,
       password: values.password,
       username: values.username,
+      lastName: values.lastName ? values.lastName : null,
+      firstName: values.firstName ? values.firstName : null,
+      phoneNumber: values.phoneNumber ? values.phoneNumber : null,
+      description: values.description ? values.description : null,
     };
 
     const loginData =
@@ -239,6 +243,22 @@ const Login = () => {
         >
           <Input.Password onChange={handleFormValueChange} />
         </Form.Item>
+        {isSignup && (
+          <>
+            <Form.Item label="Last Name" name="lastName">
+              <Input onChange={handleFormValueChange} />
+            </Form.Item>
+            <Form.Item label="First Name" name="firstName">
+              <Input onChange={handleFormValueChange} />
+            </Form.Item>
+            <Form.Item label="Phone Number" name="phoneNumber">
+              <Input onChange={handleFormValueChange} />
+            </Form.Item>
+            <Form.Item label="Description" name="description">
+              <Input.TextArea onChange={handleFormValueChange} rows={6} />
+            </Form.Item>
+          </>
+        )}
         <Form.Item
           wrapperCol={{
             offset: isSignup ? 8 : 7,

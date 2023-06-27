@@ -253,6 +253,26 @@ const ReviewUser = () => {
       <Descriptions.Item label="Account Status" span={3}>
         {userInfoData?.user?.blocked ? "Blocked" : "Normal"}
       </Descriptions.Item>
+      {userInfoData?.user?.lastName && (
+        <Descriptions.Item label="Last Name" span={6}>
+          {userInfoData?.user?.lastName?.toString()}
+        </Descriptions.Item>
+      )}
+      {userInfoData?.user?.firstName && (
+        <Descriptions.Item label="First Name" span={6}>
+          {userInfoData?.user?.firstName?.toString()}
+        </Descriptions.Item>
+      )}
+      {userInfoData?.user?.phoneNumber && (
+        <Descriptions.Item label="Phone Number" span={6}>
+          {userInfoData?.user?.phoneNumber?.toString()}
+        </Descriptions.Item>
+      )}
+      {userInfoData?.user?.description && (
+        <Descriptions.Item label="Description" span={6}>
+          {userInfoData?.user?.description?.toString()}
+        </Descriptions.Item>
+      )}
       <Descriptions.Item label="Actions" span={6}>
         <Popover
           placement="bottom"
