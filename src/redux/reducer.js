@@ -22,6 +22,9 @@ import {
   SET_FAVORITE_TABLE_PAGENATION,
   SET_FAVORITE_TABLE_SORTER,
   SET_FAVORITE_TABLE_FILTER,
+  SET_BULLETINBOARD_DATA,
+  SET_BULLETINBOARD_TABLE_PAGENATION,
+  SET_BULLETINBOARD_TABLE_SORTER,
   SET_USER_INFO_DATA,
 } from "./constants";
 
@@ -89,6 +92,15 @@ const initialState = {
     name: null,
     type: null,
   },
+  bulletinboardData: { data: [], meta: {} },
+  bulletinboardTablePagenation: {
+    current: 1,
+    size: 20,
+  },
+  bulletinboardTableSorter: {
+    sort: "createdAt",
+    order: ":desc",
+  },
   userInfoData: {
     jwt: null,
     user: {
@@ -152,6 +164,12 @@ export default function reducer(state = initialState, action) {
       return { ...state, favoriteTableSorter: action.payload };
     case SET_FAVORITE_TABLE_FILTER:
       return { ...state, favoriteTableFilter: action.payload };
+    case SET_BULLETINBOARD_DATA:
+      return { ...state, bulletinboardData: action.payload };
+    case SET_BULLETINBOARD_TABLE_PAGENATION:
+      return { ...state, bulletinboardTablePagenation: action.payload };
+    case SET_BULLETINBOARD_TABLE_SORTER:
+      return { ...state, bulletinboardTableSorter: action.payload };
     case SET_USER_INFO_DATA:
       return { ...state, userInfoData: action.payload };
     default:

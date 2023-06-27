@@ -28,6 +28,7 @@ import Favorites from "./pages/Favorites";
 import CreateFavorites from "./pages/Favorites/CreateFavorites";
 import EditFavorites from "./pages/Favorites/EditFavorites";
 import ReviewFavorites from "./pages/Favorites/ReviewFavorites";
+import BulletinBoard from "./pages/BulletinBoard";
 
 const Main = () => {
   return (
@@ -116,6 +117,10 @@ const Main = () => {
             <Route
               path={`${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites`}
               element={<ReviewFavorites />}
+            />
+            <Route
+              path={categoryMatrix.BULLETINBOARDS.toLowerCase()}
+              element={<BulletinBoard />}
             />
           </Route>
         </Routes>

@@ -23,6 +23,7 @@ import {
   VideoCameraOutlined,
   DesktopOutlined,
   SmileOutlined,
+  MessageOutlined,
 } from "@ant-design/icons";
 import categoryMatrix from "./categoryMatrix";
 import style from "./style/LwHeader.module.css";
@@ -75,7 +76,16 @@ const LwHeader = () => {
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>About</Link>
+        <Link to={`/${categoryMatrix.BULLETINBOARDS.toLowerCase()}`}>
+          Bulletin Board
+        </Link>
+      ),
+      key: categoryMatrix.BULLETINBOARDS.toLowerCase(),
+      icon: <MessageOutlined />,
+    },
+    {
+      label: (
+        <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>About Me</Link>
       ),
       key: categoryMatrix.PORTFOLIO.toLowerCase(),
       icon: <SmileOutlined />,

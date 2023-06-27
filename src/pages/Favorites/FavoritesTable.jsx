@@ -263,7 +263,6 @@ const FavoritesTable = (props) => {
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
-        hideOnSinglePage: true,
         defaultPageSize: favoriteTablePagenation?.size
           ? favoriteTablePagenation.size
           : 20,

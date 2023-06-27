@@ -286,7 +286,6 @@ const ApplicationsTable = (props) => {
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
-        hideOnSinglePage: true,
         defaultPageSize: applicationTablePagenation?.size
           ? applicationTablePagenation.size
           : 20,

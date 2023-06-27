@@ -22,6 +22,9 @@ import {
   SET_FAVORITE_TABLE_PAGENATION,
   SET_FAVORITE_TABLE_SORTER,
   SET_FAVORITE_TABLE_FILTER,
+  SET_BULLETINBOARD_DATA,
+  SET_BULLETINBOARD_TABLE_PAGENATION,
+  SET_BULLETINBOARD_TABLE_SORTER,
   SET_USER_INFO_DATA,
 } from "./constants.js";
 
@@ -189,6 +192,28 @@ export function setComponentTableFilter(favoriteTableFilter) {
   return {
     type: SET_FAVORITE_TABLE_FILTER,
     favoriteTableFilter,
+  };
+}
+
+//Bulletin Board
+export function setBulletinboardData(bulletinboardData) {
+  return {
+    type: SET_BULLETINBOARD_DATA,
+    bulletinboardData,
+  };
+}
+
+export function setBulletinboardTablePagenation(bulletinboardTablePagenation) {
+  return {
+    type: SET_BULLETINBOARD_TABLE_PAGENATION,
+    bulletinboardTablePagenation,
+  };
+}
+
+export function setBulletinboardTableSorter(bulletinboardTableSorter) {
+  return {
+    type: SET_BULLETINBOARD_TABLE_SORTER,
+    bulletinboardTableSorter,
   };
 }
 

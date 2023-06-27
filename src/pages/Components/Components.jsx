@@ -477,7 +477,6 @@ const Components = () => {
         <Pagination
           showSizeChanger={true}
           showQuickJumper={true}
-          hideOnSinglePage={true}
           defaultPageSize={
             componentTablePagenation?.size ? componentTablePagenation.size : 20
           }

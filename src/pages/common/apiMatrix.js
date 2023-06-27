@@ -5,6 +5,7 @@ const LEET_CODES = "leet-codes";
 const APPLICATIONS = "applications";
 const COMPONENTS = "components";
 const FAVORITE = "favorites";
+const BULLETINBOARD = "bulletin-boards";
 
 const apiMatrix = {
   //User
@@ -41,6 +42,12 @@ const apiMatrix = {
   FAVORITE_CREATE_NEW: `${END_POINT}/${FAVORITE}`,
   FAVORITE_DELETE_BY_ID: `${END_POINT}/${FAVORITE}`, // /ID
   FAVORITE_UPDATE_BY_ID: `${END_POINT}/${FAVORITE}`, // /ID
+  //Bulletin Board
+  BULLETINBOARD_GET_ALL: `${END_POINT}/${BULLETINBOARD}`,
+  BULLETINBOARD_GET_BY_ID: `${END_POINT}/${BULLETINBOARD}`, // /ID
+  BULLETINBOARD_CREATE_NEW: `${END_POINT}/${BULLETINBOARD}`,
+  BULLETINBOARD_DELETE_BY_ID: `${END_POINT}/${BULLETINBOARD}`, // /ID
+  BULLETINBOARD_UPDATE_BY_ID: `${END_POINT}/${BULLETINBOARD}`, // /ID
 };
 
 export default apiMatrix;
