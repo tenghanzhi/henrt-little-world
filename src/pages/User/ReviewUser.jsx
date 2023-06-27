@@ -228,52 +228,52 @@ const ReviewUser = () => {
   return (
     <Descriptions
       bordered
-      column={6}
+      column={4}
       labelStyle={{
         color: globalStyleMatrix.COLORS.titleFontColor,
         fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
       }}
       contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
     >
-      <Descriptions.Item label="Username" span={3}>
+      <Descriptions.Item label="Username" span={4}>
         {userInfoData?.user?.username?.toString()}
       </Descriptions.Item>
-      <Descriptions.Item label="E-Mail" span={3}>
+      <Descriptions.Item label="E-Mail" span={4}>
         {userInfoData?.user?.email?.toString()}
       </Descriptions.Item>
-      <Descriptions.Item label="Created At" span={3}>
+      <Descriptions.Item label="Created At" span={4}>
         {userInfoData?.user?.createdAt?.toString().slice(0, 10)}
       </Descriptions.Item>
-      <Descriptions.Item label="Updated At" span={3}>
+      <Descriptions.Item label="Updated At" span={4}>
         {userInfoData?.user?.updatedAt?.toString().slice(0, 10)}
       </Descriptions.Item>
-      <Descriptions.Item label="Account Confirmation" span={3}>
+      <Descriptions.Item label="Account Confirmation" span={4}>
         {userInfoData?.user?.confirmed ? "Yes" : "No"}
       </Descriptions.Item>
-      <Descriptions.Item label="Account Status" span={3}>
+      <Descriptions.Item label="Account Status" span={4}>
         {userInfoData?.user?.blocked ? "Blocked" : "Normal"}
       </Descriptions.Item>
       {userInfoData?.user?.lastName && (
-        <Descriptions.Item label="Last Name" span={6}>
+        <Descriptions.Item label="Last Name" span={4}>
           {userInfoData?.user?.lastName?.toString()}
         </Descriptions.Item>
       )}
       {userInfoData?.user?.firstName && (
-        <Descriptions.Item label="First Name" span={6}>
+        <Descriptions.Item label="First Name" span={4}>
           {userInfoData?.user?.firstName?.toString()}
         </Descriptions.Item>
       )}
       {userInfoData?.user?.phoneNumber && (
-        <Descriptions.Item label="Phone Number" span={6}>
+        <Descriptions.Item label="Phone Number" span={4}>
           {userInfoData?.user?.phoneNumber?.toString()}
         </Descriptions.Item>
       )}
       {userInfoData?.user?.description && (
-        <Descriptions.Item label="Description" span={6}>
+        <Descriptions.Item label="Description" span={4}>
           {userInfoData?.user?.description?.toString()}
         </Descriptions.Item>
       )}
-      <Descriptions.Item label="Actions" span={6}>
+      <Descriptions.Item label="Actions" span={4}>
         <Popover
           placement="bottom"
           content={changePasswordContent}

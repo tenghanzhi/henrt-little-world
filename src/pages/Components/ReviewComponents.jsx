@@ -192,17 +192,17 @@ const ReviewComponents = () => {
       </Typography.Title>
       <Descriptions
         bordered
-        column={6}
+        column={4}
         labelStyle={{
           color: globalStyleMatrix.COLORS.titleFontColor,
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
       >
-        <Descriptions.Item label="Name" span={3}>
+        <Descriptions.Item label="Name" span={4}>
           {fetchedComponentData?.name?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Source Page" span={3}>
+        <Descriptions.Item label="Source Page" span={4}>
           <Button
             type="link"
             onClick={() => {
@@ -213,16 +213,16 @@ const ReviewComponents = () => {
             {!fetchedComponentData?.source ? `None` : `Check`}
           </Button>
         </Descriptions.Item>
-        <Descriptions.Item label="Code Type" span={3}>
+        <Descriptions.Item label="Code Type" span={4}>
           {fetchedComponentData?.codeType?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Component Type" span={3}>
+        <Descriptions.Item label="Component Type" span={4}>
           {fetchedComponentData?.componentType?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Created Date" span={3}>
+        <Descriptions.Item label="Created Date" span={4}>
           {fetchedComponentData?.createdAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-        <Descriptions.Item label="Updated Date" span={3}>
+        <Descriptions.Item label="Updated Date" span={4}>
           {fetchedComponentData?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
       </Descriptions>

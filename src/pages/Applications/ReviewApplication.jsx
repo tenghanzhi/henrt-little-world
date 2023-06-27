@@ -116,20 +116,20 @@ const ReviewApplication = () => {
       </Typography.Title>
       <Descriptions
         bordered
-        column={6}
+        column={4}
         labelStyle={{
           color: globalStyleMatrix.COLORS.titleFontColor,
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
       >
-        <Descriptions.Item label="Application Name" span={6}>
+        <Descriptions.Item label="Application Name" span={4}>
           {fetchedApplicationData?.name?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Type" span={3}>
+        <Descriptions.Item label="Type" span={4}>
           {fetchedApplicationData?.type?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Source" span={3}>
+        <Descriptions.Item label="Source" span={4}>
           {fetchedApplicationData?.source ? (
             <Button
               type="link"
@@ -143,14 +143,14 @@ const ReviewApplication = () => {
             "None"
           )}
         </Descriptions.Item>
-        <Descriptions.Item label="Created Date" span={3}>
+        <Descriptions.Item label="Created Date" span={4}>
           {fetchedApplicationData?.createdAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-        <Descriptions.Item label="Updated Date" span={3}>
+        <Descriptions.Item label="Updated Date" span={4}>
           {fetchedApplicationData?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
         {fetchedApplicationData?.description && (
-          <Descriptions.Item label="Problem Content" span={6}>
+          <Descriptions.Item label="Problem Content" span={4}>
             <ReactMarkdown
               children={fetchedApplicationData?.description}
               remarkPlugins={[remarkGfm]}
@@ -158,7 +158,7 @@ const ReviewApplication = () => {
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeOne && (
-          <Descriptions.Item label="Code One" span={6}>
+          <Descriptions.Item label="Code One" span={4}>
             <CodeMirror
               value={fetchedApplicationData?.codeOne}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
@@ -169,7 +169,7 @@ const ReviewApplication = () => {
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeTwo && (
-          <Descriptions.Item label="Code Two" span={6}>
+          <Descriptions.Item label="Code Two" span={4}>
             <CodeMirror
               value={fetchedApplicationData?.codeTwo}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
@@ -180,7 +180,7 @@ const ReviewApplication = () => {
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeThree && (
-          <Descriptions.Item label="Code Three" span={6}>
+          <Descriptions.Item label="Code Three" span={4}>
             <CodeMirror
               value={fetchedApplicationData?.codeThree}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}

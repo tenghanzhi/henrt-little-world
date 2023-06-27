@@ -111,20 +111,20 @@ const ReviewFavorites = () => {
       </Typography.Title>
       <Descriptions
         bordered
-        column={6}
+        column={4}
         labelStyle={{
           color: globalStyleMatrix.COLORS.titleFontColor,
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
       >
-        <Descriptions.Item label="Name" span={6}>
+        <Descriptions.Item label="Name" span={4}>
           {fetchedFavoriteData?.name?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Type" span={3}>
+        <Descriptions.Item label="Type" span={4}>
           {fetchedFavoriteData?.type?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Source Website" span={3}>
+        <Descriptions.Item label="Source Website" span={4}>
           <Button
             type="link"
             onClick={() => {
@@ -134,14 +134,14 @@ const ReviewFavorites = () => {
             Check
           </Button>
         </Descriptions.Item>
-        <Descriptions.Item label="Created Date" span={3}>
+        <Descriptions.Item label="Created Date" span={4}>
           {fetchedFavoriteData?.createdAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-        <Descriptions.Item label="Updated Date" span={3}>
+        <Descriptions.Item label="Updated Date" span={4}>
           {fetchedFavoriteData?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
         {fetchedFavoriteData?.description && (
-          <Descriptions.Item label="Problem Content" span={6}>
+          <Descriptions.Item label="Problem Content" span={4}>
             <ReactMarkdown
               children={fetchedFavoriteData?.description}
               remarkPlugins={[remarkGfm]}
