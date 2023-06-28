@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { message, Space, Button, Input, Select, Tooltip } from "antd";
@@ -16,6 +16,7 @@ import LwLayout from "../common/LwLayout";
 import {
   SET_APPLICATION_DATA,
   SET_APPLICATION_TABLE_FILTER,
+  SET_APPLICATION_TABLE_FILTER_TYPE,
 } from "../../redux/constants";
 import style from "./style/Applications.module.css";
 
@@ -23,7 +24,6 @@ const Applications = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfoData = useSelector((state) => state.userInfoData);
-  const applicationData = useSelector((state) => state.applicationData);
   const applicationTablePagenation = useSelector(
     (state) => state.applicationTablePagenation
   );
@@ -33,13 +33,9 @@ const Applications = () => {
   const applicationTableFilter = useSelector(
     (state) => state.applicationTableFilter
   );
-  const [inputSearch, setInputSearch] = useState(null);
-  const [searchType, setSearchType] = useState(null);
-
-  useEffect(() => {
-    handleClearSearchResult();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const applicationTableFilterType = useSelector(
+    (state) => state.applicationTableFilterType
+  );
 
   useEffect(() => {
     handleGetApplicationData();
@@ -141,7 +137,7 @@ const Applications = () => {
   };
 
   const handleSearchPlaceholder = () => {
-    switch (searchType) {
+    switch (applicationTableFilterType) {
       case "name":
         return "Input application name";
       case "description":
@@ -152,7 +148,6 @@ const Applications = () => {
   };
 
   const handleSearchTypeChange = (value) => {
-    setInputSearch(null);
     dispatch({
       type: SET_APPLICATION_TABLE_FILTER,
       payload: {
@@ -161,12 +156,14 @@ const Applications = () => {
         description: null,
       },
     });
-    setSearchType(value);
+    dispatch({
+      type: SET_APPLICATION_TABLE_FILTER_TYPE,
+      payload: value,
+    });
   };
 
   const handleSearchValueChange = (e) => {
-    setInputSearch(e.target.value);
-    switch (searchType) {
+    switch (applicationTableFilterType) {
       case "name":
         dispatch({
           type: SET_APPLICATION_TABLE_FILTER,
@@ -193,7 +190,6 @@ const Applications = () => {
   };
 
   const handleClearSearchResult = () => {
-    setInputSearch(null);
     dispatch({
       type: SET_APPLICATION_TABLE_FILTER,
       payload: {
@@ -202,7 +198,10 @@ const Applications = () => {
         description: null,
       },
     });
-    setSearchType(null);
+    dispatch({
+      type: SET_APPLICATION_TABLE_FILTER_TYPE,
+      payload: null,
+    });
   };
 
   const searchOptions = [
@@ -260,31 +259,40 @@ const Applications = () => {
           options={searchOptions}
           onChange={(value) => handleSearchTypeChange(value)}
           onClear={handleClearSearchResult}
-          value={searchType}
+          value={applicationTableFilterType}
           allowClear
         />
-        {searchType && (
+        {applicationTableFilterType && (
           <Input
             className={style.lw_applications_search}
             placeholder={handleSearchPlaceholder()}
             onChange={(e) => handleSearchValueChange(e)}
-            value={inputSearch}
-            disabled={!searchType}
+            value={
+              applicationTableFilterType === "name"
+                ? applicationTableFilter?.name
+                : applicationTableFilter?.description
+            }
+            disabled={!applicationTableFilterType}
             enterButton
             allowClear
           />
         )}
-        {searchType && (
+        {applicationTableFilterType && (
           <Button
             danger
             onClick={handleClearSearchResult}
-            disabled={!inputSearch}
+            disabled={
+              (applicationTableFilterType === "name" &&
+                !applicationTableFilter?.name) ||
+              (applicationTableFilterType === "description" &&
+                !applicationTableFilter?.description)
+            }
           >
             Clear Results
           </Button>
         )}
       </Space>
-      <ApplicationsTable data={applicationData} />
+      <ApplicationsTable />
     </Space>
   );
 

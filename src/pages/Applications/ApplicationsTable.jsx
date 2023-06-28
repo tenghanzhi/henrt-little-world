@@ -14,20 +14,20 @@ import {
 } from "../../redux/constants";
 import style from "./style/ApplicationsTable.module.css";
 
-const ApplicationsTable = (props) => {
+const ApplicationsTable = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoData);
+  const applicationData = useSelector((state) => state.applicationData);
   const applicationTablePagenation = useSelector(
     (state) => state.applicationTablePagenation
   );
   const applicationTableFilter = useSelector(
     (state) => state.applicationTableFilter
   );
-  const data = props.data.data ? props.data.data : null;
-  const total = props?.data?.meta?.pagination?.total
-    ? props?.data?.meta?.pagination?.total
-    : 0;
+  const applicationTableFilterType = useSelector(
+    (state) => state.applicationTableFilterType
+  );
 
   const handleTypeTagColor = (type) => {
     switch (type.toLowerCase()) {
@@ -282,7 +282,7 @@ const ApplicationsTable = (props) => {
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={applicationData?.data}
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
@@ -292,13 +292,15 @@ const ApplicationsTable = (props) => {
         defaultCurrent: applicationTablePagenation?.current
           ? applicationTablePagenation.current
           : 1,
-        total: total,
+        total: applicationData?.meta?.pagination?.total,
         onChange: (current, size) => handlePaginationChange(current, size),
         className: style.lw_applications_table_pagination,
       }}
-      bordered
       onChange={(val, filter, sorter, extra) =>
         handleTableChange(filter, sorter)
+      }
+      loading={
+        !applicationTableFilterType && applicationData?.data?.length === 0
       }
     />
   );

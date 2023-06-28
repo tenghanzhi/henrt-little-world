@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,6 +19,7 @@ import LwLayout from "../common/LwLayout";
 import {
   SET_LEETCODE_DATA,
   SET_LEETCOD_TABLE_FILTER,
+  SET_LEETCOD_TABLE_FILTER_TYPE,
 } from "../../redux/constants";
 import style from "./style/LeetCodes.module.css";
 
@@ -26,19 +27,14 @@ const LeetCodes = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfoData = useSelector((state) => state.userInfoData);
-  const leetcodeData = useSelector((state) => state.leetcodeData);
   const leetcodeTablePagenation = useSelector(
     (state) => state.leetcodeTablePagenation
   );
   const leetcodeTableSorter = useSelector((state) => state.leetcodeTableSorter);
   const leetcodeTableFilter = useSelector((state) => state.leetcodeTableFilter);
-  const [inputSearch, setInputSearch] = useState(null);
-  const [searchType, setSearchType] = useState(null);
-
-  useEffect(() => {
-    handleClearSearchResult();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const leetcodeTableFilterType = useSelector(
+    (state) => state.leetcodeTableFilterType
+  );
 
   useEffect(() => {
     handleGetLeetcodeData();
@@ -138,7 +134,7 @@ const LeetCodes = () => {
   };
 
   const handleSearchPlaceholder = () => {
-    switch (searchType) {
+    switch (leetcodeTableFilterType) {
       case "title":
         return "Input problem title";
       case "index":
@@ -149,7 +145,6 @@ const LeetCodes = () => {
   };
 
   const handleSearchTypeChange = (value) => {
-    setInputSearch(null);
     dispatch({
       type: SET_LEETCOD_TABLE_FILTER,
       payload: {
@@ -159,13 +154,15 @@ const LeetCodes = () => {
         title: null,
       },
     });
-    setSearchType(value);
+    dispatch({
+      type: SET_LEETCOD_TABLE_FILTER_TYPE,
+      payload: value,
+    });
   };
 
   const handleSearchValueChange = (e) => {
-    switch (searchType) {
+    switch (leetcodeTableFilterType) {
       case "index":
-        setInputSearch(e);
         dispatch({
           type: SET_LEETCOD_TABLE_FILTER,
           payload: {
@@ -177,7 +174,6 @@ const LeetCodes = () => {
         });
         break;
       case "title":
-        setInputSearch(e.target.value);
         dispatch({
           type: SET_LEETCOD_TABLE_FILTER,
           payload: {
@@ -194,7 +190,6 @@ const LeetCodes = () => {
   };
 
   const handleClearSearchResult = () => {
-    setInputSearch(null);
     dispatch({
       type: SET_LEETCOD_TABLE_FILTER,
       payload: {
@@ -204,7 +199,10 @@ const LeetCodes = () => {
         title: null,
       },
     });
-    setSearchType(null);
+    dispatch({
+      type: SET_LEETCOD_TABLE_FILTER_TYPE,
+      payload: null,
+    });
   };
 
   const searchOptions = [
@@ -262,42 +260,47 @@ const LeetCodes = () => {
           options={searchOptions}
           onChange={(value) => handleSearchTypeChange(value)}
           onClear={handleClearSearchResult}
-          value={searchType}
+          value={leetcodeTableFilterType}
           allowClear
         />
-        {searchType === "index" && (
+        {leetcodeTableFilterType === "index" && (
           <InputNumber
             className={style.lw_leetcode_search}
             placeholder={handleSearchPlaceholder()}
             onChange={(e) => handleSearchValueChange(e)}
-            disabled={!searchType}
-            value={inputSearch}
+            disabled={!leetcodeTableFilterType}
+            value={leetcodeTableFilter?.leetcodeIndex}
             min={0}
             max={9999}
             allowClear
           />
         )}
-        {searchType === "title" && (
+        {leetcodeTableFilterType === "title" && (
           <Input
             className={style.lw_leetcode_search}
             placeholder={handleSearchPlaceholder()}
             onChange={(e) => handleSearchValueChange(e)}
-            disabled={!searchType}
-            value={inputSearch}
+            disabled={!leetcodeTableFilterType}
+            value={leetcodeTableFilter?.title}
             allowClear
           />
         )}
-        {searchType && (
+        {leetcodeTableFilterType && (
           <Button
             danger
             onClick={handleClearSearchResult}
-            disabled={!inputSearch}
+            disabled={
+              (leetcodeTableFilterType === "index" &&
+                !leetcodeTableFilter?.leetcodeIndex) ||
+              (leetcodeTableFilterType === "title" &&
+                !leetcodeTableFilter?.title)
+            }
           >
             Clear Results
           </Button>
         )}
       </Space>
-      <LeetCodesTable data={leetcodeData} />
+      <LeetCodesTable />
     </Space>
   );
 

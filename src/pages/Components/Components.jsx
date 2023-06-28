@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -20,6 +20,7 @@ import {
   SET_COMPONENT_DATA,
   SET_COMPONENT_TABLE_SORTER,
   SET_COMPONENT_TABLE_FILTER,
+  SET_COMPONENT_TABLE_FILTER_TYPE,
   SET_COMPONENT_TABLE_PAGENATION,
 } from "../../redux/constants";
 import style from "./style/Components.module.css";
@@ -38,15 +39,9 @@ const Components = () => {
   const componentTableFilter = useSelector(
     (state) => state.componentTableFilter
   );
-  const [inputSearch, setInputSearch] = useState(null);
-  const [searchType, setSearchType] = useState(null);
-  const [sorterType, setSorterType] = useState("Name");
-  const [sorterOrder, setSorterOrder] = useState("Ascent");
-
-  useEffect(() => {
-    handleClearSearchResult();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const componentTableFilterType = useSelector(
+    (state) => state.componentTableFilterType
+  );
 
   useEffect(() => {
     handleGetComponentData();
@@ -147,7 +142,7 @@ const Components = () => {
   };
 
   const handleSearchPlaceholder = () => {
-    switch (searchType) {
+    switch (componentTableFilterType) {
       case "name":
         return "Input component name";
       case "componentType":
@@ -160,7 +155,6 @@ const Components = () => {
   };
 
   const handleSearchTypeChange = (value) => {
-    setInputSearch(null);
     dispatch({
       type: SET_COMPONENT_TABLE_FILTER,
       payload: {
@@ -169,13 +163,15 @@ const Components = () => {
         codeType: null,
       },
     });
-    setSearchType(value);
+    dispatch({
+      type: SET_COMPONENT_TABLE_FILTER_TYPE,
+      payload: value,
+    });
   };
 
   const handleSearchValueChange = (e) => {
-    switch (searchType) {
+    switch (componentTableFilterType) {
       case "name":
-        setInputSearch(e.target.value);
         dispatch({
           type: SET_COMPONENT_TABLE_FILTER,
           payload: {
@@ -186,7 +182,6 @@ const Components = () => {
         });
         break;
       case "componentType":
-        setInputSearch(e);
         dispatch({
           type: SET_COMPONENT_TABLE_FILTER,
           payload: {
@@ -197,7 +192,6 @@ const Components = () => {
         });
         break;
       case "codeType":
-        setInputSearch(e);
         dispatch({
           type: SET_COMPONENT_TABLE_FILTER,
           payload: {
@@ -213,7 +207,6 @@ const Components = () => {
   };
 
   const handleClearSearchResult = () => {
-    setInputSearch(null);
     dispatch({
       type: SET_COMPONENT_TABLE_FILTER,
       payload: {
@@ -222,11 +215,13 @@ const Components = () => {
         codeType: null,
       },
     });
-    setSearchType(null);
+    dispatch({
+      type: SET_COMPONENT_TABLE_FILTER_TYPE,
+      payload: null,
+    });
   };
 
   const handleSortTypeChange = (value) => {
-    setSorterType(value);
     dispatch({
       type: SET_COMPONENT_TABLE_SORTER,
       payload: { sort: value, order: componentTableSorter.order },
@@ -234,7 +229,6 @@ const Components = () => {
   };
 
   const handleSortOrderChange = (value) => {
-    setSorterOrder(value);
     dispatch({
       type: SET_COMPONENT_TABLE_SORTER,
       payload: { sort: componentTableSorter.sort, order: value },
@@ -400,7 +394,7 @@ const Components = () => {
             options={sorterTypeOptions}
             onChange={(value) => handleSortTypeChange(value)}
             onClear={handleClearSearchResult}
-            value={sorterType}
+            value={componentTableSorter.sort}
             allowClear
           />
           <div className={style.lw_components_sortor_title}>Sort Order:</div>
@@ -410,7 +404,7 @@ const Components = () => {
             options={sorterOrderOptions}
             onChange={(value) => handleSortOrderChange(value)}
             onClear={handleClearSearchResult}
-            value={sorterOrder}
+            value={componentTableSorter.order}
             allowClear
           />
           <Select
@@ -419,49 +413,56 @@ const Components = () => {
             options={searchOptions}
             onChange={(value) => handleSearchTypeChange(value)}
             onClear={handleClearSearchResult}
-            value={searchType}
+            value={componentTableFilterType}
             allowClear
           />
-          {searchType === "name" && (
+          {componentTableFilterType === "name" && (
             <Input
               className={style.lw_components_search}
               placeholder={handleSearchPlaceholder()}
               onChange={(e) => handleSearchValueChange(e)}
-              value={inputSearch}
-              disabled={!searchType}
+              value={componentTableFilter.name}
+              disabled={!componentTableFilterType}
               enterButton
               allowClear
             />
           )}
-          {searchType === "componentType" && (
+          {componentTableFilterType === "componentType" && (
             <Select
               className={style.lw_components_search}
               placeholder={handleSearchPlaceholder()}
               onChange={(e) => handleSearchValueChange(e)}
-              value={inputSearch}
-              disabled={!searchType}
+              value={componentTableFilter.componentType}
+              disabled={!componentTableFilterType}
               options={componentTypeOptions}
               enterButton
               allowClear
             />
           )}
-          {searchType === "codeType" && (
+          {componentTableFilterType === "codeType" && (
             <Select
               className={style.lw_components_search}
               placeholder={handleSearchPlaceholder()}
               onChange={(e) => handleSearchValueChange(e)}
-              value={inputSearch}
-              disabled={!searchType}
+              value={componentTableFilter.codeType}
+              disabled={!componentTableFilterType}
               options={codeTypeOptions}
               enterButton
               allowClear
             />
           )}
-          {searchType && (
+          {componentTableFilterType && (
             <Button
               danger
               onClick={handleClearSearchResult}
-              disabled={!inputSearch}
+              disabled={
+                (componentTableFilterType === "name" &&
+                  !componentTableFilter?.name) ||
+                (componentTableFilterType === "componentType" &&
+                  !componentTableFilter?.componentType) ||
+                (componentTableFilterType === "codeType" &&
+                  !componentTableFilter?.codeType)
+              }
             >
               Clear Results
             </Button>
@@ -478,7 +479,7 @@ const Components = () => {
           showSizeChanger={true}
           showQuickJumper={true}
           defaultPageSize={
-            componentTablePagenation?.size ? componentTablePagenation.size : 20
+            componentTablePagenation?.size ? componentTablePagenation.size : 10
           }
           defaultCurrent={
             componentTablePagenation?.current

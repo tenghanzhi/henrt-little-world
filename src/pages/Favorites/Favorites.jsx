@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { message, Space, Button, Input, Tooltip } from "antd";
@@ -18,18 +18,11 @@ const Favorites = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfoData = useSelector((state) => state.userInfoData);
-  const favoriteData = useSelector((state) => state.favoriteData);
   const favoriteTablePagenation = useSelector(
     (state) => state.favoriteTablePagenation
   );
   const favoriteTableSorter = useSelector((state) => state.favoriteTableSorter);
   const favoriteTableFilter = useSelector((state) => state.favoriteTableFilter);
-  const [inputSearch, setInputSearch] = useState(null);
-
-  useEffect(() => {
-    handleClearSearchResult();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     handleGetFavoriteData();
@@ -112,7 +105,6 @@ const Favorites = () => {
   };
 
   const handleSearchValueChange = (e) => {
-    setInputSearch(e.target.value);
     dispatch({
       type: SET_FAVORITE_TABLE_FILTER,
       payload: {
@@ -123,7 +115,6 @@ const Favorites = () => {
   };
 
   const handleClearSearchResult = () => {
-    setInputSearch(null);
     dispatch({
       type: SET_FAVORITE_TABLE_FILTER,
       payload: {
@@ -154,18 +145,18 @@ const Favorites = () => {
           className={style.lw_favorite_search}
           placeholder="Input Favorite Name to search"
           onChange={(e) => handleSearchValueChange(e)}
-          value={inputSearch}
+          value={favoriteTableFilter.name}
           allowClear
         />
         <Button
           danger
           onClick={handleClearSearchResult}
-          disabled={!inputSearch}
+          disabled={!favoriteTableFilter.name}
         >
           Clear Results
         </Button>
       </Space>
-      <FavoritesTable data={favoriteData} />
+      <FavoritesTable />
     </Space>
   );
 

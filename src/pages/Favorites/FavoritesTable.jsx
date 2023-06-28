@@ -14,18 +14,15 @@ import {
 } from "../../redux/constants";
 import style from "./style/FavoritesTable.module.css";
 
-const FavoritesTable = (props) => {
+const FavoritesTable = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoData);
+  const favoriteData = useSelector((state) => state.favoriteData);
   const favoriteTablePagenation = useSelector(
     (state) => state.favoriteTablePagenation
   );
   const favoriteTableFilter = useSelector((state) => state.favoriteTableFilter);
-  const data = props.data.data ? props.data.data : null;
-  const total = props?.data?.meta?.pagination?.total
-    ? props?.data?.meta?.pagination?.total
-    : 0;
 
   const handleTypeTagColor = (type) => {
     switch (type) {
@@ -259,7 +256,7 @@ const FavoritesTable = (props) => {
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={favoriteData?.data}
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
@@ -269,14 +266,14 @@ const FavoritesTable = (props) => {
         defaultCurrent: favoriteTablePagenation?.current
           ? favoriteTablePagenation.current
           : 1,
-        total: total,
+        total: favoriteData?.meta?.pagination?.total,
         onChange: (current, size) => handlePaginationChange(current, size),
         className: style.lw_favorites_table_pagination,
       }}
-      bordered
       onChange={(val, filter, sorter, extra) =>
         handleTableChange(filter, sorter)
       }
+      loading={!favoriteTableFilter.name && favoriteData?.data?.length === 0}
     />
   );
 };

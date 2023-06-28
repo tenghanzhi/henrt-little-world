@@ -76,7 +76,11 @@ const ComponentsCard = (props) => {
       extra={cardExtra}
       bordered={false}
       loading={!data}
-      headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+      headStyle={{
+        color: globalStyleMatrix.COLORS.mainFontColor,
+        fontSize: globalStyleMatrix.FONT_SIZE.titleFontSize,
+        fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeightLighter,
+      }}
       bodyStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
     >
       <iframe

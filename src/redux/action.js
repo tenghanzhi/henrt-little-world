@@ -7,16 +7,19 @@ import {
   SET_LEETCOD_TABLE_PAGENATION,
   SET_LEETCOD_TABLE_SORTER,
   SET_LEETCOD_TABLE_FILTER,
+  SET_LEETCOD_TABLE_FILTER_TYPE,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
   SET_APPLICATION_TABLE_FILTER,
+  SET_APPLICATION_TABLE_FILTER_TYPE,
   SET_COMPONENT_DATA,
   SET_SELECTED_COMPONENT_ID,
   SET_COMPONENT_TABLE_PAGENATION,
   SET_COMPONENT_TABLE_SORTER,
   SET_COMPONENT_TABLE_FILTER,
+  SET_COMPONENT_TABLE_FILTER_TYPE,
   SET_FAVORITE_DATA,
   SET_SELECTED_FAVORITE_ID,
   SET_FAVORITE_TABLE_PAGENATION,
@@ -87,6 +90,13 @@ export function setLeetcodeTableFilter(leetcodeTableFilter) {
   };
 }
 
+export function setLeetcodeTableFilterType(leetcodeTableFilterType) {
+  return {
+    type: SET_LEETCOD_TABLE_FILTER_TYPE,
+    leetcodeTableFilterType,
+  };
+}
+
 //Application
 export function setApplicationData(applicationData) {
   return {
@@ -120,6 +130,13 @@ export function setApplicationTableFilter(applicationTableFilter) {
   return {
     type: SET_APPLICATION_TABLE_FILTER,
     applicationTableFilter,
+  };
+}
+
+export function setApplicationTableFilterType(applicationTableFilterType) {
+  return {
+    type: SET_APPLICATION_TABLE_FILTER_TYPE,
+    applicationTableFilterType,
   };
 }
 
@@ -159,39 +176,46 @@ export function setComponentTableFilter(componentTableFilter) {
   };
 }
 
+export function setComponentTableFilterType(componentTableFilterType) {
+  return {
+    type: SET_COMPONENT_TABLE_FILTER_TYPE,
+    componentTableFilterType,
+  };
+}
+
 //Favoite
-export function setComponentData(favoriteData) {
+export function setFavoriteData(favoriteData) {
   return {
     type: SET_FAVORITE_DATA,
     favoriteData,
   };
 }
 
-export function setComponentId(selectedFavoriteId) {
+export function setFavoriteId(selectedFavoriteId) {
   return {
     type: SET_SELECTED_FAVORITE_ID,
     selectedFavoriteId,
   };
 }
 
-export function setComponentTablePagenation(favoriteTablePagenation) {
+export function setFavoriteTablePagenation(favoriteTablePagenation) {
   return {
     type: SET_FAVORITE_TABLE_PAGENATION,
     favoriteTablePagenation,
   };
 }
 
-export function setComponentTableSorter(favoriteTableSorter) {
+export function setFavoriteTableSorter(favoriteTableSorter) {
   return {
     type: SET_FAVORITE_TABLE_SORTER,
     favoriteTableSorter,
   };
 }
 
-export function setComponentTableFilter(favoriteTableFilter) {
+export function setFavoriteTableFilterType(favoriteTableFilterType) {
   return {
-    type: SET_FAVORITE_TABLE_FILTER,
-    favoriteTableFilter,
+    type: SET_FAVORITE_TABLE_FILTER_TYPE,
+    favoriteTableFilterType,
   };
 }
 

@@ -13,18 +13,18 @@ import {
   SET_LEETCOD_TABLE_FILTER,
 } from "../../redux/constants";
 
-const LeetCodesTable = (props) => {
+const LeetCodesTable = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoData);
+  const leetcodeData = useSelector((state) => state.leetcodeData);
   const leetcodeTablePagenation = useSelector(
     (state) => state.leetcodeTablePagenation
   );
   const leetcodeTableFilter = useSelector((state) => state.leetcodeTableFilter);
-  const data = props.data.data ? props.data.data : null;
-  const total = props?.data?.meta?.pagination?.total
-    ? props?.data?.meta?.pagination?.total
-    : 0;
+  const leetcodeTableFilterType = useSelector(
+    (state) => state.leetcodeTableFilterType
+  );
 
   const handleDifficultyTagColor = (difficulty) => {
     switch (difficulty.toLowerCase()) {
@@ -377,7 +377,7 @@ const LeetCodesTable = (props) => {
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={leetcodeData?.data}
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
@@ -387,12 +387,13 @@ const LeetCodesTable = (props) => {
         defaultCurrent: leetcodeTablePagenation?.current
           ? leetcodeTablePagenation.current
           : 1,
-        total: total,
+        total: leetcodeData?.meta?.pagination?.total,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       onChange={(val, filter, sorter, extra) =>
         handleTableChange(filter, sorter)
       }
+      loading={!leetcodeTableFilterType && leetcodeData?.data?.length === 0}
     />
   );
 };

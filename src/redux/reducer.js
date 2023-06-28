@@ -7,16 +7,19 @@ import {
   SET_LEETCOD_TABLE_PAGENATION,
   SET_LEETCOD_TABLE_SORTER,
   SET_LEETCOD_TABLE_FILTER,
+  SET_LEETCOD_TABLE_FILTER_TYPE,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
   SET_APPLICATION_TABLE_FILTER,
+  SET_APPLICATION_TABLE_FILTER_TYPE,
   SET_COMPONENT_DATA,
   SET_SELECTED_COMPONENT_ID,
   SET_COMPONENT_TABLE_PAGENATION,
   SET_COMPONENT_TABLE_SORTER,
   SET_COMPONENT_TABLE_FILTER,
+  SET_COMPONENT_TABLE_FILTER_TYPE,
   SET_FAVORITE_DATA,
   SET_SELECTED_FAVORITE_ID,
   SET_FAVORITE_TABLE_PAGENATION,
@@ -51,6 +54,7 @@ const initialState = {
     leetcodeIndex: null,
     title: null,
   },
+  leetcodeTableFilterType: null,
   applicationData: { data: [], meta: {} },
   selectedApplicationId: null,
   applicationTablePagenation: {
@@ -66,11 +70,12 @@ const initialState = {
     type: null,
     description: null,
   },
+  applicationTableFilterType: null,
   componentData: { data: [], meta: {} },
   selectedComponentId: null,
   componentTablePagenation: {
     current: 1,
-    size: 20,
+    size: 10,
   },
   componentTableSorter: {
     sort: "name",
@@ -81,6 +86,7 @@ const initialState = {
     componentType: null,
     codeType: null,
   },
+  componentTableFilterType: null,
   favoriteData: { data: [], meta: {} },
   selectedFavoriteId: null,
   favoriteTablePagenation: {
@@ -140,6 +146,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, leetcodeTableSorter: action.payload };
     case SET_LEETCOD_TABLE_FILTER:
       return { ...state, leetcodeTableFilter: action.payload };
+    case SET_LEETCOD_TABLE_FILTER_TYPE:
+      return { ...state, leetcodeTableFilterType: action.payload };
     case SET_APPLICATION_DATA:
       return { ...state, applicationData: action.payload };
     case SET_SELECTED_APPLICATION_ID:
@@ -150,6 +158,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, applicationTableSorter: action.payload };
     case SET_APPLICATION_TABLE_FILTER:
       return { ...state, applicationTableFilter: action.payload };
+    case SET_APPLICATION_TABLE_FILTER_TYPE:
+      return { ...state, applicationTableFilterType: action.payload };
     case SET_COMPONENT_DATA:
       return { ...state, componentData: action.payload };
     case SET_SELECTED_COMPONENT_ID:
@@ -160,6 +170,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, componentTableSorter: action.payload };
     case SET_COMPONENT_TABLE_FILTER:
       return { ...state, componentTableFilter: action.payload };
+    case SET_COMPONENT_TABLE_FILTER_TYPE:
+      return { ...state, componentTableFilterType: action.payload };
     case SET_FAVORITE_DATA:
       return { ...state, favoriteData: action.payload };
     case SET_SELECTED_FAVORITE_ID:
