@@ -10,6 +10,8 @@ import {
   Pagination,
   Select,
 } from "antd";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import LwLayout from "../common/LwLayout";
@@ -215,7 +217,12 @@ const Portfolio = () => {
                     </span>
                   </>
                 }
-                description={item.attributes.message}
+                description={
+                  <ReactMarkdown
+                    children={item.attributes.message}
+                    remarkPlugins={[remarkGfm]}
+                  />
+                }
               />
             </List.Item>
           )}
