@@ -8,7 +8,7 @@ const LwFooter = () => {
       <Divider className={style.lw_footer_devider}/>
       <div className={style.lw_footer_content}>Henry's Little World</div>
       <div className={style.lw_footer_content}>
-        Created on May/15/2023 with Katherine.
+        Created on 05/15/2023 with Katherine.
       </div>
     </Layout.Footer>
   );
