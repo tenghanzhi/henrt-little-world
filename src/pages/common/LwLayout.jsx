@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Space, ConfigProvider } from "antd";
 import categoryMatrix from "./categoryMatrix";
 import style from "./style/LwLayout.module.css";
+import ScrollToTop from "./ScrollToTop";
 
 const LwLayout = (props) => {
   const pageKey =
@@ -11,11 +12,7 @@ const LwLayout = (props) => {
   const size = props.size && props.size !== "" ? props.size : "large";
   const wrap = props.wrap && props.wrap !== null ? props.wrap : true;
   const pageContent =
-    props.content && props.content !== {} ? (
-      props.content
-    ) : (
-      <>Hello World...</>
-    );
+    props.content && props.content !== {} ? props.content : <>Hello World...</>;
 
   const className =
     pageKey === categoryMatrix.HOME
@@ -58,6 +55,7 @@ const LwLayout = (props) => {
           >
             {pageContent}
           </Space>
+          <ScrollToTop />
         </Layout.Content>
       </Layout>
     </ConfigProvider>

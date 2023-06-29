@@ -1,0 +1,9 @@
+.btn_scrollTop {
+  position: fixed;
+  bottom: 40px;
+  font-size: 3rem;
+  z-index: 1;
+  cursor: pointer;
+  right: 5%;
+  background: none;
+}
