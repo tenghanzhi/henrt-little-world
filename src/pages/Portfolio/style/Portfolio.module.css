@@ -1,6 +1,6 @@
 .lw_portfolio_card {
-  width: 500px;
-  height: 700px;
+  width: 400px;
+  height: 680px;
   background-color: #212121;
 }
 
@@ -10,4 +10,5 @@
 
 .lw_portfolio_card_timeline {
   color: rgba(255, 255, 255, 0.65);
+  margin-left: -60px;
 }

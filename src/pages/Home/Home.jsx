@@ -92,7 +92,7 @@ const Home = () => {
     if (favoriteData.data && favoriteData.data !== [])
       setIsFavoriteDataLoading(false);
     if (bulletinboardData.data && bulletinboardData.data !== [])
-    setIsBulletinboardDataLoading(false);
+      setIsBulletinboardDataLoading(false);
 
     const PAGINATION_SETUP = "?pagination[pageSize]=30";
 

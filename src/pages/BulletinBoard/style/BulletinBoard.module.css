@@ -39,6 +39,10 @@
   margin: auto;
 }
 
+.lw_bulletinboard_list_title_btns{
+  margin-left: 5px
+}
+
 .lw_bulletinboard_footer_sorter_selector{
   margin: auto;
   margin-left: 10px;
@@ -46,4 +50,8 @@
 
 .lw_bulletinboard_footer_pagination {
   display: contents;
+}
+
+.lw_bulletinboard_list_edit_textarea{
+  margin-top: 5px;
 }

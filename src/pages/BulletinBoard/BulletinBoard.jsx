@@ -9,6 +9,7 @@ import {
   Button,
   Pagination,
   Select,
+  Popconfirm,
 } from "antd";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -34,6 +35,8 @@ const Portfolio = () => {
   );
   const [messageValue, setMessageValue] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [editItemId, setEditItemId] = useState(null);
+  const [editItemValue, setEditItemValue] = useState(null);
 
   useEffect(() => {
     handleGetBulletinboardData();
@@ -96,8 +99,11 @@ const Portfolio = () => {
   const handleMessageAreaOnChange = (value) => {
     setMessageValue(value);
   };
+  const handleEditMessageAreaOnChange = (value) => {
+    setEditItemValue(value);
+  };
 
-  const handleSubmitMessage = () => {
+  const handleSubmitMessage = (type) => {
     const messageKey = "uploadingDataMessage";
     handleMessage(
       messageKey,
@@ -107,21 +113,107 @@ const Portfolio = () => {
 
     const data = {
       data: {
-        message: messageValue,
+        message: type === "create" ? messageValue : editItemValue,
         user: userInfoData?.user?.username,
       },
     };
 
+    if (type.toLowerCase() === "create") {
+      (async () => {
+        const response = await fetch(apiMatrix.BULLETINBOARD_CREATE_NEW, {
+          method: "POST",
+          mode: "cors",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfoData.jwt}`,
+          },
+        });
+        return response.json();
+      })()
+        .then((response) => {
+          if (response && response.error) {
+            throw new Error(response.error.message);
+          } else {
+            handleMessage(
+              messageKey,
+              "success",
+              messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS
+            );
+            setMessageValue(null);
+            handleGetBulletinboardData();
+          }
+        })
+        .catch((error) => {
+          handleMessage(
+            messageKey,
+            "error",
+            `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+          );
+          setIsUploading(false);
+        });
+    } else if (type.toLowerCase() === "edit") {
+      (async () => {
+        const response = await fetch(
+          `${apiMatrix.BULLETINBOARD_UPDATE_BY_ID}/${editItemId}`,
+          {
+            method: "PUT",
+            mode: "cors",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${userInfoData.jwt}`,
+            },
+          }
+        );
+        return response.json();
+      })()
+        .then((response) => {
+          if (response && response.error) {
+            throw new Error(response.error.message);
+          } else {
+            handleMessage(
+              messageKey,
+              "success",
+              messageMatrix.UPDATING_MESSAGE_SUCCESS
+            );
+            setEditItemId(null);
+            setEditItemValue(null);
+            handleGetBulletinboardData();
+          }
+        })
+        .catch((error) => {
+          handleMessage(
+            messageKey,
+            "error",
+            `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+          );
+          setIsUploading(false);
+        });
+    }
+  };
+
+  const handleDeleteMessage = (id) => {
+    const messageKey = "deleteDataMessage";
+    handleMessage(
+      messageKey,
+      "loading",
+      messageMatrix.DELETING_MESSAGE_LOADING
+    );
+    setIsUploading(true);
+
     (async () => {
-      const response = await fetch(apiMatrix.BULLETINBOARD_CREATE_NEW, {
-        method: "POST",
-        mode: "cors",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfoData.jwt}`,
-        },
-      });
+      const response = await fetch(
+        `${apiMatrix.BULLETINBOARD_DELETE_BY_ID}/${id}`,
+        {
+          method: "DELETE",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfoData.jwt}`,
+          },
+        }
+      );
       return response.json();
     })()
       .then((response) => {
@@ -131,9 +223,8 @@ const Portfolio = () => {
           handleMessage(
             messageKey,
             "success",
-            messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS
+            messageMatrix.DELETING_MESSAGE_SUCCESS
           );
-          setMessageValue(null);
           handleGetBulletinboardData();
         }
       })
@@ -141,14 +232,14 @@ const Portfolio = () => {
         handleMessage(
           messageKey,
           "error",
-          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+          `${messageMatrix.DELETING_MESSAGE_ERROR}${error}`
         );
         setIsUploading(false);
       });
   };
 
   const handleLeaveMessaeOnClick = () => {
-    handleSubmitMessage();
+    handleSubmitMessage("create");
   };
 
   const handleSorterChange = (value) => {
@@ -163,6 +254,31 @@ const Portfolio = () => {
       type: SET_BULLETINBOARD_TABLE_PAGENATION,
       payload: { current: current, size: size },
     });
+  };
+
+  const handleMessageBtnOnClick = (type, item) => {
+    switch (type.toLowerCase()) {
+      case "edit": {
+        setEditItemId(item.id);
+        setEditItemValue(item.attributes.message);
+        break;
+      }
+      case "cancel": {
+        setEditItemId(null);
+        setEditItemValue(null);
+        break;
+      }
+      case "submit": {
+        handleSubmitMessage("edit");
+        break;
+      }
+      case "delete": {
+        handleDeleteMessage(item.id);
+        break;
+      }
+      default:
+        return null;
+    }
   };
 
   const pageContent = (
@@ -215,13 +331,95 @@ const Portfolio = () => {
                       left this message on{" "}
                       {new Date(item.attributes.createdAt).toLocaleString()}
                     </span>
+                    {item.attributes.user === userInfoData.user.username && (
+                      <span>
+                        {item.id !== editItemId && (
+                          <>
+                            <Button
+                              type="text"
+                              size="small"
+                              className={style.lw_bulletinboard_list_title_btns}
+                              onClick={() => {
+                                handleMessageBtnOnClick("edit", item);
+                              }}
+                            >
+                              Edit
+                            </Button>
+                            <Popconfirm
+                              title={`Confirm to delete this message?`}
+                              placement="top"
+                              onConfirm={() => {
+                                handleMessageBtnOnClick("delete", item);
+                              }}
+                              okText="Confirm"
+                              cancelText="Cancel"
+                              disabled={isUploading}
+                            >
+                              <Button
+                                type="text"
+                                size="small"
+                                className={
+                                  style.lw_bulletinboard_list_title_btns
+                                }
+                              >
+                                Delete
+                              </Button>
+                            </Popconfirm>
+                          </>
+                        )}
+                        {item.id === editItemId && (
+                          <>
+                            <Button
+                              type="text"
+                              size="small"
+                              className={style.lw_bulletinboard_list_title_btns}
+                              onClick={() => {
+                                handleMessageBtnOnClick("cancel", item);
+                              }}
+                            >
+                              Cancel
+                            </Button>
+                            <Button
+                              type="text"
+                              size="small"
+                              className={style.lw_bulletinboard_list_title_btns}
+                              onClick={() => {
+                                handleMessageBtnOnClick("submit", item);
+                              }}
+                              disabled={
+                                item.attributes.message.toString() ===
+                                  editItemValue.toString() || isUploading
+                              }
+                            >
+                              Submit
+                            </Button>
+                          </>
+                        )}
+                      </span>
+                    )}
                   </>
                 }
                 description={
-                  <ReactMarkdown
-                    children={item.attributes.message}
-                    remarkPlugins={[remarkGfm]}
-                  />
+                  <>
+                    {item.id !== editItemId && (
+                      <ReactMarkdown
+                        children={item.attributes.message}
+                        remarkPlugins={[remarkGfm]}
+                      />
+                    )}
+                    {item.id === editItemId && (
+                      <Input.TextArea
+                      className={style.lw_bulletinboard_list_edit_textarea}
+                        defaultValue={item.attributes.message}
+                        value={editItemValue}
+                        onChange={(e) =>
+                          handleEditMessageAreaOnChange(e.target.value)
+                        }
+                        autoSize
+                        allowClear
+                      />
+                    )}
+                  </>
                 }
               />
             </List.Item>
