@@ -1,4 +1,4 @@
-# Welcomr to Henry's Little World!
+# Welcome to Henry's Little World!
 ## Developed with React, Redux, Antd
 
 ### Local Dev: npm start
