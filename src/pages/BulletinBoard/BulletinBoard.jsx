@@ -99,6 +99,7 @@ const Portfolio = () => {
   const handleMessageAreaOnChange = (value) => {
     setMessageValue(value);
   };
+
   const handleEditMessageAreaOnChange = (value) => {
     setEditItemValue(value);
   };
@@ -226,6 +227,7 @@ const Portfolio = () => {
             messageMatrix.DELETING_MESSAGE_SUCCESS
           );
           handleGetBulletinboardData();
+          setIsUploading(false);
         }
       })
       .catch((error) => {
@@ -409,7 +411,7 @@ const Portfolio = () => {
                     )}
                     {item.id === editItemId && (
                       <Input.TextArea
-                      className={style.lw_bulletinboard_list_edit_textarea}
+                        className={style.lw_bulletinboard_list_edit_textarea}
                         defaultValue={item.attributes.message}
                         value={editItemValue}
                         onChange={(e) =>
