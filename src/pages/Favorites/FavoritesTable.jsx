@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Space, Table, Tag, Button, Tooltip } from "antd";
-import { EditOutlined, CodeOutlined, EyeOutlined } from "@ant-design/icons";
+import { EditOutlined, LinkOutlined, EyeOutlined } from "@ant-design/icons";
 import moment from "moment/moment";
 import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
 import categoryMatrix from "../common/categoryMatrix";
@@ -223,7 +223,7 @@ const FavoritesTable = () => {
           <Tooltip title="Check on Source Website">
             <Button
               type="text"
-              icon={<CodeOutlined />}
+              icon={<LinkOutlined />}
               onClick={() => handleActionBtnOnClick("check", record)}
             />
           </Tooltip>
@@ -255,6 +255,7 @@ const FavoritesTable = () => {
 
   return (
     <Table
+      className={style.lw_favorites_table_wrapper}
       columns={columns}
       dataSource={favoriteData?.data}
       pagination={{

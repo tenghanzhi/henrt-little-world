@@ -12,6 +12,7 @@ import {
   SET_LEETCOD_TABLE_SORTER,
   SET_LEETCOD_TABLE_FILTER,
 } from "../../redux/constants";
+import style from "./style/LeetCodesTable.module.css";
 
 const LeetCodesTable = () => {
   const navigate = useNavigate();
@@ -376,6 +377,7 @@ const LeetCodesTable = () => {
 
   return (
     <Table
+      className={style.lw_leetcodes_table_wrapper}
       columns={columns}
       dataSource={leetcodeData?.data}
       pagination={{

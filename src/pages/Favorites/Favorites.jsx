@@ -6,6 +6,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
+import FavoritesList from "./FavoritesList";
 import FavoritesTable from "./FavoritesTable";
 import LwLayout from "../common/LwLayout";
 import {
@@ -157,6 +158,7 @@ const Favorites = () => {
         </Button>
       </Space>
       <FavoritesTable />
+      <FavoritesList />
     </Space>
   );
 

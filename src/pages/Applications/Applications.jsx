@@ -12,6 +12,7 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import ApplicationsTable from "./ApplicationsTable";
+import ApplicationsList from "./ApplicationsList";
 import LwLayout from "../common/LwLayout";
 import {
   SET_APPLICATION_DATA,
@@ -293,6 +294,7 @@ const Applications = () => {
         )}
       </Space>
       <ApplicationsTable />
+      <ApplicationsList />
     </Space>
   );
 

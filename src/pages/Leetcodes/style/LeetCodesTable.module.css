@@ -1,4 +1,5 @@
-.test {
-  background-color: brown;
-  color: red;
+@media (max-width: 800px) {
+  .lw_leetcodes_table_wrapper {
+    display: none;
+  }
 }

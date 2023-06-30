@@ -69,6 +69,9 @@ const ApplicationsTable = () => {
 
   const handleActionBtnOnClick = (type, record) => {
     switch (type.toLowerCase()) {
+      case "source":
+        window.open(record?.attributes?.source?.toString());
+        break;
       case "review":
         dispatch({ type: SET_SELECTED_APPLICATION_ID, payload: record.id });
         navigate(
@@ -247,9 +250,7 @@ const ApplicationsTable = () => {
             <Button
               type="text"
               icon={<LinkOutlined />}
-              onClick={() => {
-                window.open(record?.attributes?.source?.toString());
-              }}
+              onClick={() => handleActionBtnOnClick("source", record)}
               disabled={record?.attributes?.source ? false : true}
             />
           </Tooltip>
@@ -281,6 +282,7 @@ const ApplicationsTable = () => {
 
   return (
     <Table
+      className={style.lw_application_table_wrapper}
       columns={columns}
       dataSource={applicationData?.data}
       pagination={{

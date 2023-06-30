@@ -15,6 +15,7 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import LeetCodesTable from "./LeetCodesTable";
+import LeetCodesList from "./LeetCodesList";
 import LwLayout from "../common/LwLayout";
 import {
   SET_LEETCODE_DATA,
@@ -300,7 +301,8 @@ const LeetCodes = () => {
           </Button>
         )}
       </Space>
-      <LeetCodesTable />
+      <LeetCodesTable className={style.lw_leetcode_table} />
+      <LeetCodesList className={style.lw_leetcode_list} />
     </Space>
   );
 
