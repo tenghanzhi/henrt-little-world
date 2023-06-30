@@ -107,7 +107,7 @@ const HomeCardList = (props) => {
       case categoryMatrix.BULLETINBOARDS: {
         return (
           <div className={style.lw_homecard_list_font}>
-            {item.attributes.message}
+            {`${item.attributes.message.slice(0, 40)}...`}
           </div>
         );
       }
