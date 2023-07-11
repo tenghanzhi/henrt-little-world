@@ -168,6 +168,9 @@ const FavoritesTable = () => {
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       ),
       filterMultiple: false,
+      defaultFilteredValue: [
+        favoriteTableFilter.type ? favoriteTableFilter.type : "",
+      ],
       sorter: (a, b) => a.attributes?.type?.localeCompare(b.attributes?.type),
     },
     {

@@ -107,7 +107,7 @@ const ReviewFavorites = () => {
         level={4}
         className={style.lw_favorite_review_favorite_header}
       >
-        Review Favorite {fetchedFavoriteData.name}
+        {fetchedFavoriteData.name}
       </Typography.Title>
       <Descriptions
         bordered

@@ -188,7 +188,7 @@ const ReviewComponents = () => {
         level={4}
         className={style.lw_components_review_components_header}
       >
-        Review Component {fetchedComponentData.name}
+        {fetchedComponentData.name}
       </Typography.Title>
       <Descriptions
         bordered

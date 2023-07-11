@@ -111,8 +111,7 @@ const ReviewLeetCodes = () => {
         level={4}
         className={style.lw_leetcode_review_leetcode_header}
       >
-        Review LeetCode Problem {fetchedLeetcodeData.leetcodeIndex}.{" "}
-        {fetchedLeetcodeData.title}
+        {fetchedLeetcodeData.leetcodeIndex}. {fetchedLeetcodeData.title}
       </Typography.Title>
       <Descriptions
         bordered

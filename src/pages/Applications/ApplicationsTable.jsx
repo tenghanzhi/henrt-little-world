@@ -195,6 +195,9 @@ const ApplicationsTable = () => {
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       ),
       filterMultiple: false,
+      defaultFilteredValue: [
+        applicationTableFilter.type ? applicationTableFilter.type : "",
+      ],
       onFilter: (value, record) =>
         record?.attributes?.type?.toLowerCase().includes(value.toLowerCase()),
     },

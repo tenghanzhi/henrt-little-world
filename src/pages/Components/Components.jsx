@@ -222,10 +222,26 @@ const Components = () => {
   };
 
   const handleSortTypeChange = (value) => {
-    dispatch({
-      type: SET_COMPONENT_TABLE_SORTER,
-      payload: { sort: value, order: componentTableSorter.order },
-    });
+    switch (value) {
+      case "createdAt":
+        dispatch({
+          type: SET_COMPONENT_TABLE_SORTER,
+          payload: { sort: value, order: ":desc" },
+        });
+        break;
+      case "updatedAt":
+        dispatch({
+          type: SET_COMPONENT_TABLE_SORTER,
+          payload: { sort: value, order: ":desc" },
+        });
+        break;
+      default:
+        dispatch({
+          type: SET_COMPONENT_TABLE_SORTER,
+          payload: { sort: value, order: ":asc" },
+        });
+        break;
+    }
   };
 
   const handleSortOrderChange = (value) => {

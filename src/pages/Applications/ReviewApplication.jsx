@@ -112,7 +112,7 @@ const ReviewApplication = () => {
         level={4}
         className={style.lw_applications_review_applications_header}
       >
-        Review Application {fetchedApplicationData.name}
+        {fetchedApplicationData.name}
       </Typography.Title>
       <Descriptions
         bordered

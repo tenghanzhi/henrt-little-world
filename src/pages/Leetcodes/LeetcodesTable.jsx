@@ -306,6 +306,9 @@ const LeetCodesTable = () => {
         a.attributes?.difficulty?.localeCompare(b.attributes?.difficulty),
       filters: difficultyFilterOptions,
       filterMultiple: false,
+      defaultFilteredValue: [
+        leetcodeTableFilter.difficulty ? leetcodeTableFilter.difficulty : "",
+      ],
       onFilter: (value, record) =>
         record?.attributes?.difficulty?.toLowerCase().indexOf(value) === 0,
     },
@@ -328,6 +331,9 @@ const LeetCodesTable = () => {
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       ),
       filterMultiple: false,
+      defaultFilteredValue: [
+        leetcodeTableFilter.type ? leetcodeTableFilter.type : "",
+      ],
       onFilter: (value, record) => {
         return record?.attributes?.type
           ?.replace(/\s/g, "")
