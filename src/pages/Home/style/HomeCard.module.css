@@ -1,6 +1,6 @@
 .lw_homecard {
   width: 400px;
-  height: 650px;
+  height: 600px;
   background-color: #212121;
   overflow-y: auto;
 }
@@ -33,7 +33,7 @@
 .lw_homecard_flipcard {
   background-color: transparent;
   width: 400px;
-  height: 650px;
+  height: 600px;
   perspective: 1000px;
 }
 

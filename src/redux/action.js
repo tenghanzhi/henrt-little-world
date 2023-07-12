@@ -29,6 +29,7 @@ import {
   SET_BULLETINBOARD_TABLE_PAGENATION,
   SET_BULLETINBOARD_TABLE_SORTER,
   SET_USER_INFO_DATA,
+  SET_QUICK_LINK_DATA,
 } from "./constants.js";
 
 //Home
@@ -212,10 +213,10 @@ export function setFavoriteTableSorter(favoriteTableSorter) {
   };
 }
 
-export function setFavoriteTableFilterType(favoriteTableFilterType) {
+export function setFavoriteTableFilter(favoriteTableFilter) {
   return {
-    type: SET_FAVORITE_TABLE_FILTER_TYPE,
-    favoriteTableFilterType,
+    type: SET_FAVORITE_TABLE_FILTER,
+    favoriteTableFilter,
   };
 }
 
@@ -246,5 +247,13 @@ export function setUserInfoData(userInfoData) {
   return {
     type: SET_USER_INFO_DATA,
     userInfoData,
+  };
+}
+
+//Quick Link
+export function setQuickLinkData(quickLinkData) {
+  return {
+    type: SET_QUICK_LINK_DATA,
+    quickLinkData,
   };
 }

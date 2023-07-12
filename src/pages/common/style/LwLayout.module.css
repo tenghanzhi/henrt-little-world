@@ -11,6 +11,7 @@
   width: 90%;
   margin: auto;
   display: flex;
+  max-width: 1280px;
 }
 
 .lw_lwlayout_top_placeholder {

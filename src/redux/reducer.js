@@ -29,6 +29,7 @@ import {
   SET_BULLETINBOARD_TABLE_PAGENATION,
   SET_BULLETINBOARD_TABLE_SORTER,
   SET_USER_INFO_DATA,
+  SET_QUICK_LINK_DATA,
 } from "./constants";
 
 const token = localStorage.getItem("token");
@@ -126,6 +127,7 @@ const initialState = {
           }
         : JSON.parse(user),
   },
+  quickLinkData: { data: [], meta: {} },
 };
 
 export default function reducer(state = initialState, action) {
@@ -192,6 +194,8 @@ export default function reducer(state = initialState, action) {
       localStorage.setItem("token", action.payload.jwt);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
       return { ...state, userInfoData: action.payload };
+    case SET_QUICK_LINK_DATA:
+      return { ...state, quickLinkData: action.payload };
     default:
       return state;
   }
