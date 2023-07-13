@@ -128,7 +128,7 @@ const initialState = {
         : JSON.parse(user),
   },
   quickLinkData: { data: [], meta: {} },
-  showHomeCard: showHomeCard === "true" ? true : false,
+  showHomeCard: showHomeCard?.toString() === "false" ? false : true,
 };
 
 export default function reducer(state = initialState, action) {
