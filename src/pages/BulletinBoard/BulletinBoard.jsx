@@ -333,7 +333,7 @@ const Portfolio = () => {
                       left this message on{" "}
                       {new Date(item.attributes.createdAt).toLocaleString()}
                     </span>
-                    {item.attributes.user === userInfoData.user.username && (
+                    {item.attributes.user === userInfoData?.user?.username && (
                       <span>
                         {item.id !== editItemId && (
                           <>
