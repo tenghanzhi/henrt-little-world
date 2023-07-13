@@ -30,6 +30,9 @@ import {
   SET_USER_INFO_DATA,
   SET_QUICK_LINK_DATA,
   SET_SHOW_HOME_CARD,
+  SET_SHOW_HOME_DATE,
+  SET_SHOW_HOME_SEARCH,
+  SET_SHOW_HOME_LINK,
 } from "./constants.js";
 
 //Portfolio
@@ -255,5 +258,26 @@ export function setShowHomeCard(showHomeCard) {
   return {
     type: SET_SHOW_HOME_CARD,
     showHomeCard,
+  };
+}
+
+export function setShowHomeCard(showHomeDate) {
+  return {
+    type: SET_SHOW_HOME_DATE,
+    showHomeDate,
+  };
+}
+
+export function setShowHomeCard(showHomeSearch) {
+  return {
+    type: SET_SHOW_HOME_SEARCH,
+    showHomeSearch,
+  };
+}
+
+export function setShowHomeCard(showHomeLink) {
+  return {
+    type: SET_SHOW_HOME_LINK,
+    showHomeLink,
   };
 }

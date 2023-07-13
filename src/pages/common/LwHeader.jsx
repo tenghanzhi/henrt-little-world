@@ -14,7 +14,7 @@ import {
 } from "@ant-design/icons";
 import categoryMatrix from "./categoryMatrix";
 import HeaderLinks from "./HeaderLinks";
-import HomeCardSwitch from "./HomeCardSwitch";
+import HomePageLayoutSetup from "./HomePageLayoutSetup";
 import style from "./style/LwHeader.module.css";
 
 const LwHeader = () => {
@@ -111,7 +111,7 @@ const LwHeader = () => {
           defaultSelectedKeys={["home"]}
           selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
         />
-        {selectedKeys === "" && <HomeCardSwitch />}
+        {selectedKeys === "" && <HomePageLayoutSetup />}
         <HeaderLinks />
       </Layout.Header>
     </ConfigProvider>

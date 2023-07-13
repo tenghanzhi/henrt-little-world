@@ -30,11 +30,17 @@ import {
   SET_USER_INFO_DATA,
   SET_QUICK_LINK_DATA,
   SET_SHOW_HOME_CARD,
+  SET_SHOW_HOME_DATE,
+  SET_SHOW_HOME_SEARCH,
+  SET_SHOW_HOME_LINK,
 } from "./constants";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
 const showHomeCard = localStorage.getItem("showHomeCard");
+const showHomeDate = localStorage.getItem("showHomeDate");
+const showHomeSearch = localStorage.getItem("showHomeSearch");
+const showHomeLink = localStorage.getItem("showHomeLink");
 
 const initialState = {
   portfolioData: { data: [], meta: {} },
@@ -129,6 +135,9 @@ const initialState = {
   },
   quickLinkData: { data: [], meta: {} },
   showHomeCard: showHomeCard?.toString() === "false" ? false : true,
+  showHomeDate: showHomeDate?.toString() === "false" ? false : true,
+  showHomeSearch: showHomeSearch?.toString() === "false" ? false : true,
+  showHomeLink: showHomeLink?.toString() === "false" ? false : true,
 };
 
 export default function reducer(state = initialState, action) {
@@ -198,6 +207,15 @@ export default function reducer(state = initialState, action) {
     case SET_SHOW_HOME_CARD:
       localStorage.setItem("showHomeCard", action.payload);
       return { ...state, showHomeCard: action.payload };
+    case SET_SHOW_HOME_DATE:
+      localStorage.setItem("showHomeDate", action.payload);
+      return { ...state, showHomeDate: action.payload };
+    case SET_SHOW_HOME_SEARCH:
+      localStorage.setItem("showHomeSearch", action.payload);
+      return { ...state, showHomeSearch: action.payload };
+    case SET_SHOW_HOME_LINK:
+      localStorage.setItem("showHomeLink", action.payload);
+      return { ...state, showHomeLink: action.payload };
     default:
       return state;
   }

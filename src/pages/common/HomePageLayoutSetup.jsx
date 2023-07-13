@@ -1,0 +1,102 @@
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Switch, Button, Tooltip } from "antd";
+import { LayoutOutlined } from "@ant-design/icons";
+import {
+  SET_SHOW_HOME_CARD,
+  SET_SHOW_HOME_DATE,
+  SET_SHOW_HOME_SEARCH,
+  SET_SHOW_HOME_LINK,
+} from "../../redux/constants";
+import style from "./style/HomePageLayoutSetup.module.css";
+
+const HomePageLayoutSetup = () => {
+  const dispatch = useDispatch();
+  const showHomeCard = useSelector((state) => state.showHomeCard);
+  const showHomeDate = useSelector((state) => state.showHomeDate);
+  const showHomeSearch = useSelector((state) => state.showHomeSearch);
+  const showHomeLink = useSelector((state) => state.showHomeLink);
+
+  const handleTogleChange = (type, value) => {
+    switch (type) {
+      case "card":
+        dispatch({ type: SET_SHOW_HOME_CARD, payload: value });
+        break;
+      case "date":
+        dispatch({ type: SET_SHOW_HOME_DATE, payload: value });
+        break;
+      case "search":
+        dispatch({ type: SET_SHOW_HOME_SEARCH, payload: value });
+        break;
+      case "link":
+        dispatch({ type: SET_SHOW_HOME_LINK, payload: value });
+        break;
+      default:
+        break;
+    }
+  };
+
+  const homeLayoutSetupContent = (
+    <>
+      <div>Home Page Layout</div>
+      <ul>
+        <div className={style.lw_homePageLayoutSetup_title}>Date:</div>
+        <Switch
+          checkedChildren="On"
+          unCheckedChildren="Off"
+          className={style.lw_lw_homePageLayoutSetup_title_switch}
+          defaultChecked={showHomeDate}
+          size="small"
+          onChange={(value) => handleTogleChange("date", value)}
+        />
+      </ul>
+      <ul>
+        <div className={style.lw_homePageLayoutSetup_title}>Search:</div>
+        <Switch
+          checkedChildren="On"
+          unCheckedChildren="Off"
+          className={style.lw_lw_homePageLayoutSetup_title_switch}
+          defaultChecked={showHomeSearch}
+          size="small"
+          onChange={(value) => handleTogleChange("search", value)}
+        />
+      </ul>
+      <ul>
+        <div className={style.lw_homePageLayoutSetup_title}>Link:</div>
+        <Switch
+          checkedChildren="On"
+          unCheckedChildren="Off"
+          className={style.lw_lw_homePageLayoutSetup_title_switch}
+          defaultChecked={showHomeLink}
+          size="small"
+          onChange={(value) => handleTogleChange("link", value)}
+        />
+      </ul>
+      <ul>
+        <div className={style.lw_homePageLayoutSetup_title}>Card:</div>
+        <Switch
+          checkedChildren="On"
+          unCheckedChildren="Off"
+          className={style.lw_lw_homePageLayoutSetup_title_switch}
+          defaultChecked={showHomeCard}
+          size="small"
+          onChange={(value) => handleTogleChange("card", value)}
+        />
+      </ul>
+    </>
+  );
+
+  return (
+    <>
+      <Tooltip placement="bottom" title={homeLayoutSetupContent}>
+        <Button
+          className={style.lw_homePageLayoutSetup_btn}
+          type="link"
+          icon={<LayoutOutlined />}
+        />
+      </Tooltip>
+    </>
+  );
+};
+
+export default HomePageLayoutSetup;

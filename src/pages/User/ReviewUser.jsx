@@ -16,7 +16,14 @@ import globalStyleMatrix from "../common/globalStyleMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
-import { SET_USER_INFO_DATA, SET_QUICK_LINK_DATA } from "../../redux/constants";
+import {
+  SET_USER_INFO_DATA,
+  SET_QUICK_LINK_DATA,
+  SET_SHOW_HOME_CARD,
+  SET_SHOW_HOME_DATE,
+  SET_SHOW_HOME_SEARCH,
+  SET_SHOW_HOME_LINK,
+} from "../../redux/constants";
 import style from "./style/ReviewUser.module.css";
 
 const ReviewUser = () => {
@@ -124,6 +131,10 @@ const ReviewUser = () => {
 
   const handleLogoutOnClick = () => {
     dispatch({ type: SET_QUICK_LINK_DATA, payload: { data: [], meta: {} } });
+    dispatch({ type: SET_SHOW_HOME_CARD, payload: true });
+    dispatch({ type: SET_SHOW_HOME_DATE, payload: true });
+    dispatch({ type: SET_SHOW_HOME_SEARCH, payload: true });
+    dispatch({ type: SET_SHOW_HOME_LINK, payload: true });
 
     dispatch({
       type: SET_USER_INFO_DATA,

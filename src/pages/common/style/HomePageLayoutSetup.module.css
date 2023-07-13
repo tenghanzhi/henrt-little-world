@@ -1,0 +1,15 @@
+.lw_homePageLayoutSetup_title {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.65);
+  margin: -20px 10px 0px -35px;
+}
+
+.lw_homePageLayoutSetup_switch {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.lw_homePageLayoutSetup_btn {
+  margin: 0px 2px;
+  color: rgba(255, 255, 255, 0.65);
+}

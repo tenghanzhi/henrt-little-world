@@ -7,12 +7,15 @@ import style from "./style/HomeTopNav.module.css";
 
 const HomeTopNav = () => {
   const quickLinkData = useSelector((state) => state.quickLinkData);
+  const showHomeDate = useSelector((state) => state.showHomeDate);
+  const showHomeSearch = useSelector((state) => state.showHomeSearch);
+  const showHomeLink = useSelector((state) => state.showHomeLink);
 
   return (
     <div className={style.lw_hometopnav}>
-      <ClockCalendar />
-      <SearchBar />
-      {quickLinkData.data.length !== 0 && <QuickLink />}
+      {showHomeDate && <ClockCalendar />}
+      {showHomeSearch && <SearchBar />}
+      {quickLinkData.data.length !== 0 && showHomeLink && <QuickLink />}
     </div>
   );
 };
