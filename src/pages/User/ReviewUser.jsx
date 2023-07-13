@@ -123,6 +123,8 @@ const ReviewUser = () => {
   };
 
   const handleLogoutOnClick = () => {
+    dispatch({ type: SET_QUICK_LINK_DATA, payload: { data: [], meta: {} } });
+
     dispatch({
       type: SET_USER_INFO_DATA,
       payload: {
@@ -422,7 +424,7 @@ const ReviewUser = () => {
       onFinish={onFinishQuickLink}
     >
       <Form.Item label="Link Name" name="name">
-        <Input onChange={handleFormValueChange}/>
+        <Input onChange={handleFormValueChange} />
       </Form.Item>
       <Form.Item
         label="Link"
