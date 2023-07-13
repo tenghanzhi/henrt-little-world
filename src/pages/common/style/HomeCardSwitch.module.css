@@ -1,0 +1,13 @@
+.lw_homecardswitch_wrapper{
+    min-width: 100px;
+}
+
+.lw_homecardswitch_title{
+    display: inline-block ;
+    color: rgba(255, 255, 255, 0.65);
+    margin-right: 10px;
+}
+
+.lw_homecardswitch_switch{
+    display: inline-block ;
+}

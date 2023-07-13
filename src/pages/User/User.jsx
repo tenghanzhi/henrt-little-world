@@ -17,7 +17,7 @@ const User = () => {
     <>
       <Typography.Title level={4} className={style.lw_user_header}>
         {isLogined
-          ? `Hello! Henry's best friend, ${userInfoData?.user?.username}!`
+          ? `Hello! ${userInfoData?.user?.username}`
           : "Please Login/Register"}
       </Typography.Title>
       {!isLogined && <Login />}

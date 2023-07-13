@@ -1,5 +1,6 @@
 .lw_lwlayout_wrapper {
   background: #171717;
+  align-items: center;
 }
 .lw_lwlayout_space {
   width: 90%;

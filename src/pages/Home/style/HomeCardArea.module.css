@@ -1,0 +1,19 @@
+.lw_home_cardarea_wrapper {
+  width: 1220px;
+}
+
+.lw_home_cardarea_card_icon {
+  margin-right: 10px;
+}
+
+@media (max-width: 900px) {
+  .lw_home_cardarea_wrapper {
+    width: 820px;
+  }
+}
+
+@media (max-width: 500px) {
+  .lw_home_cardarea_wrapper {
+    width: 420px;
+  }
+}

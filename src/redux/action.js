@@ -1,5 +1,4 @@
 import {
-  SET_CLICKED_HOME_PAGE_ITEM_ID,
   SET_PORTFOLIO_DATA,
   SET_SELECTED_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
@@ -30,15 +29,8 @@ import {
   SET_BULLETINBOARD_TABLE_SORTER,
   SET_USER_INFO_DATA,
   SET_QUICK_LINK_DATA,
+  SET_SHOW_HOME_CARD,
 } from "./constants.js";
-
-//Home
-export function setClickedHomePageItemId(clickedHomePageItemId) {
-  return {
-    type: SET_CLICKED_HOME_PAGE_ITEM_ID,
-    clickedHomePageItemId,
-  };
-}
 
 //Portfolio
 export function setPortfolioData(portfolioData) {
@@ -255,5 +247,13 @@ export function setQuickLinkData(quickLinkData) {
   return {
     type: SET_QUICK_LINK_DATA,
     quickLinkData,
+  };
+}
+
+//Home
+export function setShowHomeCard(showHomeCard) {
+  return {
+    type: SET_SHOW_HOME_CARD,
+    showHomeCard,
   };
 }

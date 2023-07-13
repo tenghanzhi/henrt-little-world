@@ -1,0 +1,8 @@
+.lw_header_links_wrapper {
+  display: contents;
+}
+
+.lw_header_links {
+  margin: 0px 2px;
+  color: rgba(255, 255, 255, 0.65);
+}

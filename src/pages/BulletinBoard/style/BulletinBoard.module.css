@@ -1,3 +1,19 @@
+.lw_bulletinboard_wrapper{
+  width: 1280px;
+}
+
+@media (max-width: 900px) {
+  .lw_bulletinboard_wrapper {
+    width: 820px;
+  }
+}
+
+@media (max-width: 500px) {
+  .lw_bulletinboard_wrapper {
+    width: 420px;
+  }
+}
+
 .lw_bulletinboard_header {
   text-align: center;
   margin-top: -10px;

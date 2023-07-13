@@ -71,6 +71,85 @@ const ReviewUser = () => {
     }
   };
 
+  const handleFormValueChange = () => {
+    setFiledValue(form.getFieldValue());
+  };
+
+  const handleQuickLinkBtnOnClick = (type, item) => {
+    switch (type.toLowerCase()) {
+      case "edit": {
+        console.log(item);
+        setEditItemId(item.id);
+        setEditItemName(item.attributes.name);
+        setEditItemLink(item.attributes.link);
+        setEditItemOrder(item.attributes.order);
+        break;
+      }
+      case "cancel": {
+        setEditItemId(null);
+        setEditItemName(null);
+        setEditItemLink(null);
+        setEditItemOrder(null);
+        setOpenCreateQuickLink(false);
+        break;
+      }
+      case "update": {
+        handleSubmitQuickLink("edit");
+        break;
+      }
+      case "delete": {
+        handleDeleteQuickLink(item.id);
+        break;
+      }
+      default:
+        return null;
+    }
+  };
+
+  const handleEditQuickLinkOnChange = (type, value) => {
+    switch (type) {
+      case "name":
+        setEditItemName(value);
+        break;
+      case "link":
+        setEditItemLink(value);
+        break;
+      case "order":
+        setEditItemOrder(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleLogoutOnClick = () => {
+    dispatch({
+      type: SET_USER_INFO_DATA,
+      payload: {
+        jwt: null,
+        user: {
+          id: null,
+          username: null,
+          email: null,
+          provider: null,
+          confirmed: false,
+          blocked: false,
+          createdAt: null,
+          updatedAt: null,
+        },
+      },
+    });
+    navigate(`/${categoryMatrix.USER.toLowerCase()}`);
+  };
+
+  const handleOpenCreateQuickLink = (newOpen) => {
+    setOpenCreateQuickLink(newOpen);
+  };
+
+  const handleOpenChangePassword = (newOpen) => {
+    setOpenChangePassword(newOpen);
+  };
+
   const handleGetQuickLinkData = () => {
     const messageKey = "loadingMessage";
 
@@ -151,7 +230,6 @@ const ReviewUser = () => {
     );
 
     let data;
-
     switch (type) {
       case "create":
         data = {
@@ -200,7 +278,6 @@ const ReviewUser = () => {
               "success",
               messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS
             );
-            setFiledValue(null);
             handleGetQuickLinkData();
           }
         })
@@ -255,58 +332,7 @@ const ReviewUser = () => {
     }
   };
 
-  const handleLinkBtnOnClick = (type, item) => {
-    switch (type.toLowerCase()) {
-      case "edit": {
-        console.log(item);
-        setEditItemId(item.id);
-        setEditItemName(item.attributes.name);
-        setEditItemLink(item.attributes.link);
-        setEditItemOrder(item.attributes.order);
-        break;
-      }
-      case "cancel": {
-        setEditItemId(null);
-        setEditItemName(null);
-        setEditItemLink(null);
-        setEditItemOrder(null);
-        setOpenCreateQuickLink(false);
-        break;
-      }
-      case "update": {
-        handleSubmitQuickLink("edit");
-        break;
-      }
-      case "delete": {
-        handleDeleteQuickLink(item.id);
-        break;
-      }
-      default:
-        return null;
-    }
-  };
-
-  const handleEditQuickLinkOnChange = (type, value) => {
-    switch (type) {
-      case "name":
-        setEditItemName(value);
-        break;
-      case "link":
-        setEditItemLink(value);
-        break;
-      case "order":
-        setEditItemOrder(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleFormValueChange = () => {
-    setFiledValue(form.getFieldValue());
-  };
-
-  const handleSubmitForm = (values) => {
+  const handleSubmitChangePassword = (values) => {
     const messageKey = "submittingForm";
 
     handleMessage(messageKey, "loading", messageMatrix.USER_MESSAGE_CREATING);
@@ -346,36 +372,40 @@ const ReviewUser = () => {
       });
   };
 
-  const onFinishPassword = (values) => {
-    handleSubmitForm(values);
-  };
-
   const onFinishQuickLink = (values) => {
     handleSubmitQuickLink("create", values);
   };
 
-  const handleLogoutOnClick = () => {
-    dispatch({
-      type: SET_USER_INFO_DATA,
-      payload: {
-        jwt: null,
-        user: {
-          id: null,
-          username: null,
-          email: null,
-          provider: null,
-          confirmed: false,
-          blocked: false,
-          createdAt: null,
-          updatedAt: null,
-        },
-      },
-    });
-    navigate(`/${categoryMatrix.USER.toLowerCase()}`);
+  const onFinishPassword = (values) => {
+    handleSubmitChangePassword(values);
   };
 
-  const handleOpenCreateQuickLink = (newOpen) => {
-    setOpenCreateQuickLink(newOpen);
+  const handleDisableCreateLinkSubmitBtn = () => {
+    let isHasError = false;
+
+    if (!!form.getFieldsError().filter(({ errors }) => errors.length).length) {
+      isHasError = true;
+    } else isHasError = false;
+
+    const isAllRequiredFiled =
+      filedValue?.hasOwnProperty("link") && filedValue?.hasOwnProperty("order");
+
+    return isHasError || !isAllRequiredFiled;
+  };
+
+  const handleDisableChangePasswordSubmitBtn = () => {
+    let isHasError = false;
+
+    if (!!form.getFieldsError().filter(({ errors }) => errors.length).length) {
+      isHasError = true;
+    } else isHasError = false;
+
+    const isAllRequiredFiled =
+      filedValue?.hasOwnProperty("currentPassword") &&
+      filedValue?.hasOwnProperty("password") &&
+      filedValue?.hasOwnProperty("passwordConfirmation");
+
+    return isHasError || !isAllRequiredFiled;
   };
 
   const createQuickLinkContent = (
@@ -392,7 +422,7 @@ const ReviewUser = () => {
       onFinish={onFinishQuickLink}
     >
       <Form.Item label="Link Name" name="name">
-        <Input onChange={handleFormValueChange} />
+        <Input onChange={handleFormValueChange}/>
       </Form.Item>
       <Form.Item
         label="Link"
@@ -430,7 +460,7 @@ const ReviewUser = () => {
             <Button
               type="default"
               className={style.lw_user_reviewuser_action_buttons}
-              onClick={() => handleLinkBtnOnClick("cancel")}
+              onClick={() => handleQuickLinkBtnOnClick("cancel")}
             >
               Cancel
             </Button>
@@ -438,7 +468,7 @@ const ReviewUser = () => {
               type="primary"
               htmlType="submit"
               className={style.lw_user_reviewuser_action_buttons}
-              disabled={handleDisableCreateLinkBtn() || isUploading}
+              disabled={handleDisableCreateLinkSubmitBtn() || isUploading}
             >
               Submit
             </Button>
@@ -447,23 +477,6 @@ const ReviewUser = () => {
       </Form.Item>
     </Form>
   );
-
-  const handleDisableCreateLinkBtn = () => {
-    let isHasError = false;
-
-    if (!!form.getFieldsError().filter(({ errors }) => errors.length).length) {
-      isHasError = true;
-    } else isHasError = false;
-
-    const isAllRequiredFiled =
-      filedValue?.hasOwnProperty("link") && filedValue?.hasOwnProperty("order");
-
-    return isHasError || !isAllRequiredFiled;
-  };
-
-  const handleOpenChangePassword = (newOpen) => {
-    setOpenChangePassword(newOpen);
-  };
 
   const changePasswordContent = (
     <Form
@@ -534,7 +547,7 @@ const ReviewUser = () => {
               type="primary"
               htmlType="submit"
               className={style.lw_user_reviewuser_action_buttons}
-              disabled={handleDisableSubmitBtn() || isUploading}
+              disabled={handleDisableChangePasswordSubmitBtn() || isUploading}
             >
               Submit
             </Button>
@@ -543,21 +556,6 @@ const ReviewUser = () => {
       </Form.Item>
     </Form>
   );
-
-  const handleDisableSubmitBtn = () => {
-    let isHasError = false;
-
-    if (!!form.getFieldsError().filter(({ errors }) => errors.length).length) {
-      isHasError = true;
-    } else isHasError = false;
-
-    const isAllRequiredFiled =
-      filedValue?.hasOwnProperty("currentPassword") &&
-      filedValue?.hasOwnProperty("password") &&
-      filedValue?.hasOwnProperty("passwordConfirmation");
-
-    return isHasError || !isAllRequiredFiled;
-  };
 
   return (
     <Descriptions
@@ -623,7 +621,7 @@ const ReviewUser = () => {
                         type="text"
                         size="small"
                         onClick={() => {
-                          handleLinkBtnOnClick("edit", item);
+                          handleQuickLinkBtnOnClick("edit", item);
                         }}
                       >
                         Edit
@@ -632,7 +630,7 @@ const ReviewUser = () => {
                         title={`Confirm to delete this quick link?`}
                         placement="top"
                         onConfirm={() => {
-                          handleLinkBtnOnClick("delete", item);
+                          handleQuickLinkBtnOnClick("delete", item);
                         }}
                         okText="Confirm"
                         cancelText="Cancel"
@@ -699,14 +697,14 @@ const ReviewUser = () => {
                           <Button
                             className={style.lw_user_reviewuser_action_buttons}
                             type="default"
-                            onClick={() => handleLinkBtnOnClick("cancel")}
+                            onClick={() => handleQuickLinkBtnOnClick("cancel")}
                           >
                             Cancel
                           </Button>
                           <Button
                             className={style.lw_user_reviewuser_action_buttons}
                             type="primary"
-                            onClick={() => handleLinkBtnOnClick("update")}
+                            onClick={() => handleQuickLinkBtnOnClick("update")}
                             disabled={
                               (item.attributes.name.toString() ===
                                 editItemName.toString() &&
@@ -733,37 +731,35 @@ const ReviewUser = () => {
       )}
       <Descriptions.Item label="Actions" span={4}>
         <Popover
+          title="Create quick link"
           placement="bottom"
-          content={createQuickLinkContent}
-          title="Create New Quick Link"
           trigger="click"
+          content={createQuickLinkContent}
           open={openCreateQuickLink}
           onOpenChange={handleOpenCreateQuickLink}
-          destroyTooltipOnHide={true}
         >
           <Button className={style.lw_user_reviewuser_action_buttons}>
             Create Quick Link
           </Button>
         </Popover>
         <Popover
+          title="Input new password"
           placement="bottom"
-          content={changePasswordContent}
-          title="Input new password."
           trigger="click"
+          content={changePasswordContent}
           open={openChangePassword}
           onOpenChange={handleOpenChangePassword}
-          destroyTooltipOnHide={true}
         >
           <Button className={style.lw_user_reviewuser_action_buttons}>
             Change Password
           </Button>
         </Popover>
         <Popconfirm
-          description="Are you sure to logout?"
+          description="Confirm to logout"
           placement="bottom"
-          onConfirm={handleLogoutOnClick}
           okText="Confirm"
           cancelText="Cancel"
+          onConfirm={handleLogoutOnClick}
         >
           <Button className={style.lw_user_reviewuser_action_buttons}>
             Logout

@@ -1,5 +1,4 @@
 import {
-  SET_CLICKED_HOME_PAGE_ITEM_ID,
   SET_PORTFOLIO_DATA,
   SET_SELECTED_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
@@ -30,13 +29,14 @@ import {
   SET_BULLETINBOARD_TABLE_SORTER,
   SET_USER_INFO_DATA,
   SET_QUICK_LINK_DATA,
+  SET_SHOW_HOME_CARD,
 } from "./constants";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
+const showHomeCard = localStorage.getItem("showHomeCard");
 
 const initialState = {
-  clickedHomePageItemId: null,
   portfolioData: { data: [], meta: {} },
   selectedPortfolioId: null,
   leetcodeData: { data: [], meta: {} },
@@ -128,12 +128,11 @@ const initialState = {
         : JSON.parse(user),
   },
   quickLinkData: { data: [], meta: {} },
+  showHomeCard: showHomeCard === "true" ? true : false,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_CLICKED_HOME_PAGE_ITEM_ID:
-      return { ...state, clickedHomePageItemId: action.payload };
     case SET_PORTFOLIO_DATA:
       return { ...state, portfolioData: action.payload };
     case SET_SELECTED_PORTFOLIO_ID:
@@ -196,6 +195,9 @@ export default function reducer(state = initialState, action) {
       return { ...state, userInfoData: action.payload };
     case SET_QUICK_LINK_DATA:
       return { ...state, quickLinkData: action.payload };
+    case SET_SHOW_HOME_CARD:
+      localStorage.setItem("showHomeCard", action.payload);
+      return { ...state, showHomeCard: action.payload };
     default:
       return state;
   }

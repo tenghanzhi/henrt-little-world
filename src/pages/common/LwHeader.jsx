@@ -1,37 +1,26 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Layout, Menu, ConfigProvider } from "antd";
 import {
-  Layout,
-  Menu,
-  Button,
-  Tooltip,
-  Space,
-  Image,
-  ConfigProvider,
-} from "antd";
-import {
-  GithubOutlined,
-  LinkedinOutlined,
   CodeOutlined,
   AppstoreOutlined,
   Html5Outlined,
   UserOutlined,
   HomeOutlined,
   StarOutlined,
-  WechatOutlined,
-  VideoCameraOutlined,
-  DesktopOutlined,
   SmileOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
 import categoryMatrix from "./categoryMatrix";
+import HeaderLinks from "./HeaderLinks";
+import HomeCardSwitch from "./HomeCardSwitch";
 import style from "./style/LwHeader.module.css";
 
 const LwHeader = () => {
   const location = useLocation();
   const userInfoData = useSelector((state) => state.userInfoData);
-
+  const selectedKeys = location.pathname.slice(1);
   const menuItems = [
     {
       label: <Link to="/">{categoryMatrix.HOME}</Link>,
@@ -103,30 +92,6 @@ const LwHeader = () => {
     },
   ];
 
-  const selectedKeys = location.pathname.slice(1);
-
-  const onRightBtnsClick = (type) => {
-    switch (type.toLowerCase()) {
-      case "leetcode":
-        window.open("https://leetcode.cn/u/tenghanzhi/");
-        break;
-      case "stackoverflow":
-        window.open("https://stackoverflow.com/users/21989386/hanzhi-teng");
-        break;
-      case "github":
-        window.open("https://github.com/tenghanzhi");
-        break;
-      case "linkedin":
-        window.open("https://www.linkedin.com/in/tenghanzhi/");
-        break;
-      case "bilibili":
-        window.open("https://space.bilibili.com/914572");
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <ConfigProvider
       theme={{
@@ -146,66 +111,8 @@ const LwHeader = () => {
           defaultSelectedKeys={["home"]}
           selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
         />
-        <div className={style.lw_header_links_wrapper}>
-          <Tooltip placement="bottom" title={"Check Henry's LeetCode"}>
-            <Button
-              className={style.lw_header_links}
-              type="link"
-              icon={<CodeOutlined />}
-              onClick={() => onRightBtnsClick("leetcode")}
-            />
-          </Tooltip>
-          <Tooltip placement="bottom" title={"Check Henry's Stack Overflow"}>
-            <Button
-              className={style.lw_header_links}
-              type="link"
-              icon={<DesktopOutlined />}
-              onClick={() => onRightBtnsClick("stackoverflow")}
-            />
-          </Tooltip>
-          <Tooltip placement="bottom" title={"Check Henry's GitHub"}>
-            <Button
-              className={style.lw_header_links}
-              type="link"
-              icon={<GithubOutlined />}
-              onClick={() => onRightBtnsClick("github")}
-            />
-          </Tooltip>
-          <Tooltip placement="bottom" title={"Check Henry's LinkedIn"}>
-            <Button
-              className={style.lw_header_links}
-              type="link"
-              icon={<LinkedinOutlined />}
-              onClick={() => onRightBtnsClick("linkedin")}
-            />
-          </Tooltip>
-          <Tooltip placement="bottom" title={"Check Henry's Bilibili"}>
-            <Button
-              className={style.lw_header_links}
-              type="link"
-              icon={<VideoCameraOutlined />}
-              onClick={() => onRightBtnsClick("bilibili")}
-            />
-          </Tooltip>
-          <Tooltip
-            placement="bottom"
-            title={
-              <Space direction="vertical">
-                <div>Scan to Add WeChat</div>
-                <Image
-                  src={require("../../images/QR_WeChat.png")}
-                  width={130}
-                />
-              </Space>
-            }
-          >
-            <Button
-              className={style.lw_header_links}
-              type="link"
-              icon={<WechatOutlined />}
-            />
-          </Tooltip>
-        </div>
+        <HomeCardSwitch />
+        <HeaderLinks />
       </Layout.Header>
     </ConfigProvider>
   );

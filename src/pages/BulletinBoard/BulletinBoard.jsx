@@ -284,8 +284,8 @@ const Portfolio = () => {
   };
 
   const pageContent = (
-    <>
-      <Typography.Title level={1} className={style.lw_bulletinboard_header}>
+    <div className={style.lw_bulletinboard_wrapper}>
+      <Typography.Title level={2} className={style.lw_bulletinboard_header}>
         Bulletin Board
       </Typography.Title>
       <Typography.Title level={5} className={style.lw_bulletinboard_header}>
@@ -469,7 +469,7 @@ const Portfolio = () => {
           }
         />
       </div>
-    </>
+    </div>
   );
 
   return <LwLayout content={pageContent} />;
