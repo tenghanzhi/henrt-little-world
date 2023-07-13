@@ -20,6 +20,7 @@ import style from "./style/LwHeader.module.css";
 const LwHeader = () => {
   const location = useLocation();
   const userInfoData = useSelector((state) => state.userInfoData);
+  const showHomeMenu = useSelector((state) => state.showHomeMenu);
   const selectedKeys = location.pathname.slice(1);
   const menuItems = [
     {
@@ -103,14 +104,16 @@ const LwHeader = () => {
       }}
     >
       <Layout.Header className={style.lw_header_wrapper}>
-        <Menu
-          className={style.lw_header_menu}
-          theme="dark"
-          mode="horizontal"
-          items={menuItems}
-          defaultSelectedKeys={["home"]}
-          selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
-        />
+        {showHomeMenu && (
+          <Menu
+            className={style.lw_header_menu}
+            theme="dark"
+            mode="horizontal"
+            items={menuItems}
+            defaultSelectedKeys={["home"]}
+            selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
+          />
+        )}
         {selectedKeys === "" && <HomePageLayoutSetup />}
         <HeaderLinks />
       </Layout.Header>

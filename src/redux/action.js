@@ -33,6 +33,7 @@ import {
   SET_SHOW_HOME_DATE,
   SET_SHOW_HOME_SEARCH,
   SET_SHOW_HOME_LINK,
+  SET_SHOW_HOME_MENU,
 } from "./constants.js";
 
 //Portfolio
@@ -279,5 +280,12 @@ export function setShowHomeCard(showHomeLink) {
   return {
     type: SET_SHOW_HOME_LINK,
     showHomeLink,
+  };
+}
+
+export function setShowHomeMenu(showHomeMenu) {
+  return {
+    type: SET_SHOW_HOME_MENU,
+    showHomeMenu,
   };
 }

@@ -7,6 +7,7 @@ import {
   SET_SHOW_HOME_DATE,
   SET_SHOW_HOME_SEARCH,
   SET_SHOW_HOME_LINK,
+  SET_SHOW_HOME_MENU,
 } from "../../redux/constants";
 import style from "./style/HomePageLayoutSetup.module.css";
 
@@ -16,6 +17,7 @@ const HomePageLayoutSetup = () => {
   const showHomeDate = useSelector((state) => state.showHomeDate);
   const showHomeSearch = useSelector((state) => state.showHomeSearch);
   const showHomeLink = useSelector((state) => state.showHomeLink);
+  const showHomeMenu = useSelector((state) => state.showHomeMenu);
 
   const handleTogleChange = (type, value) => {
     switch (type) {
@@ -31,6 +33,9 @@ const HomePageLayoutSetup = () => {
       case "link":
         dispatch({ type: SET_SHOW_HOME_LINK, payload: value });
         break;
+      case "menu":
+        dispatch({ type: SET_SHOW_HOME_MENU, payload: value });
+        break;
       default:
         break;
     }
@@ -39,6 +44,17 @@ const HomePageLayoutSetup = () => {
   const homeLayoutSetupContent = (
     <>
       <div>Home Page Layout</div>
+      <ul>
+        <div className={style.lw_homePageLayoutSetup_title}>Menu:</div>
+        <Switch
+          checkedChildren="On"
+          unCheckedChildren="Off"
+          className={style.lw_lw_homePageLayoutSetup_title_switch}
+          defaultChecked={showHomeMenu}
+          size="small"
+          onChange={(value) => handleTogleChange("menu", value)}
+        />
+      </ul>
       <ul>
         <div className={style.lw_homePageLayoutSetup_title}>Date:</div>
         <Switch

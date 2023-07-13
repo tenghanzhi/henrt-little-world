@@ -4,7 +4,14 @@ import { useDispatch } from "react-redux";
 import { Typography, Button, Form, Input, message } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
-import { SET_USER_INFO_DATA } from "../../redux/constants";
+import {
+  SET_USER_INFO_DATA,
+  SET_SHOW_HOME_CARD,
+  SET_SHOW_HOME_DATE,
+  SET_SHOW_HOME_SEARCH,
+  SET_SHOW_HOME_LINK,
+  SET_SHOW_HOME_MENU,
+} from "../../redux/constants";
 import style from "./style/Login.module.css";
 
 const Login = () => {
@@ -141,6 +148,11 @@ const Login = () => {
               type: SET_USER_INFO_DATA,
               payload: response,
             });
+            dispatch({ type: SET_SHOW_HOME_CARD, payload: true });
+            dispatch({ type: SET_SHOW_HOME_DATE, payload: true });
+            dispatch({ type: SET_SHOW_HOME_SEARCH, payload: true });
+            dispatch({ type: SET_SHOW_HOME_LINK, payload: true });
+            dispatch({ type: SET_SHOW_HOME_MENU, payload: true });
             handleMessage(
               messageKey,
               "success",
