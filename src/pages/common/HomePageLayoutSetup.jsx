@@ -8,6 +8,7 @@ import {
   SET_SHOW_HOME_SEARCH,
   SET_SHOW_HOME_LINK,
   SET_SHOW_HOME_MENU,
+  SET_SHOW_HOME_QUICK_LINK,
 } from "../../redux/constants";
 import style from "./style/HomePageLayoutSetup.module.css";
 
@@ -18,6 +19,7 @@ const HomePageLayoutSetup = () => {
   const showHomeSearch = useSelector((state) => state.showHomeSearch);
   const showHomeLink = useSelector((state) => state.showHomeLink);
   const showHomeMenu = useSelector((state) => state.showHomeMenu);
+  const showHomeQuickLink = useSelector((state) => state.showHomeQuickLink);
 
   const handleTogleChange = (type, value) => {
     switch (type) {
@@ -36,6 +38,9 @@ const HomePageLayoutSetup = () => {
       case "menu":
         dispatch({ type: SET_SHOW_HOME_MENU, payload: value });
         break;
+      case "quickLink":
+        dispatch({ type: SET_SHOW_HOME_QUICK_LINK, payload: value });
+        break;
       default:
         break;
     }
@@ -50,9 +55,20 @@ const HomePageLayoutSetup = () => {
           checkedChildren="On"
           unCheckedChildren="Off"
           className={style.lw_lw_homePageLayoutSetup_title_switch}
-          defaultChecked={showHomeMenu}
+          checked={showHomeMenu}
           size="small"
           onChange={(value) => handleTogleChange("menu", value)}
+        />
+      </ul>
+      <ul>
+        <div className={style.lw_homePageLayoutSetup_title}>Link:</div>
+        <Switch
+          checkedChildren="On"
+          unCheckedChildren="Off"
+          className={style.lw_lw_homePageLayoutSetup_title_switch}
+          checked={showHomeLink}
+          size="small"
+          onChange={(value) => handleTogleChange("link", value)}
         />
       </ul>
       <ul>
@@ -61,7 +77,7 @@ const HomePageLayoutSetup = () => {
           checkedChildren="On"
           unCheckedChildren="Off"
           className={style.lw_lw_homePageLayoutSetup_title_switch}
-          defaultChecked={showHomeDate}
+          checked={showHomeDate}
           size="small"
           onChange={(value) => handleTogleChange("date", value)}
         />
@@ -72,20 +88,20 @@ const HomePageLayoutSetup = () => {
           checkedChildren="On"
           unCheckedChildren="Off"
           className={style.lw_lw_homePageLayoutSetup_title_switch}
-          defaultChecked={showHomeSearch}
+          checked={showHomeSearch}
           size="small"
           onChange={(value) => handleTogleChange("search", value)}
         />
       </ul>
       <ul>
-        <div className={style.lw_homePageLayoutSetup_title}>Link:</div>
+        <div className={style.lw_homePageLayoutSetup_title}>Quick Link:</div>
         <Switch
           checkedChildren="On"
           unCheckedChildren="Off"
           className={style.lw_lw_homePageLayoutSetup_title_switch}
-          defaultChecked={showHomeLink}
+          checked={showHomeQuickLink}
           size="small"
-          onChange={(value) => handleTogleChange("link", value)}
+          onChange={(value) => handleTogleChange("quickLink", value)}
         />
       </ul>
       <ul>
@@ -94,7 +110,7 @@ const HomePageLayoutSetup = () => {
           checkedChildren="On"
           unCheckedChildren="Off"
           className={style.lw_lw_homePageLayoutSetup_title_switch}
-          defaultChecked={showHomeCard}
+          checked={showHomeCard}
           size="small"
           onChange={(value) => handleTogleChange("card", value)}
         />

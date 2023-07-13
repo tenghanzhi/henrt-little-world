@@ -9,13 +9,13 @@ const HomeTopNav = () => {
   const quickLinkData = useSelector((state) => state.quickLinkData);
   const showHomeDate = useSelector((state) => state.showHomeDate);
   const showHomeSearch = useSelector((state) => state.showHomeSearch);
-  const showHomeLink = useSelector((state) => state.showHomeLink);
+  const showHomeQuickLink = useSelector((state) => state.showHomeQuickLink);
 
   return (
     <div className={style.lw_hometopnav}>
       {showHomeDate && <ClockCalendar />}
       {showHomeSearch && <SearchBar />}
-      {quickLinkData.data.length !== 0 && showHomeLink && <QuickLink />}
+      {quickLinkData.data.length !== 0 && showHomeQuickLink && <QuickLink />}
     </div>
   );
 };

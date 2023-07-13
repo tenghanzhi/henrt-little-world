@@ -11,6 +11,7 @@ import {
   SET_SHOW_HOME_SEARCH,
   SET_SHOW_HOME_LINK,
   SET_SHOW_HOME_MENU,
+  SET_SHOW_HOME_QUICK_LINK
 } from "../../redux/constants";
 import style from "./style/Login.module.css";
 
@@ -153,6 +154,7 @@ const Login = () => {
             dispatch({ type: SET_SHOW_HOME_SEARCH, payload: true });
             dispatch({ type: SET_SHOW_HOME_LINK, payload: true });
             dispatch({ type: SET_SHOW_HOME_MENU, payload: true });
+            dispatch({ type: SET_SHOW_HOME_QUICK_LINK, payload: true });
             handleMessage(
               messageKey,
               "success",

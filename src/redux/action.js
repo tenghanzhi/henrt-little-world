@@ -34,6 +34,7 @@ import {
   SET_SHOW_HOME_SEARCH,
   SET_SHOW_HOME_LINK,
   SET_SHOW_HOME_MENU,
+  SET_SHOW_HOME_QUICK_LINK,
 } from "./constants.js";
 
 //Portfolio
@@ -262,21 +263,21 @@ export function setShowHomeCard(showHomeCard) {
   };
 }
 
-export function setShowHomeCard(showHomeDate) {
+export function setShowHomeDate(showHomeDate) {
   return {
     type: SET_SHOW_HOME_DATE,
     showHomeDate,
   };
 }
 
-export function setShowHomeCard(showHomeSearch) {
+export function setShowHomeSearch(showHomeSearch) {
   return {
     type: SET_SHOW_HOME_SEARCH,
     showHomeSearch,
   };
 }
 
-export function setShowHomeCard(showHomeLink) {
+export function setShowHomeLink(showHomeLink) {
   return {
     type: SET_SHOW_HOME_LINK,
     showHomeLink,
@@ -287,5 +288,12 @@ export function setShowHomeMenu(showHomeMenu) {
   return {
     type: SET_SHOW_HOME_MENU,
     showHomeMenu,
+  };
+}
+
+export function setShowHomeQuickLink(showHomeQuickLink) {
+  return {
+    type: SET_SHOW_HOME_QUICK_LINK,
+    showHomeQuickLink,
   };
 }

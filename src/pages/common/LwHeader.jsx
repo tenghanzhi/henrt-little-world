@@ -21,6 +21,7 @@ const LwHeader = () => {
   const location = useLocation();
   const userInfoData = useSelector((state) => state.userInfoData);
   const showHomeMenu = useSelector((state) => state.showHomeMenu);
+  const showHomeLink = useSelector((state) => state.showHomeLink);
   const selectedKeys = location.pathname.slice(1);
   const menuItems = [
     {
@@ -114,8 +115,8 @@ const LwHeader = () => {
             selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
           />
         )}
-        {selectedKeys === "" && <HomePageLayoutSetup />}
-        <HeaderLinks />
+        <HomePageLayoutSetup />
+        {showHomeLink && <HeaderLinks />}
       </Layout.Header>
     </ConfigProvider>
   );

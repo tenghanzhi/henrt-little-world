@@ -33,7 +33,8 @@ import {
   SET_SHOW_HOME_DATE,
   SET_SHOW_HOME_SEARCH,
   SET_SHOW_HOME_LINK,
-  SET_SHOW_HOME_MENU
+  SET_SHOW_HOME_MENU,
+  SET_SHOW_HOME_QUICK_LINK,
 } from "./constants";
 
 const token = localStorage.getItem("token");
@@ -43,6 +44,7 @@ const showHomeDate = localStorage.getItem("showHomeDate");
 const showHomeSearch = localStorage.getItem("showHomeSearch");
 const showHomeLink = localStorage.getItem("showHomeLink");
 const showHomeMenu = localStorage.getItem("showHomeMenu");
+const showHomeQuickLink = localStorage.getItem("showHomeQuickLink");
 
 const initialState = {
   portfolioData: { data: [], meta: {} },
@@ -141,6 +143,7 @@ const initialState = {
   showHomeSearch: showHomeSearch?.toString() === "false" ? false : true,
   showHomeLink: showHomeLink?.toString() === "false" ? false : true,
   showHomeMenu: showHomeMenu?.toString() === "false" ? false : true,
+  showHomeQuickLink: showHomeQuickLink?.toString() === "false" ? false : true,
 };
 
 export default function reducer(state = initialState, action) {
@@ -219,9 +222,12 @@ export default function reducer(state = initialState, action) {
     case SET_SHOW_HOME_LINK:
       localStorage.setItem("showHomeLink", action.payload);
       return { ...state, showHomeLink: action.payload };
-      case SET_SHOW_HOME_MENU:
-        localStorage.setItem("showHomeMenu", action.payload);
-        return { ...state, showHomeMenu: action.payload };
+    case SET_SHOW_HOME_MENU:
+      localStorage.setItem("showHomeMenu", action.payload);
+      return { ...state, showHomeMenu: action.payload };
+    case SET_SHOW_HOME_QUICK_LINK:
+      localStorage.setItem("showHomeQuickLink", action.payload);
+      return { ...state, showHomeQuickLink: action.payload };
     default:
       return state;
   }
