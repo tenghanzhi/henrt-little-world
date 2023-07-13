@@ -15,7 +15,7 @@ const Home = () => {
   const showHomeCard = useSelector((state) => state.showHomeCard);
 
   useEffect(() => {
-    handleQuickLinkData();
+    if (userInfoData?.user?.username) handleQuickLinkData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -57,7 +57,7 @@ const Home = () => {
     (async () => {
       const response = await fetch(
         `${apiMatrix.QUICK_LINKS_GET_ALL}${
-          userInfoData.user.username
+          userInfoData?.user?.username
             ? `?filters[user][$eq]=${userInfoData.user.username}&sort=order:asc&pagination[pageSize]=20`
             : ""
         }`
