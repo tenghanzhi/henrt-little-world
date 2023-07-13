@@ -20,7 +20,6 @@ import {
   SET_COMPONENT_DATA,
   SET_FAVORITE_DATA,
   SET_BULLETINBOARD_DATA,
-  SET_QUICK_LINK_DATA,
 } from "../../redux/constants";
 import style from "./style/HomeCardArea.module.css";
 
@@ -32,7 +31,6 @@ const HomeCardArea = () => {
   const componentData = useSelector((state) => state.componentData);
   const favoriteData = useSelector((state) => state.favoriteData);
   const bulletinboardData = useSelector((state) => state.bulletinboardData);
-  const userInfoData = useSelector((state) => state.userInfoData);
   const [isPortfolioDataLoading, setIsPortfolioDataLoading] = useState(true);
   const [isLeetcodeDataLoading, setIsLeetcodeDataLoading] = useState(true);
   const [isApplicationDataLoading, setIsApplicationDataLoading] =
@@ -116,13 +114,6 @@ const HomeCardArea = () => {
       fetch(`${apiMatrix.BULLETINBOARD_GET_ALL}${PAGINATION_SETUP}`).then(
         (response) => response.json()
       ),
-      fetch(
-        `${apiMatrix.QUICK_LINKS_GET_ALL}${
-          userInfoData.user.username
-            ? `?filters[user][$eq]=${userInfoData.user.username}&sort=order:asc&pagination[pageSize]=20`
-            : ""
-        }`
-      ).then((response) => response.json()),
     ])
       .then((response) => {
         if (response && response.error) {
@@ -134,7 +125,6 @@ const HomeCardArea = () => {
           dispatch({ type: SET_COMPONENT_DATA, payload: response[3] });
           dispatch({ type: SET_FAVORITE_DATA, payload: response[4] });
           dispatch({ type: SET_BULLETINBOARD_DATA, payload: response[5] });
-          dispatch({ type: SET_QUICK_LINK_DATA, payload: response[6] });
         }
       })
       .catch((error) => {

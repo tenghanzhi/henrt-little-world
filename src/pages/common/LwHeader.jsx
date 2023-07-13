@@ -111,7 +111,7 @@ const LwHeader = () => {
           defaultSelectedKeys={["home"]}
           selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
         />
-        <HomeCardSwitch />
+        {selectedKeys === "" && <HomeCardSwitch />}
         <HeaderLinks />
       </Layout.Header>
     </ConfigProvider>
