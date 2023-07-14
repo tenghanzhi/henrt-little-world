@@ -151,7 +151,7 @@ const SearchBar = () => {
   );
 
   return (
-    <div>
+    <>
       <Select
         className={style.lw_hometopnav_selector}
         value={searchType}
@@ -165,7 +165,7 @@ const SearchBar = () => {
       {searchType === "youtube" && youTubeSearchForm}
       {searchType === "bilibili" && biliBiliSearchForm}
       {searchType === "douban" && doubanSearchForm}
-    </div>
+    </>
   );
 };
 

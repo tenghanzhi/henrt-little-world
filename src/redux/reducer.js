@@ -88,7 +88,7 @@ const initialState = {
   selectedComponentId: null,
   componentTablePagenation: {
     current: 1,
-    size: 10,
+    size: 25,
   },
   componentTableSorter: {
     sort: "name",

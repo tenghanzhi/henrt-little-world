@@ -1,0 +1,10 @@
+.lw_components_sortor_title {
+  color: rgba(255, 255, 255, 0.65);
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.lw_components_search_type_selector {
+  margin-right: 10px;
+  width: 130px;
+}

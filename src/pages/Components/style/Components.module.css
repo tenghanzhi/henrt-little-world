@@ -1,23 +1,3 @@
-.lw_components_btn_wrapper {
+.lw_components_top_items_wrapper {
   margin-bottom: 10px;
-}
-
-.lw_components_pagination_wrapper {
-  margin-bottom: 10px;
-}
-
-.lw_components_search {
-  width: 250px;
-}
-
-.lw_components_search_type_selector {
-  width: 180px;
-}
-
-.lw_components_table_pagination > li > a {
-  color: rgba(255, 255, 255, 0.65) !important;
-}
-
-.lw_components_sortor_title {
-  color: rgba(255, 255, 255, 0.65);
 }
