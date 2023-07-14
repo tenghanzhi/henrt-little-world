@@ -1,30 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { message, Space, Button, Input, Select, Tooltip } from "antd";
-import {
-  PlusOutlined,
-  CodeOutlined,
-  CodeSandboxOutlined,
-  CodepenOutlined,
-} from "@ant-design/icons";
+import { message, Space } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import ApplicationsTable from "./ApplicationsTable";
 import ApplicationsList from "./ApplicationsList";
+import ApplicationsTopBtns from "./ApplicationsTopBtns";
+import ApplicationsFilter from "./ApplicationsFilter";
 import LwLayout from "../common/LwLayout";
-import {
-  SET_APPLICATION_DATA,
-  SET_APPLICATION_TABLE_FILTER,
-  SET_APPLICATION_TABLE_FILTER_TYPE,
-} from "../../redux/constants";
+import { SET_APPLICATION_DATA } from "../../redux/constants";
 import style from "./style/Applications.module.css";
 
 const Applications = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userInfoData = useSelector((state) => state.userInfoData);
   const applicationTablePagenation = useSelector(
     (state) => state.applicationTablePagenation
   );
@@ -33,9 +22,6 @@ const Applications = () => {
   );
   const applicationTableFilter = useSelector(
     (state) => state.applicationTableFilter
-  );
-  const applicationTableFilterType = useSelector(
-    (state) => state.applicationTableFilterType
   );
 
   useEffect(() => {
@@ -51,21 +37,6 @@ const Applications = () => {
     const messageDuration = 2;
 
     switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_LOADING,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
-          duration: messageDuration,
-        });
-        break;
-      }
       case "error": {
         message.error({
           key: key,
@@ -74,31 +45,6 @@ const Applications = () => {
         });
         break;
       }
-      default:
-        return null;
-    }
-  };
-
-  const handleBtnOnClick = (type) => {
-    switch (type.toLowerCase()) {
-      case "codesandbox":
-        window.open(
-          "https://codesandbox.io/",
-          "_blank",
-          "noopener, noreferrer"
-        );
-        break;
-      case "codepen":
-        window.open("https://codepen.io/", "_blank", "noopener, noreferrer");
-        break;
-      case "jsfiddle":
-        window.open("https://jsfiddle.net/", "_blank", "noopener, noreferrer");
-        break;
-      case "create":
-        navigate(
-          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`
-        );
-        break;
       default:
         return null;
     }
@@ -141,161 +87,11 @@ const Applications = () => {
       });
   };
 
-  const handleSearchPlaceholder = () => {
-    switch (applicationTableFilterType) {
-      case "name":
-        return "Input application name";
-      case "description":
-        return "Input application description";
-      default:
-        return "Please select a search by type to search";
-    }
-  };
-
-  const handleSearchTypeChange = (value) => {
-    dispatch({
-      type: SET_APPLICATION_TABLE_FILTER,
-      payload: {
-        name: null,
-        type: null,
-        description: null,
-      },
-    });
-    dispatch({
-      type: SET_APPLICATION_TABLE_FILTER_TYPE,
-      payload: value,
-    });
-  };
-
-  const handleSearchValueChange = (e) => {
-    switch (applicationTableFilterType) {
-      case "name":
-        dispatch({
-          type: SET_APPLICATION_TABLE_FILTER,
-          payload: {
-            name: e.target.value,
-            type: applicationTableFilter.type,
-            description: applicationTableFilter.description,
-          },
-        });
-        break;
-      case "description":
-        dispatch({
-          type: SET_APPLICATION_TABLE_FILTER,
-          payload: {
-            name: applicationTableFilter.name,
-            type: applicationTableFilter.type,
-            description: e.target.value,
-          },
-        });
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleClearSearchResult = () => {
-    dispatch({
-      type: SET_APPLICATION_TABLE_FILTER,
-      payload: {
-        name: null,
-        type: null,
-        description: null,
-      },
-    });
-    dispatch({
-      type: SET_APPLICATION_TABLE_FILTER_TYPE,
-      payload: null,
-    });
-  };
-
-  const searchOptions = [
-    {
-      label: "Search by Name",
-      value: "name",
-    },
-    {
-      label: "Search by Description",
-      value: "description",
-    },
-  ];
-
   const pageContent = (
     <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_applications_btn_wrapper}>
-        <Tooltip
-          title={
-            !userInfoData.jwt ? "Please login with admin account to create" : ""
-          }
-        >
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => handleBtnOnClick("create")}
-            disabled={!userInfoData.jwt}
-          >
-            Create New
-          </Button>
-        </Tooltip>
-        <Button
-          type="default"
-          icon={<CodeSandboxOutlined />}
-          onClick={() => handleBtnOnClick("codesandbox")}
-        >
-          CodeSandBox
-        </Button>
-        <Button
-          type="default"
-          icon={<CodepenOutlined />}
-          onClick={() => handleBtnOnClick("codepen")}
-        >
-          CodePen
-        </Button>
-        <Button
-          type="default"
-          icon={<CodeOutlined />}
-          onClick={() => handleBtnOnClick("jsfiddle")}
-        >
-          JSFiddle
-        </Button>
-        <Select
-          className={style.lw_applications_search_type_selector}
-          placeholder="Search by"
-          options={searchOptions}
-          onChange={(value) => handleSearchTypeChange(value)}
-          onClear={handleClearSearchResult}
-          value={applicationTableFilterType}
-          allowClear
-        />
-        {applicationTableFilterType && (
-          <Input
-            className={style.lw_applications_search}
-            placeholder={handleSearchPlaceholder()}
-            onChange={(e) => handleSearchValueChange(e)}
-            value={
-              applicationTableFilterType === "name"
-                ? applicationTableFilter?.name
-                : applicationTableFilter?.description
-            }
-            disabled={!applicationTableFilterType}
-            enterButton
-            allowClear
-          />
-        )}
-        {applicationTableFilterType && (
-          <Button
-            danger
-            onClick={handleClearSearchResult}
-            disabled={
-              (applicationTableFilterType === "name" &&
-                !applicationTableFilter?.name) ||
-              (applicationTableFilterType === "description" &&
-                !applicationTableFilter?.description)
-            }
-          >
-            Clear Results
-          </Button>
-        )}
+        <ApplicationsTopBtns />
+        <ApplicationsFilter />
       </Space>
       <ApplicationsTable />
       <ApplicationsList />
