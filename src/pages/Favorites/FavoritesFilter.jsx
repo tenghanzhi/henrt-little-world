@@ -29,7 +29,7 @@ const FavoritesFilter = () => {
   };
 
   return (
-    <>
+    <div>
       <Input
         className={style.lw_favorite_search}
         placeholder="Input Favorite Name to search"
@@ -44,7 +44,7 @@ const FavoritesFilter = () => {
       >
         Clear Results
       </Button>
-    </>
+    </div>
   );
 };
 

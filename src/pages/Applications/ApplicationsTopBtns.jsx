@@ -17,6 +17,11 @@ const ApplicationsTopBtns = () => {
 
   const handleBtnOnClick = (type) => {
     switch (type.toLowerCase()) {
+      case "create":
+        navigate(
+          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`
+        );
+        break;
       case "codesandbox":
         window.open(
           "https://codesandbox.io/",
@@ -30,18 +35,13 @@ const ApplicationsTopBtns = () => {
       case "jsfiddle":
         window.open("https://jsfiddle.net/", "_blank", "noopener, noreferrer");
         break;
-      case "create":
-        navigate(
-          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/createApplications`
-        );
-        break;
       default:
         return null;
     }
   };
 
   return (
-    <>
+    <div>
       {userInfoData?.user?.username === "tenghanzhi" && (
         <Button
           type="primary"
@@ -76,7 +76,7 @@ const ApplicationsTopBtns = () => {
       >
         JSFiddle
       </Button>
-    </>
+    </div>
   );
 };
 

@@ -67,7 +67,7 @@ const ComponentsSorter = () => {
   ];
 
   return (
-    <>
+    <div>
       <div className={style.lw_components_sortor_title}>Sort Type:</div>
       <Select
         className={style.lw_components_search_type_selector}
@@ -84,7 +84,7 @@ const ComponentsSorter = () => {
         onChange={(value) => handleSortOrderChange(value)}
         value={componentTableSorter.order}
       />
-    </>
+    </div>
   );
 };
 

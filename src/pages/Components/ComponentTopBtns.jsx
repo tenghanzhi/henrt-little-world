@@ -12,6 +12,11 @@ const ComponentTopBtns = () => {
 
   const handleBtnOnClick = (type) => {
     switch (type.toLowerCase()) {
+      case "create":
+        navigate(
+          `/${categoryMatrix.COMPONENTS.toLowerCase()}/createComponents`
+        );
+        break;
       case "uiverse":
         window.open("https://uiverse.io/", "_blank", "noopener, noreferrer");
         break;
@@ -32,18 +37,27 @@ const ComponentTopBtns = () => {
           "noopener, noreferrer"
         );
         break;
-      case "create":
-        navigate(
-          `/${categoryMatrix.COMPONENTS.toLowerCase()}/createComponents`
+      case "antd":
+        window.open("https://ant.design/", "_blank", "noopener, noreferrer");
+        break;
+      case "mui":
+        window.open("https://mui.com/", "_blank", "noopener, noreferrer");
+        break;
+      case "fontawesome":
+        window.open(
+          "https://fontawesome.com/",
+          "_blank",
+          "noopener, noreferrer"
         );
         break;
+
       default:
         return null;
     }
   };
 
   return (
-    <>
+    <div>
       {userInfoData?.user?.username === "tenghanzhi" && (
         <Button
           type="primary"
@@ -87,7 +101,31 @@ const ComponentTopBtns = () => {
       >
         Flat UI Colors
       </Button>
-    </>
+      <Button
+        type="default"
+        icon={<Html5Outlined />}
+        onClick={() => handleBtnOnClick("antd")}
+        className={style.lw_component_topBtns_btns}
+      >
+        Ant Design
+      </Button>
+      <Button
+        type="default"
+        icon={<Html5Outlined />}
+        onClick={() => handleBtnOnClick("mui")}
+        className={style.lw_component_topBtns_btns}
+      >
+        MUI
+      </Button>
+      <Button
+        type="default"
+        icon={<Html5Outlined />}
+        onClick={() => handleBtnOnClick("fontawesome")}
+        className={style.lw_component_topBtns_btns}
+      >
+        Font Awesome
+      </Button>
+    </div>
   );
 };
 

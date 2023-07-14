@@ -166,7 +166,7 @@ const ComponentsFilter = () => {
   ];
 
   return (
-    <>
+    <div>
       <Select
         className={style.lw_components_search_type_selector}
         placeholder="Search by"
@@ -227,7 +227,7 @@ const ComponentsFilter = () => {
           Clear Results
         </Button>
       )}
-    </>
+    </div>
   );
 };
 

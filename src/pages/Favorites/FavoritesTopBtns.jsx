@@ -21,7 +21,7 @@ const FavoritesTopBtns = () => {
   };
 
   return (
-    <>
+    <div>
       {userInfoData?.user?.username === "tenghanzhi" && (
         <Button
           type="primary"
@@ -33,7 +33,7 @@ const FavoritesTopBtns = () => {
           Create New
         </Button>
       )}
-    </>
+    </div>
   );
 };
 

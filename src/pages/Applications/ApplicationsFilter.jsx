@@ -96,7 +96,7 @@ const ApplicationsFilter = () => {
   ];
 
   return (
-    <>
+    <div>
       <Select
         className={style.lw_applications_search_type_selector}
         placeholder="Search by"
@@ -135,7 +135,7 @@ const ApplicationsFilter = () => {
           Clear Results
         </Button>
       )}
-    </>
+    </div>
   );
 };
 

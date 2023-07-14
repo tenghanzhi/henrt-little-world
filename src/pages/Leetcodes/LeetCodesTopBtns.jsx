@@ -12,6 +12,9 @@ const LeetCodesTopBtns = () => {
 
   const handleBtnOnClick = (type) => {
     switch (type.toLowerCase()) {
+      case "create":
+        navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/createLeetCodes`);
+        break;
       case "lc en":
         window.open(
           "https://leetcode.com/problemset/all/",
@@ -33,9 +36,14 @@ const LeetCodesTopBtns = () => {
           "noopener, noreferrer"
         );
         break;
-      case "create":
-        navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/createLeetCodes`);
+      case "js":
+        window.open(
+          "https://baffinlee.com/leetcode-javascript/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
+
       default:
         return null;
     }
@@ -77,6 +85,14 @@ const LeetCodesTopBtns = () => {
         className={style.lw_leetcodes_topBtns_btns}
       >
         NeetCode
+      </Button>
+      <Button
+        type="default"
+        icon={<CodeOutlined />}
+        onClick={() => handleBtnOnClick("js")}
+        className={style.lw_leetcodes_topBtns_btns}
+      >
+        JS Solutions
       </Button>
     </>
   );
