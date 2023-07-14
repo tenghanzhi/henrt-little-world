@@ -44,21 +44,23 @@ const ComponentTopBtns = () => {
 
   return (
     <>
-      <Tooltip
-        title={
-          !userInfoData.jwt ? "Please login with admin account to create" : ""
-        }
-      >
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => handleBtnOnClick("create")}
-          disabled={!userInfoData.jwt}
-          className={style.lw_component_topBtns_btns}
+      {userInfoData?.user?.username === "tenghanzhi" && (
+        <Tooltip
+          title={
+            !userInfoData.jwt ? "Please login with admin account to create" : ""
+          }
         >
-          Create New
-        </Button>
-      </Tooltip>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => handleBtnOnClick("create")}
+            disabled={!userInfoData.jwt}
+            className={style.lw_component_topBtns_btns}
+          >
+            Create New
+          </Button>
+        </Tooltip>
+      )}
       <Button
         type="default"
         icon={<Html5Outlined />}
