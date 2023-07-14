@@ -1,24 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { message, Space, Button, Input, Tooltip } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { message, Space } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import FavoritesList from "./FavoritesList";
 import FavoritesTable from "./FavoritesTable";
+import FavoritesTopBtns from "./FavoritesTopBtns";
+import FavoritesFilter from "./FavoritesFilter";
 import LwLayout from "../common/LwLayout";
-import {
-  SET_FAVORITE_DATA,
-  SET_FAVORITE_TABLE_FILTER,
-} from "../../redux/constants";
+import { SET_FAVORITE_DATA } from "../../redux/constants";
 import style from "./style/Favorites.module.css";
 
 const Favorites = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userInfoData = useSelector((state) => state.userInfoData);
   const favoriteTablePagenation = useSelector(
     (state) => state.favoriteTablePagenation
   );
@@ -34,21 +29,6 @@ const Favorites = () => {
     const messageDuration = 2;
 
     switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_LOADING,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
-          duration: messageDuration,
-        });
-        break;
-      }
       case "error": {
         message.error({
           key: key,
@@ -95,67 +75,11 @@ const Favorites = () => {
       });
   };
 
-  const handleBtnOnClick = (type) => {
-    switch (type.toLowerCase()) {
-      case "create":
-        navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/createFavorites`);
-        break;
-      default:
-        return null;
-    }
-  };
-
-  const handleSearchValueChange = (e) => {
-    dispatch({
-      type: SET_FAVORITE_TABLE_FILTER,
-      payload: {
-        name: e.target.value,
-        type: favoriteTableFilter.type,
-      },
-    });
-  };
-
-  const handleClearSearchResult = () => {
-    dispatch({
-      type: SET_FAVORITE_TABLE_FILTER,
-      payload: {
-        name: null,
-        type: null,
-      },
-    });
-  };
-
   const pageContent = (
     <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_favorite_btn_wrapper}>
-        <Tooltip
-          title={
-            !userInfoData.jwt ? "Please login with admin account to create" : ""
-          }
-        >
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => handleBtnOnClick("create")}
-            disabled={!userInfoData.jwt}
-          >
-            Create New
-          </Button>
-        </Tooltip>
-        <Input
-          className={style.lw_favorite_search}
-          placeholder="Input Favorite Name to search"
-          onChange={(e) => handleSearchValueChange(e)}
-          value={favoriteTableFilter.name}
-          allowClear
-        />
-        <Button
-          danger
-          onClick={handleClearSearchResult}
-          disabled={!favoriteTableFilter.name}
-        >
-          Clear Results
-        </Button>
+        <FavoritesTopBtns />
+        <FavoritesFilter />
       </Space>
       <FavoritesTable />
       <FavoritesList />
