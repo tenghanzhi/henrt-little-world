@@ -1,6 +1,5 @@
 .lw_hometopnav_selector {
-  width: 10vw;
-  min-width: 120px;
+  width: 120px;
   line-height: 30px;
   display: inline-block;
 }
@@ -24,7 +23,7 @@
   padding-block: 0.7em;
   border: none;
   border-bottom: var(--border-height) solid var(--border-before-color);
-  width: 50vw;
+  width: 40vw;
   max-width: 900px;
 }
 
