@@ -1,3 +1,13 @@
+.lw_applications_wrapper {
+  width: 50vw;
+}
+
+@media (max-width: 820px) {
+  .lw_leetcodes_wrapper {
+    width: 50vw;
+  }
+}
+
 .lw_applications_form_btns {
   margin: 0px 5px;
 }

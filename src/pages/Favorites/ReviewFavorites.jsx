@@ -117,6 +117,7 @@ const ReviewFavorites = () => {
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+        className={style.lw_favorite_review_favorite_wrapper}
       >
         <Descriptions.Item label="Name" span={4}>
           {fetchedFavoriteData?.name?.toString()}
@@ -149,7 +150,7 @@ const ReviewFavorites = () => {
           </Descriptions.Item>
         )}
       </Descriptions>
-      <div className={style.lw_favorites_review_favoritee_wrapper}>
+      <div className={style.lw_favorites_review_favorite_btn_wrapper}>
         <Button
           className={style.lw_favorites_review_favorite_btns}
           type="default"

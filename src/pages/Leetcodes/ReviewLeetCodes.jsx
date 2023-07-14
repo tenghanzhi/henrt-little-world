@@ -121,6 +121,7 @@ const ReviewLeetCodes = () => {
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+        className={style.lw_leetcode_review_leetcode_description_wrapper}
       >
         <Descriptions.Item label="LeedCode Index" span={4}>
           {fetchedLeetcodeData?.leetcodeIndex?.toString()}
@@ -184,7 +185,7 @@ const ReviewLeetCodes = () => {
           </Descriptions.Item>
         )}
       </Descriptions>
-      <div className={style.lw_leetcodes_review_leetcode_wrapper}>
+      <div className={style.lw_leetcodes_review_leetcode_btn_wrapper}>
         <Button
           className={style.lw_leetcodes_review_leetcode_btns}
           type="default"

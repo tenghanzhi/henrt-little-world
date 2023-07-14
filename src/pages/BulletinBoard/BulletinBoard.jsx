@@ -295,7 +295,7 @@ const Portfolio = () => {
         {userInfoData.jwt && (
           <div className={style.lw_bulletinboard_content_leavemessage_wrapper}>
             <Input.TextArea
-              className={style.lw_bulletinboard_content_item}
+              className={style.lw_bulletinboard_content_leavemessage_textarea}
               value={messageValue}
               onChange={(e) => handleMessageAreaOnChange(e.target.value)}
               allowClear
@@ -319,7 +319,9 @@ const Portfolio = () => {
           dataSource={bulletinboardData.data}
           size="large"
           renderItem={(item, index) => (
-            <List.Item>
+            <List.Item
+              className={style.lw_bulletinboard_content_message_wrapper}
+            >
               <List.Item.Meta
                 avatar={
                   <Avatar
@@ -432,7 +434,7 @@ const Portfolio = () => {
                 Sort by Date on:
               </div>
               <Select
-                defaultValue="Descent"
+                value={bulletinboardTableSorter.order}
                 options={[
                   {
                     value: ":desc",
@@ -453,14 +455,18 @@ const Portfolio = () => {
                 defaultPageSize={
                   bulletinboardTablePagenation?.size
                     ? bulletinboardTablePagenation.size
-                    : 20
+                    : 25
                 }
                 defaultCurrent={
                   bulletinboardTablePagenation?.current
                     ? bulletinboardTablePagenation.current
                     : 1
                 }
-                total={bulletinboardData.meta?.pagination?.total}
+                total={
+                  bulletinboardData.meta?.pagination?.total
+                    ? bulletinboardData.meta?.pagination?.total
+                    : 0
+                }
                 onChange={(current, size) =>
                   handlePaginationChange(current, size)
                 }

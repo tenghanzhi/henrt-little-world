@@ -273,6 +273,7 @@ const FavoritesForm = (props) => {
   return (
     <Form
       {...formLayout}
+      className={style.lw_favorites_wrapper}
       name="favorite"
       form={form}
       onFinish={onFinish}
@@ -288,7 +289,6 @@ const FavoritesForm = (props) => {
             }
           : {}
       }
-      shouldUpdate
     >
       <Form.Item
         name={["data", "name"]}

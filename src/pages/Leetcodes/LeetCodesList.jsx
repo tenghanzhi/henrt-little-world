@@ -58,11 +58,13 @@ const LeetCodesList = () => {
         showQuickJumper: true,
         defaultPageSize: leetcodeTablePagenation?.size
           ? leetcodeTablePagenation.size
-          : 20,
+          : 25,
         defaultCurrent: leetcodeTablePagenation?.current
           ? leetcodeTablePagenation.current
           : 1,
-        total: leetcodeData?.meta?.pagination?.total,
+        total: leetcodeData?.meta?.pagination?.total
+          ? leetcodeData?.meta?.pagination?.total
+          : 0,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       dataSource={leetcodeData?.data}

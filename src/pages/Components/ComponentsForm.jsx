@@ -330,6 +330,7 @@ const ComponentsForm = (props) => {
   return (
     <Form
       {...formLayout}
+      className={style.lw_components_wrapper}
       name="components"
       form={form}
       onFinish={onFinish}
@@ -346,7 +347,6 @@ const ComponentsForm = (props) => {
             }
           : {}
       }
-      shouldUpdate
     >
       <Form.Item
         name={["data", "name"]}

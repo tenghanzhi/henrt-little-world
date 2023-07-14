@@ -11,7 +11,8 @@ import {
   SET_SHOW_HOME_SEARCH,
   SET_SHOW_HOME_LINK,
   SET_SHOW_HOME_MENU,
-  SET_SHOW_HOME_QUICK_LINK
+  SET_SHOW_HOME_QUICK_LINK,
+  SET_SHOW_HOME_FOOTER,
 } from "../../redux/constants";
 import style from "./style/Login.module.css";
 
@@ -155,6 +156,7 @@ const Login = () => {
             dispatch({ type: SET_SHOW_HOME_LINK, payload: true });
             dispatch({ type: SET_SHOW_HOME_MENU, payload: true });
             dispatch({ type: SET_SHOW_HOME_QUICK_LINK, payload: true });
+            dispatch({ type: SET_SHOW_HOME_FOOTER, payload: true });
             handleMessage(
               messageKey,
               "success",
@@ -198,7 +200,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className={style.lw_login_wrapper}>
       <Typography.Title level={5} className={style.lw_login_header}>
         {isSignup ? "Create New User" : "Login to Henry's Little World"}
       </Typography.Title>
@@ -213,7 +215,6 @@ const Login = () => {
           span: 16,
         }}
         onFinish={onFinish}
-        shouldUpdate
       >
         <Form.Item
           label={loginMethod === "username" ? "Username" : "E-Mail"}
@@ -325,7 +326,7 @@ const Login = () => {
           )}
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 };
 

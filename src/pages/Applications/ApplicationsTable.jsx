@@ -287,17 +287,21 @@ const ApplicationsTable = () => {
     <Table
       className={style.lw_application_table_wrapper}
       columns={columns}
+      rowKey="id"
       dataSource={applicationData?.data}
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
+        pageSizeOptions: [25, 50, 75, 100],
         defaultPageSize: applicationTablePagenation?.size
           ? applicationTablePagenation.size
-          : 20,
+          : 25,
         defaultCurrent: applicationTablePagenation?.current
           ? applicationTablePagenation.current
           : 1,
-        total: applicationData?.meta?.pagination?.total,
+        total: applicationData?.meta?.pagination?.total
+          ? applicationData?.meta?.pagination?.total
+          : 0,
         onChange: (current, size) => handlePaginationChange(current, size),
         className: style.lw_applications_table_pagination,
       }}

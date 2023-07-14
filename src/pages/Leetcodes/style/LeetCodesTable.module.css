@@ -1,3 +1,17 @@
+.lw_leetcodes_table_wrapper {
+  padding: 1px;
+  border: 2px solid #171717;
+  box-shadow: 0px 0px 20px 1px #171717;
+  border-radius: 10px;
+}
+
+.lw_leetcodes_table_wrapper:hover {
+  border: 2px solid #212121;
+  box-shadow: 0px 0px 20px 1px #212121;
+  border-radius: 10px;
+  transition: all 0.5s ease-out;
+}
+
 @media (max-width: 800px) {
   .lw_leetcodes_table_wrapper {
     display: none;

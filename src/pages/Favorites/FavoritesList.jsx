@@ -55,11 +55,13 @@ const FavoritesList = () => {
         showQuickJumper: true,
         defaultPageSize: favoriteTablePagenation?.size
           ? favoriteTablePagenation.size
-          : 20,
+          : 25,
         defaultCurrent: favoriteTablePagenation?.current
           ? favoriteTablePagenation.current
           : 1,
-        total: favoriteData?.meta?.pagination?.total,
+        total: favoriteData?.meta?.pagination?.total
+          ? favoriteData?.meta?.pagination?.total
+          : 0,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       dataSource={favoriteData?.data}

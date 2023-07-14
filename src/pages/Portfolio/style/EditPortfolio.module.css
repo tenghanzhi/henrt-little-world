@@ -1,3 +1,13 @@
+.lw_portfolio_wrapper {
+  width: 50vw;
+}
+
+@media (max-width: 820px) {
+  .lw_portfolio_wrapper {
+    width: 100vw;
+  }
+}
+
 .lw_edit_protfolio_btns {
   margin: 0px 5px;
 }

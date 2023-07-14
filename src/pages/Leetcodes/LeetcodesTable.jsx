@@ -385,17 +385,20 @@ const LeetCodesTable = () => {
     <Table
       className={style.lw_leetcodes_table_wrapper}
       columns={columns}
+      rowKey="id"
       dataSource={leetcodeData?.data}
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
         defaultPageSize: leetcodeTablePagenation?.size
           ? leetcodeTablePagenation.size
-          : 20,
+          : 25,
         defaultCurrent: leetcodeTablePagenation?.current
           ? leetcodeTablePagenation.current
           : 1,
-        total: leetcodeData?.meta?.pagination?.total,
+        total: leetcodeData?.meta?.pagination?.total
+          ? leetcodeData?.meta?.pagination?.total
+          : 0,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       onChange={(val, filter, sorter, extra) =>

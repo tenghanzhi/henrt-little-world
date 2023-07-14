@@ -198,6 +198,7 @@ const ReviewComponents = () => {
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+        className={style.lw_components_review_components_wrapper}
       >
         <Descriptions.Item label="Name" span={4}>
           {fetchedComponentData?.name?.toString()}
@@ -260,7 +261,7 @@ const ReviewComponents = () => {
           {codeCardContentList[codeTabactiveKey]}
         </Card>
       </ConfigProvider>
-      <div className={style.lw_components_review_components_wrapper}>
+      <div className={style.lw_components_review_components_btn_wrapper}>
         <Button
           className={style.lw_components_review_components_btns}
           type="default"

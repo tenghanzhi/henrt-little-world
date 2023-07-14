@@ -347,6 +347,7 @@ const LeetCodesForm = (props) => {
   return (
     <Form
       {...formLayout}
+      className={style.lw_leetcodes_wrapper}
       name="leetcode"
       form={form}
       onFinish={onFinish}
@@ -366,7 +367,6 @@ const LeetCodesForm = (props) => {
             }
           : {}
       }
-      shouldUpdate
     >
       <Form.Item
         name={["data", "leetcodeIndex"]}

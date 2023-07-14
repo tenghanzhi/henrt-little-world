@@ -35,6 +35,7 @@ import {
   SET_SHOW_HOME_LINK,
   SET_SHOW_HOME_MENU,
   SET_SHOW_HOME_QUICK_LINK,
+  SET_SHOW_HOME_FOOTER,
 } from "./constants";
 
 const token = localStorage.getItem("token");
@@ -45,6 +46,7 @@ const showHomeSearch = localStorage.getItem("showHomeSearch");
 const showHomeLink = localStorage.getItem("showHomeLink");
 const showHomeMenu = localStorage.getItem("showHomeMenu");
 const showHomeQuickLink = localStorage.getItem("showHomeQuickLink");
+const showHomeFooter = localStorage.getItem("showHomeFooter");
 
 const initialState = {
   portfolioData: { data: [], meta: {} },
@@ -53,7 +55,7 @@ const initialState = {
   selectedLeetcodeId: null,
   leetcodeTablePagenation: {
     current: 1,
-    size: 20,
+    size: 25,
   },
   leetcodeTableSorter: {
     sort: "leetcodeIndex",
@@ -70,7 +72,7 @@ const initialState = {
   selectedApplicationId: null,
   applicationTablePagenation: {
     current: 1,
-    size: 20,
+    size: 25,
   },
   applicationTableSorter: {
     sort: "type",
@@ -102,7 +104,7 @@ const initialState = {
   selectedFavoriteId: null,
   favoriteTablePagenation: {
     current: 1,
-    size: 20,
+    size: 25,
   },
   favoriteTableSorter: {
     sort: "name",
@@ -115,7 +117,7 @@ const initialState = {
   bulletinboardData: { data: [], meta: {} },
   bulletinboardTablePagenation: {
     current: 1,
-    size: 20,
+    size: 25,
   },
   bulletinboardTableSorter: {
     sort: "createdAt",
@@ -144,6 +146,7 @@ const initialState = {
   showHomeLink: showHomeLink?.toString() === "false" ? false : true,
   showHomeMenu: showHomeMenu?.toString() === "false" ? false : true,
   showHomeQuickLink: showHomeQuickLink?.toString() === "false" ? false : true,
+  showHomeFooter: showHomeFooter?.toString() === "false" ? false : true,
 };
 
 export default function reducer(state = initialState, action) {
@@ -228,6 +231,9 @@ export default function reducer(state = initialState, action) {
     case SET_SHOW_HOME_QUICK_LINK:
       localStorage.setItem("showHomeQuickLink", action.payload);
       return { ...state, showHomeQuickLink: action.payload };
+    case SET_SHOW_HOME_FOOTER:
+      localStorage.setItem("showHomeFooter", action.payload);
+      return { ...state, showHomeFooter: action.payload };
     default:
       return state;
   }

@@ -200,7 +200,7 @@ const EditPortfolio = () => {
   };
 
   const loadedPageContent = (
-    <>
+    <div className={style.lw_portfolio_wrapper}>
       <Typography.Title level={4} className={style.lw_edit_protfolio_header}>
         Update Experience on {fetchedPortfolioData.name}
       </Typography.Title>
@@ -224,7 +224,6 @@ const EditPortfolio = () => {
           },
         }}
         form={form}
-        shouldUpdate
       >
         <Form.Item
           name={["data", "name"]}
@@ -346,7 +345,7 @@ const EditPortfolio = () => {
           )}
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 
   const loadingPageContent = <Skeleton />;

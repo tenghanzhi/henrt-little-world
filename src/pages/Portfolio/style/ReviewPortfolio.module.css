@@ -7,11 +7,11 @@
   margin: 0px 5px;
 }
 
-.lw_portfolio_review_portfolio_wrapper {
+.lw_portfolio_review_portfolio_btn_wrapper {
   text-align: center;
 }
 
-.lw_portfolio_review_outter {
+.lw_portfolio_review_wrapper {
   margin: 15px 10px 0px 10px;
 }
 
@@ -31,6 +31,16 @@
 
 .lw_portfolio_review_card {
   background-color: #212121;
+  border: 2px solid #171717;
+  box-shadow: 0px 0px 20px 1px #171717;
+  border-radius: 10px;
+}
+
+.lw_portfolio_review_card:hover {
+  border: 2px solid #212121;
+  box-shadow: 0px 0px 20px 1px #212121;
+  border-radius: 10px;
+  transition: all 0.5s ease-out;
 }
 
 @media (max-width: 800px) {
@@ -38,7 +48,7 @@
     margin: 0px 0px;
   }
 
-  .lw_portfolio_review_outter {
+  .lw_portfolio_review_wrapper {
     margin: 15px -10px 0px -10px;
   }
 }

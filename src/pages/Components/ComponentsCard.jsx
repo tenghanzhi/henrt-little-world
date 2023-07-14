@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Card, Button, Tooltip } from "antd";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
-import style from "./style/ComponentsCard.module.css";
-
 import { SET_SELECTED_COMPONENT_ID } from "../../redux/constants";
+import style from "./style/ComponentsCard.module.css";
 
 const ComponentsCard = (props) => {
   const data = props?.data ? props.data : null;

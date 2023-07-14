@@ -122,6 +122,7 @@ const ReviewApplication = () => {
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
         }}
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+        className={style.lw_applications_review_applications_wrapper}
       >
         <Descriptions.Item label="Application Name" span={4}>
           {fetchedApplicationData?.name?.toString()}
@@ -192,7 +193,7 @@ const ReviewApplication = () => {
           </Descriptions.Item>
         )}
       </Descriptions>
-      <div className={style.lw_applications_review_applications_wrapper}>
+      <div className={style.lw_applications_review_applications_btn_wrapper}>
         <Button
           className={style.lw_applications_review_applications_btns}
           type="default"

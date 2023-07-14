@@ -9,6 +9,7 @@ import {
   SET_SHOW_HOME_LINK,
   SET_SHOW_HOME_MENU,
   SET_SHOW_HOME_QUICK_LINK,
+  SET_SHOW_HOME_FOOTER,
 } from "../../redux/constants";
 import style from "./style/HomePageLayoutSetup.module.css";
 
@@ -20,6 +21,7 @@ const HomePageLayoutSetup = () => {
   const showHomeLink = useSelector((state) => state.showHomeLink);
   const showHomeMenu = useSelector((state) => state.showHomeMenu);
   const showHomeQuickLink = useSelector((state) => state.showHomeQuickLink);
+  const showHomeFooter = useSelector((state) => state.showHomeFooter);
 
   const handleTogleChange = (type, value) => {
     switch (type) {
@@ -40,6 +42,9 @@ const HomePageLayoutSetup = () => {
         break;
       case "quickLink":
         dispatch({ type: SET_SHOW_HOME_QUICK_LINK, payload: value });
+        break;
+      case "footer":
+        dispatch({ type: SET_SHOW_HOME_FOOTER, payload: value });
         break;
       default:
         break;
@@ -113,6 +118,17 @@ const HomePageLayoutSetup = () => {
           checked={showHomeCard}
           size="small"
           onChange={(value) => handleTogleChange("card", value)}
+        />
+      </ul>
+      <ul>
+        <div className={style.lw_homePageLayoutSetup_title}>Footer:</div>
+        <Switch
+          checkedChildren="On"
+          unCheckedChildren="Off"
+          className={style.lw_lw_homePageLayoutSetup_title_switch}
+          checked={showHomeFooter}
+          size="small"
+          onChange={(value) => handleTogleChange("footer", value)}
         />
       </ul>
     </>

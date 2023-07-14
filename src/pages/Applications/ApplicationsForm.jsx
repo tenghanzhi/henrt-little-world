@@ -307,6 +307,7 @@ const ApplicationsForm = (props) => {
   return (
     <Form
       {...formLayout}
+      className={style.lw_applications_wrapper}
       name="application"
       form={form}
       onFinish={onFinish}
@@ -323,7 +324,6 @@ const ApplicationsForm = (props) => {
             }
           : {}
       }
-      shouldUpdate
     >
       <Form.Item
         name={["data", "name"]}

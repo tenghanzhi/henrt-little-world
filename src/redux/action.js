@@ -35,6 +35,7 @@ import {
   SET_SHOW_HOME_LINK,
   SET_SHOW_HOME_MENU,
   SET_SHOW_HOME_QUICK_LINK,
+  SET_SHOW_HOME_FOOTER,
 } from "./constants.js";
 
 //Portfolio
@@ -295,5 +296,12 @@ export function setShowHomeQuickLink(showHomeQuickLink) {
   return {
     type: SET_SHOW_HOME_QUICK_LINK,
     showHomeQuickLink,
+  };
+}
+
+export function setShowHomeFooter(showHomeFooter) {
+  return {
+    type: SET_SHOW_HOME_FOOTER,
+    showHomeFooter,
   };
 }

@@ -487,7 +487,7 @@ const Components = () => {
       </Space>
       <Space direction="horizontal" wrap align="center">
         {componentData?.data?.map((data) => (
-          <ComponentsCard data={data} />
+          <ComponentsCard data={data} key={data.id} />
         ))}
       </Space>
       <Space className={style.lw_components_pagination_wrapper} wrap>
@@ -495,14 +495,18 @@ const Components = () => {
           showSizeChanger={true}
           showQuickJumper={true}
           defaultPageSize={
-            componentTablePagenation?.size ? componentTablePagenation.size : 10
+            componentTablePagenation?.size ? componentTablePagenation.size : 25
           }
           defaultCurrent={
             componentTablePagenation?.current
               ? componentTablePagenation.current
               : 1
           }
-          total={componentData.meta?.pagination?.total}
+          total={
+            componentData.meta?.pagination?.total
+              ? componentData.meta?.pagination?.total
+              : 0
+          }
           onChange={(current, size) => handlePaginationChange(current, size)}
           className={style.lw_components_table_pagination}
         />

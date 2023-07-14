@@ -23,6 +23,7 @@ const QuickLink = () => {
             type="link"
             block
             onClick={() => handleQuickLinkClick(item.attributes.link)}
+            key={item.id}
           >
             {item.attributes.name ? item.attributes.name : item.attributes.link}
           </Button>

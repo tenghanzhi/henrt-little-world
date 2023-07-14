@@ -2,6 +2,16 @@
   width: 400px;
   height: 680px;
   background-color: #212121;
+  border: 2px solid #171717;
+  box-shadow: 0px 0px 20px 1px #171717;
+  border-radius: 10px;
+}
+
+.lw_portfolio_card:hover {
+  border: 2px solid #212121;
+  box-shadow: 0px 0px 20px 1px rgba(255, 255, 255, 0.65);
+  border-radius: 10px;
+  transition: all 0.5s ease-out;
 }
 
 .lw_portfolio_card_title_icon {

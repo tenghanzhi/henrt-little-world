@@ -24,7 +24,8 @@ import {
   SET_SHOW_HOME_SEARCH,
   SET_SHOW_HOME_LINK,
   SET_SHOW_HOME_MENU,
-  SET_SHOW_HOME_QUICK_LINK
+  SET_SHOW_HOME_QUICK_LINK,
+  SET_SHOW_HOME_FOOTER,
 } from "../../redux/constants";
 import style from "./style/ReviewUser.module.css";
 
@@ -139,6 +140,7 @@ const ReviewUser = () => {
     dispatch({ type: SET_SHOW_HOME_LINK, payload: true });
     dispatch({ type: SET_SHOW_HOME_MENU, payload: true });
     dispatch({ type: SET_SHOW_HOME_QUICK_LINK, payload: true });
+    dispatch({ type: SET_SHOW_HOME_FOOTER, payload: true });
     dispatch({
       type: SET_USER_INFO_DATA,
       payload: {
@@ -574,215 +576,229 @@ const ReviewUser = () => {
   );
 
   return (
-    <Descriptions
-      bordered
-      column={4}
-      labelStyle={{
-        color: globalStyleMatrix.COLORS.titleFontColor,
-        fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
-      }}
-      contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
-    >
-      <Descriptions.Item label="Username" span={4}>
-        {userInfoData?.user?.username?.toString()}
-      </Descriptions.Item>
-      <Descriptions.Item label="E-Mail" span={4}>
-        {userInfoData?.user?.email?.toString()}
-      </Descriptions.Item>
-      <Descriptions.Item label="Created At" span={4}>
-        {userInfoData?.user?.createdAt?.toString().slice(0, 10)}
-      </Descriptions.Item>
-      <Descriptions.Item label="Updated At" span={4}>
-        {userInfoData?.user?.updatedAt?.toString().slice(0, 10)}
-      </Descriptions.Item>
-      <Descriptions.Item label="Account Confirmation" span={4}>
-        {userInfoData?.user?.confirmed ? "Yes" : "No"}
-      </Descriptions.Item>
-      <Descriptions.Item label="Account Status" span={4}>
-        {userInfoData?.user?.blocked ? "Blocked" : "Normal"}
-      </Descriptions.Item>
-      {userInfoData?.user?.lastName && (
-        <Descriptions.Item label="Last Name" span={4}>
-          {userInfoData?.user?.lastName?.toString()}
+    <div className={style.lw_user_reviewuser_wrapper}>
+      <Descriptions
+        bordered
+        column={4}
+        labelStyle={{
+          color: globalStyleMatrix.COLORS.titleFontColor,
+          fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
+        }}
+        contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+      >
+        <Descriptions.Item label="Username" span={4}>
+          {userInfoData?.user?.username?.toString()}
         </Descriptions.Item>
-      )}
-      {userInfoData?.user?.firstName && (
-        <Descriptions.Item label="First Name" span={4}>
-          {userInfoData?.user?.firstName?.toString()}
+        <Descriptions.Item label="E-Mail" span={4}>
+          {userInfoData?.user?.email?.toString()}
         </Descriptions.Item>
-      )}
-      {userInfoData?.user?.phoneNumber && (
-        <Descriptions.Item label="Phone Number" span={4}>
-          {userInfoData?.user?.phoneNumber?.toString()}
+        <Descriptions.Item label="Created At" span={4}>
+          {userInfoData?.user?.createdAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-      )}
-      {userInfoData?.user?.description && (
-        <Descriptions.Item label="Description" span={4}>
-          {userInfoData?.user?.description?.toString()}
+        <Descriptions.Item label="Updated At" span={4}>
+          {userInfoData?.user?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-      )}
-      {quickLinkData.data.length !== 0 && (
-        <Descriptions.Item label="Quick Links" span={4}>
-          <List
-            dataSource={quickLinkData.data}
-            renderItem={(item) => (
-              <List.Item>
-                {item.id !== editItemId && (
-                  <>
-                    <span>{`${item.attributes.order}. ${
-                      item.attributes.name ? `${item.attributes.name}: ` : ""
-                    }${item.attributes.link}`}</span>
-                    <span>
-                      <Button
-                        type="text"
-                        size="small"
-                        onClick={() => {
-                          handleQuickLinkBtnOnClick("edit", item);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <Popconfirm
-                        title={`Confirm to delete this quick link?`}
-                        placement="top"
-                        onConfirm={() => {
-                          handleQuickLinkBtnOnClick("delete", item);
-                        }}
-                        okText="Confirm"
-                        cancelText="Cancel"
-                        disabled={isUploading}
-                      >
-                        <Button type="text" size="small">
-                          Delete
+        <Descriptions.Item label="Account Confirmation" span={4}>
+          {userInfoData?.user?.confirmed ? "Yes" : "No"}
+        </Descriptions.Item>
+        <Descriptions.Item label="Account Status" span={4}>
+          {userInfoData?.user?.blocked ? "Blocked" : "Normal"}
+        </Descriptions.Item>
+        {userInfoData?.user?.lastName && (
+          <Descriptions.Item label="Last Name" span={4}>
+            {userInfoData?.user?.lastName?.toString()}
+          </Descriptions.Item>
+        )}
+        {userInfoData?.user?.firstName && (
+          <Descriptions.Item label="First Name" span={4}>
+            {userInfoData?.user?.firstName?.toString()}
+          </Descriptions.Item>
+        )}
+        {userInfoData?.user?.phoneNumber && (
+          <Descriptions.Item label="Phone Number" span={4}>
+            {userInfoData?.user?.phoneNumber?.toString()}
+          </Descriptions.Item>
+        )}
+        {userInfoData?.user?.description && (
+          <Descriptions.Item label="Description" span={4}>
+            {userInfoData?.user?.description?.toString()}
+          </Descriptions.Item>
+        )}
+        {quickLinkData.data.length !== 0 && (
+          <Descriptions.Item label="Quick Links" span={4}>
+            <List
+              dataSource={quickLinkData.data}
+              renderItem={(item) => (
+                <List.Item>
+                  {item.id !== editItemId && (
+                    <>
+                      <span>{`${item.attributes.order}. ${
+                        item.attributes.name ? `${item.attributes.name}: ` : ""
+                      }${item.attributes.link}`}</span>
+                      <span>
+                        <Button
+                          type="text"
+                          size="small"
+                          onClick={() => {
+                            handleQuickLinkBtnOnClick("edit", item);
+                          }}
+                        >
+                          Edit
                         </Button>
-                      </Popconfirm>
-                    </span>
-                  </>
-                )}
-                {item.id === editItemId && (
-                  <Form name="editQuickLink">
-                    <Form.Item label="Link Name" name="name">
-                      <Input
-                        onChange={(e) =>
-                          handleEditQuickLinkOnChange("name", e.target.value)
-                        }
-                        defaultValue={item.attributes.name}
-                        value={editItemName}
-                      />
-                    </Form.Item>
-                    <Form.Item
-                      label="Link"
-                      name="link"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input link",
-                        },
-                      ]}
-                    >
-                      <Input
-                        onChange={(e) =>
-                          handleEditQuickLinkOnChange("link", e.target.value)
-                        }
-                        defaultValue={item.attributes.link}
-                        value={editItemLink}
-                      />
-                    </Form.Item>
-                    <Form.Item
-                      label="Order"
-                      name="order"
-                      rules={[
-                        {
-                          required: true,
-                          message:
-                            "Please input a number for order, default is 0.",
-                        },
-                      ]}
-                    >
-                      <InputNumber
-                        onChange={(value) =>
-                          handleEditQuickLinkOnChange("order", value)
-                        }
-                        defaultValue={item.attributes.order}
-                        value={editItemOrder}
-                      />
-                    </Form.Item>
-                    <Form.Item shouldUpdate>
-                      {() => (
-                        <>
-                          <Button
-                            className={style.lw_user_reviewuser_action_buttons}
-                            type="default"
-                            onClick={() => handleQuickLinkBtnOnClick("cancel")}
-                          >
-                            Cancel
+                        <Popconfirm
+                          title={`Confirm to delete this quick link?`}
+                          placement="top"
+                          onConfirm={() => {
+                            handleQuickLinkBtnOnClick("delete", item);
+                          }}
+                          okText="Confirm"
+                          cancelText="Cancel"
+                          disabled={isUploading}
+                        >
+                          <Button type="text" size="small">
+                            Delete
                           </Button>
-                          <Button
-                            className={style.lw_user_reviewuser_action_buttons}
-                            type="primary"
-                            onClick={() => handleQuickLinkBtnOnClick("update")}
-                            disabled={
-                              (item.attributes.name.toString() ===
-                                editItemName.toString() &&
-                                item.attributes.link.toString() ===
-                                  editItemLink.toString() &&
-                                item.attributes.order.toString() ===
-                                  editItemOrder.toString()) ||
-                              isUploading ||
-                              !editItemLink ||
-                              !editItemOrder
-                            }
-                          >
-                            Submit
-                          </Button>
-                        </>
-                      )}
-                    </Form.Item>
-                  </Form>
-                )}
-              </List.Item>
-            )}
-          />
+                        </Popconfirm>
+                      </span>
+                    </>
+                  )}
+                  {item.id === editItemId && (
+                    <Form
+                      name="editQuickLink"
+                      initialValues={{
+                        name: item.attributes.name,
+                        link: item.attributes.link,
+                        order: item.attributes.order,
+                      }}
+                    >
+                      <Form.Item label="Link Name" name="name">
+                        <Input
+                          onChange={(e) =>
+                            handleEditQuickLinkOnChange("name", e.target.value)
+                          }
+                          value={editItemName}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        label="Link"
+                        name="link"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please input link",
+                          },
+                        ]}
+                      >
+                        <Input
+                          onChange={(e) =>
+                            handleEditQuickLinkOnChange("link", e.target.value)
+                          }
+                          value={editItemLink}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        label="Order"
+                        name="order"
+                        rules={[
+                          {
+                            required: true,
+                            message:
+                              "Please input a number for order, default is 0.",
+                          },
+                        ]}
+                      >
+                        <InputNumber
+                          onChange={(value) =>
+                            handleEditQuickLinkOnChange("order", value)
+                          }
+                          value={editItemOrder}
+                        />
+                      </Form.Item>
+                      <Form.Item shouldUpdate>
+                        {() => (
+                          <>
+                            <Button
+                              className={
+                                style.lw_user_reviewuser_action_buttons
+                              }
+                              type="default"
+                              onClick={() =>
+                                handleQuickLinkBtnOnClick("cancel")
+                              }
+                            >
+                              Cancel
+                            </Button>
+                            <Button
+                              className={
+                                style.lw_user_reviewuser_action_buttons
+                              }
+                              type="primary"
+                              onClick={() =>
+                                handleQuickLinkBtnOnClick("update")
+                              }
+                              disabled={
+                                (item.attributes.name.toString() ===
+                                  editItemName.toString() &&
+                                  item.attributes.link.toString() ===
+                                    editItemLink.toString() &&
+                                  item.attributes.order.toString() ===
+                                    editItemOrder.toString()) ||
+                                isUploading ||
+                                !editItemLink ||
+                                !editItemOrder
+                              }
+                            >
+                              Submit
+                            </Button>
+                          </>
+                        )}
+                      </Form.Item>
+                    </Form>
+                  )}
+                </List.Item>
+              )}
+            />
+          </Descriptions.Item>
+        )}
+        <Descriptions.Item label="Actions" span={4}>
+          <Popover
+            title="Create quick link"
+            placement="bottom"
+            trigger="click"
+            content={createQuickLinkContent}
+            open={openCreateQuickLink}
+            onOpenChange={handleOpenCreateQuickLink}
+          >
+            <Button className={style.lw_user_reviewuser_action_buttons}>
+              Create Quick Link
+            </Button>
+          </Popover>
+          <Popover
+            title="Input new password"
+            placement="bottom"
+            trigger="click"
+            content={changePasswordContent}
+            open={openChangePassword}
+            onOpenChange={handleOpenChangePassword}
+          >
+            <Button className={style.lw_user_reviewuser_action_buttons}>
+              Change Password
+            </Button>
+          </Popover>
+          <Popconfirm
+            description="Confirm to logout"
+            placement="bottom"
+            okText="Confirm"
+            cancelText="Cancel"
+            onConfirm={handleLogoutOnClick}
+          >
+            <Button className={style.lw_user_reviewuser_action_buttons}>
+              Logout
+            </Button>
+          </Popconfirm>
         </Descriptions.Item>
-      )}
-      <Descriptions.Item label="Actions" span={4}>
-        <Popover
-          title="Create quick link"
-          placement="bottom"
-          trigger="click"
-          content={createQuickLinkContent}
-          open={openCreateQuickLink}
-          onOpenChange={handleOpenCreateQuickLink}
-        >
-          <Button className={style.lw_user_reviewuser_action_buttons}>
-            Create Quick Link
-          </Button>
-        </Popover>
-        <Popover
-          title="Input new password"
-          placement="bottom"
-          trigger="click"
-          content={changePasswordContent}
-          open={openChangePassword}
-          onOpenChange={handleOpenChangePassword}
-        >
-          <Button className={style.lw_user_reviewuser_action_buttons}>
-            Change Password
-          </Button>
-        </Popover>
-        <Popconfirm
-          description="Confirm to logout"
-          placement="bottom"
-          okText="Confirm"
-          cancelText="Cancel"
-          onConfirm={handleLogoutOnClick}
-        >
-          <Button className={style.lw_user_reviewuser_action_buttons}>
-            Logout
-          </Button>
-        </Popconfirm>
-      </Descriptions.Item>
-    </Descriptions>
+      </Descriptions>
+    </div>
   );
 };
 

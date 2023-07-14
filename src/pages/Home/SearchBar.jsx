@@ -42,7 +42,7 @@ const SearchBar = () => {
     >
       <input name="ie" value="UTF-8" type="hidden" />
       <input
-        class={style.lw_hometopnav_search_input}
+        className={style.lw_hometopnav_search_input}
         placeholder="Search"
         name="q"
         type="text"
@@ -51,7 +51,7 @@ const SearchBar = () => {
         className={style.lw_hometopnav_search_btn}
         type="text"
         htmlType="submit"
-        icon={<SearchOutlined class={style.lw_hometopnav_search_icon} />}
+        icon={<SearchOutlined className={style.lw_hometopnav_search_icon} />}
         size="large"
       />
     </form>
@@ -65,7 +65,7 @@ const SearchBar = () => {
       target="_blank"
     >
       <input
-        class={style.lw_hometopnav_search_input}
+        className={style.lw_hometopnav_search_input}
         placeholder="Search"
         name="search"
         type="text"
@@ -74,7 +74,7 @@ const SearchBar = () => {
         className={style.lw_hometopnav_search_btn}
         type="text"
         htmlType="submit"
-        icon={<SearchOutlined class={style.lw_hometopnav_search_icon} />}
+        icon={<SearchOutlined className={style.lw_hometopnav_search_icon} />}
         size="large"
       />
     </form>
@@ -88,7 +88,7 @@ const SearchBar = () => {
       target="_blank"
     >
       <input
-        class={style.lw_hometopnav_search_input}
+        className={style.lw_hometopnav_search_input}
         placeholder="Search"
         name="search_query"
         type="text"
@@ -97,7 +97,7 @@ const SearchBar = () => {
         className={style.lw_hometopnav_search_btn}
         type="text"
         htmlType="submit"
-        icon={<SearchOutlined class={style.lw_hometopnav_search_icon} />}
+        icon={<SearchOutlined className={style.lw_hometopnav_search_icon} />}
         size="large"
       />
     </form>
@@ -111,7 +111,7 @@ const SearchBar = () => {
       target="_blank"
     >
       <input
-        class={style.lw_hometopnav_search_input}
+        className={style.lw_hometopnav_search_input}
         placeholder="Search"
         name="keyword"
         type="text"
@@ -120,7 +120,7 @@ const SearchBar = () => {
         className={style.lw_hometopnav_search_btn}
         type="text"
         htmlType="submit"
-        icon={<SearchOutlined class={style.lw_hometopnav_search_icon} />}
+        icon={<SearchOutlined className={style.lw_hometopnav_search_icon} />}
         size="large"
       />
     </form>
@@ -134,7 +134,7 @@ const SearchBar = () => {
       target="_blank"
     >
       <input
-        class={style.lw_hometopnav_search_input}
+        className={style.lw_hometopnav_search_input}
         placeholder="Search"
         name="search_text"
         type="text"
@@ -144,7 +144,7 @@ const SearchBar = () => {
         className={style.lw_hometopnav_search_btn}
         type="text"
         htmlType="submit"
-        icon={<SearchOutlined class={style.lw_hometopnav_search_icon} />}
+        icon={<SearchOutlined className={style.lw_hometopnav_search_icon} />}
         size="large"
       />
     </form>
@@ -154,7 +154,7 @@ const SearchBar = () => {
     <>
       <Select
         className={style.lw_hometopnav_selector}
-        defaultValue={searchType}
+        value={searchType}
         bordered={false}
         onChange={handleSearchTypeChange}
         options={searchTypeOptions}

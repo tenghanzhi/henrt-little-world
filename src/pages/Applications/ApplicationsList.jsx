@@ -61,11 +61,13 @@ const ApplicationsList = () => {
         showQuickJumper: true,
         defaultPageSize: applicationTablePagenation?.size
           ? applicationTablePagenation.size
-          : 20,
+          : 25,
         defaultCurrent: applicationTablePagenation?.current
           ? applicationTablePagenation.current
           : 1,
-        total: applicationData?.meta?.pagination?.total,
+        total: applicationData?.meta?.pagination?.total
+          ? applicationData?.meta?.pagination?.total
+          : 0,
         onChange: (current, size) => handlePaginationChange(current, size),
       }}
       dataSource={applicationData?.data}

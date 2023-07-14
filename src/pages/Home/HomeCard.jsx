@@ -179,12 +179,12 @@ const HomeCard = (props) => {
 
   return (
     <>
-      <div class={style.lw_homecard_flipcard}>
-        <div class={style.lw_homecard_flipcard_inner}>
-          <div class={style.lw_homecard_flipcard_frontSide}>
+      <div className={style.lw_homecard_flipcard}>
+        <div className={style.lw_homecard_flipcard_inner}>
+          <div className={style.lw_homecard_flipcard_frontSide}>
             {getCardCover()}
           </div>
-          <div class={style.lw_homecard_flipcard_backSide}>
+          <div className={style.lw_homecard_flipcard_backSide}>
             <Card
               className={style.lw_homecard}
               title={cardTitle}

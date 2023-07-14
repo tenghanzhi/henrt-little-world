@@ -260,17 +260,20 @@ const FavoritesTable = () => {
     <Table
       className={style.lw_favorites_table_wrapper}
       columns={columns}
+      rowKey="id"
       dataSource={favoriteData?.data}
       pagination={{
         showSizeChanger: true,
         showQuickJumper: true,
         defaultPageSize: favoriteTablePagenation?.size
           ? favoriteTablePagenation.size
-          : 20,
+          : 25,
         defaultCurrent: favoriteTablePagenation?.current
           ? favoriteTablePagenation.current
           : 1,
-        total: favoriteData?.meta?.pagination?.total,
+        total: favoriteData?.meta?.pagination?.total
+          ? favoriteData?.meta?.pagination?.total
+          : 0,
         onChange: (current, size) => handlePaginationChange(current, size),
         className: style.lw_favorites_table_pagination,
       }}

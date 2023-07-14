@@ -143,7 +143,7 @@ const ReviewPortfolio = () => {
           </Row>
         </Space>
         <Descriptions
-          className={style.lw_portfolio_review_outter}
+          className={style.lw_portfolio_review_wrapper}
           labelStyle={{
             color: globalStyleMatrix.COLORS.titleFontColor,
             fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
@@ -192,7 +192,7 @@ const ReviewPortfolio = () => {
           )}
         </Descriptions>
       </Card>
-      <div className={style.lw_portfolio_review_portfolio_wrapper}>
+      <div className={style.lw_portfolio_review_portfolio_btn_wrapper}>
         <Button
           className={style.lw_portfolio_review_portfolio_btns}
           type="default"
