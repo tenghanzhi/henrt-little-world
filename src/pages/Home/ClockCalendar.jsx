@@ -5,7 +5,7 @@ const ClockCalendar = () => {
   const [hours, setHours] = useState("00");
   const [minutes, setMinutes] = useState("00");
   const [seconds, setSeconds] = useState("00");
-  const [date, setDate] = useState("Hello World!");
+  const [date, setDate] = useState("Hello!");
 
   useEffect(() => {
     const intervalId = setInterval(() => {

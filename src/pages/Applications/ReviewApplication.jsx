@@ -75,7 +75,6 @@ const ReviewApplication = () => {
 
   const handleGetApplicationDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
-    handleMessage(messageKey, "loading", messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
       const response = await fetch(
