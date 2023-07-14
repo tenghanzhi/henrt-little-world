@@ -23,21 +23,6 @@ const EditApplication = () => {
     const messageDuration = 2;
 
     switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: content,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
       case "error": {
         message.error({
           key: key,
@@ -53,8 +38,6 @@ const EditApplication = () => {
 
   const handleGetLeetcodeDataById = () => {
     const messageKey = "editPageLoadingMessage";
-
-    handleMessage(messageKey, "loading", messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
       const response = await fetch(
@@ -95,9 +78,7 @@ const EditApplication = () => {
 
   const loadingPageContent = <Skeleton />;
 
-  const pageContent = isPageLoading
-    ? loadingPageContent
-    : loadedPageContent;
+  const pageContent = isPageLoading ? loadingPageContent : loadedPageContent;
 
   return <LwLayout content={pageContent} />;
 };

@@ -43,21 +43,6 @@ const ReviewLeetCodes = () => {
     const messageDuration = 2;
 
     switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: content,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
       case "error": {
         message.error({
           key: key,
@@ -73,8 +58,6 @@ const ReviewLeetCodes = () => {
 
   const handleGetLeetcodeDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
-
-    handleMessage(messageKey, "loading", messageMatrix.LOADING_MESSAGE_LOADING);
 
     (async () => {
       const response = await fetch(

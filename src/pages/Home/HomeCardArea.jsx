@@ -49,21 +49,6 @@ const HomeCardArea = () => {
     const messageDuration = 2;
 
     switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_LOADING,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
-          duration: messageDuration,
-        });
-        break;
-      }
       case "error": {
         message.error({
           key: key,
