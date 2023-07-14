@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, Tooltip } from "antd";
+import { Button } from "antd";
 import { PlusOutlined, CodeOutlined } from "@ant-design/icons";
 import categoryMatrix from "../common/categoryMatrix";
 import style from "./style/LeetCodesTopBtns.module.css";
@@ -44,21 +44,15 @@ const LeetCodesTopBtns = () => {
   return (
     <>
       {userInfoData?.user?.username === "tenghanzhi" && (
-        <Tooltip
-          title={
-            !userInfoData.jwt ? "Please login with admin account to create" : ""
-          }
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => handleBtnOnClick("create")}
+          disabled={!userInfoData.jwt}
+          className={style.lw_leetcodes_topBtns_btns}
         >
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => handleBtnOnClick("create")}
-            disabled={!userInfoData.jwt}
-            className={style.lw_leetcodes_topBtns_btns}
-          >
-            Create New
-          </Button>
-        </Tooltip>
+          Create New
+        </Button>
       )}
       <Button
         type="default"
