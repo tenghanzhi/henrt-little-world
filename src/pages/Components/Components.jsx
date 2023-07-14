@@ -83,16 +83,24 @@ const Components = () => {
   const handleBtnOnClick = (type) => {
     switch (type.toLowerCase()) {
       case "uiverse":
-        window.open("https://uiverse.io/");
+        window.open("https://uiverse.io/", "_blank", "noopener, noreferrer");
         break;
       case "angrytools":
-        window.open("https://angrytools.com/");
+        window.open(
+          "https://angrytools.com/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "animista":
-        window.open("https://animista.net/");
+        window.open("https://animista.net/", "_blank", "noopener, noreferrer");
         break;
       case "flatuicolors":
-        window.open("https://flatuicolors.com/");
+        window.open(
+          "https://flatuicolors.com/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "create":
         navigate(

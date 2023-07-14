@@ -70,7 +70,11 @@ const ApplicationsTable = () => {
   const handleActionBtnOnClick = (type, record) => {
     switch (type.toLowerCase()) {
       case "source":
-        window.open(record?.attributes?.source?.toString());
+        window.open(
+          record?.attributes?.source?.toString(),
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "review":
         dispatch({ type: SET_SELECTED_APPLICATION_ID, payload: record.id });

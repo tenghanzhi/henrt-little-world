@@ -11,7 +11,7 @@ const QuickLink = () => {
     if (link.indexOf("//") < 0) {
       url = "http://" + link;
     } else url = link;
-    window.open(url);
+    window.open(url, "_blank", "noopener, noreferrer");
   };
 
   return (

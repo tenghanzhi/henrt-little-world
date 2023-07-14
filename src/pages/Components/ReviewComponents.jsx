@@ -207,7 +207,11 @@ const ReviewComponents = () => {
           <Button
             type="link"
             onClick={() => {
-              window.open(fetchedComponentData?.source?.toString());
+              window.open(
+                fetchedComponentData?.source?.toString(),
+                "_blank",
+                "noopener, noreferrer"
+              );
             }}
             disabled={!fetchedComponentData?.source}
           >

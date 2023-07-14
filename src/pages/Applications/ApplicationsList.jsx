@@ -25,7 +25,11 @@ const ApplicationsList = () => {
   const handleActionBtnOnClick = (type, item) => {
     switch (type.toLowerCase()) {
       case "source":
-        window.open(item?.attributes?.source?.toString());
+        window.open(
+          item?.attributes?.source?.toString(),
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "review":
         dispatch({ type: SET_SELECTED_APPLICATION_ID, payload: item.id });

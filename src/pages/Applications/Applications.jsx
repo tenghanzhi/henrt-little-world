@@ -82,13 +82,17 @@ const Applications = () => {
   const handleBtnOnClick = (type) => {
     switch (type.toLowerCase()) {
       case "codesandbox":
-        window.open("https://codesandbox.io/");
+        window.open(
+          "https://codesandbox.io/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "codepen":
-        window.open("https://codepen.io/");
+        window.open("https://codepen.io/", "_blank", "noopener, noreferrer");
         break;
       case "jsfiddle":
-        window.open("https://jsfiddle.net/");
+        window.open("https://jsfiddle.net/", "_blank", "noopener, noreferrer");
         break;
       case "create":
         navigate(

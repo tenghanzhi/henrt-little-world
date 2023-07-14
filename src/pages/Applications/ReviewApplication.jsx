@@ -135,7 +135,11 @@ const ReviewApplication = () => {
             <Button
               type="link"
               onClick={() => {
-                window.open(fetchedApplicationData?.source?.toString());
+                window.open(
+                  fetchedApplicationData?.source?.toString(),
+                  "_blank",
+                  "noopener, noreferrer"
+                );
               }}
             >
               Check

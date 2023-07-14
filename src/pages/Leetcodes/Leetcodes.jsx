@@ -77,13 +77,25 @@ const LeetCodes = () => {
   const handleBtnOnClick = (type) => {
     switch (type.toLowerCase()) {
       case "lc en":
-        window.open("https://leetcode.com/problemset/all/");
+        window.open(
+          "https://leetcode.com/problemset/all/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "lc cn":
-        window.open("https://leetcode.cn/problemset/all/");
+        window.open(
+          "https://leetcode.cn/problemset/all/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "nc":
-        window.open("https://neetcode.io/roadmap");
+        window.open(
+          "https://neetcode.io/roadmap",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "create":
         navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/createLeetCodes`);

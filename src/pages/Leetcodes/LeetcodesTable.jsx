@@ -100,7 +100,7 @@ const LeetCodesTable = () => {
   const handleActionBtnOnClick = (type, record) => {
     switch (type.toLowerCase()) {
       case "check":
-        window.open(record.attributes.link);
+        window.open(record.attributes.link, "_blank", "noopener, noreferrer");
         break;
       case "review":
         dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: record.id });

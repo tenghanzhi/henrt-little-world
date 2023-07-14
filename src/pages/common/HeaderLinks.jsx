@@ -14,19 +14,39 @@ const HeaderLinks = () => {
   const onRightBtnsClick = (type) => {
     switch (type.toLowerCase()) {
       case "leetcode":
-        window.open("https://leetcode.cn/u/tenghanzhi/");
+        window.open(
+          "https://leetcode.cn/u/tenghanzhi/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "stackoverflow":
-        window.open("https://stackoverflow.com/users/21989386/hanzhi-teng");
+        window.open(
+          "https://stackoverflow.com/users/21989386/hanzhi-teng",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "github":
-        window.open("https://github.com/tenghanzhi");
+        window.open(
+          "https://github.com/tenghanzhi",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "linkedin":
-        window.open("https://www.linkedin.com/in/tenghanzhi/");
+        window.open(
+          "https://www.linkedin.com/in/tenghanzhi/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       case "bilibili":
-        window.open("https://space.bilibili.com/914572");
+        window.open(
+          "https://space.bilibili.com/914572",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       default:
         break;

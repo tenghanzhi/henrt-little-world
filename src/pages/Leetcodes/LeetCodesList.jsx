@@ -26,7 +26,7 @@ const LeetCodesList = () => {
   const handleActionBtnOnClick = (type, item) => {
     switch (type.toLowerCase()) {
       case "check":
-        window.open(item.attributes.link);
+        window.open(item.attributes.link, "_blank", "noopener, noreferrer");
         break;
       case "review":
         dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: item.id });

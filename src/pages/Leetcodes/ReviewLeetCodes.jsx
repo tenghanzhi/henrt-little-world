@@ -145,7 +145,11 @@ const ReviewLeetCodes = () => {
           <Button
             type="link"
             onClick={() => {
-              window.open(fetchedLeetcodeData?.link?.toString());
+              window.open(
+                fetchedLeetcodeData?.link?.toString(),
+                "_blank",
+                "noopener, noreferrer"
+              );
             }}
           >
             Check

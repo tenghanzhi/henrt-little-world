@@ -129,7 +129,11 @@ const ReviewFavorites = () => {
           <Button
             type="link"
             onClick={() => {
-              window.open(fetchedFavoriteData?.link?.toString());
+              window.open(
+                fetchedFavoriteData?.link?.toString(),
+                "_blank",
+                "noopener, noreferrer"
+              );
             }}
           >
             Check
