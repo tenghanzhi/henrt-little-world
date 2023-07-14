@@ -20,6 +20,19 @@ const SearchBar = () => {
       label: "Wikipedia",
     },
     {
+      value: "stackoverflow",
+      label: "StackOverflow",
+    },
+    {
+      value: "leetcode",
+      label: "LeetCode",
+    },
+    {
+      value: "opensourceui",
+      label: "OpenSourceUI",
+    },
+
+    {
       value: "youtube",
       label: "YouTube",
     },
@@ -43,7 +56,7 @@ const SearchBar = () => {
       <input name="ie" value="UTF-8" type="hidden" />
       <input
         className={style.lw_hometopnav_search_input}
-        placeholder="Search"
+        placeholder="Search on Google"
         name="q"
         type="text"
       />
@@ -66,7 +79,82 @@ const SearchBar = () => {
     >
       <input
         className={style.lw_hometopnav_search_input}
-        placeholder="Search"
+        placeholder="Search on Wikipedia"
+        name="search"
+        type="text"
+      />
+      <Button
+        className={style.lw_hometopnav_search_btn}
+        type="text"
+        htmlType="submit"
+        icon={<SearchOutlined className={style.lw_hometopnav_search_icon} />}
+        size="large"
+      />
+    </form>
+  );
+
+  const stackOverflowSearchForm = (
+    <form
+      className={style.lw_hometopnav_search}
+      action="https://stackoverflow.com/search"
+      method="get"
+      target="_blank"
+    >
+      <input
+        className={style.lw_hometopnav_search_input}
+        placeholder="Search on Stack Overflow"
+        name="q"
+        type="text"
+      />
+      <Button
+        className={style.lw_hometopnav_search_btn}
+        type="text"
+        htmlType="submit"
+        icon={<SearchOutlined className={style.lw_hometopnav_search_icon} />}
+        size="large"
+      />
+    </form>
+  );
+
+  const leetCodeSearchForm = (
+    <form
+      className={style.lw_hometopnav_search}
+      action="https://leetcode.cn/problemset/all/"
+      method="get"
+      target="_blank"
+    >
+      <input
+        className={style.lw_hometopnav_search_input}
+        placeholder="Search on LeetCode"
+        name="search"
+        type="text"
+      />
+      <input
+        className={style.lw_hometopnav_search_input}
+        name="page"
+        value={1}
+        type="hidden"
+      />
+      <Button
+        className={style.lw_hometopnav_search_btn}
+        type="text"
+        htmlType="submit"
+        icon={<SearchOutlined className={style.lw_hometopnav_search_icon} />}
+        size="large"
+      />
+    </form>
+  );
+
+  const openSourceUiSearchForm = (
+    <form
+      className={style.lw_hometopnav_search}
+      action="https://uiverse.io/all"
+      method="get"
+      target="_blank"
+    >
+      <input
+        className={style.lw_hometopnav_search_input}
+        placeholder="Search on Open Source UI"
         name="search"
         type="text"
       />
@@ -89,7 +177,7 @@ const SearchBar = () => {
     >
       <input
         className={style.lw_hometopnav_search_input}
-        placeholder="Search"
+        placeholder="Search on YouTube"
         name="search_query"
         type="text"
       />
@@ -112,7 +200,7 @@ const SearchBar = () => {
     >
       <input
         className={style.lw_hometopnav_search_input}
-        placeholder="Search"
+        placeholder="Search on Bili Bili"
         name="keyword"
         type="text"
       />
@@ -135,7 +223,7 @@ const SearchBar = () => {
     >
       <input
         className={style.lw_hometopnav_search_input}
-        placeholder="Search"
+        placeholder="Search on Douban Movie"
         name="search_text"
         type="text"
       />
@@ -162,6 +250,9 @@ const SearchBar = () => {
       />
       {searchType === "google" && googleSearchForm}
       {searchType === "wikipedia" && wikipediaSearchForm}
+      {searchType === "stackoverflow" && stackOverflowSearchForm}
+      {searchType === "leetcode" && leetCodeSearchForm}
+      {searchType === "opensourceui" && openSourceUiSearchForm}
       {searchType === "youtube" && youTubeSearchForm}
       {searchType === "bilibili" && biliBiliSearchForm}
       {searchType === "douban" && doubanSearchForm}
