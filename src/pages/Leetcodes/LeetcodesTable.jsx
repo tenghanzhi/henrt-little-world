@@ -8,9 +8,9 @@ import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
 import categoryMatrix from "../common/categoryMatrix";
 import {
   SET_SELECTED_LEETCODE_ID,
-  SET_LEETCOD_TABLE_PAGENATION,
-  SET_LEETCOD_TABLE_SORTER,
-  SET_LEETCOD_TABLE_FILTER,
+  SET_LEETCODE_TABLE_PAGENATION,
+  SET_LEETCODE_TABLE_SORTER,
+  SET_LEETCODE_TABLE_FILTER,
 } from "../../redux/constants";
 import style from "./style/LeetCodesTable.module.css";
 
@@ -117,7 +117,7 @@ const LeetCodesTable = () => {
 
   const handlePaginationChange = (current, size) => {
     dispatch({
-      type: SET_LEETCOD_TABLE_PAGENATION,
+      type: SET_LEETCODE_TABLE_PAGENATION,
       payload: { current: current, size: size },
     });
   };
@@ -128,12 +128,12 @@ const LeetCodesTable = () => {
     else if (sorter?.order === "descend") order = ":desc";
     else order = null;
     dispatch({
-      type: SET_LEETCOD_TABLE_SORTER,
+      type: SET_LEETCODE_TABLE_SORTER,
       payload: { sort: sorter.field, order: order },
     });
 
     dispatch({
-      type: SET_LEETCOD_TABLE_FILTER,
+      type: SET_LEETCODE_TABLE_FILTER,
       payload: {
         difficulty:
           filter?.difficulty?.length > 0 ? filter?.difficulty[0] : null,

@@ -3,10 +3,10 @@ import {
   SET_SELECTED_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
-  SET_LEETCOD_TABLE_PAGENATION,
-  SET_LEETCOD_TABLE_SORTER,
-  SET_LEETCOD_TABLE_FILTER,
-  SET_LEETCOD_TABLE_FILTER_TYPE,
+  SET_LEETCODE_TABLE_PAGENATION,
+  SET_LEETCODE_TABLE_SORTER,
+  SET_LEETCODE_TABLE_FILTER,
+  SET_LEETCODE_TABLE_FILTER_TYPE,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
@@ -159,13 +159,13 @@ export default function reducer(state = initialState, action) {
       return { ...state, leetcodeData: action.payload };
     case SET_SELECTED_LEETCODE_ID:
       return { ...state, selectedLeetcodeId: action.payload };
-    case SET_LEETCOD_TABLE_PAGENATION:
+    case SET_LEETCODE_TABLE_PAGENATION:
       return { ...state, leetcodeTablePagenation: action.payload };
-    case SET_LEETCOD_TABLE_SORTER:
+    case SET_LEETCODE_TABLE_SORTER:
       return { ...state, leetcodeTableSorter: action.payload };
-    case SET_LEETCOD_TABLE_FILTER:
+    case SET_LEETCODE_TABLE_FILTER:
       return { ...state, leetcodeTableFilter: action.payload };
-    case SET_LEETCOD_TABLE_FILTER_TYPE:
+    case SET_LEETCODE_TABLE_FILTER_TYPE:
       return { ...state, leetcodeTableFilterType: action.payload };
     case SET_APPLICATION_DATA:
       return { ...state, applicationData: action.payload };

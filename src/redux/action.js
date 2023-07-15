@@ -3,10 +3,10 @@ import {
   SET_SELECTED_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
-  SET_LEETCOD_TABLE_PAGENATION,
-  SET_LEETCOD_TABLE_SORTER,
-  SET_LEETCOD_TABLE_FILTER,
-  SET_LEETCOD_TABLE_FILTER_TYPE,
+  SET_LEETCODE_TABLE_PAGENATION,
+  SET_LEETCODE_TABLE_SORTER,
+  SET_LEETCODE_TABLE_FILTER,
+  SET_LEETCODE_TABLE_FILTER_TYPE,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
   SET_APPLICATION_TABLE_PAGENATION,
@@ -70,28 +70,28 @@ export function setEditLeetcodeId(selectedLeetcodeId) {
 
 export function setLeetcodeTablePagenation(leetcodeTablePagenation) {
   return {
-    type: SET_LEETCOD_TABLE_PAGENATION,
+    type: SET_LEETCODE_TABLE_PAGENATION,
     leetcodeTablePagenation,
   };
 }
 
 export function setLeetcodeTableSorter(leetcodeTableSorter) {
   return {
-    type: SET_LEETCOD_TABLE_SORTER,
+    type: SET_LEETCODE_TABLE_SORTER,
     leetcodeTableSorter,
   };
 }
 
 export function setLeetcodeTableFilter(leetcodeTableFilter) {
   return {
-    type: SET_LEETCOD_TABLE_FILTER,
+    type: SET_LEETCODE_TABLE_FILTER,
     leetcodeTableFilter,
   };
 }
 
 export function setLeetcodeTableFilterType(leetcodeTableFilterType) {
   return {
-    type: SET_LEETCOD_TABLE_FILTER_TYPE,
+    type: SET_LEETCODE_TABLE_FILTER_TYPE,
     leetcodeTableFilterType,
   };
 }

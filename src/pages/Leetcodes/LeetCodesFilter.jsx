@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Input, InputNumber, Select } from "antd";
 import {
-  SET_LEETCOD_TABLE_FILTER,
-  SET_LEETCOD_TABLE_FILTER_TYPE,
+  SET_LEETCODE_TABLE_FILTER,
+  SET_LEETCODE_TABLE_FILTER_TYPE,
 } from "../../redux/constants";
 import style from "./style/LeetCodesFilter.module.css";
 
@@ -27,7 +27,7 @@ const LeetCodesFilter = () => {
 
   const handleSearchTypeChange = (value) => {
     dispatch({
-      type: SET_LEETCOD_TABLE_FILTER,
+      type: SET_LEETCODE_TABLE_FILTER,
       payload: {
         difficulty: null,
         type: null,
@@ -36,7 +36,7 @@ const LeetCodesFilter = () => {
       },
     });
     dispatch({
-      type: SET_LEETCOD_TABLE_FILTER_TYPE,
+      type: SET_LEETCODE_TABLE_FILTER_TYPE,
       payload: value,
     });
   };
@@ -45,7 +45,7 @@ const LeetCodesFilter = () => {
     switch (leetcodeTableFilterType) {
       case "index":
         dispatch({
-          type: SET_LEETCOD_TABLE_FILTER,
+          type: SET_LEETCODE_TABLE_FILTER,
           payload: {
             difficulty: leetcodeTableFilter.difficulty,
             type: leetcodeTableFilter.type,
@@ -56,7 +56,7 @@ const LeetCodesFilter = () => {
         break;
       case "title":
         dispatch({
-          type: SET_LEETCOD_TABLE_FILTER,
+          type: SET_LEETCODE_TABLE_FILTER,
           payload: {
             difficulty: leetcodeTableFilter.difficulty,
             type: leetcodeTableFilter.type,
@@ -72,7 +72,7 @@ const LeetCodesFilter = () => {
 
   const handleClearSearchResult = () => {
     dispatch({
-      type: SET_LEETCOD_TABLE_FILTER,
+      type: SET_LEETCODE_TABLE_FILTER,
       payload: {
         difficulty: null,
         type: null,
@@ -81,7 +81,7 @@ const LeetCodesFilter = () => {
       },
     });
     dispatch({
-      type: SET_LEETCOD_TABLE_FILTER_TYPE,
+      type: SET_LEETCODE_TABLE_FILTER_TYPE,
       payload: null,
     });
   };

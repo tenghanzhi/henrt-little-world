@@ -7,7 +7,7 @@ import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
 import categoryMatrix from "../common/categoryMatrix";
 import {
   SET_SELECTED_LEETCODE_ID,
-  SET_LEETCOD_TABLE_PAGENATION,
+  SET_LEETCODE_TABLE_PAGENATION,
 } from "../../redux/constants";
 import style from "./style/LeetCodesList.module.css";
 
@@ -43,7 +43,7 @@ const LeetCodesList = () => {
 
   const handlePaginationChange = (current, size) => {
     dispatch({
-      type: SET_LEETCOD_TABLE_PAGENATION,
+      type: SET_LEETCODE_TABLE_PAGENATION,
       payload: { current: current, size: size },
     });
   };
