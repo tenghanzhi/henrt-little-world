@@ -8,6 +8,7 @@ import ApplicationsTable from "./ApplicationsTable";
 import ApplicationsList from "./ApplicationsList";
 import ApplicationsTopBtns from "./ApplicationsTopBtns";
 import ApplicationsFilter from "./ApplicationsFilter";
+import ApplicationsTableColsController from "./ApplicationsTableColsController";
 import LwLayout from "../common/LwLayout";
 import { SET_APPLICATION_DATA } from "../../redux/constants";
 import style from "./style/Applications.module.css";
@@ -91,6 +92,7 @@ const Applications = () => {
     <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_applications_btn_wrapper}>
         <ApplicationsTopBtns />
+        <ApplicationsTableColsController />
         <ApplicationsFilter />
       </Space>
       <ApplicationsTable />

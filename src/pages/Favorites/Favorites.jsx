@@ -8,6 +8,7 @@ import FavoritesList from "./FavoritesList";
 import FavoritesTable from "./FavoritesTable";
 import FavoritesTopBtns from "./FavoritesTopBtns";
 import FavoritesFilter from "./FavoritesFilter";
+import FavoriteTableColsController from "./FavoriteTableColsController";
 import LwLayout from "../common/LwLayout";
 import { SET_FAVORITE_DATA } from "../../redux/constants";
 import style from "./style/Favorites.module.css";
@@ -79,6 +80,7 @@ const Favorites = () => {
     <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_favorite_btn_wrapper}>
         <FavoritesTopBtns />
+        <FavoriteTableColsController />
         <FavoritesFilter />
       </Space>
       <FavoritesTable />

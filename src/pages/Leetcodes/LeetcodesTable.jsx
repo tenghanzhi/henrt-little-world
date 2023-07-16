@@ -19,6 +19,9 @@ const LeetCodesTable = () => {
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoData);
   const leetcodeData = useSelector((state) => state.leetcodeData);
+  const leetcodeTableColumns = useSelector(
+    (state) => state.leetcodeTableColumns
+  );
   const leetcodeTablePagenation = useSelector(
     (state) => state.leetcodeTablePagenation
   );
@@ -242,6 +245,7 @@ const LeetCodesTable = () => {
       },
       sorter: (a, b) =>
         a.attributes?.leetcodeIndex - b.attributes?.leetcodeIndex,
+      show: leetcodeTableColumns.index,
     },
     {
       title: "Title",
@@ -258,6 +262,7 @@ const LeetCodesTable = () => {
         );
       },
       sorter: (a, b) => a.attributes?.title?.localeCompare(b.attributes?.title),
+      show: leetcodeTableColumns.title,
     },
     {
       title: "Created At",
@@ -269,6 +274,7 @@ const LeetCodesTable = () => {
       sorter: (a, b) =>
         moment(a.attributes.createdAt).unix() -
         moment(b.attributes.createdAt).unix(),
+      show: leetcodeTableColumns.createdAt,
     },
     {
       title: "Updated At",
@@ -280,6 +286,7 @@ const LeetCodesTable = () => {
       sorter: (a, b) =>
         moment(a.attributes.updatedAt).unix() -
         moment(b.attributes.updatedAt).unix(),
+      show: leetcodeTableColumns.updatedAt,
     },
     {
       title: "Completed Date",
@@ -289,6 +296,7 @@ const LeetCodesTable = () => {
       sorter: (a, b) =>
         moment(a.attributes.firstCompletedDate).unix() -
         moment(b.attributes.firstCompletedDate).unix(),
+      show: leetcodeTableColumns.firstCompletedDate,
     },
     {
       title: "Difficulty",
@@ -311,6 +319,7 @@ const LeetCodesTable = () => {
       ],
       onFilter: (value, record) =>
         record?.attributes?.difficulty?.toLowerCase().indexOf(value) === 0,
+      show: leetcodeTableColumns.difficulty,
     },
     {
       title: "Type",
@@ -340,6 +349,7 @@ const LeetCodesTable = () => {
           .toLowerCase()
           .includes(value.replace(/\s/g, ""));
       },
+      show: leetcodeTableColumns.type,
     },
     {
       title: "Action",
@@ -378,8 +388,9 @@ const LeetCodesTable = () => {
           </Tooltip>
         </Space>
       ),
+      show: leetcodeTableColumns.action,
     },
-  ];
+  ].filter((item) => item.show);
 
   return (
     <Table

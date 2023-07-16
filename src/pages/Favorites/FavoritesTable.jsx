@@ -19,6 +19,9 @@ const FavoritesTable = () => {
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoData);
   const favoriteData = useSelector((state) => state.favoriteData);
+  const favoriteTableColumns = useSelector(
+    (state) => state.favoriteTableColumns
+  );
   const favoriteTablePagenation = useSelector(
     (state) => state.favoriteTablePagenation
   );
@@ -148,6 +151,7 @@ const FavoritesTable = () => {
         );
       },
       sorter: (a, b) => a.attributes?.name?.localeCompare(b.attributes?.name),
+      show: favoriteTableColumns.name,
     },
     {
       title: "Type",
@@ -172,6 +176,7 @@ const FavoritesTable = () => {
         favoriteTableFilter.type ? favoriteTableFilter.type : "",
       ],
       sorter: (a, b) => a.attributes?.type?.localeCompare(b.attributes?.type),
+      show: favoriteTableColumns.type,
     },
     {
       title: "Created At",
@@ -183,6 +188,7 @@ const FavoritesTable = () => {
       sorter: (a, b) =>
         moment(a.attributes.createdAt).unix() -
         moment(b.attributes.createdAt).unix(),
+      show: favoriteTableColumns.createdAt,
     },
     {
       title: "Updated At",
@@ -194,6 +200,7 @@ const FavoritesTable = () => {
       sorter: (a, b) =>
         moment(a.attributes.updatedAt).unix() -
         moment(b.attributes.updatedAt).unix(),
+      show: favoriteTableColumns.updatedAt,
     },
     {
       title: "Description",
@@ -215,6 +222,7 @@ const FavoritesTable = () => {
         showTitle: (_, record) =>
           record.attributes.description ? true : false,
       },
+      show: favoriteTableColumns.description,
     },
     {
       title: "Action",
@@ -253,8 +261,9 @@ const FavoritesTable = () => {
           </Tooltip>
         </Space>
       ),
+      show: favoriteTableColumns.action,
     },
-  ];
+  ].filter((item) => item.show);
 
   return (
     <Table

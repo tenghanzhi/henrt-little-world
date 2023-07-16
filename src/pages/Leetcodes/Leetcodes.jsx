@@ -8,6 +8,7 @@ import LeetCodesTable from "./LeetCodesTable";
 import LeetCodesList from "./LeetCodesList";
 import LeetCodesTopBtns from "./LeetCodesTopBtns";
 import LeetCodesFilter from "./LeetCodesFilter";
+import LeetCodesTableColsController from "./LeetCodesTableColsController";
 import LwLayout from "../common/LwLayout";
 import { SET_LEETCODE_DATA } from "../../redux/constants";
 import style from "./style/LeetCodes.module.css";
@@ -87,6 +88,7 @@ const LeetCodes = () => {
     <Space direction="vertical" wrap align="start">
       <Space wrap className={style.lw_leetcode_btn_wrapper}>
         <LeetCodesTopBtns />
+        <LeetCodesTableColsController />
         <LeetCodesFilter />
       </Space>
       <LeetCodesTable className={style.lw_leetcode_table} />

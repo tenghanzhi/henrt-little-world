@@ -3,12 +3,14 @@ import {
   SET_SELECTED_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
+  SET_LEETCODE_TABLE_COLUMNS,
   SET_LEETCODE_TABLE_PAGENATION,
   SET_LEETCODE_TABLE_SORTER,
   SET_LEETCODE_TABLE_FILTER,
   SET_LEETCODE_TABLE_FILTER_TYPE,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
+  SET_APPLICATION_TABLE_COLUMNS,
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
   SET_APPLICATION_TABLE_FILTER,
@@ -21,6 +23,7 @@ import {
   SET_COMPONENT_TABLE_FILTER_TYPE,
   SET_FAVORITE_DATA,
   SET_SELECTED_FAVORITE_ID,
+  SET_FAVORITE_TABLE_COLUMNS,
   SET_FAVORITE_TABLE_PAGENATION,
   SET_FAVORITE_TABLE_SORTER,
   SET_FAVORITE_TABLE_FILTER,
@@ -57,6 +60,16 @@ const initialState = {
     current: 1,
     size: 25,
   },
+  leetcodeTableColumns: {
+    index: true,
+    title: true,
+    createdAt: true,
+    updatedAt: true,
+    firstCompletedDate: true,
+    difficulty: true,
+    type: true,
+    action: true,
+  },
   leetcodeTableSorter: {
     sort: "leetcodeIndex",
     order: ":asc",
@@ -70,6 +83,14 @@ const initialState = {
   leetcodeTableFilterType: null,
   applicationData: { data: [], meta: {} },
   selectedApplicationId: null,
+  applicationTableColumns: {
+    name: true,
+    type: true,
+    createdAt: true,
+    updatedAt: true,
+    description: true,
+    action: true,
+  },
   applicationTablePagenation: {
     current: 1,
     size: 25,
@@ -102,6 +123,14 @@ const initialState = {
   componentTableFilterType: null,
   favoriteData: { data: [], meta: {} },
   selectedFavoriteId: null,
+  favoriteTableColumns: {
+    name: true,
+    type: true,
+    createdAt: true,
+    updatedAt: true,
+    description: true,
+    action: true,
+  },
   favoriteTablePagenation: {
     current: 1,
     size: 25,
@@ -159,6 +188,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, leetcodeData: action.payload };
     case SET_SELECTED_LEETCODE_ID:
       return { ...state, selectedLeetcodeId: action.payload };
+    case SET_LEETCODE_TABLE_COLUMNS:
+      return { ...state, leetcodeTableColumns: action.payload };
     case SET_LEETCODE_TABLE_PAGENATION:
       return { ...state, leetcodeTablePagenation: action.payload };
     case SET_LEETCODE_TABLE_SORTER:
@@ -171,6 +202,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, applicationData: action.payload };
     case SET_SELECTED_APPLICATION_ID:
       return { ...state, selectedApplicationId: action.payload };
+    case SET_APPLICATION_TABLE_COLUMNS:
+      return { ...state, applicationTableColumns: action.payload };
     case SET_APPLICATION_TABLE_PAGENATION:
       return { ...state, applicationTablePagenation: action.payload };
     case SET_APPLICATION_TABLE_SORTER:
@@ -195,6 +228,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, favoriteData: action.payload };
     case SET_SELECTED_FAVORITE_ID:
       return { ...state, selectedFavoriteId: action.payload };
+    case SET_FAVORITE_TABLE_COLUMNS:
+      return { ...state, favoriteTableColumns: action.payload };
     case SET_FAVORITE_TABLE_PAGENATION:
       return { ...state, favoriteTablePagenation: action.payload };
     case SET_FAVORITE_TABLE_SORTER:

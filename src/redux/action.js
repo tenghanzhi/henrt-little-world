@@ -3,12 +3,14 @@ import {
   SET_SELECTED_PORTFOLIO_ID,
   SET_LEETCODE_DATA,
   SET_SELECTED_LEETCODE_ID,
+  SET_LEETCODE_TABLE_COLUMNS,
   SET_LEETCODE_TABLE_PAGENATION,
   SET_LEETCODE_TABLE_SORTER,
   SET_LEETCODE_TABLE_FILTER,
   SET_LEETCODE_TABLE_FILTER_TYPE,
   SET_APPLICATION_DATA,
   SET_SELECTED_APPLICATION_ID,
+  SET_APPLICATION_TABLE_COLUMNS,
   SET_APPLICATION_TABLE_PAGENATION,
   SET_APPLICATION_TABLE_SORTER,
   SET_APPLICATION_TABLE_FILTER,
@@ -21,6 +23,7 @@ import {
   SET_COMPONENT_TABLE_FILTER_TYPE,
   SET_FAVORITE_DATA,
   SET_SELECTED_FAVORITE_ID,
+  SET_FAVORITE_TABLE_COLUMNS,
   SET_FAVORITE_TABLE_PAGENATION,
   SET_FAVORITE_TABLE_SORTER,
   SET_FAVORITE_TABLE_FILTER,
@@ -68,6 +71,13 @@ export function setEditLeetcodeId(selectedLeetcodeId) {
   };
 }
 
+export function setLeetcodeTableColumns(leetcodeTableColumns) {
+  return {
+    type: SET_LEETCODE_TABLE_COLUMNS,
+    leetcodeTableColumns,
+  };
+}
+
 export function setLeetcodeTablePagenation(leetcodeTablePagenation) {
   return {
     type: SET_LEETCODE_TABLE_PAGENATION,
@@ -108,6 +118,13 @@ export function setEditLeetcodeId(selectedApplicationId) {
   return {
     type: SET_SELECTED_APPLICATION_ID,
     selectedApplicationId,
+  };
+}
+
+export function setApplicationTableColumns(applicationTableColumns) {
+  return {
+    type: SET_APPLICATION_TABLE_COLUMNS,
+    applicationTableColumns,
   };
 }
 
@@ -194,6 +211,13 @@ export function setFavoriteId(selectedFavoriteId) {
   return {
     type: SET_SELECTED_FAVORITE_ID,
     selectedFavoriteId,
+  };
+}
+
+export function setFavoriteTableColumns(favoriteTableColumns) {
+  return {
+    type: SET_FAVORITE_TABLE_COLUMNS,
+    favoriteTableColumns,
   };
 }
 

@@ -18,6 +18,9 @@ const ApplicationsTable = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoData);
+  const applicationTableColumns = useSelector(
+    (state) => state.applicationTableColumns
+  );
   const applicationData = useSelector((state) => state.applicationData);
   const applicationTablePagenation = useSelector(
     (state) => state.applicationTablePagenation
@@ -178,6 +181,7 @@ const ApplicationsTable = () => {
         );
       },
       sorter: (a, b) => a.attributes?.name?.localeCompare(b.attributes?.name),
+      show: applicationTableColumns.name,
     },
     {
       title: "Type",
@@ -204,6 +208,7 @@ const ApplicationsTable = () => {
       ],
       onFilter: (value, record) =>
         record?.attributes?.type?.toLowerCase().includes(value.toLowerCase()),
+      show: applicationTableColumns.type,
     },
     {
       title: "Created At",
@@ -216,6 +221,7 @@ const ApplicationsTable = () => {
       sorter: (a, b) =>
         moment(a.attributes.createdAt).unix() -
         moment(b.attributes.createdAt).unix(),
+      show: applicationTableColumns.createdAt,
     },
     {
       title: "Updated At",
@@ -228,6 +234,7 @@ const ApplicationsTable = () => {
       sorter: (a, b) =>
         moment(a.attributes.updatedAt).unix() -
         moment(b.attributes.updatedAt).unix(),
+      show: applicationTableColumns.updatedAt,
     },
     {
       title: "Description",
@@ -245,6 +252,7 @@ const ApplicationsTable = () => {
             : "None"}
         </div>
       ),
+      show: applicationTableColumns.description,
     },
     {
       title: "Action",
@@ -284,8 +292,9 @@ const ApplicationsTable = () => {
           </Tooltip>
         </Space>
       ),
+      show: applicationTableColumns.action,
     },
-  ];
+  ].filter((item) => item.show);
 
   return (
     <Table

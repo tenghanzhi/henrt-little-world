@@ -1,0 +1,16 @@
+.lw_leetcodes_tableColsController_title {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.65);
+    margin: -20px 10px 0px -35px;
+  }
+  
+  .lw_leetcodes_tableColsController_switch {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .lw_leetcodes_tableColsController_btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
