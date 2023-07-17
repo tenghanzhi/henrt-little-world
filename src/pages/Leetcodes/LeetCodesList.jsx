@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, List } from "antd";
-import { EditOutlined, CodeOutlined, EyeOutlined } from "@ant-design/icons";
+import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { SiLeetcode } from "react-icons/si";
 import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
 import categoryMatrix from "../common/categoryMatrix";
 import {
@@ -75,7 +76,7 @@ const LeetCodesList = () => {
             <Button
               type="text"
               size="small"
-              icon={<CodeOutlined />}
+              icon={<SiLeetcode />}
               onClick={() => handleActionBtnOnClick("check", item)}
             >
               LeetCode

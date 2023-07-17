@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
-import { PlusOutlined, CodeOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
+import { SiLeetcode } from "react-icons/si";
 import categoryMatrix from "../common/categoryMatrix";
 import style from "./style/LeetCodesTopBtns.module.css";
 
@@ -64,7 +65,7 @@ const LeetCodesTopBtns = () => {
       )}
       <Button
         type="default"
-        icon={<CodeOutlined />}
+        icon={<SiLeetcode />}
         onClick={() => handleBtnOnClick("lc cn")}
         className={style.lw_leetcodes_topBtns_btns}
       >
@@ -72,7 +73,7 @@ const LeetCodesTopBtns = () => {
       </Button>
       <Button
         type="default"
-        icon={<CodeOutlined />}
+        icon={<SiLeetcode />}
         onClick={() => handleBtnOnClick("lc en")}
         className={style.lw_leetcodes_topBtns_btns}
       >
@@ -80,7 +81,7 @@ const LeetCodesTopBtns = () => {
       </Button>
       <Button
         type="default"
-        icon={<CodeOutlined />}
+        icon={<SiLeetcode />}
         onClick={() => handleBtnOnClick("nc")}
         className={style.lw_leetcodes_topBtns_btns}
       >
@@ -88,7 +89,7 @@ const LeetCodesTopBtns = () => {
       </Button>
       <Button
         type="default"
-        icon={<CodeOutlined />}
+        icon={<SiLeetcode />}
         onClick={() => handleBtnOnClick("js")}
         className={style.lw_leetcodes_topBtns_btns}
       >

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { message, Space } from "antd";
 import {
-  CodeOutlined,
   AppstoreOutlined,
   Html5Outlined,
   StarOutlined,
   SmileOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
+import { SiLeetcode } from "react-icons/si";
 import HomeCard from "./HomeCard";
 import categoryMatrix from "../common/categoryMatrix";
 import apiMatrix from "../common/apiMatrix";
@@ -130,7 +130,7 @@ const HomeCardArea = () => {
       <HomeCard
         title={
           <span>
-            <CodeOutlined className={style.lw_home_cardarea_card_icon} />
+            <SiLeetcode className={style.lw_home_cardarea_card_icon} />
             {categoryMatrix.LEETCODES}
           </span>
         }

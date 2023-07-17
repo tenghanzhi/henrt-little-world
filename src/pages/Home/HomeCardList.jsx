@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { List, Image } from "antd";
 import {
-  CodeOutlined,
   AppstoreOutlined,
   Html5Outlined,
   StarOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
+import { SiLeetcode } from "react-icons/si";
 import failPicture from "../common/failPicture";
 import categoryMatrix from "../common/categoryMatrix";
 import {
@@ -204,7 +204,7 @@ const HomeCardList = (props) => {
         );
       }
       case categoryMatrix.LEETCODES: {
-        return <CodeOutlined className={style.lw_homecard_list_font_avatar} />;
+        return <SiLeetcode className={style.lw_homecard_list_font_avatar} />;
       }
       case categoryMatrix.APPLICATIONS: {
         return (

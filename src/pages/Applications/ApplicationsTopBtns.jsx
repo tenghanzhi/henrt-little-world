@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 import {
   PlusOutlined,
-  CodeOutlined,
   CodeSandboxOutlined,
   CodepenOutlined,
 } from "@ant-design/icons";
+import { SiLeetcode } from "react-icons/si";
 import categoryMatrix from "../common/categoryMatrix";
 import style from "./style/ApplicationsTopBtns.module.css";
 
@@ -70,7 +70,7 @@ const ApplicationsTopBtns = () => {
       </Button>
       <Button
         type="default"
-        icon={<CodeOutlined />}
+        icon={<SiLeetcode />}
         onClick={() => handleBtnOnClick("jsfiddle")}
         className={style.lw_applications_topBtns_btns}
       >

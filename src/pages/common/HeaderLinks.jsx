@@ -3,11 +3,11 @@ import { Button, Tooltip, Space, Image } from "antd";
 import {
   GithubOutlined,
   LinkedinOutlined,
-  CodeOutlined,
   WechatOutlined,
-  VideoCameraOutlined,
-  DesktopOutlined,
 } from "@ant-design/icons";
+import { FaBilibili } from "react-icons/fa6";
+import { BsStackOverflow } from "react-icons/bs";
+import { SiLeetcode } from "react-icons/si";
 import style from "./style/HeaderLinks.module.css";
 
 const HeaderLinks = () => {
@@ -59,7 +59,7 @@ const HeaderLinks = () => {
         <Button
           className={style.lw_header_links}
           type="link"
-          icon={<CodeOutlined />}
+          icon={<SiLeetcode />}
           onClick={() => onRightBtnsClick("leetcode")}
         />
       </Tooltip>
@@ -67,7 +67,7 @@ const HeaderLinks = () => {
         <Button
           className={style.lw_header_links}
           type="link"
-          icon={<DesktopOutlined />}
+          icon={<BsStackOverflow />}
           onClick={() => onRightBtnsClick("stackoverflow")}
         />
       </Tooltip>
@@ -91,7 +91,7 @@ const HeaderLinks = () => {
         <Button
           className={style.lw_header_links}
           type="link"
-          icon={<VideoCameraOutlined />}
+          icon={<FaBilibili />}
           onClick={() => onRightBtnsClick("bilibili")}
         />
       </Tooltip>

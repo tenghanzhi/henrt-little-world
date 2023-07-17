@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Layout, Menu, ConfigProvider } from "antd";
 import {
-  CodeOutlined,
   AppstoreOutlined,
   Html5Outlined,
   UserOutlined,
@@ -12,6 +11,7 @@ import {
   SmileOutlined,
   MessageOutlined,
 } from "@ant-design/icons";
+import { SiLeetcode } from "react-icons/si";
 import categoryMatrix from "./categoryMatrix";
 import HeaderLinks from "./HeaderLinks";
 import HomePageLayoutSetup from "./HomePageLayoutSetup";
@@ -36,7 +36,7 @@ const LwHeader = () => {
         </Link>
       ),
       key: categoryMatrix.LEETCODES.toLowerCase(),
-      icon: <CodeOutlined />,
+      icon: <SiLeetcode />,
     },
     {
       label: (

@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Space, Table, Tag, Button, Tooltip } from "antd";
-import { EditOutlined, CodeOutlined, EyeOutlined } from "@ant-design/icons";
+import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { SiLeetcode } from "react-icons/si";
 import moment from "moment/moment";
 import convertStringToArrayByComma from "../utils/convertStringToArrayByComma";
 import categoryMatrix from "../common/categoryMatrix";
@@ -361,7 +362,7 @@ const LeetCodesTable = () => {
           <Tooltip title="Check on LeetCode">
             <Button
               type="text"
-              icon={<CodeOutlined />}
+              icon={<SiLeetcode />}
               onClick={() => handleActionBtnOnClick("check", record)}
             />
           </Tooltip>
