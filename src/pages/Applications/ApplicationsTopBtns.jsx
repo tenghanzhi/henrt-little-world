@@ -7,7 +7,7 @@ import {
   CodeSandboxOutlined,
   CodepenOutlined,
 } from "@ant-design/icons";
-import { SiLeetcode } from "react-icons/si";
+import { BiLogoJsfiddle } from "react-icons/bi";
 import categoryMatrix from "../common/categoryMatrix";
 import style from "./style/ApplicationsTopBtns.module.css";
 
@@ -70,7 +70,7 @@ const ApplicationsTopBtns = () => {
       </Button>
       <Button
         type="default"
-        icon={<SiLeetcode />}
+        icon={<BiLogoJsfiddle />}
         onClick={() => handleBtnOnClick("jsfiddle")}
         className={style.lw_applications_topBtns_btns}
       >

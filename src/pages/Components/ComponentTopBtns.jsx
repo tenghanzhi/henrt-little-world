@@ -43,9 +43,9 @@ const ComponentTopBtns = () => {
       case "mui":
         window.open("https://mui.com/", "_blank", "noopener, noreferrer");
         break;
-      case "fontawesome":
+      case "reacticons":
         window.open(
-          "https://fontawesome.com/",
+          "https://react-icons.github.io/react-icons",
           "_blank",
           "noopener, noreferrer"
         );
@@ -120,10 +120,10 @@ const ComponentTopBtns = () => {
       <Button
         type="default"
         icon={<Html5Outlined />}
-        onClick={() => handleBtnOnClick("fontawesome")}
+        onClick={() => handleBtnOnClick("reacticons")}
         className={style.lw_component_topBtns_btns}
       >
-        Font Awesome
+        React Icons
       </Button>
     </div>
   );
