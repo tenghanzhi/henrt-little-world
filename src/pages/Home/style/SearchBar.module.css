@@ -23,7 +23,7 @@
   padding-block: 0.7em;
   border: none;
   border-bottom: var(--border-height) solid var(--border-before-color);
-  width: 40vw;
+  width: 50vw;
   max-width: 900px;
 }
 
