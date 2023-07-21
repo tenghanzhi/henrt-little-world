@@ -21,6 +21,8 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
+import CopyButton from "../common/CopyButton";
+import OpenLinkButton from "../common/OpenLinkButton";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewComponent.module.css";
 
@@ -187,19 +189,15 @@ const ReviewComponents = () => {
           {fetchedComponentData?.name?.toString()}
         </Descriptions.Item>
         <Descriptions.Item label="Source Page" span={4}>
-          <Button
-            type="link"
-            onClick={() => {
-              window.open(
-                fetchedComponentData?.source?.toString(),
-                "_blank",
-                "noopener, noreferrer"
-              );
-            }}
-            disabled={!fetchedComponentData?.source}
-          >
-            {!fetchedComponentData?.source ? `None` : `Check`}
-          </Button>
+          {fetchedComponentData?.source ? (
+            <>
+              {fetchedComponentData?.source?.toString()}
+              <OpenLinkButton link={fetchedComponentData?.source} />
+              <CopyButton data={fetchedComponentData?.source} />
+            </>
+          ) : (
+            `None`
+          )}
         </Descriptions.Item>
         <Descriptions.Item label="Code Type" span={4}>
           {fetchedComponentData?.codeType?.toString()}
@@ -244,6 +242,17 @@ const ReviewComponents = () => {
             padding: "0px",
           }}
           bordered={false}
+          tabBarExtraContent={
+            <CopyButton
+              data={
+                codeTabactiveKey === "htmlCode"
+                  ? fetchedComponentData?.htmlCode
+                  : codeTabactiveKey === "cssCode"
+                  ? fetchedComponentData?.cssCode
+                  : fetchedComponentData?.jsCode
+              }
+            />
+          }
         >
           {codeCardContentList[codeTabactiveKey]}
         </Card>

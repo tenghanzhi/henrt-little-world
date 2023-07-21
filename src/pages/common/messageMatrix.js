@@ -16,8 +16,9 @@ const messageMatrix = {
   DELETING_MESSAGE_ERROR: "Failed to delete data, please try again. ",
   UPLOAD_UPDATED_DATA_MESSAGE_LOADING: "Uploading updated data, please wait...",
   UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS: "Successfully updated data.",
-  UPLOAD_UPDATED_DATA_MESSAGE_ERROR:
-    "Failed to update data, please try again. ",
+  UPLOAD_UPDATED_DATA_MESSAGE_ERROR: "Failed to update data, please try again.",
+  COPIED_DATA_MESSAGE_SUCCESS: "Successfully copied data.",
+  COPIED_DATA_MESSAGE_ERROR: "No data to copy.",
 };
 
 export default messageMatrix;

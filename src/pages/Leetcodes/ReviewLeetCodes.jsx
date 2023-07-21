@@ -20,6 +20,8 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
+import CopyButton from "../common/CopyButton";
+import OpenLinkButton from "../common/OpenLinkButton";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewLeetCodes.module.css";
 
@@ -125,18 +127,9 @@ const ReviewLeetCodes = () => {
           {fetchedLeetcodeData?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
         <Descriptions.Item label="LeetCode Page" span={4}>
-          <Button
-            type="link"
-            onClick={() => {
-              window.open(
-                fetchedLeetcodeData?.link?.toString(),
-                "_blank",
-                "noopener, noreferrer"
-              );
-            }}
-          >
-            Check
-          </Button>
+          {fetchedLeetcodeData?.link?.toString()}
+          <OpenLinkButton link={fetchedLeetcodeData?.link} />
+          <CopyButton data={fetchedLeetcodeData?.link} />
         </Descriptions.Item>
         <Descriptions.Item label="Problem Type" span={4}>
           {fetchedLeetcodeData?.type?.toString()}
@@ -147,6 +140,7 @@ const ReviewLeetCodes = () => {
               children={fetchedLeetcodeData?.issue}
               remarkPlugins={[remarkGfm]}
             />
+            <CopyButton data={fetchedLeetcodeData?.issue} />
           </Descriptions.Item>
         )}
         {fetchedLeetcodeData?.solutionOne && (
@@ -158,6 +152,7 @@ const ReviewLeetCodes = () => {
               editable={false}
               theme={vscodeDark}
             />
+            <CopyButton data={fetchedLeetcodeData?.solutionOne} />
           </Descriptions.Item>
         )}
         {fetchedLeetcodeData?.solutionTwo && (
@@ -169,6 +164,7 @@ const ReviewLeetCodes = () => {
               editable={false}
               theme={vscodeDark}
             />
+            <CopyButton data={fetchedLeetcodeData?.solutionTwo} />
           </Descriptions.Item>
         )}
       </Descriptions>

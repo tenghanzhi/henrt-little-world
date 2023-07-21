@@ -16,6 +16,8 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
+import CopyButton from "../common/CopyButton";
+import OpenLinkButton from "../common/OpenLinkButton";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewFavorites.module.css";
 
@@ -109,18 +111,11 @@ const ReviewFavorites = () => {
           {fetchedFavoriteData?.type?.toString()}
         </Descriptions.Item>
         <Descriptions.Item label="Source Website" span={4}>
-          <Button
-            type="link"
-            onClick={() => {
-              window.open(
-                fetchedFavoriteData?.link?.toString(),
-                "_blank",
-                "noopener, noreferrer"
-              );
-            }}
-          >
-            Check
-          </Button>
+          <>
+            {fetchedFavoriteData?.link?.toString()}
+            <OpenLinkButton link={fetchedFavoriteData?.link} />
+            <CopyButton data={fetchedFavoriteData?.link} />
+          </>
         </Descriptions.Item>
         <Descriptions.Item label="Created Date" span={4}>
           {fetchedFavoriteData?.createdAt?.toString().slice(0, 10)}
@@ -134,6 +129,7 @@ const ReviewFavorites = () => {
               children={fetchedFavoriteData?.description}
               remarkPlugins={[remarkGfm]}
             />
+            <CopyButton data={fetchedFavoriteData?.description} />
           </Descriptions.Item>
         )}
       </Descriptions>

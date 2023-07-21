@@ -20,6 +20,8 @@ import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
+import CopyButton from "../common/CopyButton";
+import OpenLinkButton from "../common/OpenLinkButton";
 import LwLayout from "../common/LwLayout";
 import style from "./style/ReviewApplication.module.css";
 
@@ -131,18 +133,11 @@ const ReviewApplication = () => {
         </Descriptions.Item>
         <Descriptions.Item label="Source" span={4}>
           {fetchedApplicationData?.source ? (
-            <Button
-              type="link"
-              onClick={() => {
-                window.open(
-                  fetchedApplicationData?.source?.toString(),
-                  "_blank",
-                  "noopener, noreferrer"
-                );
-              }}
-            >
-              Check
-            </Button>
+            <>
+              {fetchedApplicationData?.source?.toString()}
+              <OpenLinkButton link={fetchedApplicationData?.source} />
+              <CopyButton data={fetchedApplicationData?.source} />
+            </>
           ) : (
             "None"
           )}
@@ -159,6 +154,7 @@ const ReviewApplication = () => {
               children={fetchedApplicationData?.description}
               remarkPlugins={[remarkGfm]}
             />
+            <CopyButton data={fetchedApplicationData?.description} />
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeOne && (
@@ -170,6 +166,7 @@ const ReviewApplication = () => {
               editable={false}
               theme={vscodeDark}
             />
+            <CopyButton data={fetchedApplicationData?.codeOne} />
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeTwo && (
@@ -181,6 +178,7 @@ const ReviewApplication = () => {
               editable={false}
               theme={vscodeDark}
             />
+            <CopyButton data={fetchedApplicationData?.codeTwo} />
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeThree && (
@@ -193,6 +191,7 @@ const ReviewApplication = () => {
               editable={false}
               theme={vscodeDark}
             />
+            <CopyButton data={fetchedApplicationData?.codeThree} />
           </Descriptions.Item>
         )}
       </Descriptions>
