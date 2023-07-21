@@ -43,6 +43,20 @@ const EditPortfolio = () => {
     const messageDuration = 2;
 
     switch (type) {
+      case "success": {
+        message.success({
+          key: key,
+          content: content,
+          duration: messageDuration,
+          onClose: () => {
+            if (key === "uploadingDataMessage") {
+              handleGoback();
+            } else return null;
+          },
+        });
+        break;
+      }
+      
       case "error": {
         message.error({
           key: key,

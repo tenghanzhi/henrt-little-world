@@ -327,6 +327,38 @@ const ComponentsForm = (props) => {
   </body>
 </html>`;
 
+  const REACT_CODE_PREFIX = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+  </head>
+  <body>
+    <div id="react-component"></div>
+    <script type="text/javascript" src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+    //Class Component
+    Class MyComponent extends React.Component {
+
+			render(){
+				return <h2>Class Component</h2>
+			}
+		}
+
+		ReactDOM.render(<MyComponent/>,document.getElementById('react-component'))
+
+    //Functional Component
+    function MyComponent(){
+			
+		return <h2>Functional Component</h2>}
+    ReactDOM.render(<MyComponent/>,document.getElementById('react-component'))
+    </script>
+  </body>
+</html>`;
   return (
     <Form
       {...formLayout}
@@ -407,7 +439,11 @@ const ComponentsForm = (props) => {
             value={
               pageType === "edit"
                 ? defaultData.htmlCode?.toString()
-                : HTML_CODE_PREFIX
+                : form.getFieldValue()?.data?.codeType
+                ? form.getFieldValue()?.data?.codeType === "Vanilla"
+                  ? HTML_CODE_PREFIX
+                  : REACT_CODE_PREFIX
+                : ""
             }
             onChange={(e) => handleFormValueChange("setHtmlCode", e)}
             theme={vscodeDark}
