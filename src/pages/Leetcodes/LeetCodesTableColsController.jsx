@@ -69,10 +69,7 @@ const LeetCodesTableColsController = () => {
 
   const content = (
     <div>
-      <ul>
-        <div className={style.lw_leetcodes_tableColsController_title}>
-          Index:
-        </div>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -81,11 +78,11 @@ const LeetCodesTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("index", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_leetcodes_tableColsController_title}>
-          Title:
+          Index
         </div>
+      </ul>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -94,11 +91,11 @@ const LeetCodesTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("title", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_leetcodes_tableColsController_title}>
-          Created At:
+          Title
         </div>
+      </ul>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -107,11 +104,11 @@ const LeetCodesTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("createdAt", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_leetcodes_tableColsController_title}>
-          Updated At:
+          Created At
         </div>
+      </ul>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -120,11 +117,11 @@ const LeetCodesTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("updatedAt", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_leetcodes_tableColsController_title}>
-          Completed Date:
+          Updated At
         </div>
+      </ul>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -133,11 +130,11 @@ const LeetCodesTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("firstCompletedDate", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_leetcodes_tableColsController_title}>
-          Difficulty:
+          Completed Date
         </div>
+      </ul>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -146,11 +143,11 @@ const LeetCodesTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("difficulty", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_leetcodes_tableColsController_title}>
-          Type:
+          Difficulty
         </div>
+      </ul>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -159,11 +156,9 @@ const LeetCodesTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("type", value)}
         />
+        <div className={style.lw_leetcodes_tableColsController_title}>Type</div>
       </ul>
-      <ul>
-        <div className={style.lw_leetcodes_tableColsController_title}>
-          Action:
-        </div>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -172,6 +167,9 @@ const LeetCodesTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("action", value)}
         />
+        <div className={style.lw_leetcodes_tableColsController_title}>
+          Action
+        </div>
       </ul>
     </div>
   );

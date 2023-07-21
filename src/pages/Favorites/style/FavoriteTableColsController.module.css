@@ -1,12 +1,16 @@
+.lw_favorites_tableColsController_wrapper {
+  padding-inline-start: 0px;
+}
+
 .lw_favorites_tableColsController_title {
   display: inline-block;
   color: rgba(255, 255, 255, 0.65);
-  margin: -20px 10px 0px -35px;
+  margin-left: 5px;
+  text-align: center;
 }
 
 .lw_favorites_tableColsController_switch {
   display: inline-block;
-  margin-right: 10px;
 }
 
 .lw_favorites_tableColsController_btn {

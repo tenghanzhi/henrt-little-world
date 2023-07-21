@@ -56,10 +56,7 @@ const ApplicationsTableColsController = () => {
 
   const content = (
     <div>
-      <ul>
-        <div className={style.lw_applications_tableColsController_title}>
-          Title:
-        </div>
+      <ul className={style.lw_applications_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -68,11 +65,24 @@ const ApplicationsTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("name", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_applications_tableColsController_title}>
-          Created At:
+          Title
         </div>
+      </ul>
+      <ul className={style.lw_applications_tableColsController_wrapper}>
+        <Switch
+          checkedChildren="Show"
+          unCheckedChildren="Hide"
+          className={style.lw_applications_tableColsController_switch}
+          checked={applicationTableColumns.type}
+          size="medium"
+          onChange={(value) => handleTogleChange("type", value)}
+        />
+        <div className={style.lw_applications_tableColsController_title}>
+          Type
+        </div>
+      </ul>
+      <ul className={style.lw_applications_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -81,11 +91,11 @@ const ApplicationsTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("createdAt", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_applications_tableColsController_title}>
-          Updated At:
+          Created At
         </div>
+      </ul>
+      <ul className={style.lw_applications_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -94,11 +104,11 @@ const ApplicationsTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("updatedAt", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_applications_tableColsController_title}>
-          Description:
+          Updated At
         </div>
+      </ul>
+      <ul className={style.lw_applications_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -107,11 +117,11 @@ const ApplicationsTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("description", value)}
         />
-      </ul>
-      <ul>
         <div className={style.lw_applications_tableColsController_title}>
-          Action:
+          Description
         </div>
+      </ul>
+      <ul className={style.lw_applications_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
           unCheckedChildren="Hide"
@@ -120,6 +130,9 @@ const ApplicationsTableColsController = () => {
           size="medium"
           onChange={(value) => handleTogleChange("action", value)}
         />
+        <div className={style.lw_applications_tableColsController_title}>
+          Action
+        </div>
       </ul>
     </div>
   );
