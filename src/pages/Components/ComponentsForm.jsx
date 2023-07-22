@@ -64,7 +64,7 @@ const ComponentsForm = (props) => {
 
   const handleSubmitApplication = (type, values) => {
     const messageKey = "uploadingDataMessage";
-    const messageAction = handleGoback();
+    const messageAction = handleGoback;
     handleMessage(
       messageKey,
       "loading",

@@ -65,7 +65,7 @@ const LeetCodesForm = (props) => {
 
   const handleSubmitLeetcode = (type, values) => {
     const messageKey = "uploadingDataMessage";
-    const messageAction = handleGoback();
+    const messageAction = handleGoback;
     handleMessage(
       messageKey,
       "loading",

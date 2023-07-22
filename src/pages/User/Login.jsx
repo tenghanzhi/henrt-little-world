@@ -47,7 +47,7 @@ const Login = () => {
 
   const handleSubmitForm = (values) => {
     const messageKey = "submittingForm";
-    const messageAction = isSignup ? setIsSignup(false) : handleGoback();
+    const messageAction = isSignup ? setIsSignup(false) : handleGoback;
 
     const signupData = {
       email: values.email,
