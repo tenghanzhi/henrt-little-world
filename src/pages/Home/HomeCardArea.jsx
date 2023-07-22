@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { message, Space } from "antd";
+import { Space } from "antd";
 import {
   AppstoreOutlined,
   Html5Outlined,
@@ -21,6 +21,7 @@ import {
   SET_FAVORITE_DATA,
   SET_BULLETINBOARD_DATA,
 } from "../../redux/constants";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/HomeCardArea.module.css";
 
 const HomeCardArea = () => {
@@ -44,23 +45,6 @@ const HomeCardArea = () => {
     handleFetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
 
   const handleFetchData = async () => {
     const messageKey = "loadingMessage";
@@ -113,7 +97,11 @@ const HomeCardArea = () => {
         }
       })
       .catch((error) => {
-        handleMessage(messageKey, "error", error);
+        handleMessage(
+          messageKey,
+          "error",
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+        );
       })
       .finally(() => {
         setIsPortfolioDataLoading(false);

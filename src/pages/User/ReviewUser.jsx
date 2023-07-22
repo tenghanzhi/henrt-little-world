@@ -7,7 +7,6 @@ import {
   Popconfirm,
   Popover,
   Form,
-  message,
   Input,
   InputNumber,
   List,
@@ -27,6 +26,7 @@ import {
   SET_SHOW_HOME_QUICK_LINK,
   SET_SHOW_HOME_FOOTER,
 } from "../../redux/constants";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/ReviewUser.module.css";
 
 const ReviewUser = () => {
@@ -48,38 +48,6 @@ const ReviewUser = () => {
     handleGetQuickLinkData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: content,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
 
   const handleFormValueChange = () => {
     setFiledValue(form.getFieldValue());

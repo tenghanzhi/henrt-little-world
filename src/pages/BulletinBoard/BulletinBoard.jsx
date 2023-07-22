@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  message,
   Avatar,
   List,
   Typography,
@@ -21,6 +20,7 @@ import {
   SET_BULLETINBOARD_TABLE_PAGENATION,
   SET_BULLETINBOARD_TABLE_SORTER,
 } from "../../redux/constants";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/BulletinBoard.module.css";
 
 const Portfolio = () => {
@@ -43,38 +43,6 @@ const Portfolio = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bulletinboardTablePagenation, bulletinboardTableSorter]);
 
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_LOADING,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: messageMatrix.LOADING_MESSAGE_SUCCESS,
-          duration: messageDuration,
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
-
   const handleGetBulletinboardData = () => {
     const messageKey = "loadingMessage";
 
@@ -92,7 +60,11 @@ const Portfolio = () => {
         }
       })
       .catch((error) => {
-        handleMessage(messageKey, "error", error);
+        handleMessage(
+          messageKey,
+          "error",
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+        );
       });
   };
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Typography, Button, Form, Input, message } from "antd";
+import { Typography, Button, Form, Input } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import {
@@ -14,6 +14,7 @@ import {
   SET_SHOW_HOME_QUICK_LINK,
   SET_SHOW_HOME_FOOTER,
 } from "../../redux/constants";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/Login.module.css";
 
 const Login = () => {
@@ -27,39 +28,6 @@ const Login = () => {
 
   const handleGoback = () => {
     navigate(-1);
-  };
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: content,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: content,
-          duration: messageDuration,
-          onClose: isSignup ? setIsSignup(false) : handleGoback(),
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
   };
 
   const handleFormValueChange = () => {
@@ -79,6 +47,7 @@ const Login = () => {
 
   const handleSubmitForm = (values) => {
     const messageKey = "submittingForm";
+    const messageAction = isSignup ? setIsSignup(false) : handleGoback();
 
     const signupData = {
       email: values.email,
@@ -121,7 +90,8 @@ const Login = () => {
             handleMessage(
               messageKey,
               "success",
-              messageMatrix.USER_MESSAGE_CREATING_SUCCESS
+              messageMatrix.USER_MESSAGE_CREATING_SUCCESS,
+              messageAction
             );
           }
         })
@@ -160,7 +130,8 @@ const Login = () => {
             handleMessage(
               messageKey,
               "success",
-              messageMatrix.USER_MESSAGE_LOGIN_SUCCESS
+              messageMatrix.USER_MESSAGE_LOGIN_SUCCESS,
+              messageAction
             );
           }
         })

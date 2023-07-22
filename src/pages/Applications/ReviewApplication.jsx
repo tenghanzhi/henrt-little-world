@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import {
   Typography,
   Skeleton,
-  message,
   Descriptions,
   Button,
   Tooltip,
@@ -23,6 +22,7 @@ import globalStyleMatrix from "../common/globalStyleMatrix";
 import CopyButton from "../common/CopyButton";
 import OpenLinkButton from "../common/OpenLinkButton";
 import LwLayout from "../common/LwLayout";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/ReviewApplication.module.css";
 
 const ReviewApplication = () => {
@@ -41,38 +41,6 @@ const ReviewApplication = () => {
 
   const handleGoback = () => {
     navigate(-1);
-  };
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: content,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
   };
 
   const handleGetApplicationDataById = () => {

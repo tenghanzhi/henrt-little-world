@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { message, Space } from "antd";
+import { Space } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
@@ -11,6 +11,7 @@ import ApplicationsFilter from "./ApplicationsFilter";
 import ApplicationsTableColsController from "./ApplicationsTableColsController";
 import LwLayout from "../common/LwLayout";
 import { SET_APPLICATION_DATA } from "../../redux/constants";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/Applications.module.css";
 
 const Applications = () => {
@@ -33,23 +34,6 @@ const Applications = () => {
     applicationTableSorter,
     applicationTableFilter,
   ]);
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
 
   const handleGetApplicationData = () => {
     const messageKey = "loadingMessage";
@@ -84,7 +68,11 @@ const Applications = () => {
         }
       })
       .catch((error) => {
-        handleMessage(messageKey, "error", error);
+        handleMessage(
+          messageKey,
+          "error",
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+        );
       });
   };
 

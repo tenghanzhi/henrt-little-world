@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { message, Button, Form, Input, Select, Popconfirm } from "antd";
+import { Button, Form, Input, Select, Popconfirm } from "antd";
 import {
   RollbackOutlined,
   DeleteOutlined,
@@ -15,6 +15,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/ApplicationsForm.module.css";
 
 const ApplicationsForm = (props) => {
@@ -42,45 +43,6 @@ const ApplicationsForm = (props) => {
     navigate(-1);
   };
 
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: content,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: content,
-          duration: messageDuration,
-          onClose: () => {
-            if (key === "uploadingDataMessage") {
-              handleGoback();
-            } else if (key === "deleteDataMessage") {
-              navigate(`/${categoryMatrix.APPLICATIONS.toLowerCase()}`);
-            } else return null;
-          },
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
-
   const handleFormValueChange = (type, value) => {
     switch (type) {
       case (type = "setCodeOne"):
@@ -103,6 +65,7 @@ const ApplicationsForm = (props) => {
 
   const handleSubmitApplication = (type, values) => {
     const messageKey = "uploadingDataMessage";
+    const messageAction = handleGoback();
     handleMessage(
       messageKey,
       "loading",
@@ -133,7 +96,8 @@ const ApplicationsForm = (props) => {
             handleMessage(
               messageKey,
               "success",
-              messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS
+              messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS,
+              messageAction
             );
           }
         })
@@ -168,7 +132,8 @@ const ApplicationsForm = (props) => {
             handleMessage(
               messageKey,
               "success",
-              messageMatrix.UPDATING_MESSAGE_SUCCESS
+              messageMatrix.UPDATING_MESSAGE_SUCCESS,
+              messageAction
             );
           }
         })
@@ -190,6 +155,9 @@ const ApplicationsForm = (props) => {
 
   const handleDelete = () => {
     const messageKey = "deleteDataMessage";
+    const messageAction = navigate(
+      `/${categoryMatrix.APPLICATIONS.toLowerCase()}`
+    );
     handleMessage(
       messageKey,
       "loading",
@@ -218,7 +186,8 @@ const ApplicationsForm = (props) => {
           handleMessage(
             messageKey,
             "success",
-            messageMatrix.DELETING_MESSAGE_SUCCESS
+            messageMatrix.DELETING_MESSAGE_SUCCESS,
+            messageAction
           );
         }
       })

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  message,
   Skeleton,
   Typography,
   Button,
@@ -17,6 +16,7 @@ import LwLayout from "../common/LwLayout";
 import structuredClone from "@ungap/structured-clone";
 import sortObjByKey from "../utils/sortObjByKey";
 import dayjs from "dayjs";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/EditPortfolio.module.css";
 
 const EditPortfolio = () => {
@@ -37,37 +37,6 @@ const EditPortfolio = () => {
 
   const handleGoback = () => {
     navigate(-1);
-  };
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "success": {
-        message.success({
-          key: key,
-          content: content,
-          duration: messageDuration,
-          onClose: () => {
-            if (key === "uploadingDataMessage") {
-              handleGoback();
-            } else return null;
-          },
-        });
-        break;
-      }
-      
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
   };
 
   const handleGetPortfolioDataById = () => {
@@ -105,10 +74,12 @@ const EditPortfolio = () => {
 
   const handleUpdatePortfolio = (values) => {
     const messageKey = "uploadingDataMessage";
+    const messageAction = handleGoback();
     handleMessage(
       messageKey,
       "loading",
-      messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_LOADING
+      messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_LOADING,
+      messageAction
     );
 
     (async () => {

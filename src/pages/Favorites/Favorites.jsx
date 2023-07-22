@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { message, Space } from "antd";
+import { Space } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
@@ -11,6 +11,7 @@ import FavoritesFilter from "./FavoritesFilter";
 import FavoriteTableColsController from "./FavoriteTableColsController";
 import LwLayout from "../common/LwLayout";
 import { SET_FAVORITE_DATA } from "../../redux/constants";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/Favorites.module.css";
 
 const Favorites = () => {
@@ -25,23 +26,6 @@ const Favorites = () => {
     handleGetFavoriteData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favoriteTablePagenation, favoriteTableSorter, favoriteTableFilter]);
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
 
   const handleGetFavoriteData = () => {
     const messageKey = "loadingMessage";
@@ -72,7 +56,11 @@ const Favorites = () => {
         }
       })
       .catch((error) => {
-        handleMessage(messageKey, "error", error);
+        handleMessage(
+          messageKey,
+          "error",
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+        );
       });
   };
 

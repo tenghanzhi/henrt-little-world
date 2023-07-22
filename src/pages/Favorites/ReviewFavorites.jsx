@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  Typography,
-  Skeleton,
-  message,
-  Descriptions,
-  Button,
-  Tooltip,
-} from "antd";
+import { Typography, Skeleton, Descriptions, Button, Tooltip } from "antd";
 import { EditOutlined, RollbackOutlined } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -19,6 +12,7 @@ import globalStyleMatrix from "../common/globalStyleMatrix";
 import CopyButton from "../common/CopyButton";
 import OpenLinkButton from "../common/OpenLinkButton";
 import LwLayout from "../common/LwLayout";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/ReviewFavorites.module.css";
 
 const ReviewFavorites = () => {
@@ -35,23 +29,6 @@ const ReviewFavorites = () => {
 
   const handleGoback = () => {
     navigate(-1);
-  };
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
   };
 
   const handleGetFavoriteDataById = () => {

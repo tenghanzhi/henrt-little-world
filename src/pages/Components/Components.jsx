@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { message, Space } from "antd";
+import { Space } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
@@ -11,7 +11,8 @@ import ComponentsSorter from "./ComponentsSorter";
 import ComponentsPagination from "./ComponentsPagination";
 import LwLayout from "../common/LwLayout";
 import { SET_COMPONENT_DATA } from "../../redux/constants";
-import style from "./style/Components.module.css"
+import handleMessage from "../utils/handleMessage";
+import style from "./style/Components.module.css";
 
 const Components = () => {
   const dispatch = useDispatch();
@@ -30,23 +31,6 @@ const Components = () => {
     handleGetComponentData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [componentTablePagenation, componentTableSorter, componentTableFilter]);
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
 
   const handleGetComponentData = () => {
     const messageKey = "loadingMessage";
@@ -81,7 +65,11 @@ const Components = () => {
         }
       })
       .catch((error) => {
-        handleMessage(messageKey, "error", error);
+        handleMessage(
+          messageKey,
+          "error",
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+        );
       });
   };
 

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Typography, Skeleton, message } from "antd";
+import { Typography, Skeleton } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import ApplicationsForm from "./ApplicationsForm";
 import LwLayout from "../common/LwLayout";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/EditApplication.module.css";
 
 const EditApplication = () => {
@@ -18,23 +19,6 @@ const EditApplication = () => {
     handleGetLeetcodeDataById();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
 
   const handleGetLeetcodeDataById = () => {
     const messageKey = "editPageLoadingMessage";

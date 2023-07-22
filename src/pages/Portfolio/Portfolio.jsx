@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { message, Timeline, Card, Col, Row, Descriptions } from "antd";
+import { Timeline, Card, Col, Row, Descriptions } from "antd";
 import {
   UserOutlined,
   ToolOutlined,
@@ -14,6 +14,7 @@ import globalStyleMatrix from "../common/globalStyleMatrix";
 import messageMatrix from "../common/messageMatrix";
 import categoryMatrix from "../common/categoryMatrix";
 import sortArrayObjByDate from "../utils/sortArrayObjByDate";
+import handleMessage from "../utils/handleMessage";
 import LwLayout from "../common/LwLayout";
 import {
   SET_PORTFOLIO_DATA,
@@ -29,23 +30,6 @@ const Portfolio = () => {
     handleGetPortfolioData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "error": {
-        message.error({
-          key: key,
-          content: `${messageMatrix.LOADING_MESSAGE_ERROR}${content}`,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
 
   const handleGetPortfolioData = () => {
     const messageKey = "loadingMessage";
@@ -64,7 +48,11 @@ const Portfolio = () => {
         }
       })
       .catch((error) => {
-        handleMessage(messageKey, "error", error);
+        handleMessage(
+          messageKey,
+          "error",
+          `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
+        );
       });
   };
 

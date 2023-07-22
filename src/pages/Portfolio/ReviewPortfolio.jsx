@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import {
   Typography,
   Skeleton,
-  message,
   Descriptions,
   Button,
   Col,
@@ -23,6 +22,7 @@ import categoryMatrix from "../common/categoryMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
 import failPicture from "../common/failPicture";
 import LwLayout from "../common/LwLayout";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/ReviewPortfolio.module.css";
 
 const ReviewPortfolio = () => {
@@ -39,23 +39,6 @@ const ReviewPortfolio = () => {
 
   const handleGoback = () => {
     navigate(-1);
-  };
-
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
   };
 
   const handleGetPortfolioDataById = () => {

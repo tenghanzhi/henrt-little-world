@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { message, Button, Form, Input, Select, Popconfirm } from "antd";
+import { Button, Form, Input, Select, Popconfirm } from "antd";
 import {
   RollbackOutlined,
   DeleteOutlined,
@@ -16,6 +16,7 @@ import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { html } from "@codemirror/lang-html";
+import handleMessage from "../utils/handleMessage";
 import style from "./style/ComponentsForm.module.css";
 
 const ComponentsForm = (props) => {
@@ -41,45 +42,6 @@ const ComponentsForm = (props) => {
     navigate(-1);
   };
 
-  const handleMessage = (key, type, content) => {
-    const messageDuration = 2;
-
-    switch (type) {
-      case "loading": {
-        message.loading({
-          key: key,
-          content: content,
-        });
-        break;
-      }
-      case "success": {
-        message.success({
-          key: key,
-          content: content,
-          duration: messageDuration,
-          onClose: () => {
-            if (key === "uploadingDataMessage") {
-              handleGoback();
-            } else if (key === "deleteDataMessage") {
-              navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}`);
-            } else return null;
-          },
-        });
-        break;
-      }
-      case "error": {
-        message.error({
-          key: key,
-          content: content,
-          duration: messageDuration,
-        });
-        break;
-      }
-      default:
-        return null;
-    }
-  };
-
   const handleFormValueChange = (type, value) => {
     switch (type) {
       case (type = "setCssCode"):
@@ -102,6 +64,7 @@ const ComponentsForm = (props) => {
 
   const handleSubmitApplication = (type, values) => {
     const messageKey = "uploadingDataMessage";
+    const messageAction = handleGoback();
     handleMessage(
       messageKey,
       "loading",
@@ -132,7 +95,8 @@ const ComponentsForm = (props) => {
             handleMessage(
               messageKey,
               "success",
-              messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS
+              messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS,
+              messageAction
             );
           }
         })
@@ -167,7 +131,8 @@ const ComponentsForm = (props) => {
             handleMessage(
               messageKey,
               "success",
-              messageMatrix.UPDATING_MESSAGE_SUCCESS
+              messageMatrix.UPDATING_MESSAGE_SUCCESS,
+              messageAction
             );
           }
         })
@@ -189,6 +154,10 @@ const ComponentsForm = (props) => {
 
   const handleDelete = () => {
     const messageKey = "deleteDataMessage";
+    const messageAction = navigate(
+      `/${categoryMatrix.COMPONENTS.toLowerCase()}`
+    );
+
     handleMessage(
       messageKey,
       "loading",
@@ -217,7 +186,8 @@ const ComponentsForm = (props) => {
           handleMessage(
             messageKey,
             "success",
-            messageMatrix.DELETING_MESSAGE_SUCCESS
+            messageMatrix.DELETING_MESSAGE_SUCCESS,
+            messageAction
           );
         }
       })
