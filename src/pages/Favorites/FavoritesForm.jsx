@@ -47,7 +47,7 @@ const FavoritesForm = (props) => {
     }
   };
 
-  const handleSubmitLeetcode = (type, values) => {
+  const handleSubmit = (type, values) => {
     const messageKey = "uploadingDataMessage";
     const messageAction = handleGoback;
     handleMessage(
@@ -130,11 +130,6 @@ const FavoritesForm = (props) => {
     }
   };
 
-  const onFinish = (values) => {
-    setIsUploading(true);
-    handleSubmitLeetcode(pageType, values);
-  };
-
   const handleDelete = () => {
     const messageKey = "deleteDataMessage";
     const messageAction = navigate(
@@ -182,6 +177,11 @@ const FavoritesForm = (props) => {
         );
         setIsUploading(false);
       });
+  };
+
+  const onFinish = (values) => {
+    setIsUploading(true);
+    handleSubmit(pageType, values);
   };
 
   const handleDisableSubmitBtn = () => {

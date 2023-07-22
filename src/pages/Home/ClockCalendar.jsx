@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./style/ClockCalendar.css";
+import style from "./style/ClockCalendar.module.css";
 
 const ClockCalendar = () => {
   const [hours, setHours] = useState("00");
@@ -28,8 +28,8 @@ const ClockCalendar = () => {
 
   return (
     <div>
-      <h1>{date}</h1>
-      <h1>
+      <h1 className={style.ClockCalendar}>{date}</h1>
+      <h1 className={style.ClockCalendar}>
         {hours}:{minutes}:{seconds}
       </h1>
     </div>

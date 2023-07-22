@@ -33,14 +33,21 @@ const ComponentsCard = (props) => {
   const dispatch = useDispatch();
   const userInfoData = useSelector((state) => state.userInfoData);
 
-  const handleActionBtnOnClick = () => {
-    dispatch({ type: SET_SELECTED_COMPONENT_ID, payload: data.id });
-    navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`);
-  };
-
-  const handleDetailBtnOnClick = () => {
-    dispatch({ type: SET_SELECTED_COMPONENT_ID, payload: data.id });
-    navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents`);
+  const handleBtnOnClick = (type) => {
+    switch (type.toLowerCase()) {
+      case "edit":
+        dispatch({ type: SET_SELECTED_COMPONENT_ID, payload: data.id });
+        navigate(`/${categoryMatrix.COMPONENTS.toLowerCase()}/editComponents`);
+        break;
+      case "detail":
+        dispatch({ type: SET_SELECTED_COMPONENT_ID, payload: data.id });
+        navigate(
+          `/${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents`
+        );
+        break;
+      default:
+        break;
+    }
   };
 
   const cardExtra = (
@@ -52,7 +59,7 @@ const ComponentsCard = (props) => {
       >
         <Button
           type="default"
-          onClick={handleActionBtnOnClick}
+          onClick={() => handleBtnOnClick("edit")}
           disabled={!userInfoData.jwt}
         >
           Edit
@@ -61,7 +68,7 @@ const ComponentsCard = (props) => {
       <Button
         className={style.lw_components_card_extra_btn}
         type="default"
-        onClick={handleDetailBtnOnClick}
+        onClick={() => handleBtnOnClick("detail")}
       >
         Detail
       </Button>

@@ -45,7 +45,7 @@ const Login = () => {
     );
   };
 
-  const handleSubmitForm = (values) => {
+  const handleSubmit = (values) => {
     const messageKey = "submittingForm";
     const messageAction = isSignup ? setIsSignup(false) : handleGoback;
 
@@ -143,7 +143,7 @@ const Login = () => {
   };
 
   const onFinish = (values) => {
-    handleSubmitForm(values);
+    handleSubmit(values);
   };
 
   const handleDisableSubmitBtn = () => {

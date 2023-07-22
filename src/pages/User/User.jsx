@@ -13,6 +13,7 @@ const User = () => {
   useEffect(() => {
     setIsLogined(Boolean(userInfoData?.jwt));
   }, [userInfoData]);
+
   const pageContent = (
     <>
       <Typography.Title level={4} className={style.lw_user_header}>
@@ -24,6 +25,7 @@ const User = () => {
       {isLogined && <ReviewUser />}
     </>
   );
+
   return <LwLayout content={pageContent} />;
 };
 

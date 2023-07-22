@@ -68,15 +68,20 @@ const Portfolio = () => {
       });
   };
 
-  const handleMessageAreaOnChange = (value) => {
-    setMessageValue(value);
+  const handleMessageOnChange = (type, value) => {
+    switch (type.toLowerCase()) {
+      case "create":
+        setMessageValue(value);
+        break;
+      case "edit":
+        setEditItemValue(value);
+        break;
+      default:
+        break;
+    }
   };
 
-  const handleEditMessageAreaOnChange = (value) => {
-    setEditItemValue(value);
-  };
-
-  const handleSubmitMessage = (type) => {
+  const handleSubmit = (type) => {
     const messageKey = "uploadingDataMessage";
     handleMessage(
       messageKey,
@@ -166,7 +171,7 @@ const Portfolio = () => {
     }
   };
 
-  const handleDeleteMessage = (id) => {
+  const handleDelete = (id) => {
     const messageKey = "deleteDataMessage";
     handleMessage(
       messageKey,
@@ -212,10 +217,6 @@ const Portfolio = () => {
       });
   };
 
-  const handleLeaveMessaeOnClick = () => {
-    handleSubmitMessage("create");
-  };
-
   const handleSorterChange = (value) => {
     dispatch({
       type: SET_BULLETINBOARD_TABLE_SORTER,
@@ -243,11 +244,11 @@ const Portfolio = () => {
         break;
       }
       case "submit": {
-        handleSubmitMessage("edit");
+        handleSubmit("edit");
         break;
       }
       case "delete": {
-        handleDeleteMessage(item.id);
+        handleDelete(item.id);
         break;
       }
       default:
@@ -269,14 +270,14 @@ const Portfolio = () => {
             <Input.TextArea
               className={style.lw_bulletinboard_content_leavemessage_textarea}
               value={messageValue}
-              onChange={(e) => handleMessageAreaOnChange(e.target.value)}
+              onChange={(e) => handleMessageOnChange("create", e.target.value)}
               allowClear
             />
             <div className={style.lw_bulletinboard_content_btns_wrapper}>
               <Button
                 type="primary"
                 className={style.lw_bulletinboard_content_btn}
-                onClick={handleLeaveMessaeOnClick}
+                onClick={() => handleSubmit("create")}
                 disabled={!messageValue || isUploading}
               >
                 {messageValue
@@ -389,7 +390,7 @@ const Portfolio = () => {
                         defaultValue={item.attributes.message}
                         value={editItemValue}
                         onChange={(e) =>
-                          handleEditMessageAreaOnChange(e.target.value)
+                          handleMessageOnChange("edit", e.target.value)
                         }
                         autoSize
                         allowClear

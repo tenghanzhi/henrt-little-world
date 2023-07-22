@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  Skeleton,
-  Typography,
-  Button,
-  Form,
-  Input,
-  DatePicker,
-} from "antd";
+import { Skeleton, Typography, Button, Form, Input, DatePicker } from "antd";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
 import validateMessages from "../common/validateMessages";
@@ -72,7 +65,7 @@ const EditPortfolio = () => {
       });
   };
 
-  const handleUpdatePortfolio = (values) => {
+  const handleUpdate = (values) => {
     const messageKey = "uploadingDataMessage";
     const messageAction = handleGoback;
     handleMessage(
@@ -122,23 +115,9 @@ const EditPortfolio = () => {
     setFiledValue(form.getFieldValue());
   };
 
-  const formLayout = {
-    labelCol: {
-      span: 5,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
-
-  const formProps = {
-    allowClear: true,
-    onChange: handleFormValueChange,
-  };
-
   const onFinish = (values) => {
     setIsUploading(true);
-    handleUpdatePortfolio(values);
+    handleUpdate(values);
   };
 
   const handleDisableSubmitBtn = () => {
@@ -160,6 +139,20 @@ const EditPortfolio = () => {
     } else isHasError = false;
 
     return isValueSame || isHasError;
+  };
+
+  const formProps = {
+    allowClear: true,
+    onChange: handleFormValueChange,
+  };
+
+  const formLayout = {
+    labelCol: {
+      span: 5,
+    },
+    wrapperCol: {
+      span: 16,
+    },
   };
 
   const loadedPageContent = (

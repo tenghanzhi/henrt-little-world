@@ -63,7 +63,7 @@ const ApplicationsForm = (props) => {
     }
   };
 
-  const handleSubmitApplication = (type, values) => {
+  const handleSubmit = (type, values) => {
     const messageKey = "uploadingDataMessage";
     const messageAction = handleGoback;
     handleMessage(
@@ -148,11 +148,6 @@ const ApplicationsForm = (props) => {
     }
   };
 
-  const onFinish = (values) => {
-    setIsUploading(true);
-    handleSubmitApplication(pageType, values);
-  };
-
   const handleDelete = () => {
     const messageKey = "deleteDataMessage";
     const messageAction = navigate(
@@ -199,6 +194,11 @@ const ApplicationsForm = (props) => {
         );
         setIsUploading(false);
       });
+  };
+
+  const onFinish = (values) => {
+    setIsUploading(true);
+    handleSubmit(pageType, values);
   };
 
   const handleDisableSubmitBtn = () => {

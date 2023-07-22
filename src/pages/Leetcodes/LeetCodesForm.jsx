@@ -63,7 +63,7 @@ const LeetCodesForm = (props) => {
     }
   };
 
-  const handleSubmitLeetcode = (type, values) => {
+  const handleSubmit = (type, values) => {
     const messageKey = "uploadingDataMessage";
     const messageAction = handleGoback;
     handleMessage(
@@ -148,11 +148,6 @@ const LeetCodesForm = (props) => {
     }
   };
 
-  const onFinish = (values) => {
-    setIsUploading(true);
-    handleSubmitLeetcode(pageType, values);
-  };
-
   const handleDelete = () => {
     const messageKey = "deleteDataMessage";
     navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}`);
@@ -197,6 +192,11 @@ const LeetCodesForm = (props) => {
         );
         setIsUploading(false);
       });
+  };
+
+  const onFinish = (values) => {
+    setIsUploading(true);
+    handleSubmit(pageType, values);
   };
 
   const handleDisableSubmitBtn = () => {

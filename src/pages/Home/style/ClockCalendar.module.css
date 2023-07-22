@@ -4,7 +4,7 @@
     url("../../../fonts/digital-7.ttf") format("truetype");
 }
 
-h1 {
+.ClockCalendar {
   font-family: "digital-7";
   font-size: 50px;
   color: rgba(255, 255, 255, 0.65);
