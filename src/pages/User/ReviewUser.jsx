@@ -45,29 +45,9 @@ const ReviewUser = () => {
   const [editItemOrder, setEditItemOrder] = useState(null);
 
   useEffect(() => {
-    const messageKey = "loadingMessage";
-
-    (async () => {
-      const response = await fetch(
-        `${apiMatrix.QUICK_LINKS_GET_ALL}${
-          userInfoData.user.username
-            ? `?filters[user][$eq]=${userInfoData.user.username}&sort=order:asc&pagination[pageSize]=20`
-            : ""
-        }`
-      );
-      return response.json();
-    })()
-      .then((response) => {
-        if (response && response.error) {
-          throw new Error(response.error.message);
-        } else {
-          dispatch({ type: SET_QUICK_LINK_DATA, payload: response });
-        }
-      })
-      .catch((error) => {
-        handleMessage(messageKey, "error", error);
-      });
-  }, [dispatch, userInfoData.user.username]);
+    handleGetQuickLinkData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFormValueChange = () => {
     setFiledValue(form.getFieldValue());
@@ -154,6 +134,31 @@ const ReviewUser = () => {
 
   const handleOpenChangePassword = (newOpen) => {
     setOpenChangePassword(newOpen);
+  };
+
+  const handleGetQuickLinkData = () => {
+    const messageKey = "loadingMessage";
+
+    (async () => {
+      const response = await fetch(
+        `${apiMatrix.QUICK_LINKS_GET_ALL}${
+          userInfoData.user.username
+            ? `?filters[user][$eq]=${userInfoData.user.username}&sort=order:asc&pagination[pageSize]=20`
+            : ""
+        }`
+      );
+      return response.json();
+    })()
+      .then((response) => {
+        if (response && response.error) {
+          throw new Error(response.error.message);
+        } else {
+          dispatch({ type: SET_QUICK_LINK_DATA, payload: response });
+        }
+      })
+      .catch((error) => {
+        handleMessage(messageKey, "error", error);
+      });
   };
 
   const handleDeleteQuickLink = (id) => {
