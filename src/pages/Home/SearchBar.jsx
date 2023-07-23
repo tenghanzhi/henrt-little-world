@@ -231,30 +231,31 @@ const SearchBar = () => {
           </form>
         );
       case "douban":
-        <form
-          className={style.lw_hometopnav_search}
-          action="https://search.douban.com/movie/subject_search"
-          method="get"
-          target="_blank"
-        >
-          <input
-            className={style.lw_hometopnav_search_input}
-            placeholder="Search on Douban Movie"
-            name="search_text"
-            type="text"
-          />
-          <input name="cat" value="1002" type="hidden" />
-          <Button
-            className={style.lw_hometopnav_search_btn}
-            type="text"
-            htmlType="submit"
-            icon={
-              <SearchOutlined className={style.lw_hometopnav_search_icon} />
-            }
-            size="large"
-          />
-        </form>;
-        return;
+        return (
+          <form
+            className={style.lw_hometopnav_search}
+            action="https://search.douban.com/movie/subject_search"
+            method="get"
+            target="_blank"
+          >
+            <input
+              className={style.lw_hometopnav_search_input}
+              placeholder="Search on Douban Movie"
+              name="search_text"
+              type="text"
+            />
+            <input name="cat" value="1002" type="hidden" />
+            <Button
+              className={style.lw_hometopnav_search_btn}
+              type="text"
+              htmlType="submit"
+              icon={
+                <SearchOutlined className={style.lw_hometopnav_search_icon} />
+              }
+              size="large"
+            />
+          </form>
+        );
       default:
         break;
     }
