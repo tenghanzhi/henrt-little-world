@@ -23,16 +23,6 @@ const EditPortfolio = () => {
   const [filedValue, setFiledValue] = useState(form.getFieldValue());
 
   useEffect(() => {
-    handleGetPortfolioDataById();
-    handleDisableSubmitBtn();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGoback = () => {
-    navigate(-1);
-  };
-
-  const handleGetPortfolioDataById = () => {
     const messageKey = "editPageLoadingMessage";
 
     (async () => {
@@ -63,6 +53,10 @@ const EditPortfolio = () => {
       .finally(() => {
         setIsPageLoading(false);
       });
+  }, [selectedPortfolioId]);
+
+  const handleGoback = () => {
+    navigate(-1);
   };
 
   const handleUpdate = (values) => {

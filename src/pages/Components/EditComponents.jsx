@@ -14,11 +14,6 @@ const EditComponents = () => {
   const [fetchedComponentData, setFetchedComponentData] = useState({});
 
   useEffect(() => {
-    handleGetComponentDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGetComponentDataById = () => {
     const messageKey = "editPageLoadingMessage";
 
     (async () => {
@@ -44,7 +39,7 @@ const EditComponents = () => {
       .finally(() => {
         setIsPageLoading(false);
       });
-  };
+  }, [selectedComponentId]);
 
   const loadedPageContent = (
     <>

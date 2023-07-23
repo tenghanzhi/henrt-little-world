@@ -27,15 +27,6 @@ const Applications = () => {
   );
 
   useEffect(() => {
-    handleGetApplicationData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    applicationTablePagenation,
-    applicationTableSorter,
-    applicationTableFilter,
-  ]);
-
-  const handleGetApplicationData = () => {
     const messageKey = "loadingMessage";
 
     (async () => {
@@ -74,7 +65,12 @@ const Applications = () => {
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });
-  };
+  }, [
+    dispatch,
+    applicationTablePagenation,
+    applicationTableSorter,
+    applicationTableFilter,
+  ]);
 
   const pageContent = (
     <Space direction="vertical" wrap align="start">

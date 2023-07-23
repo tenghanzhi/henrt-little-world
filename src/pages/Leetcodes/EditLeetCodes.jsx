@@ -14,11 +14,6 @@ const EditLeetCodes = () => {
   const [fetchedLeetcodeData, setFetchedLeetcodeData] = useState({});
 
   useEffect(() => {
-    handleGetLeetcodeDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGetLeetcodeDataById = () => {
     const messageKey = "editPageLoadingMessage";
 
     (async () => {
@@ -44,7 +39,7 @@ const EditLeetCodes = () => {
       .finally(() => {
         setIsPageLoading(false);
       });
-  };
+  }, [selectedLeetcodeId]);
 
   const loadedPageContent = (
     <>

@@ -27,11 +27,6 @@ const Portfolio = () => {
   const portfolioData = useSelector((state) => state.portfolioData);
 
   useEffect(() => {
-    handleGetPortfolioData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGetPortfolioData = () => {
     const messageKey = "loadingMessage";
 
     (async () => {
@@ -54,7 +49,7 @@ const Portfolio = () => {
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });
-  };
+  }, [dispatch]);
 
   const handleTimelineTitleOnClick = (id) => {
     dispatch({ type: SET_SELECTED_PORTFOLIO_ID, payload: id });

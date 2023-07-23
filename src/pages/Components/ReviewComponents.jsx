@@ -35,15 +35,6 @@ const ReviewComponents = () => {
   const [codeTabactiveKey, setCodeTabactiveKey] = useState("htmlCode");
 
   useEffect(() => {
-    handleGetComponentDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGoback = () => {
-    navigate(-1);
-  };
-
-  const handleGetComponentDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
 
     (async () => {
@@ -69,6 +60,10 @@ const ReviewComponents = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
+  }, [selectedComponentId]);
+
+  const handleGoback = () => {
+    navigate(-1);
   };
 
   const handleEditBtnOnClick = () => {

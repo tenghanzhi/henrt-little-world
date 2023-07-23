@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  Typography,
-  Skeleton,
-  Descriptions,
-  Button,
-  Tooltip,
-} from "antd";
+import { Typography, Skeleton, Descriptions, Button, Tooltip } from "antd";
 import { EditOutlined, RollbackOutlined } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -33,15 +27,6 @@ const ReviewLeetCodes = () => {
   const [fetchedLeetcodeData, setFetchedLeetcodeData] = useState({});
 
   useEffect(() => {
-    handleGetLeetcodeDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGoback = () => {
-    navigate(-1);
-  };
-
-  const handleGetLeetcodeDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
 
     (async () => {
@@ -67,6 +52,10 @@ const ReviewLeetCodes = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
+  }, [selectedLeetcodeId]);
+
+  const handleGoback = () => {
+    navigate(-1);
   };
 
   const handleEditBtnOnClick = () => {

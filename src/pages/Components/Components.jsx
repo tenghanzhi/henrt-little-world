@@ -28,11 +28,6 @@ const Components = () => {
   );
 
   useEffect(() => {
-    handleGetComponentData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [componentTablePagenation, componentTableSorter, componentTableFilter]);
-
-  const handleGetComponentData = () => {
     const messageKey = "loadingMessage";
 
     (async () => {
@@ -71,7 +66,12 @@ const Components = () => {
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });
-  };
+  }, [
+    dispatch,
+    componentTablePagenation,
+    componentTableSorter,
+    componentTableFilter,
+  ]);
 
   const pageContent = (
     <Space direction="vertical" wrap>

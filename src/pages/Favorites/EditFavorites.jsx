@@ -14,11 +14,6 @@ const EditFavorites = () => {
   const [fetchedFavoriteData, setFetchedFavoriteData] = useState({});
 
   useEffect(() => {
-    handleGetFavoriteDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGetFavoriteDataById = () => {
     const messageKey = "editPageLoadingMessage";
 
     (async () => {
@@ -44,7 +39,7 @@ const EditFavorites = () => {
       .finally(() => {
         setIsPageLoading(false);
       });
-  };
+  }, [selectedFavoriteId]);
 
   const loadedPageContent = (
     <>

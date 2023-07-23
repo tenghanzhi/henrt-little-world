@@ -23,11 +23,6 @@ const LeetCodes = () => {
   const leetcodeTableFilter = useSelector((state) => state.leetcodeTableFilter);
 
   useEffect(() => {
-    handleGetLeetcodeData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [leetcodeTablePagenation, leetcodeTableSorter, leetcodeTableFilter]);
-
-  const handleGetLeetcodeData = () => {
     const messageKey = "loadingMessage";
 
     (async () => {
@@ -70,7 +65,12 @@ const LeetCodes = () => {
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });
-  };
+  }, [
+    dispatch,
+    leetcodeTablePagenation,
+    leetcodeTableSorter,
+    leetcodeTableFilter,
+  ]);
 
   const pageContent = (
     <Space direction="vertical" wrap align="start">

@@ -16,11 +16,6 @@ const EditApplication = () => {
   const [fetchedApplicationData, setFetchedApplicationData] = useState({});
 
   useEffect(() => {
-    handleGetLeetcodeDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGetLeetcodeDataById = () => {
     const messageKey = "editPageLoadingMessage";
 
     (async () => {
@@ -46,7 +41,7 @@ const EditApplication = () => {
       .finally(() => {
         setIsPageLoading(false);
       });
-  };
+  }, [selectedApplicationId]);
 
   const loadedPageContent = (
     <>

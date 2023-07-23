@@ -33,15 +33,6 @@ const ReviewPortfolio = () => {
   const [fetchedPortfolioData, setFetchedPortfolioData] = useState({});
 
   useEffect(() => {
-    handleGetPortfolioDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGoback = () => {
-    navigate(-1);
-  };
-
-  const handleGetPortfolioDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
 
     (async () => {
@@ -67,6 +58,10 @@ const ReviewPortfolio = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
+  }, [selectedPortfolioId]);
+
+  const handleGoback = () => {
+    navigate(-1);
   };
 
   const handleEditBtnOnClick = () => {

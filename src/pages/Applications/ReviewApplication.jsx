@@ -35,15 +35,6 @@ const ReviewApplication = () => {
   const [fetchedApplicationData, setFetchedApplicationData] = useState({});
 
   useEffect(() => {
-    handleGetApplicationDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGoback = () => {
-    navigate(-1);
-  };
-
-  const handleGetApplicationDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
 
     (async () => {
@@ -69,6 +60,10 @@ const ReviewApplication = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
+  }, [selectedApplicationId]);
+
+  const handleGoback = () => {
+    navigate(-1);
   };
 
   const handleEditBtnOnClick = () => {

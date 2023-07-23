@@ -16,11 +16,6 @@ const Home = () => {
   const showHomeCard = useSelector((state) => state.showHomeCard);
 
   useEffect(() => {
-    if (userInfoData?.user?.username) handleQuickLinkData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleQuickLinkData = () => {
     const messageKey = "loadingMessage";
 
     (async () => {
@@ -47,7 +42,7 @@ const Home = () => {
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });
-  };
+  }, [userInfoData?.user?.username, dispatch]);
 
   const pageContent = (
     <Space direction="vertical" align="center" wrap>

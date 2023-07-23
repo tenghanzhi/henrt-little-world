@@ -23,15 +23,6 @@ const ReviewFavorites = () => {
   const [fetchedFavoriteData, setFetchedFavoriteData] = useState({});
 
   useEffect(() => {
-    handleGetFavoriteDataById();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleGoback = () => {
-    navigate(-1);
-  };
-
-  const handleGetFavoriteDataById = () => {
     const messageKey = "reviewPageLoadingMessage";
 
     (async () => {
@@ -57,6 +48,10 @@ const ReviewFavorites = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
+  }, [selectedFavoriteId]);
+
+  const handleGoback = () => {
+    navigate(-1);
   };
 
   const handleEditBtnOnClick = () => {

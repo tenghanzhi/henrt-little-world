@@ -39,11 +39,11 @@ const Portfolio = () => {
   const [editItemValue, setEditItemValue] = useState(null);
 
   useEffect(() => {
-    handleGetBulletinboardData();
+    handleGetData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bulletinboardTablePagenation, bulletinboardTableSorter]);
 
-  const handleGetBulletinboardData = () => {
+  const handleGetData = () => {
     const messageKey = "loadingMessage";
 
     (async () => {
@@ -119,7 +119,7 @@ const Portfolio = () => {
               messageMatrix.UPLOAD_UPDATED_DATA_MESSAGE_SUCCESS
             );
             setMessageValue(null);
-            handleGetBulletinboardData();
+            handleGetData();
           }
         })
         .catch((error) => {
@@ -157,7 +157,7 @@ const Portfolio = () => {
             );
             setEditItemId(null);
             setEditItemValue(null);
-            handleGetBulletinboardData();
+            handleGetData();
           }
         })
         .catch((error) => {
@@ -203,7 +203,7 @@ const Portfolio = () => {
             "success",
             messageMatrix.DELETING_MESSAGE_SUCCESS
           );
-          handleGetBulletinboardData();
+          handleGetData();
           setIsUploading(false);
         }
       })

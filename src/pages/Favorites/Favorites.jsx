@@ -23,11 +23,6 @@ const Favorites = () => {
   const favoriteTableFilter = useSelector((state) => state.favoriteTableFilter);
 
   useEffect(() => {
-    handleGetFavoriteData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favoriteTablePagenation, favoriteTableSorter, favoriteTableFilter]);
-
-  const handleGetFavoriteData = () => {
     const messageKey = "loadingMessage";
 
     (async () => {
@@ -62,7 +57,12 @@ const Favorites = () => {
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });
-  };
+  }, [
+    dispatch,
+    favoriteTablePagenation,
+    favoriteTableSorter,
+    favoriteTableFilter,
+  ]);
 
   const pageContent = (
     <Space direction="vertical" wrap align="start">
