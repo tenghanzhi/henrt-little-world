@@ -51,11 +51,17 @@ const showHomeMenu = localStorage.getItem("showHomeMenu");
 const showHomeQuickLink = localStorage.getItem("showHomeQuickLink");
 const showHomeFooter = localStorage.getItem("showHomeFooter");
 
+const selectedPortfolioId = sessionStorage.getItem("selectedPortfolioId");
+const selectedLeetcodeId = sessionStorage.getItem("selectedLeetcodeId");
+const selectedApplicationId = sessionStorage.getItem("selectedApplicationId");
+const selectedComponentId = sessionStorage.getItem("selectedComponentId");
+const selectedFavoriteId = sessionStorage.getItem("selectedFavoriteId");
+
 const initialState = {
   portfolioData: { data: [], meta: {} },
-  selectedPortfolioId: null,
+  selectedPortfolioId: selectedPortfolioId ? selectedPortfolioId : null,
   leetcodeData: { data: [], meta: {} },
-  selectedLeetcodeId: null,
+  selectedLeetcodeId: selectedLeetcodeId ? selectedLeetcodeId : null,
   leetcodeTablePagenation: {
     current: 1,
     size: 25,
@@ -82,7 +88,7 @@ const initialState = {
   },
   leetcodeTableFilterType: null,
   applicationData: { data: [], meta: {} },
-  selectedApplicationId: null,
+  selectedApplicationId: selectedApplicationId ? selectedApplicationId : null,
   applicationTableColumns: {
     name: true,
     type: true,
@@ -106,7 +112,7 @@ const initialState = {
   },
   applicationTableFilterType: null,
   componentData: { data: [], meta: {} },
-  selectedComponentId: null,
+  selectedComponentId: selectedComponentId ? selectedComponentId : null,
   componentTablePagenation: {
     current: 1,
     size: 25,
@@ -122,7 +128,7 @@ const initialState = {
   },
   componentTableFilterType: null,
   favoriteData: { data: [], meta: {} },
-  selectedFavoriteId: null,
+  selectedFavoriteId: selectedFavoriteId ? selectedFavoriteId : null,
   favoriteTableColumns: {
     name: true,
     type: true,
@@ -183,10 +189,12 @@ export default function reducer(state = initialState, action) {
     case SET_PORTFOLIO_DATA:
       return { ...state, portfolioData: action.payload };
     case SET_SELECTED_PORTFOLIO_ID:
+      sessionStorage.setItem("selectedPortfolioId", action.payload);
       return { ...state, selectedPortfolioId: action.payload };
     case SET_LEETCODE_DATA:
       return { ...state, leetcodeData: action.payload };
     case SET_SELECTED_LEETCODE_ID:
+      sessionStorage.setItem("selectedLeetcodeId", action.payload);
       return { ...state, selectedLeetcodeId: action.payload };
     case SET_LEETCODE_TABLE_COLUMNS:
       return { ...state, leetcodeTableColumns: action.payload };
@@ -201,6 +209,7 @@ export default function reducer(state = initialState, action) {
     case SET_APPLICATION_DATA:
       return { ...state, applicationData: action.payload };
     case SET_SELECTED_APPLICATION_ID:
+      sessionStorage.setItem("selectedApplicationId", action.payload);
       return { ...state, selectedApplicationId: action.payload };
     case SET_APPLICATION_TABLE_COLUMNS:
       return { ...state, applicationTableColumns: action.payload };
@@ -215,6 +224,7 @@ export default function reducer(state = initialState, action) {
     case SET_COMPONENT_DATA:
       return { ...state, componentData: action.payload };
     case SET_SELECTED_COMPONENT_ID:
+      sessionStorage.setItem("selectedComponentId", action.payload);
       return { ...state, selectedComponentId: action.payload };
     case SET_COMPONENT_TABLE_PAGENATION:
       return { ...state, componentTablePagenation: action.payload };
@@ -227,6 +237,7 @@ export default function reducer(state = initialState, action) {
     case SET_FAVORITE_DATA:
       return { ...state, favoriteData: action.payload };
     case SET_SELECTED_FAVORITE_ID:
+      sessionStorage.setItem("selectedFavoriteId", action.payload);
       return { ...state, selectedFavoriteId: action.payload };
     case SET_FAVORITE_TABLE_COLUMNS:
       return { ...state, favoriteTableColumns: action.payload };
