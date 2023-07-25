@@ -43,6 +43,10 @@
   transition: all 0.5s ease-out;
 }
 
+.lw_portfolio_review_md_wrapper{
+  width: 100%;
+}
+
 @media (max-width: 800px) {
   .lw_portfolio_review_grid {
     margin: 0px 0px;

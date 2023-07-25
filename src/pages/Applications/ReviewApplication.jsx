@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  Typography,
-  Skeleton,
-  Descriptions,
-  Button,
-  Tooltip,
-} from "antd";
+import { Typography, Skeleton, Descriptions, Button, Tooltip } from "antd";
 import { EditOutlined, RollbackOutlined } from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -33,6 +27,19 @@ const ReviewApplication = () => {
   );
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
   const [fetchedApplicationData, setFetchedApplicationData] = useState({});
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   useEffect(() => {
     const messageKey = "reviewPageLoadingMessage";
@@ -79,8 +86,8 @@ const ReviewApplication = () => {
         {fetchedApplicationData.name}
       </Typography.Title>
       <Descriptions
-        bordered
-        column={4}
+        bordered={windowWidth > 500 ? true : false}
+        column={6}
         labelStyle={{
           color: globalStyleMatrix.COLORS.titleFontColor,
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
@@ -88,13 +95,13 @@ const ReviewApplication = () => {
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
         className={style.lw_applications_review_applications_wrapper}
       >
-        <Descriptions.Item label="Application Name" span={4}>
+        <Descriptions.Item label="Name" span={6}>
           {fetchedApplicationData?.name?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Type" span={4}>
+        <Descriptions.Item label="Type" span={6}>
           {fetchedApplicationData?.type?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Source" span={4}>
+        <Descriptions.Item label="Source" span={6}>
           {fetchedApplicationData?.source ? (
             <>
               {fetchedApplicationData?.source?.toString()}
@@ -105,15 +112,19 @@ const ReviewApplication = () => {
             "None"
           )}
         </Descriptions.Item>
-        <Descriptions.Item label="Created Date" span={4}>
+        <Descriptions.Item label="Created Date" span={6}>
           {fetchedApplicationData?.createdAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-        <Descriptions.Item label="Updated Date" span={4}>
+        <Descriptions.Item label="Updated Date" span={6}>
           {fetchedApplicationData?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
         {fetchedApplicationData?.description && (
-          <Descriptions.Item label="Problem Content" span={4}>
+          <Descriptions.Item
+            label={windowWidth > 500 ? "Description" : ""}
+            span={6}
+          >
             <ReactMarkdown
+              className={style.lw_applications_review_applications_md_wrapper}
               children={fetchedApplicationData?.description}
               remarkPlugins={[remarkGfm]}
             />
@@ -121,7 +132,10 @@ const ReviewApplication = () => {
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeOne && (
-          <Descriptions.Item label="Code One" span={4}>
+          <Descriptions.Item
+            label={windowWidth > 500 ? "Code One" : ""}
+            span={6}
+          >
             <CodeMirror
               value={fetchedApplicationData?.codeOne}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
@@ -133,7 +147,10 @@ const ReviewApplication = () => {
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeTwo && (
-          <Descriptions.Item label="Code Two" span={4}>
+          <Descriptions.Item
+            label={windowWidth > 500 ? "Code Two" : ""}
+            span={6}
+          >
             <CodeMirror
               value={fetchedApplicationData?.codeTwo}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
@@ -145,7 +162,10 @@ const ReviewApplication = () => {
           </Descriptions.Item>
         )}
         {fetchedApplicationData?.codeThree && (
-          <Descriptions.Item label="Code Three" span={4}>
+          <Descriptions.Item
+            label={windowWidth > 500 ? "Code Three" : ""}
+            span={6}
+          >
             <CodeMirror
               value={fetchedApplicationData?.codeThree}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}

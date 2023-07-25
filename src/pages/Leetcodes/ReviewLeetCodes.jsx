@@ -25,6 +25,19 @@ const ReviewLeetCodes = () => {
   const selectedLeetcodeId = useSelector((state) => state.selectedLeetcodeId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
   const [fetchedLeetcodeData, setFetchedLeetcodeData] = useState({});
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   useEffect(() => {
     const messageKey = "reviewPageLoadingMessage";
@@ -71,8 +84,8 @@ const ReviewLeetCodes = () => {
         {fetchedLeetcodeData.leetcodeIndex}. {fetchedLeetcodeData.title}
       </Typography.Title>
       <Descriptions
-        bordered
-        column={4}
+        bordered={windowWidth > 500 ? true : false}
+        column={6}
         labelStyle={{
           color: globalStyleMatrix.COLORS.titleFontColor,
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
@@ -80,35 +93,39 @@ const ReviewLeetCodes = () => {
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
         className={style.lw_leetcode_review_leetcode_description_wrapper}
       >
-        <Descriptions.Item label="LeedCode Index" span={4}>
+        <Descriptions.Item label="LeedCode Index" span={6}>
           {fetchedLeetcodeData?.leetcodeIndex?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Title" span={4}>
+        <Descriptions.Item label="Title" span={6}>
           {fetchedLeetcodeData?.title?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Difficulty" span={4}>
+        <Descriptions.Item label="Difficulty" span={6}>
           {fetchedLeetcodeData?.difficulty?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="First Completed Date" span={4}>
+        <Descriptions.Item label="First Completed Date" span={6}>
           {fetchedLeetcodeData?.firstCompletedDate?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Created Date" span={4}>
+        <Descriptions.Item label="Created Date" span={6}>
           {fetchedLeetcodeData?.createdAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-        <Descriptions.Item label="Updated Date" span={4}>
+        <Descriptions.Item label="Updated Date" span={6}>
           {fetchedLeetcodeData?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-        <Descriptions.Item label="LeetCode Page" span={4}>
+        <Descriptions.Item label="LeetCode Page" span={6}>
           {fetchedLeetcodeData?.link?.toString()}
           <OpenLinkButton link={fetchedLeetcodeData?.link} />
           <CopyButton data={fetchedLeetcodeData?.link} />
         </Descriptions.Item>
-        <Descriptions.Item label="Problem Type" span={4}>
+        <Descriptions.Item label="Problem Type" span={6}>
           {fetchedLeetcodeData?.type?.toString()}
         </Descriptions.Item>
         {fetchedLeetcodeData?.issue && (
-          <Descriptions.Item label="Problem Content" span={4}>
+          <Descriptions.Item
+            label={windowWidth > 500 ? "Problem Content" : ""}
+            span={6}
+          >
             <ReactMarkdown
+              className={style.lw_leetcodes_review_leetcode_md_wrapper}
               children={fetchedLeetcodeData?.issue}
               remarkPlugins={[remarkGfm]}
             />
@@ -116,7 +133,10 @@ const ReviewLeetCodes = () => {
           </Descriptions.Item>
         )}
         {fetchedLeetcodeData?.solutionOne && (
-          <Descriptions.Item label="Problem Solution One" span={4}>
+          <Descriptions.Item
+            label={windowWidth > 500 ? "Problem Solution One" : ""}
+            span={6}
+          >
             <CodeMirror
               value={fetchedLeetcodeData?.solutionOne}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
@@ -128,7 +148,10 @@ const ReviewLeetCodes = () => {
           </Descriptions.Item>
         )}
         {fetchedLeetcodeData?.solutionTwo && (
-          <Descriptions.Item label="Problem Solution Two" span={4}>
+          <Descriptions.Item
+            label={windowWidth > 500 ? "Problem Solution Two" : ""}
+            span={6}
+          >
             <CodeMirror
               value={fetchedLeetcodeData?.solutionTwo}
               extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}

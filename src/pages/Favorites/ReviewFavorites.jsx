@@ -21,6 +21,19 @@ const ReviewFavorites = () => {
   const selectedFavoriteId = useSelector((state) => state.selectedFavoriteId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
   const [fetchedFavoriteData, setFetchedFavoriteData] = useState({});
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   useEffect(() => {
     const messageKey = "reviewPageLoadingMessage";
@@ -67,8 +80,8 @@ const ReviewFavorites = () => {
         {fetchedFavoriteData.name}
       </Typography.Title>
       <Descriptions
-        bordered
-        column={4}
+        bordered={windowWidth > 500 ? true : false}
+        column={6}
         labelStyle={{
           color: globalStyleMatrix.COLORS.titleFontColor,
           fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
@@ -76,28 +89,32 @@ const ReviewFavorites = () => {
         contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
         className={style.lw_favorite_review_favorite_wrapper}
       >
-        <Descriptions.Item label="Name" span={4}>
+        <Descriptions.Item label="Name" span={6}>
           {fetchedFavoriteData?.name?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Type" span={4}>
+        <Descriptions.Item label="Type" span={6}>
           {fetchedFavoriteData?.type?.toString()}
         </Descriptions.Item>
-        <Descriptions.Item label="Source Website" span={4}>
+        <Descriptions.Item label="Source Website" span={6}>
           <>
             {fetchedFavoriteData?.link?.toString()}
             <OpenLinkButton link={fetchedFavoriteData?.link} />
             <CopyButton data={fetchedFavoriteData?.link} />
           </>
         </Descriptions.Item>
-        <Descriptions.Item label="Created Date" span={4}>
+        <Descriptions.Item label="Created Date" span={6}>
           {fetchedFavoriteData?.createdAt?.toString().slice(0, 10)}
         </Descriptions.Item>
-        <Descriptions.Item label="Updated Date" span={4}>
+        <Descriptions.Item label="Updated Date" span={6}>
           {fetchedFavoriteData?.updatedAt?.toString().slice(0, 10)}
         </Descriptions.Item>
         {fetchedFavoriteData?.description && (
-          <Descriptions.Item label="Problem Content" span={4}>
+          <Descriptions.Item
+            label={windowWidth > 500 ? "Description" : ""}
+            span={6}
+          >
             <ReactMarkdown
+              className={style.lw_favorites_review_favorite_md_wrapper}
               children={fetchedFavoriteData?.description}
               remarkPlugins={[remarkGfm]}
             />

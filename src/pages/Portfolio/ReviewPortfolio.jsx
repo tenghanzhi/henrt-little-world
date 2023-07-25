@@ -31,6 +31,19 @@ const ReviewPortfolio = () => {
   const selectedPortfolioId = useSelector((state) => state.selectedPortfolioId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
   const [fetchedPortfolioData, setFetchedPortfolioData] = useState({});
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   useEffect(() => {
     const messageKey = "reviewPageLoadingMessage";
@@ -110,42 +123,51 @@ const ReviewPortfolio = () => {
             fontWeight: globalStyleMatrix.FONT_WEIGHT.titleFontWeight,
           }}
           contentStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
-          bordered
-          column={4}
+          bordered={windowWidth > 500 ? true : false}
+          column={6}
         >
           {fetchedPortfolioData.projectName && (
-            <Descriptions.Item label="Project Name" span={4}>
+            <Descriptions.Item label="Project Name" span={6}>
               {fetchedPortfolioData.projectName}
             </Descriptions.Item>
           )}
-          <Descriptions.Item label="Start Date" span={4}>
+          <Descriptions.Item label="Start Date" span={6}>
             {fetchedPortfolioData.startDate}
           </Descriptions.Item>
-          <Descriptions.Item label="End Date" span={4}>
+          <Descriptions.Item label="End Date" span={6}>
             {fetchedPortfolioData.endDate
               ? fetchedPortfolioData.endDate
               : "Present"}
           </Descriptions.Item>
-          <Descriptions.Item label="Location" span={4}>
+          <Descriptions.Item label="Location" span={6}>
             {fetchedPortfolioData.location}
           </Descriptions.Item>
-          <Descriptions.Item label="Key Skills" span={4}>
+          <Descriptions.Item label="Key Skills" span={6}>
             <ReactMarkdown
+              className={style.lw_portfolio_review_md_wrapper}
               children={fetchedPortfolioData.keySkills}
               remarkPlugins={[remarkGfm]}
             />
           </Descriptions.Item>
           {fetchedPortfolioData.description && (
-            <Descriptions.Item label="Description" span={4}>
+            <Descriptions.Item
+              label={windowWidth > 500 ? "Description" : ""}
+              span={6}
+            >
               <ReactMarkdown
+                className={style.lw_portfolio_review_md_wrapper}
                 children={fetchedPortfolioData?.description}
                 remarkPlugins={[remarkGfm]}
               />
             </Descriptions.Item>
           )}
           {fetchedPortfolioData.jobContent && (
-            <Descriptions.Item label="Job Contents" span={4}>
+            <Descriptions.Item
+              label={windowWidth > 500 ? "Job Contents" : ""}
+              span={6}
+            >
               <ReactMarkdown
+                className={style.lw_portfolio_review_md_wrapper}
                 children={fetchedPortfolioData.jobContent}
                 remarkPlugins={[remarkGfm]}
               />
