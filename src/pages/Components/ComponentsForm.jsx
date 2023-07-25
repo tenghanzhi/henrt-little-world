@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Form, Input, Select, Popconfirm, Tooltip } from "antd";
+import { Button, Form, Input, Select, Popconfirm, Tooltip, Card } from "antd";
 import {
   RollbackOutlined,
   DeleteOutlined,
@@ -40,6 +40,15 @@ const ComponentsForm = (props) => {
     pageType === "edit" ? defaultData?.jsCode?.toString() : ""
   );
   const [isUploading, setIsUploading] = useState(false);
+
+  const indexHead = htmlCode?.indexOf("</head>");
+  const combinedCssCode = `${htmlCode?.slice(0, indexHead)}
+  <style>${cssCode}</style>
+  ${htmlCode?.slice(indexHead)}`;
+  const indexBody = combinedCssCode?.indexOf("</body>");
+  const combinedJsCode = `${combinedCssCode?.slice(0, indexBody)}
+  <script>${jsCode}</script>
+  ${combinedCssCode?.slice(indexBody)}`;
 
   const handleGoback = () => {
     navigate(-1);
@@ -496,6 +505,15 @@ const ComponentsForm = (props) => {
       <Form.Item name={["data", "source"]} label="Source">
         <Input {...formProps} placeholder="Input Component Source" />
       </Form.Item>
+      <Card className={style.lw_components_form_iframe_card} bordered={false}>
+        <iframe
+          title="Code Editor Preview"
+          className={style.lw_components_form_iframe}
+          srcDoc={combinedJsCode}
+        >
+          <p>Your broser does not support iframe tag</p>
+        </iframe>
+      </Card>
       <Form.Item name={["data", "htmlCode"]} label="HTML Code">
         <div>
           <Tooltip title="Format Codes">

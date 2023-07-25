@@ -88,7 +88,6 @@ const ReviewComponents = () => {
   const combinedCssCode = `${htmlCode?.slice(0, indexHead)}
   <style>${cssCode}</style>
   ${htmlCode?.slice(indexHead)}`;
-
   const indexBody = combinedCssCode?.indexOf("</body>");
   const combinedJsCode = `${combinedCssCode?.slice(0, indexBody)}
   <script>${jsCode}</script>
