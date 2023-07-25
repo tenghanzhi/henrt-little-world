@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Form, Input, Select, Popconfirm } from "antd";
+import { Button, Form, Input, Select, Popconfirm, Tooltip } from "antd";
 import {
   RollbackOutlined,
   DeleteOutlined,
   CheckOutlined,
+  FormatPainterOutlined,
+  CopyOutlined,
+  RedoOutlined,
 } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
@@ -28,13 +31,13 @@ const ComponentsForm = (props) => {
   const [form] = Form.useForm();
   const [filedValue, setFiledValue] = useState(form.getFieldValue());
   const [cssCode, setCssCode] = useState(
-    pageType === "edit" ? defaultData.cssCode : null
+    pageType === "edit" ? defaultData?.cssCode?.toString() : ""
   );
   const [htmlCode, setHtmlCode] = useState(
-    pageType === "edit" ? defaultData.htmlCode : null
+    pageType === "edit" ? defaultData?.htmlCode?.toString() : ""
   );
   const [jsCode, setJsCode] = useState(
-    pageType === "edit" ? defaultData.jsCode : null
+    pageType === "edit" ? defaultData?.jsCode?.toString() : ""
   );
   const [isUploading, setIsUploading] = useState(false);
 
@@ -62,7 +65,79 @@ const ComponentsForm = (props) => {
     }
   };
 
-  const handleSubmitApplication = (type, values) => {
+  const handleFormatCode = (type) => {
+    const beautify_js = require("js-beautify");
+    const beautify_css = require("js-beautify").css;
+    const beautify_html = require("js-beautify").html;
+
+    switch (type) {
+      case "cssCode":
+        setCssCode(beautify_css(cssCode, { indent_size: 4 }));
+        break;
+      case "htmlCode":
+        setHtmlCode(beautify_html(htmlCode, { indent_size: 4 }));
+        break;
+      case "jsCode":
+        setJsCode(beautify_js(jsCode, { indent_size: 4 }));
+        break;
+      default:
+        break;
+    }
+
+    setFiledValue(form.getFieldValue());
+  };
+
+  const handlePasteCode = async (type) => {
+    const clipboard = await navigator.clipboard.readText();
+
+    switch (type) {
+      case "cssCode":
+        setCssCode(clipboard);
+        break;
+      case "htmlCode":
+        setHtmlCode(clipboard);
+        break;
+      case "jsCode":
+        setJsCode(clipboard);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleClearCode = (type) => {
+    switch (type) {
+      case "cssCode":
+        setCssCode("");
+        break;
+      case "htmlCode":
+        setHtmlCode("");
+        break;
+      case "jsCode":
+        setJsCode("");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleResetCode = (type) => {
+    switch (type) {
+      case "cssCode":
+        setCssCode(defaultData?.cssCode?.toString());
+        break;
+      case "htmlCode":
+        setHtmlCode(defaultData?.htmlCode?.toString());
+        break;
+      case "jsCode":
+        setJsCode(defaultData?.jsCode?.toString());
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = (type, values) => {
     const messageKey = "uploadingDataMessage";
     const messageAction = handleGoback;
     handleMessage(
@@ -147,11 +222,6 @@ const ComponentsForm = (props) => {
     }
   };
 
-  const onFinish = (values) => {
-    setIsUploading(true);
-    handleSubmitApplication(pageType, values);
-  };
-
   const handleDelete = () => {
     const messageKey = "deleteDataMessage";
     const messageAction = navigate(
@@ -199,6 +269,11 @@ const ComponentsForm = (props) => {
         );
         setIsUploading(false);
       });
+  };
+
+  const onFinish = (values) => {
+    setIsUploading(true);
+    handleSubmit(pageType, values);
   };
 
   const handleDisableSubmitBtn = () => {
@@ -329,6 +404,7 @@ const ComponentsForm = (props) => {
     </script>
   </body>
 </html>`;
+
   return (
     <Form
       {...formLayout}
@@ -401,14 +477,44 @@ const ComponentsForm = (props) => {
         <Input {...formProps} placeholder="Input Component Source" />
       </Form.Item>
       <Form.Item name={["data", "htmlCode"]} label="HTML Code">
-        <div className={style.lw_components_form_codemirror_wrapper}>
+        <div>
+          <Tooltip title="Format Codes">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handleFormatCode("htmlCode")}
+              icon={<FormatPainterOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Paste from Clipboard">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handlePasteCode("htmlCode")}
+              icon={<CopyOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Clear Code Area">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handleClearCode("htmlCode")}
+              icon={<DeleteOutlined />}
+            />
+          </Tooltip>
+          {pageType === "edit" && (
+            <Tooltip title="Reset">
+              <Button
+                className={style.lw_components_form_btns}
+                onClick={() => handleResetCode("htmlCode")}
+                icon={<RedoOutlined />}
+              />
+            </Tooltip>
+          )}
           <CodeMirror
             {...formProps}
             height="600px"
             extensions={[html(), EditorView.lineWrapping]}
             value={
               pageType === "edit"
-                ? defaultData.htmlCode?.toString()
+                ? htmlCode
                 : form.getFieldValue()?.data?.codeType
                 ? form.getFieldValue()?.data?.codeType === "Vanilla"
                   ? HTML_CODE_PREFIX
@@ -421,24 +527,84 @@ const ComponentsForm = (props) => {
         </div>
       </Form.Item>
       <Form.Item name={["data", "cssCode"]} label="CSS Code">
-        <div className={style.lw_components_form_codemirror_wrapper}>
+        <div>
+          <Tooltip title="Format Codes">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handleFormatCode("cssCode")}
+              icon={<FormatPainterOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Paste from Clipboard">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handlePasteCode("cssCode")}
+              icon={<CopyOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Clear Code Area">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handleClearCode("cssCode")}
+              icon={<DeleteOutlined />}
+            />
+          </Tooltip>
+          {pageType === "edit" && (
+            <Tooltip title="Reset">
+              <Button
+                className={style.lw_components_form_btns}
+                onClick={() => handleResetCode("cssCode")}
+                icon={<RedoOutlined />}
+              />
+            </Tooltip>
+          )}
           <CodeMirror
             {...formProps}
             height="600px"
             extensions={[html(), EditorView.lineWrapping]}
-            value={defaultData.cssCode?.toString()}
+            value={cssCode}
             onChange={(e) => handleFormValueChange("setCssCode", e)}
             theme={vscodeDark}
           />
         </div>
       </Form.Item>
-      <Form.Item name={["data", "codeThree"]} label="JS Code">
-        <div className={style.lw_components_form_codemirror_wrapper}>
+      <Form.Item name={["data", "jsCode"]} label="JS Code">
+        <div>
+          <Tooltip title="Format Codes">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handleFormatCode("jsCode")}
+              icon={<FormatPainterOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Paste from Clipboard">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handlePasteCode("jsCode")}
+              icon={<CopyOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Clear Code Area">
+            <Button
+              className={style.lw_components_form_btns}
+              onClick={() => handleClearCode("jsCode")}
+              icon={<DeleteOutlined />}
+            />
+          </Tooltip>
+          {pageType === "edit" && (
+            <Tooltip title="Reset">
+              <Button
+                className={style.lw_components_form_btns}
+                onClick={() => handleResetCode("jsCode")}
+                icon={<RedoOutlined />}
+              />
+            </Tooltip>
+          )}
           <CodeMirror
             {...formProps}
             height="600px"
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-            value={defaultData.jsCode?.toString()}
+            value={jsCode}
             onChange={(e) => handleFormValueChange("setJsCode", e)}
             theme={vscodeDark}
           />

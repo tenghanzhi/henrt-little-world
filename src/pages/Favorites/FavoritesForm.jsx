@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Form, Input, Select, Popconfirm } from "antd";
+import { Button, Form, Input, Select, Popconfirm, Tooltip } from "antd";
 import {
   RollbackOutlined,
   DeleteOutlined,
   CheckOutlined,
+  CopyOutlined,
+  RedoOutlined,
 } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
@@ -27,7 +29,7 @@ const FavoritesForm = (props) => {
   const [form] = Form.useForm();
   const [filedValue, setFiledValue] = useState(form.getFieldValue());
   const [description, setDescription] = useState(
-    pageType === "edit" ? defaultData.description : null
+    pageType === "edit" ? defaultData?.description?.toString() : ""
   );
   const [isUploading, setIsUploading] = useState(false);
 
@@ -43,6 +45,38 @@ const FavoritesForm = (props) => {
         break;
       default:
         setFiledValue(form.getFieldValue());
+        break;
+    }
+  };
+
+  const handlePasteCode = async (type) => {
+    const clipboard = await navigator.clipboard.readText();
+
+    switch (type) {
+      case "description":
+        setDescription(clipboard);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleClearCode = (type) => {
+    switch (type) {
+      case "description":
+        setDescription("");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleResetCode = (type) => {
+    switch (type) {
+      case "description":
+        setDescription(defaultData?.description?.toString());
+        break;
+      default:
         break;
     }
   };
@@ -289,13 +323,35 @@ const FavoritesForm = (props) => {
       <Form.Item name={["data", "link"]} label="Source Link">
         <Input {...formProps} placeholder="Input Source Link" />
       </Form.Item>
-
-      <Form.Item name={["data", "solutionOne"]} label="Description">
-        <div className={style.lw_favorites_form_codemirror_wrapper}>
+      <Form.Item name={["data", "description"]} label="Description">
+        <div>
+          <Tooltip title="Paste from Clipboard">
+            <Button
+              className={style.lw_favorites_form_btns}
+              onClick={() => handlePasteCode("description")}
+              icon={<CopyOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Clear Code Area">
+            <Button
+              className={style.lw_favorites_form_btns}
+              onClick={() => handleClearCode("description")}
+              icon={<DeleteOutlined />}
+            />
+          </Tooltip>
+          {pageType === "edit" && (
+            <Tooltip title="Reset">
+              <Button
+                className={style.lw_favorites_form_btns}
+                onClick={() => handleResetCode("description")}
+                icon={<RedoOutlined />}
+              />
+            </Tooltip>
+          )}
           <CodeMirror
             height="600px"
             extensions={[markdown(), EditorView.lineWrapping]}
-            value={defaultData.description?.toString()}
+            value={description}
             onChange={(e) => handleFormValueChange("description", e)}
             theme={vscodeDark}
           />

@@ -9,11 +9,15 @@ import {
   Select,
   DatePicker,
   Popconfirm,
+  Tooltip,
 } from "antd";
 import {
   RollbackOutlined,
   DeleteOutlined,
   CheckOutlined,
+  FormatPainterOutlined,
+  CopyOutlined,
+  RedoOutlined,
 } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import messageMatrix from "../common/messageMatrix";
@@ -36,10 +40,10 @@ const LeetCodesForm = (props) => {
   const [form] = Form.useForm();
   const [filedValue, setFiledValue] = useState(form.getFieldValue());
   const [solutionOne, setSolutionOne] = useState(
-    pageType === "edit" ? defaultData.solutionOne : null
+    pageType === "edit" ? defaultData?.solutionOne?.toString() : ""
   );
   const [solutionTwo, setSolutionTwo] = useState(
-    pageType === "edit" ? defaultData.solutionTwo : null
+    pageType === "edit" ? defaultData?.solutionTwo?.toString() : ""
   );
   const [isUploading, setIsUploading] = useState(false);
 
@@ -59,6 +63,64 @@ const LeetCodesForm = (props) => {
         break;
       default:
         setFiledValue(form.getFieldValue());
+        break;
+    }
+  };
+
+  const handleFormatCode = (type) => {
+    const beautify_js = require("js-beautify");
+
+    switch (type) {
+      case "solutionOne":
+        setSolutionOne(beautify_js(solutionOne, { indent_size: 4 }));
+        break;
+      case "solutionTwo":
+        setSolutionTwo(beautify_js(solutionTwo, { indent_size: 4 }));
+        break;
+      default:
+        break;
+    }
+
+    setFiledValue(form.getFieldValue());
+  };
+
+  const handlePasteCode = async (type) => {
+    const clipboard = await navigator.clipboard.readText();
+
+    switch (type) {
+      case "solutionOne":
+        setSolutionOne(clipboard);
+        break;
+      case "solutionTwo":
+        setSolutionTwo(clipboard);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleClearCode = (type) => {
+    switch (type) {
+      case "solutionOne":
+        setSolutionOne("");
+        break;
+      case "solutionTwo":
+        setSolutionTwo("");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleResetCode = (type) => {
+    switch (type) {
+      case "solutionOne":
+        setSolutionOne(defaultData?.solutionOne?.toString());
+        break;
+      case "solutionTwo":
+        setSolutionTwo(defaultData?.solutionTwo?.toString());
+        break;
+      default:
         break;
     }
   };
@@ -326,7 +388,7 @@ const LeetCodesForm = (props) => {
                 title: defaultData.title,
                 difficulty: defaultData.difficulty,
                 firstCompletedDate: dayjs(defaultData.firstCompletedDate),
-                type: defaultData.type,
+                type: defaultData.type.split(","),
                 link: defaultData.link,
                 issue: defaultData.issue,
               },
@@ -420,23 +482,83 @@ const LeetCodesForm = (props) => {
         />
       </Form.Item>
       <Form.Item name={["data", "solutionOne"]} label="Problem Solution One">
-        <div className={style.lw_leetcodes_form_codemirror_wrapper}>
+        <div>
+          <Tooltip title="Format Codes">
+            <Button
+              className={style.lw_leetcodes_form_btns}
+              onClick={() => handleFormatCode("solutionOne")}
+              icon={<FormatPainterOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Paste from Clipboard">
+            <Button
+              className={style.lw_leetcodes_form_btns}
+              onClick={() => handlePasteCode("solutionOne")}
+              icon={<CopyOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Clear Code Area">
+            <Button
+              className={style.lw_leetcodes_form_btns}
+              onClick={() => handleClearCode("solutionOne")}
+              icon={<DeleteOutlined />}
+            />
+          </Tooltip>
+          {pageType === "edit" && (
+            <Tooltip title="Reset">
+              <Button
+                className={style.lw_leetcodes_form_btns}
+                onClick={() => handleResetCode("solutionOne")}
+                icon={<RedoOutlined />}
+              />
+            </Tooltip>
+          )}
           <CodeMirror
             height="600px"
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-            value={defaultData.solutionOne?.toString()}
+            value={solutionOne}
             onChange={(e) => handleFormValueChange("solutionOne", e)}
             theme={vscodeDark}
           />
         </div>
       </Form.Item>
       <Form.Item name={["data", "solutionTwo"]} label="Problem Solution Two">
-        <div className={style.lw_leetcodes_form_codemirror_wrapper}>
+        <div>
+          <Tooltip title="Format Codes">
+            <Button
+              className={style.lw_leetcodes_form_btns}
+              onClick={() => handleFormatCode("solutionTwo")}
+              icon={<FormatPainterOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Paste from Clipboard">
+            <Button
+              className={style.lw_leetcodes_form_btns}
+              onClick={() => handlePasteCode("solutionTwo")}
+              icon={<CopyOutlined />}
+            />
+          </Tooltip>
+          <Tooltip title="Clear Code Area">
+            <Button
+              className={style.lw_leetcodes_form_btns}
+              onClick={() => handleClearCode("solutionTwo")}
+              icon={<DeleteOutlined />}
+            />
+          </Tooltip>
+          {pageType === "edit" && (
+            <Tooltip title="Reset">
+              <Button
+                className={style.lw_leetcodes_form_btns}
+                onClick={() => handleResetCode("solutionTwo")}
+                icon={<RedoOutlined />}
+              />
+            </Tooltip>
+          )}
           <CodeMirror
             {...formProps}
             height="600px"
             extensions={[javascript({ jsx: true }), EditorView.lineWrapping]}
-            value={defaultData.solutionTwo?.toString()}
+            value={solutionTwo}
             onChange={(e) => handleFormValueChange("solutionTwo", e)}
             theme={vscodeDark}
           />

@@ -1,21 +1,18 @@
 .lw_favorites_wrapper {
-  width: 50vw;
+  width: 100vw;
+  margin-left: -10%;
 }
 
 @media (max-width: 820px) {
   .lw_favorites_wrapper {
-    width: 100vw;
+    margin-left: 0;
   }
 }
 
 .lw_favorites_form_btns {
-  margin: 0px 5px;
+  margin: 5px;
 }
 
 .lw_favorites_form_btns_wrapper {
   text-align: right;
-}
-
-.lw_favorites_form_codemirror_wrapper {
-  border: 1px solid #dedede;
 }
