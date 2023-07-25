@@ -46,14 +46,43 @@ const HomePageLayoutSetup = () => {
       case "footer":
         dispatch({ type: SET_SHOW_HOME_FOOTER, payload: value });
         break;
+      case "all":
+        dispatch({ type: SET_SHOW_HOME_CARD, payload: value });
+        dispatch({ type: SET_SHOW_HOME_DATE, payload: value });
+        dispatch({ type: SET_SHOW_HOME_SEARCH, payload: value });
+        dispatch({ type: SET_SHOW_HOME_LINK, payload: value });
+        dispatch({ type: SET_SHOW_HOME_MENU, payload: value });
+        dispatch({ type: SET_SHOW_HOME_QUICK_LINK, payload: value });
+        dispatch({ type: SET_SHOW_HOME_FOOTER, payload: value });
+        break;
       default:
         break;
     }
   };
 
+  const isAllChecked =
+    showHomeCard &&
+    showHomeDate &&
+    showHomeSearch &&
+    showHomeLink &&
+    showHomeMenu &&
+    showHomeQuickLink &&
+    showHomeFooter;
+
   const homeLayoutSetupContent = (
     <>
       <div>Home Page Layout</div>
+      <ul className={style.lw_homePageLayoutSetup_wrapper}>
+        <Switch
+          checkedChildren="Show"
+          unCheckedChildren="Hide"
+          className={style.lw_homePageLayoutSetup_switch}
+          checked={isAllChecked}
+          size="small"
+          onChange={(value) => handleTogleChange("all", value)}
+        />
+        <div className={style.lw_homePageLayoutSetup_title}>All</div>
+      </ul>
       <ul className={style.lw_homePageLayoutSetup_wrapper}>
         <Switch
           checkedChildren="Show"

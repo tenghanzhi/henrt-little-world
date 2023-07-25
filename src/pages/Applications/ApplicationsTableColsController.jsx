@@ -49,13 +49,47 @@ const ApplicationsTableColsController = () => {
           payload: { ...applicationTableColumns, action: value },
         });
         break;
+      case "all":
+        dispatch({
+          type: SET_APPLICATION_TABLE_COLUMNS,
+          payload: {
+            name: value,
+            type: value,
+            createdAt: value,
+            updatedAt: value,
+            description: value,
+            action: value,
+          },
+        });
+        break;
       default:
         break;
     }
   };
 
+  const isAllChecked =
+    applicationTableColumns.name &&
+    applicationTableColumns.type &&
+    applicationTableColumns.createdAt &&
+    applicationTableColumns.updatedAt &&
+    applicationTableColumns.description &&
+    applicationTableColumns.action;
+
   const content = (
     <div>
+      <ul className={style.lw_applications_tableColsController_wrapper}>
+        <Switch
+          checkedChildren="Show"
+          unCheckedChildren="Hide"
+          className={style.lw_applications_tableColsController_switch}
+          checked={isAllChecked}
+          size="medium"
+          onChange={(value) => handleTogleChange("all", value)}
+        />
+        <div className={style.lw_applications_tableColsController_title}>
+          All
+        </div>
+      </ul>
       <ul className={style.lw_applications_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"

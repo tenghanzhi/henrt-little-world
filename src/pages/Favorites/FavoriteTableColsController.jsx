@@ -49,13 +49,45 @@ const FavoriteTableColsController = () => {
           payload: { ...favoriteTableColumns, action: value },
         });
         break;
+      case "all":
+        dispatch({
+          type: SET_FAVORITE_TABLE_COLUMNS,
+          payload: {
+            name: value,
+            type: value,
+            createdAt: value,
+            updatedAt: value,
+            description: value,
+            action: value,
+          },
+        });
+        break;
       default:
         break;
     }
   };
 
+  const isAllChecked =
+    favoriteTableColumns.name &&
+    favoriteTableColumns.type &&
+    favoriteTableColumns.createdAt &&
+    favoriteTableColumns.updatedAt &&
+    favoriteTableColumns.description &&
+    favoriteTableColumns.action;
+
   const content = (
     <div>
+      <ul className={style.lw_favorites_tableColsController_wrapper}>
+        <Switch
+          checkedChildren="Show"
+          unCheckedChildren="Hide"
+          className={style.lw_applications_tableColsController_switch}
+          checked={isAllChecked}
+          size="medium"
+          onChange={(value) => handleTogleChange("all", value)}
+        />
+        <div className={style.lw_favorites_tableColsController_title}>All</div>
+      </ul>
       <ul className={style.lw_favorites_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"

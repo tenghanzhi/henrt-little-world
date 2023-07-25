@@ -61,14 +61,49 @@ const LeetCodesTableColsController = () => {
           payload: { ...leetcodeTableColumns, action: value },
         });
         break;
-
+      case "all":
+        dispatch({
+          type: SET_LEETCODE_TABLE_COLUMNS,
+          payload: {
+            index: value,
+            title: value,
+            createdAt: value,
+            updatedAt: value,
+            firstCompletedDate: value,
+            difficulty: value,
+            type: value,
+            action: value,
+          },
+        });
+        break;
       default:
         break;
     }
   };
 
+  const isAllChecked =
+    leetcodeTableColumns.index &&
+    leetcodeTableColumns.title &&
+    leetcodeTableColumns.createdAt &&
+    leetcodeTableColumns.updatedAt &&
+    leetcodeTableColumns.firstCompletedDate &&
+    leetcodeTableColumns.difficulty &&
+    leetcodeTableColumns.type &&
+    leetcodeTableColumns.action;
+
   const content = (
     <div>
+      <ul className={style.lw_leetcodes_tableColsController_wrapper}>
+        <Switch
+          checkedChildren="Show"
+          unCheckedChildren="Hide"
+          className={style.lw_leetcodes_tableColsController_switch}
+          checked={isAllChecked}
+          size="medium"
+          onChange={(value) => handleTogleChange("all", value)}
+        />
+        <div className={style.lw_leetcodes_tableColsController_title}>All</div>
+      </ul>
       <ul className={style.lw_leetcodes_tableColsController_wrapper}>
         <Switch
           checkedChildren="Show"
