@@ -65,6 +65,70 @@ const ComponentsForm = (props) => {
     }
   };
 
+  const handleCodeTypeChange = (type) => {
+    const HTML_CODE_PREFIX = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+</head>
+
+<body>
+
+</body>
+
+</html>`;
+
+    const REACT_CODE_PREFIX = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+</head>
+
+<body>
+    <div id="react-component"></div>
+    <script type="text/javascript" src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+
+        //Class Component
+      Class MyComponent extends React.Component {
+  
+        render(){
+          return <h2>Class Component</h2>
+        }
+      }
+  
+      ReactDOM.render(<MyComponent/>,document.getElementById('react-component'))
+  
+      //Functional Component
+      function MyComponent(){
+        
+      return <h2>Functional Component</h2>}
+      ReactDOM.render(<MyComponent/>,document.getElementById('react-component'))
+      </script>
+</body>
+
+</html>>`;
+
+    switch (type) {
+      case "Vanilla":
+        setHtmlCode(HTML_CODE_PREFIX);
+        break;
+      case "React":
+        setHtmlCode(REACT_CODE_PREFIX);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleFormatCode = (type) => {
     const beautify_js = require("js-beautify");
     const beautify_css = require("js-beautify").css;
@@ -360,51 +424,6 @@ const ComponentsForm = (props) => {
     },
   ];
 
-  const HTML_CODE_PREFIX = `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-  </head>
-  <body>
-    
-  </body>
-</html>`;
-
-  const REACT_CODE_PREFIX = `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-  </head>
-  <body>
-    <div id="react-component"></div>
-    <script type="text/javascript" src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script type="text/babel">
-
-    //Class Component
-    Class MyComponent extends React.Component {
-
-			render(){
-				return <h2>Class Component</h2>
-			}
-		}
-
-		ReactDOM.render(<MyComponent/>,document.getElementById('react-component'))
-
-    //Functional Component
-    function MyComponent(){
-			
-		return <h2>Functional Component</h2>}
-    ReactDOM.render(<MyComponent/>,document.getElementById('react-component'))
-    </script>
-  </body>
-</html>`;
-
   return (
     <Form
       {...formLayout}
@@ -453,6 +472,7 @@ const ComponentsForm = (props) => {
           options={codeTypeOptions.sort((a, b) =>
             a.value > b.value ? 1 : b.value > a.value ? -1 : 0
           )}
+          onChange={(e) => handleCodeTypeChange(e)}
         />
       </Form.Item>
       <Form.Item
@@ -512,15 +532,7 @@ const ComponentsForm = (props) => {
             {...formProps}
             height="600px"
             extensions={[html(), EditorView.lineWrapping]}
-            value={
-              pageType === "edit"
-                ? htmlCode
-                : form.getFieldValue()?.data?.codeType
-                ? form.getFieldValue()?.data?.codeType === "Vanilla"
-                  ? HTML_CODE_PREFIX
-                  : REACT_CODE_PREFIX
-                : ""
-            }
+            value={htmlCode}
             onChange={(e) => handleFormValueChange("setHtmlCode", e)}
             theme={vscodeDark}
           />
