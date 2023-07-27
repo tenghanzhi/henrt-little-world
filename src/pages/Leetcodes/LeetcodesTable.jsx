@@ -95,6 +95,9 @@ const LeetCodesTable = () => {
       case "quickselect": {
         return "#BD2FCB";
       }
+      case "two pointers": {
+        return "#FF66FF";
+      }
       default: {
         return "black";
       }
@@ -223,6 +226,10 @@ const LeetCodesTable = () => {
     {
       text: "Quickselect",
       value: "quickselect",
+    },
+    {
+      text: "Two Pointers",
+      value: "two pointers",
     },
   ];
 

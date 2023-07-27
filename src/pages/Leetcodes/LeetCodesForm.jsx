@@ -370,6 +370,10 @@ const LeetCodesForm = (props) => {
       label: "Quickselect",
       value: "Quickselect",
     },
+    {
+      label: "Two Pointers",
+      value: "Two Pointers",
+    },
   ];
 
   return (
