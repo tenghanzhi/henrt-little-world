@@ -374,6 +374,10 @@ const LeetCodesForm = (props) => {
       label: "Two Pointers",
       value: "Two Pointers",
     },
+    {
+      label: "Binary Search",
+      value: "Binary Search",
+    },
   ];
 
   return (

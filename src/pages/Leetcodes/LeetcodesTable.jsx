@@ -98,6 +98,9 @@ const LeetCodesTable = () => {
       case "two pointers": {
         return "#FF66FF";
       }
+      case "binary search": {
+        return "#003366";
+      }
       default: {
         return "black";
       }

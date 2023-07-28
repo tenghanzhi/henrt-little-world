@@ -60,106 +60,43 @@ const HomePageLayoutSetup = () => {
     }
   };
 
-  const isAllChecked =
-    showHomeCard &&
-    showHomeDate &&
-    showHomeSearch &&
-    showHomeLink &&
-    showHomeMenu &&
-    showHomeQuickLink &&
-    showHomeFooter;
+  const getTogleContent = (title, key, checked) => {
+    return (
+      <ul className={style.lw_homePageLayoutSetup_wrapper}>
+        <Switch
+          checkedChildren="Show"
+          unCheckedChildren="Hide"
+          className={style.lw_homePageLayoutSetup_switch}
+          checked={checked}
+          size="small"
+          onChange={(value) => handleTogleChange(key, value)}
+        />
+        <div className={style.lw_homePageLayoutSetup_title}>{title}</div>
+      </ul>
+    );
+  };
 
   const homeLayoutSetupContent = (
     <>
       <div>Home Page Layout</div>
-      <ul className={style.lw_homePageLayoutSetup_wrapper}>
-        <Switch
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
-          className={style.lw_homePageLayoutSetup_switch}
-          checked={isAllChecked}
-          size="small"
-          onChange={(value) => handleTogleChange("all", value)}
-        />
-        <div className={style.lw_homePageLayoutSetup_title}>All</div>
-      </ul>
-      <ul className={style.lw_homePageLayoutSetup_wrapper}>
-        <Switch
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
-          className={style.lw_homePageLayoutSetup_switch}
-          checked={showHomeMenu}
-          size="small"
-          onChange={(value) => handleTogleChange("menu", value)}
-        />
-        <div className={style.lw_homePageLayoutSetup_title}>Menu</div>
-      </ul>
-      <ul className={style.lw_homePageLayoutSetup_wrapper}>
-        <Switch
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
-          className={style.lw_homePageLayoutSetup_switch}
-          checked={showHomeLink}
-          size="small"
-          onChange={(value) => handleTogleChange("link", value)}
-        />
-        <div className={style.lw_homePageLayoutSetup_title}>Link</div>
-      </ul>
-      <ul className={style.lw_homePageLayoutSetup_wrapper}>
-        <Switch
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
-          className={style.lw_homePageLayoutSetup_switch}
-          checked={showHomeDate}
-          size="small"
-          onChange={(value) => handleTogleChange("date", value)}
-        />
-        <div className={style.lw_homePageLayoutSetup_title}>Date</div>
-      </ul>
-      <ul className={style.lw_homePageLayoutSetup_wrapper}>
-        <Switch
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
-          className={style.lw_homePageLayoutSetup_switch}
-          checked={showHomeSearch}
-          size="small"
-          onChange={(value) => handleTogleChange("search", value)}
-        />
-        <div className={style.lw_homePageLayoutSetup_title}>Search</div>
-      </ul>
-      <ul className={style.lw_homePageLayoutSetup_wrapper}>
-        <Switch
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
-          className={style.lw_homePageLayoutSetup_switch}
-          checked={showHomeQuickLink}
-          size="small"
-          onChange={(value) => handleTogleChange("quickLink", value)}
-        />
-        <div className={style.lw_homePageLayoutSetup_title}>Quick Links</div>
-      </ul>
-      <ul className={style.lw_homePageLayoutSetup_wrapper}>
-        <Switch
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
-          className={style.lw_homePageLayoutSetup_switch}
-          checked={showHomeCard}
-          size="small"
-          onChange={(value) => handleTogleChange("card", value)}
-        />
-        <div className={style.lw_homePageLayoutSetup_title}>Card</div>
-      </ul>
-      <ul className={style.lw_homePageLayoutSetup_wrapper}>
-        <Switch
-          checkedChildren="Show"
-          unCheckedChildren="Hide"
-          className={style.lw_homePageLayoutSetup_switch}
-          checked={showHomeFooter}
-          size="small"
-          onChange={(value) => handleTogleChange("footer", value)}
-        />
-        <div className={style.lw_homePageLayoutSetup_title}>Footer</div>
-      </ul>
+      {getTogleContent(
+        "All",
+        "all",
+        showHomeCard &&
+          showHomeDate &&
+          showHomeSearch &&
+          showHomeLink &&
+          showHomeMenu &&
+          showHomeQuickLink &&
+          showHomeFooter
+      )}
+      {getTogleContent("Menu", "menu", showHomeMenu)}
+      {getTogleContent("Link", "link", showHomeLink)}
+      {getTogleContent("Date", "date", showHomeDate)}
+      {getTogleContent("Search", "search", showHomeSearch)}
+      {getTogleContent("Quick Links", "quickLink", showHomeQuickLink)}
+      {getTogleContent("Card", "card", showHomeCard)}
+      {getTogleContent("Footer", "footer", showHomeFooter)}
     </>
   );
 
