@@ -101,12 +101,16 @@ const LeetCodesList = () => {
           ]}
         >
           <List.Item.Meta
-            title={<a href={item.attributes.link}>{item.attributes.title}</a>}
+            title={
+              <a href={item.attributes.link}>
+                {item.attributes.leetcodeIndex}. {item.attributes.title}
+              </a>
+            }
             description={` ${
               item.attributes.difficulty
             } | ${convertStringToArrayByComma(item.attributes.type)
               .sort((a, b) => a.trim().localeCompare(b.trim()))
-              .toString()}`}
+              .join(', ')}`}
           />
         </List.Item>
       )}
