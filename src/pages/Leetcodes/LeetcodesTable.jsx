@@ -101,6 +101,18 @@ const LeetCodesTable = () => {
       case "binary search": {
         return "#003366";
       }
+      case "dynamic programming": {
+        return "#006666";
+      }
+      case "depth-first search": {
+        return "#000066";
+      }
+      case "breadth-first search": {
+        return "#330066";
+      }
+      case "backtracking": {
+        return "#663300";
+      }
       default: {
         return "black";
       }
@@ -233,6 +245,26 @@ const LeetCodesTable = () => {
     {
       text: "Two Pointers",
       value: "two pointers",
+    },
+    {
+      text: "Binary Search",
+      value: "Binary Search",
+    },
+    {
+      text: "Dynamic Programming",
+      value: "Dynamic Programming",
+    },
+    {
+      text: "Depth-First Search",
+      value: "Depth-First Search",
+    },
+    {
+      text: "Breadth-First Search",
+      value: "Breadth-First Search",
+    },
+    {
+      text: "Backtracking",
+      value: "Backtracking",
     },
   ];
 

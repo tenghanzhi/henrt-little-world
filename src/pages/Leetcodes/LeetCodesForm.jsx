@@ -378,6 +378,22 @@ const LeetCodesForm = (props) => {
       label: "Binary Search",
       value: "Binary Search",
     },
+    {
+      label: "Dynamic Programming",
+      value: "Dynamic Programming",
+    },
+    {
+      label: "Depth-First Search",
+      value: "Depth-First Search",
+    },
+    {
+      label: "Breadth-First Search",
+      value: "Breadth-First Search",
+    },
+    {
+      label: "Backtracking",
+      value: "Backtracking",
+    },
   ];
 
   return (
