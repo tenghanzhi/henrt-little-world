@@ -7,7 +7,8 @@ import {
   CodeSandboxOutlined,
   CodepenOutlined,
 } from "@ant-design/icons";
-import { BiLogoJsfiddle } from "react-icons/bi";
+import { BiLogoJsfiddle, BiLogoJavascript } from "react-icons/bi";
+import { RiOpenaiFill } from "react-icons/ri";
 import categoryMatrix from "../common/categoryMatrix";
 import style from "./style/ApplicationsTopBtns.module.css";
 
@@ -34,6 +35,16 @@ const ApplicationsTopBtns = () => {
         break;
       case "jsfiddle":
         window.open("https://jsfiddle.net/", "_blank", "noopener, noreferrer");
+        break;
+      case "jsplayground":
+        window.open("https://playcode.io/", "_blank", "noopener, noreferrer");
+        break;
+      case "chatgpt":
+        window.open(
+          "https://chat.openai.com/",
+          "_blank",
+          "noopener, noreferrer"
+        );
         break;
       default:
         return null;
@@ -75,6 +86,22 @@ const ApplicationsTopBtns = () => {
         className={style.lw_applications_topBtns_btns}
       >
         JSFiddle
+      </Button>
+      <Button
+        type="default"
+        icon={<BiLogoJavascript />}
+        onClick={() => handleBtnOnClick("jsplayground")}
+        className={style.lw_applications_topBtns_btns}
+      >
+        JS Playground
+      </Button>
+      <Button
+        type="default"
+        icon={<RiOpenaiFill />}
+        onClick={() => handleBtnOnClick("chatgpt")}
+        className={style.lw_applications_topBtns_btns}
+      >
+        ChatGPT
       </Button>
     </div>
   );
