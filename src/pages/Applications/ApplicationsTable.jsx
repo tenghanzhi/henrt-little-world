@@ -82,7 +82,9 @@ const ApplicationsTable = () => {
       case "review":
         dispatch({ type: SET_SELECTED_APPLICATION_ID, payload: record.id });
         navigate(
-          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications`
+          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications/${
+            record.id
+          }`
         );
         break;
       case "edit":

@@ -27,7 +27,11 @@ const FavoritesList = () => {
         break;
       case "review":
         dispatch({ type: SET_SELECTED_FAVORITE_ID, payload: item.id });
-        navigate(`/${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites`);
+        navigate(
+          `/${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites/${
+            item.id
+          }`
+        );
         break;
       case "edit":
         dispatch({ type: SET_SELECTED_FAVORITE_ID, payload: item.id });

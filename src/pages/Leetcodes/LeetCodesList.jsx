@@ -31,7 +31,11 @@ const LeetCodesList = () => {
         break;
       case "review":
         dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: item.id });
-        navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`);
+        navigate(
+          `/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes/${
+            item.id
+          }`
+        );
         break;
       case "edit":
         dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: item.id });
@@ -110,7 +114,7 @@ const LeetCodesList = () => {
               item.attributes.difficulty
             } | ${convertStringToArrayByComma(item.attributes.type)
               .sort((a, b) => a.trim().localeCompare(b.trim()))
-              .join(', ')}`}
+              .join(", ")}`}
           />
         </List.Item>
       )}

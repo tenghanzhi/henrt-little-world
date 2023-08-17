@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Typography, Skeleton, Descriptions, Button, Tooltip } from "antd";
 import { EditOutlined, RollbackOutlined } from "@ant-design/icons";
@@ -17,6 +17,7 @@ import style from "./style/ReviewFavorites.module.css";
 
 const ReviewFavorites = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const userInfoData = useSelector((state) => state.userInfoData);
   const selectedFavoriteId = useSelector((state) => state.selectedFavoriteId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
@@ -27,9 +28,7 @@ const ReviewFavorites = () => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleWindowResize);
-
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
@@ -40,7 +39,9 @@ const ReviewFavorites = () => {
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.FAVORITE_GET_BY_ID}/${selectedFavoriteId}`
+        `${apiMatrix.FAVORITE_GET_BY_ID}/${
+          selectedFavoriteId ? selectedFavoriteId : id
+        }`
       );
       return response.json();
     })()
@@ -61,7 +62,7 @@ const ReviewFavorites = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
-  }, [selectedFavoriteId]);
+  }, [selectedFavoriteId, id]);
 
   const handleGoback = () => {
     navigate(-1);

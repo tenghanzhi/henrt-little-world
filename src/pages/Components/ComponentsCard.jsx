@@ -42,7 +42,9 @@ const ComponentsCard = (props) => {
       case "detail":
         dispatch({ type: SET_SELECTED_COMPONENT_ID, payload: data.id });
         navigate(
-          `/${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents`
+          `/${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents/${
+            data.id
+          }`
         );
         break;
       default:

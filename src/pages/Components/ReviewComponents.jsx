@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   Typography,
@@ -28,6 +28,7 @@ import style from "./style/ReviewComponent.module.css";
 
 const ReviewComponents = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const userInfoData = useSelector((state) => state.userInfoData);
   const selectedComponentId = useSelector((state) => state.selectedComponentId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
@@ -39,7 +40,9 @@ const ReviewComponents = () => {
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.COMPONENTS_GET_BY_ID}/${selectedComponentId}`
+        `${apiMatrix.COMPONENTS_GET_BY_ID}/${
+          selectedComponentId ? selectedComponentId : id
+        }`
       );
       return response.json();
     })()
@@ -60,7 +63,7 @@ const ReviewComponents = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
-  }, [selectedComponentId]);
+  }, [selectedComponentId, id]);
 
   const handleGoback = () => {
     navigate(-1);

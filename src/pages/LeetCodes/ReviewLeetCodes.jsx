@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Typography, Skeleton, Descriptions, Button, Tooltip } from "antd";
 import { EditOutlined, RollbackOutlined } from "@ant-design/icons";
@@ -21,6 +21,7 @@ import style from "./style/ReviewLeetCodes.module.css";
 
 const ReviewLeetCodes = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const userInfoData = useSelector((state) => state.userInfoData);
   const selectedLeetcodeId = useSelector((state) => state.selectedLeetcodeId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
@@ -31,9 +32,7 @@ const ReviewLeetCodes = () => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleWindowResize);
-
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
@@ -44,7 +43,9 @@ const ReviewLeetCodes = () => {
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.LEET_CODES_GET_BY_ID}/${selectedLeetcodeId}`
+        `${apiMatrix.LEET_CODES_GET_BY_ID}/${
+          selectedLeetcodeId ? selectedLeetcodeId : id
+        }`
       );
       return response.json();
     })()
@@ -65,7 +66,7 @@ const ReviewLeetCodes = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
-  }, [selectedLeetcodeId]);
+  }, [selectedLeetcodeId, id]);
 
   const handleGoback = () => {
     navigate(-1);

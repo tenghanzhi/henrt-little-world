@@ -51,7 +51,7 @@ const Main = () => {
               element={<EditPortfolio />}
             />
             <Route
-              path={`${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio`}
+              path={`${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio/:id`}
               element={<ReviewPortfolio />}
             />
             <Route
@@ -67,7 +67,7 @@ const Main = () => {
               element={<EditLeetCodes />}
             />
             <Route
-              path={`${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`}
+              path={`${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes/:id`}
               element={<ReviewLeetCodes />}
             />
             <Route
@@ -83,7 +83,7 @@ const Main = () => {
               element={<EditApplications />}
             />
             <Route
-              path={`${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications`}
+              path={`${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications/:id`}
               element={<ReviewApplications />}
             />
             <Route
@@ -99,7 +99,7 @@ const Main = () => {
               element={<EditComponents />}
             />
             <Route
-              path={`${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents`}
+              path={`${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents/:id`}
               element={<ReviewComponents />}
             />
             <Route
@@ -115,7 +115,7 @@ const Main = () => {
               element={<EditFavorites />}
             />
             <Route
-              path={`${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites`}
+              path={`${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites/:id`}
               element={<ReviewFavorites />}
             />
             <Route

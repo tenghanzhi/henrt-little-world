@@ -126,7 +126,11 @@ const LeetCodesTable = () => {
         break;
       case "review":
         dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: record.id });
-        navigate(`/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`);
+        navigate(
+          `/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes/${
+            record.id
+          }`
+        );
         break;
       case "edit":
         dispatch({ type: SET_SELECTED_LEETCODE_ID, payload: record.id });

@@ -59,7 +59,11 @@ const FavoritesTable = () => {
         break;
       case "review":
         dispatch({ type: SET_SELECTED_FAVORITE_ID, payload: record.id });
-        navigate(`/${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites`);
+        navigate(
+          `/${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites/${
+            record.id
+          }`
+        );
         break;
       case "edit":
         dispatch({ type: SET_SELECTED_FAVORITE_ID, payload: record.id });

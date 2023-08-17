@@ -34,7 +34,9 @@ const ApplicationsList = () => {
       case "review":
         dispatch({ type: SET_SELECTED_APPLICATION_ID, payload: item.id });
         navigate(
-          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications`
+          `/${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications/${
+            item.id
+          }`
         );
         break;
       case "edit":

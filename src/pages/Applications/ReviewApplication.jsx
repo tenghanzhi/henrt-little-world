@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Typography, Skeleton, Descriptions, Button, Tooltip } from "antd";
 import { EditOutlined, RollbackOutlined } from "@ant-design/icons";
@@ -21,6 +21,7 @@ import style from "./style/ReviewApplication.module.css";
 
 const ReviewApplication = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const userInfoData = useSelector((state) => state.userInfoData);
   const selectedApplicationId = useSelector(
     (state) => state.selectedApplicationId
@@ -33,9 +34,7 @@ const ReviewApplication = () => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleWindowResize);
-
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
@@ -46,7 +45,9 @@ const ReviewApplication = () => {
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.APPLICATIONS_GET_BY_ID}/${selectedApplicationId}`
+        `${apiMatrix.APPLICATIONS_GET_BY_ID}/${
+          selectedApplicationId ? selectedApplicationId : id
+        }`
       );
       return response.json();
     })()
@@ -67,7 +68,7 @@ const ReviewApplication = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
-  }, [selectedApplicationId]);
+  }, [selectedApplicationId, id]);
 
   const handleGoback = () => {
     navigate(-1);
