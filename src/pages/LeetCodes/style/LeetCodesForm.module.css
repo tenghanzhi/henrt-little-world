@@ -1,0 +1,18 @@
+.lw_leetcodes_wrapper {
+  width: 100vw;
+  margin-left: -10%;
+}
+
+@media (max-width: 820px) {
+  .lw_leetcodes_wrapper {
+    margin-left: 0;
+  }
+}
+
+.lw_leetcodes_form_btns {
+  margin: 5px;
+}
+
+.lw_leetcodes_form_btns_wrapper {
+  text-align: right;
+}
