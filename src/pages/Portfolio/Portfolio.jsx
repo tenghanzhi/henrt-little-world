@@ -66,7 +66,9 @@ const Portfolio = () => {
         }`,
         children: (
           <Link
-            to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio`}
+            to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio/${
+              item.id
+            }`}
             onClick={() => handleTimelineTitleOnClick(item.id)}
           >
             <div>

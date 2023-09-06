@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   Typography,
@@ -27,6 +27,7 @@ import style from "./style/ReviewPortfolio.module.css";
 
 const ReviewPortfolio = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const userInfoData = useSelector((state) => state.userInfoData);
   const selectedPortfolioId = useSelector((state) => state.selectedPortfolioId);
   const [isReviewPageLoading, setIsReviewPageLoading] = useState(true);
@@ -37,9 +38,7 @@ const ReviewPortfolio = () => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleWindowResize);
-
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
@@ -50,7 +49,9 @@ const ReviewPortfolio = () => {
 
     (async () => {
       const response = await fetch(
-        `${apiMatrix.PORTFOLIOS_GET_BY_ID}/${selectedPortfolioId}`
+        `${apiMatrix.PORTFOLIOS_GET_BY_ID}/${
+          selectedPortfolioId ? selectedPortfolioId : id
+        }`
       );
       return response.json();
     })()
@@ -71,7 +72,7 @@ const ReviewPortfolio = () => {
       .finally(() => {
         setIsReviewPageLoading(false);
       });
-  }, [selectedPortfolioId]);
+  }, [selectedPortfolioId, id]);
 
   const handleGoback = () => {
     navigate(-1);
