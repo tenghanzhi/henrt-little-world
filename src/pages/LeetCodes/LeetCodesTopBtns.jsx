@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { SiLeetcode } from "react-icons/si";
+import { MdOutlineDesignServices } from "react-icons/md";
 import categoryMatrix from "../common/categoryMatrix";
 import style from "./style/LeetCodesTopBtns.module.css";
 
@@ -44,7 +45,13 @@ const LeetCodesTopBtns = () => {
           "noopener, noreferrer"
         );
         break;
-
+      case "gfe":
+        window.open(
+          "https://www.greatfrontend.com/",
+          "_blank",
+          "noopener, noreferrer"
+        );
+        break;
       default:
         return null;
     }
@@ -91,6 +98,14 @@ const LeetCodesTopBtns = () => {
         type="default"
         icon={<SiLeetcode />}
         onClick={() => handleBtnOnClick("js")}
+        className={style.lw_leetcodes_topBtns_btns}
+      >
+        JS Solutions
+      </Button>
+      <Button
+        type="default"
+        icon={<MdOutlineDesignServices />}
+        onClick={() => handleBtnOnClick("gfe")}
         className={style.lw_leetcodes_topBtns_btns}
       >
         JS Solutions
