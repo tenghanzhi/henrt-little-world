@@ -108,7 +108,7 @@ const LeetCodesTopBtns = () => {
         onClick={() => handleBtnOnClick("gfe")}
         className={style.lw_leetcodes_topBtns_btns}
       >
-        JS Solutions
+        Great Front End
       </Button>
     </>
   );
