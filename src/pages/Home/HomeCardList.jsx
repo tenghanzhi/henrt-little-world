@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { List, Image } from "antd";
 import {
@@ -24,6 +24,13 @@ const HomeCardList = (props) => {
   const dispatch = useDispatch();
   const data = props.data ? props.data : null;
   const type = props.type ? props.type : "";
+  const selectedPortfolioId = useSelector((state) => state.selectedPortfolioId);
+  const selectedLeetcodeId = useSelector((state) => state.selectedPortfolioId);
+  const selectedApplicationId = useSelector(
+    (state) => state.selectedPortfolioId
+  );
+  const selectedComponentId = useSelector((state) => state.selectedPortfolioId);
+  const selectedFavoriteId = useSelector((state) => state.selectedPortfolioId);
 
   const handleTitleOnClick = (data) => {
     switch (type) {
@@ -168,19 +175,19 @@ const HomeCardList = (props) => {
   const getPathLink = () => {
     switch (type) {
       case categoryMatrix.PORTFOLIO: {
-        return `/${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio`;
+        return `/${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio/${selectedPortfolioId}`;
       }
       case categoryMatrix.LEETCODES: {
-        return `/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes`;
+        return `/${categoryMatrix.LEETCODES.toLowerCase()}/reviewLeetCodes/${selectedLeetcodeId}`;
       }
       case categoryMatrix.APPLICATIONS: {
-        return `/${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications`;
+        return `/${categoryMatrix.APPLICATIONS.toLowerCase()}/reviewApplications/${selectedApplicationId}`;
       }
       case categoryMatrix.COMPONENTS: {
-        return `/${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents`;
+        return `/${categoryMatrix.COMPONENTS.toLowerCase()}/reviewComponents/${selectedComponentId}`;
       }
       case categoryMatrix.FAVORITES: {
-        return `/${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites`;
+        return `/${categoryMatrix.FAVORITES.toLowerCase()}/reviewFavorites/${selectedFavoriteId}`;
       }
       case categoryMatrix.BULLETINBOARDS: {
         return `/${categoryMatrix.BULLETINBOARDS.toLowerCase()}`;
