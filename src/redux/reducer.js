@@ -30,6 +30,9 @@ import {
   SET_BULLETINBOARD_DATA,
   SET_BULLETINBOARD_TABLE_PAGENATION,
   SET_BULLETINBOARD_TABLE_SORTER,
+  SET_PROJECT_DATA,
+  SET_PROJECT_PAGENATION,
+  SET_SELECTED_PROJECT_ID,
   SET_USER_INFO_DATA,
   SET_QUICK_LINK_DATA,
   SET_SHOW_HOME_CARD,
@@ -56,6 +59,7 @@ const selectedLeetcodeId = sessionStorage.getItem("selectedLeetcodeId");
 const selectedApplicationId = sessionStorage.getItem("selectedApplicationId");
 const selectedComponentId = sessionStorage.getItem("selectedComponentId");
 const selectedFavoriteId = sessionStorage.getItem("selectedFavoriteId");
+const selectedProjectId = sessionStorage.getItem("selectedProjectId");
 
 const initialState = {
   portfolioData: { data: [], meta: {} },
@@ -158,6 +162,12 @@ const initialState = {
     sort: "createdAt",
     order: ":desc",
   },
+  projectData: { data: [], meta: {} },
+  projectPagenation: {
+    current: 1,
+    size: 10,
+  },
+  selectedProjectId: selectedProjectId ? selectedProjectId : null,
   userInfoData: {
     jwt: token?.toString() === "null" ? null : token,
     user:
@@ -253,6 +263,15 @@ export default function reducer(state = initialState, action) {
       return { ...state, bulletinboardTablePagenation: action.payload };
     case SET_BULLETINBOARD_TABLE_SORTER:
       return { ...state, bulletinboardTableSorter: action.payload };
+
+    case SET_PROJECT_DATA:
+      return { ...state, projectData: action.payload };
+    case SET_PROJECT_PAGENATION: {
+      return { ...state, projectPagenation: action.payload };
+    }
+    case SET_SELECTED_PROJECT_ID: {
+      return { ...state, selectedProjectId: action.payload };
+    }
     case SET_USER_INFO_DATA:
       localStorage.setItem("token", action.payload.jwt);
       localStorage.setItem("user", JSON.stringify(action.payload.user));

@@ -30,6 +30,9 @@ import {
   SET_BULLETINBOARD_DATA,
   SET_BULLETINBOARD_TABLE_PAGENATION,
   SET_BULLETINBOARD_TABLE_SORTER,
+  SET_PROJECT_DATA,
+  SET_PROJECT_PAGENATION,
+  SET_SELECTED_PROJECT_ID,
   SET_USER_INFO_DATA,
   SET_QUICK_LINK_DATA,
   SET_SHOW_HOME_CARD,
@@ -199,7 +202,7 @@ export function setComponentTableFilterType(componentTableFilterType) {
   };
 }
 
-//Favoite
+//Favorite
 export function setFavoriteData(favoriteData) {
   return {
     type: SET_FAVORITE_DATA,
@@ -261,6 +264,28 @@ export function setBulletinboardTableSorter(bulletinboardTableSorter) {
   return {
     type: SET_BULLETINBOARD_TABLE_SORTER,
     bulletinboardTableSorter,
+  };
+}
+
+//Project
+export function setProjectData(projectData) {
+  return {
+    type: SET_PROJECT_DATA,
+    projectData,
+  };
+}
+
+export function setProjectPagenation(projectPagenation) {
+  return {
+    type: SET_PROJECT_PAGENATION,
+    projectPagenation,
+  };
+}
+
+export function setSelectedProjectId(selectedProjectId) {
+  return {
+    type: SET_SELECTED_PROJECT_ID,
+    selectedProjectId,
   };
 }
 

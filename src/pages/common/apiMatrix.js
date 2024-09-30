@@ -7,6 +7,7 @@ const COMPONENTS = "components";
 const FAVORITE = "favorites";
 const BULLETINBOARD = "bulletin-boards";
 const QUICK_LINKS = "quick-links";
+const PROJECTS = "projects";
 
 const apiMatrix = {
   //User
@@ -55,6 +56,12 @@ const apiMatrix = {
   QUICK_LINKS_CREATE_NEW: `${END_POINT}/${QUICK_LINKS}`,
   QUICK_LINKS_DELETE_BY_ID: `${END_POINT}/${QUICK_LINKS}`, // /ID
   QUICK_LINKS_UPDATE_BY_ID: `${END_POINT}/${QUICK_LINKS}`, // /ID
+  //Projects
+  PROJECTS_GET_ALL: `${END_POINT}/${PROJECTS}`,
+  PROJECTS_GET_BY_ID: `${END_POINT}/${PROJECTS}`, // /ID
+  PROJECTS_CREATE_NEW: `${END_POINT}/${PROJECTS}`,
+  PROJECTS_DELETE_BY_ID: `${END_POINT}/${PROJECTS}`, // /ID
+  PROJECTS_UPDATE_BY_ID: `${END_POINT}/${PROJECTS}`, // /ID
 };
 
 export default apiMatrix;

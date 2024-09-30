@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Timeline, Card, Col, Row, Descriptions } from "antd";
+import { Timeline, Card, Col, Row, Descriptions, List } from "antd";
 import {
   UserOutlined,
   ToolOutlined,
   LaptopOutlined,
   ExperimentOutlined,
   HomeOutlined,
+  AppstoreAddOutlined,
+  ProjectTwoTone,
 } from "@ant-design/icons";
 import apiMatrix from "../common/apiMatrix";
 import globalStyleMatrix from "../common/globalStyleMatrix";
@@ -18,28 +20,42 @@ import handleMessage from "../utils/handleMessage";
 import LwLayout from "../common/LwLayout";
 import {
   SET_PORTFOLIO_DATA,
+  SET_PROJECT_DATA,
   SET_SELECTED_PORTFOLIO_ID,
+  SET_SELECTED_PROJECT_ID,
+  SET_PROJECT_PAGENATION,
 } from "../../redux/constants";
 import style from "./style/Portfolio.module.css";
 
 const Portfolio = () => {
   const dispatch = useDispatch();
   const portfolioData = useSelector((state) => state.portfolioData);
+  const projectData = useSelector((state) => state.projectData);
+  const projectPagenation = useSelector((state) => state.projectPagenation);
 
   useEffect(() => {
-    const messageKey = "loadingMessage";
+    handleFetchData();
+  }, [dispatch, projectPagenation]);
 
-    (async () => {
-      const response = await fetch(
-        `${apiMatrix.PORTFOLIOS_GET_ALL}?pagination[withCount]=false`
-      );
-      return response.json();
-    })()
+  const handleFetchData = async () => {
+    const messageKey = "loadingMessage";
+    const PORTFOLIOS_PAGINATION_SETUP = "?pagination[withCount]=false";
+    const PROJECT_PAGINATION_SETUP = `?pagination[page]=${projectPagenation.current}&pagination[pageSize]=${projectPagenation.size}`;
+
+    await Promise.all([
+      fetch(
+        `${apiMatrix.PORTFOLIOS_GET_ALL}${PORTFOLIOS_PAGINATION_SETUP}`
+      ).then((response) => response.json()),
+      fetch(`${apiMatrix.PROJECTS_GET_ALL}${PROJECT_PAGINATION_SETUP}`).then(
+        (response) => response.json()
+      ),
+    ])
       .then((response) => {
         if (response && response.error) {
           throw new Error(response.error.message);
         } else {
-          dispatch({ type: SET_PORTFOLIO_DATA, payload: response });
+          dispatch({ type: SET_PORTFOLIO_DATA, payload: response[0] });
+          dispatch({ type: SET_PROJECT_DATA, payload: response[1] });
         }
       })
       .catch((error) => {
@@ -49,10 +65,19 @@ const Portfolio = () => {
           `${messageMatrix.LOADING_MESSAGE_ERROR}${error}`
         );
       });
-  }, [dispatch]);
+  };
 
-  const handleTimelineTitleOnClick = (id) => {
-    dispatch({ type: SET_SELECTED_PORTFOLIO_ID, payload: id });
+  const handleTimelineTitleOnClick = (type, id) => {
+    switch (type) {
+      case "work":
+        dispatch({ type: SET_SELECTED_PORTFOLIO_ID, payload: id });
+        break;
+      case "project":
+        dispatch({ type: SET_SELECTED_PROJECT_ID, payload: id });
+        break;
+      default:
+        break;
+    }
   };
 
   const handleGetWorkTimelineItems = () => {
@@ -69,7 +94,7 @@ const Portfolio = () => {
             to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}/reviewPortfolio/${
               item.id
             }`}
-            onClick={() => handleTimelineTitleOnClick(item.id)}
+            onClick={() => handleTimelineTitleOnClick("work", item.id)}
           >
             <div>
               <HomeOutlined className={style.lw_portfolio_card_title_icon} />
@@ -91,7 +116,7 @@ const Portfolio = () => {
   const schoolTimelineItems = [
     {
       label: "2018-01 ~ 2019-09",
-      children: "University of Alabama at Birminghan | M.S.E.E.",
+      children: "University of Alabama at Birmingham | M.S.E.E.",
       color: "#00EFFF",
     },
     {
@@ -110,6 +135,13 @@ const Portfolio = () => {
       color: "#00EFFF",
     },
   ];
+
+  const handlePaginationChange = (current, size) => {
+    dispatch({
+      type: SET_PROJECT_PAGENATION,
+      payload: { current: current, size: size },
+    });
+  };
 
   const pageContent = (
     <Row gutter={[15, 25]}>
@@ -222,6 +254,60 @@ const Portfolio = () => {
             mode="left"
             items={schoolTimelineItems}
             className={style.lw_portfolio_card_timeline}
+          />
+        </Card>
+      </Col>
+      <Col>
+        <Card
+          className={style.lw_portfolio_card}
+          headStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          bodyStyle={{ color: globalStyleMatrix.COLORS.mainFontColor }}
+          title={
+            <>
+              <AppstoreAddOutlined
+                className={style.lw_portfolio_card_title_icon}
+              />
+              Project Samples
+            </>
+          }
+        >
+          <List
+            pagination={{
+              showQuickJumper: true,
+              defaultPageSize: projectPagenation?.size
+                ? projectPagenation.size
+                : 10,
+              defaultCurrent: projectPagenation?.current
+                ? projectPagenation.current
+                : 1,
+              total: projectData?.meta?.pagination?.total
+                ? projectData?.meta?.pagination?.total
+                : 0,
+              onChange: (current, size) =>
+                handlePaginationChange(current, size),
+              className: style.lw_portfolio_card_table_pagination,
+            }}
+            dataSource={projectData.data}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  title={
+                    item.attributes?.pageUrl ? (
+                      <a href={item.attributes?.pageUrl} target="_blank">
+                        {item.attributes.name} ({item.attributes.type})
+                      </a>
+                    ) : (
+                      <div>
+                        {item.attributes.name} ({item.attributes.type})
+                      </div>
+                    )
+                  }
+                />
+                <a href={item.attributes?.githubUrl} target="_blank">
+                  Check on GitHub
+                </a>
+              </List.Item>
+            )}
           />
         </Card>
       </Col>
