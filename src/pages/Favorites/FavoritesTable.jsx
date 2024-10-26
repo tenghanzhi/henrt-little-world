@@ -132,7 +132,6 @@ const FavoritesTable = () => {
       title: "Name",
       key: "name",
       dataIndex: "name",
-      defaultSortOrder: "ascend",
       render: (_, record) => {
         return (
           <>
