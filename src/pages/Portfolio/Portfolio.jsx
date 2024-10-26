@@ -40,7 +40,7 @@ const Portfolio = () => {
   const handleFetchData = async () => {
     const messageKey = "loadingMessage";
     const PORTFOLIOS_PAGINATION_SETUP = "?pagination[withCount]=false";
-    const PROJECT_PAGINATION_SETUP = `?pagination[page]=${projectPagenation.current}&pagination[pageSize]=${projectPagenation.size}&sort=updatedAt:desc"`;
+    const PROJECT_PAGINATION_SETUP = `?pagination[page]=${projectPagenation.current}&pagination[pageSize]=${projectPagenation.size}&sort=updatedAt:desc`;
 
     await Promise.all([
       fetch(
@@ -287,18 +287,18 @@ const Portfolio = () => {
                 handlePaginationChange(current, size),
               className: style.lw_portfolio_card_table_pagination,
             }}
-            dataSource={projectData.data}
+            dataSource={projectData?.data}
             renderItem={(item) => (
               <List.Item>
                 <List.Item.Meta
                   title={
                     item.attributes?.pageUrl ? (
                       <a href={item.attributes?.pageUrl} target="_blank">
-                        {item.attributes.name} ({item.attributes.type})
+                        {item.attributes?.name} ({item.attributes?.type})
                       </a>
                     ) : (
                       <div>
-                        {item.attributes.name} ({item.attributes.type})
+                        {item.attributes?.name} ({item.attributes?.type})
                       </div>
                     )
                   }
