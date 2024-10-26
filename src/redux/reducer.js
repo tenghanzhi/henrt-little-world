@@ -106,8 +106,8 @@ const initialState = {
     size: 25,
   },
   applicationTableSorter: {
-    sort: "type",
-    order: ":asc",
+    sort: "updatedAt",
+    order: ":desc",
   },
   applicationTableFilter: {
     name: null,
@@ -122,8 +122,8 @@ const initialState = {
     size: 25,
   },
   componentTableSorter: {
-    sort: "name",
-    order: ":asc",
+    sort: "updatedAt",
+    order: ":desc",
   },
   componentTableFilter: {
     name: null,
@@ -146,8 +146,8 @@ const initialState = {
     size: 25,
   },
   favoriteTableSorter: {
-    sort: "name",
-    order: ":asc",
+    sort: "updatedAt",
+    order: ":desc",
   },
   favoriteTableFilter: {
     name: null,

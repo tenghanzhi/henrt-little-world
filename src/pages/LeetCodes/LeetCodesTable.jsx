@@ -151,7 +151,7 @@ const LeetCodesTable = () => {
   const handleTableChange = (filter, sorter) => {
     let order;
     if (sorter?.order === "ascend") order = ":asc";
-    else if (sorter?.order === "descend") order = ":desc";
+    else if (sorter?.order === "descend" || !sorter?.order) order = ":desc";
     else order = null;
     dispatch({
       type: SET_LEETCODE_TABLE_SORTER,

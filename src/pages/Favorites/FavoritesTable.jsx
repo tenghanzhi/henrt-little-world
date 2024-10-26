@@ -84,7 +84,7 @@ const FavoritesTable = () => {
   const handleTableChange = (filter, sorter) => {
     let order;
     if (sorter?.order === "ascend") order = ":asc";
-    else if (sorter?.order === "descend") order = ":desc";
+    else if (sorter?.order === "descend" || !sorter?.order) order = ":desc";
     else order = null;
     dispatch({
       type: SET_FAVORITE_TABLE_SORTER,
@@ -198,6 +198,7 @@ const FavoritesTable = () => {
       title: "Updated At",
       key: "updatedAt",
       dataIndex: "updatedAt",
+      defaultSortOrder: "descend",
       render: (_, record) => (
         <div>{record.attributes.updatedAt.toString().slice(0, 10)}</div>
       ),
