@@ -104,14 +104,20 @@ const HomePageLayoutSetup = () => {
     <>
       <Tooltip
         placement="bottom"
-        title={homeLayoutSetupContent}
-        trigger={"click"}
+        title={"Change Home Page Layout"}
+        trigger={"hover"}
       >
-        <Button
-          className={style.lw_homePageLayoutSetup_btn}
-          type="link"
-          icon={<LayoutOutlined />}
-        />
+        <Tooltip
+          placement="bottom"
+          title={homeLayoutSetupContent}
+          trigger={"click"}
+        >
+          <Button
+            className={style.lw_homePageLayoutSetup_btn}
+            type="link"
+            icon={<LayoutOutlined />}
+          />
+        </Tooltip>
       </Tooltip>
     </>
   );

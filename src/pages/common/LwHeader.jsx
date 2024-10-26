@@ -115,7 +115,7 @@ const LwHeader = () => {
             selectedKeys={[selectedKeys === "" ? "home" : selectedKeys]}
           />
         )}
-        <HomePageLayoutSetup />
+        {!selectedKeys && <HomePageLayoutSetup />}
         {showHomeLink && <HeaderLinks />}
       </Layout.Header>
     </ConfigProvider>
