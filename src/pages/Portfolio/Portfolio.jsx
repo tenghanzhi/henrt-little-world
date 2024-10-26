@@ -40,7 +40,7 @@ const Portfolio = () => {
   const handleFetchData = async () => {
     const messageKey = "loadingMessage";
     const PORTFOLIOS_PAGINATION_SETUP = "?pagination[withCount]=false";
-    const PROJECT_PAGINATION_SETUP = `?pagination[page]=${projectPagenation.current}&pagination[pageSize]=${projectPagenation.size}`;
+    const PROJECT_PAGINATION_SETUP = `?pagination[page]=${projectPagenation.current}&pagination[pageSize]=${projectPagenation.size}&sort=updatedAt:desc"`;
 
     await Promise.all([
       fetch(
