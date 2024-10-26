@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Layout, Menu, ConfigProvider } from "antd";
+import { Layout, Menu, ConfigProvider, Tooltip } from "antd";
 import {
   AppstoreOutlined,
   Html5Outlined,
@@ -25,69 +25,118 @@ const LwHeader = () => {
   const selectedKeys = location.pathname.slice(1);
   const menuItems = [
     {
-      label: <Link to="/">{categoryMatrix.HOME}</Link>,
+      label: (
+        <Tooltip placement="bottom" title={"Sweet Home! 🏠"} trigger={"hover"}>
+          {" "}
+          <Link to="/">{categoryMatrix.HOME}</Link>
+        </Tooltip>
+      ),
       key: categoryMatrix.HOME.toLowerCase(),
       icon: <HomeOutlined />,
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.LEETCODES.toLowerCase()}`}>
-          {categoryMatrix.LEETCODES}
-        </Link>
+        <Tooltip
+          placement="bottom"
+          title={"LeetCode Questions' Solutions 🧑‍💻"}
+          trigger={"hover"}
+        >
+          <Link to={`/${categoryMatrix.LEETCODES.toLowerCase()}`}>
+            {categoryMatrix.LEETCODES}
+          </Link>
+        </Tooltip>
       ),
       key: categoryMatrix.LEETCODES.toLowerCase(),
       icon: <SiLeetcode />,
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.APPLICATIONS.toLowerCase()}`}>
-          {categoryMatrix.APPLICATIONS}
-        </Link>
+        <Tooltip
+          placement="bottom"
+          title={"JavaScript Useful Functions 🛠️"}
+          trigger={"hover"}
+        >
+          <Link to={`/${categoryMatrix.APPLICATIONS.toLowerCase()}`}>
+            {categoryMatrix.APPLICATIONS}
+          </Link>
+        </Tooltip>
       ),
       key: categoryMatrix.APPLICATIONS.toLowerCase(),
       icon: <AppstoreOutlined />,
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.COMPONENTS.toLowerCase()}`}>
-          {categoryMatrix.COMPONENTS}
-        </Link>
+        <Tooltip
+          placement="bottom"
+          title={"Plug-n-Play JS/React Components 🛞"}
+          trigger={"hover"}
+        >
+          <Link to={`/${categoryMatrix.COMPONENTS.toLowerCase()}`}>
+            {categoryMatrix.COMPONENTS}
+          </Link>
+        </Tooltip>
       ),
       key: categoryMatrix.COMPONENTS.toLowerCase(),
       icon: <Html5Outlined />,
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.FAVORITES.toLowerCase()}`}>
-          {categoryMatrix.FAVORITES}
-        </Link>
+        <Tooltip
+          placement="bottom"
+          title={"Henry's Recommendations 👍"}
+          trigger={"hover"}
+        >
+          <Link to={`/${categoryMatrix.FAVORITES.toLowerCase()}`}>
+            {categoryMatrix.FAVORITES}
+          </Link>
+        </Tooltip>
       ),
       key: categoryMatrix.FAVORITES.toLowerCase(),
       icon: <StarOutlined />,
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.BULLETINBOARDS.toLowerCase()}`}>
-          Bulletin Board
-        </Link>
+        <Tooltip
+          placement="bottom"
+          title={"Check Updates & Leave Message 📢"}
+          trigger={"hover"}
+        >
+          <Link to={`/${categoryMatrix.BULLETINBOARDS.toLowerCase()}`}>
+            Bulletin Board
+          </Link>
+        </Tooltip>
       ),
       key: categoryMatrix.BULLETINBOARDS.toLowerCase(),
       icon: <MessageOutlined />,
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>About Me</Link>
+        <Tooltip placement="bottom" title={"Henry Inside 😎"} trigger={"hover"}>
+          <Link to={`/${categoryMatrix.PORTFOLIO.toLowerCase()}`}>
+            About Me
+          </Link>
+        </Tooltip>
       ),
       key: categoryMatrix.PORTFOLIO.toLowerCase(),
       icon: <SmileOutlined />,
     },
     {
       label: (
-        <Link to={`/${categoryMatrix.USER.toLowerCase()}`}>
-          {userInfoData?.jwt
-            ? `Hello! ${userInfoData?.user?.username}`
-            : "Login/Register"}
-        </Link>
+        <Tooltip
+          placement="bottom"
+          title={
+            userInfoData?.jwt
+              ? `Check Account Details 👤`
+              : `Create a New Account 👤`
+          }
+          trigger={"hover"}
+        >
+          <Link to={`/${categoryMatrix.USER.toLowerCase()}`}>
+            {userInfoData?.jwt
+              ? `Hello! ${userInfoData?.user?.username}`
+              : "Login/Register"}
+          </Link>
+        </Tooltip>
       ),
       key: categoryMatrix.USER.toLowerCase(),
       icon: <UserOutlined />,
